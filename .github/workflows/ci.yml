@@ -1,0 +1,33 @@
+name: Aurora CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10' # Should match pyproject.toml
+
+    - name: Set up Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: '1.7.1' # Or a version compatible with your poetry.lock
+
+    - name: Install dependencies
+      run: poetry install --no-root
+
+    - name: Run linters (Ruff)
+      run: poetry run ruff check . # Corrected from 'ruff .' to 'ruff check .'
+
+    - name: Run tests (Pytest)
+      run: poetry run pytest
