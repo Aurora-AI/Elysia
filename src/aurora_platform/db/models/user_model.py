@@ -10,7 +10,7 @@ class UserBase(SQLModel):
 
 
 class User(UserBase, table=True):
-    __tablename__ = "users"
+    __tablename__ = "users"  # type: ignore
     
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     nome: Optional[str] = Field(default=None, sa_column=Column(SQLString(100)))

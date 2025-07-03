@@ -45,4 +45,8 @@ class Settings(BaseSettings):
     
     model_config = SettingsConfigDict(env_file=".env")
 
-settings = Settings()
+settings = Settings(
+    DATABASE_URL="sqlite:///./aurora.db",
+    SECRET_KEY="your-secret-key-here",
+    GEMINI_API_KEY="your-gemini-api-key-here"
+)

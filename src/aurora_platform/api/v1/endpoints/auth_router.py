@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 from sqlmodel import Session, select
+from jose import JWTError
 
 from aurora_platform.db.database import get_session
 from aurora_platform.core import security
@@ -80,7 +81,7 @@ async def refresh_token(
     )
     
     try:
-        from jose import jwt, JWTError
+        from jose import jwt
         from aurora_platform.core.config import settings
         
         payload = jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])

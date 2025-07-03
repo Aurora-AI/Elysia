@@ -25,7 +25,7 @@ def blacklist_token(token: str, expires_at: datetime):
 def is_token_blacklisted(token: str) -> bool:
     """Check if token is blacklisted"""
     if redis_client:
-        return redis_client.exists(f"blacklist:{token}")
+        return bool(redis_client.exists(f"blacklist:{token}"))
     return token in blacklisted_tokens
 
 

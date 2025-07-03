@@ -3,6 +3,7 @@
 
 import chromadb
 from chromadb.config import Settings as ChromaSettings
+from typing import Dict, Any
 
 class VectorStore:
     def __init__(self, path: str = "./chroma_db"):
@@ -23,12 +24,14 @@ class VectorStore:
             print(f"Collection '{name}' created.")
         return self.collection
 
-    def add_documents(self, documents: list[str], metadatas: list[dict] = None, ids: list[str] = None):
+    def add_documents(self, documents: list[str], metadatas: list[Dict[str, Any]] | None = None, ids: list[str] | None = None):
         if not self.collection:
             print("Collection not initialized. Call get_or_create_collection first.")
             return
         if not ids:
             ids = [f"doc_{i}" for i in range(len(documents))] # Simple ID generation
+        if metadatas is None:
+            metadatas = [{} for _ in documents]
 
         self.collection.add(
             documents=documents,
@@ -77,10 +80,12 @@ if __name__ == "__main__":
         )
         print("\nQuery Results:")
         if query_results:
-            for i, docs in enumerate(query_results.get('documents', [])):
-                print(f"Query {i+1}:")
-                for doc in docs:
-                    print(f"  - {doc}")
+            documents = query_results.get('documents', [])
+            if documents:
+                for i, docs in enumerate(documents):
+                    print(f"Query {i+1}:")
+                    for doc in docs:
+                        print(f"  - {doc}")
 
         # Clean up test database (optional)
         try:

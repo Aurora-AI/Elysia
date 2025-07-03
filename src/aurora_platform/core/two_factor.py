@@ -23,7 +23,7 @@ def generate_qr_code(email: str, secret: str) -> str:
     
     img = qr.make_image(fill_color="black", back_color="white")
     buffer = BytesIO()
-    img.save(buffer, format='PNG')
+    img.save(buffer, 'PNG')
     
     return base64.b64encode(buffer.getvalue()).decode()
 

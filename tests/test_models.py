@@ -32,9 +32,7 @@ def test_user_read_schema():
     user_data = UserRead(
         id=1,
         email="test@example.com",
-        full_name="Test User",
-        is_active=True,
-        is_superuser=False
+        full_name="Test User"
     )
     assert user_data.id == 1
     assert user_data.email == "test@example.com"
