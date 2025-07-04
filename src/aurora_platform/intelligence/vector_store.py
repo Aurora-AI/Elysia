@@ -33,11 +33,7 @@ class VectorStore:
         if metadatas is None:
             metadatas = [{} for _ in documents]
 
-        self.collection.add(
-            documents=documents,
-            metadatas=metadatas,
-            ids=ids
-        )
+        self.collection.add(documents=[doc_text], metadatas=[metadata], ids=[doc_id])  # type: ignore
         print(f"Added {len(documents)} documents to the collection.")
 
     def query(self, query_texts: list[str], n_results: int = 5):

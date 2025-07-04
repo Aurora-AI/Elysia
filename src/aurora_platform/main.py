@@ -9,6 +9,17 @@ from .db.database import create_db_and_tables
 from .middleware.rate_limiter import RateLimitMiddleware
 from .middleware.security_headers import SecurityHeadersMiddleware
 
+# Em src/aurora_platform/main.py
+
+# ... outras importações ...
+from src.aurora_platform.routers import mentor_router # Adicione esta linha
+
+app = FastAPI(title="Aurora Core")
+
+# ... seu @app.get("/") ...
+
+app.include_router(mentor_router.router, prefix="/mentor/sales", tags=["Sales Mentor"]) # Adicione esta linha
+
 
 @asynccontextmanager
 async def lifespan(app_instance: FastAPI):
@@ -32,7 +43,7 @@ app.add_middleware(RateLimitMiddleware)
 # CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=[str(origin) for origin in settings.ALLOWED_ORIGINS],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Authorization", "Content-Type"],
@@ -57,3 +68,4 @@ async def root():
         "version": settings.PROJECT_VERSION,
         "docs_url": "/docs",
     }
+

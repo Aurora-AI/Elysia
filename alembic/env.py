@@ -1,68 +1,80 @@
-from logging.config import fileConfig
+# alembic/env.py - Versão Definitiva com Correção de Caminho e Tipagem
 
-from sqlalchemy import pool, create_engine
+import sys
+from logging.config import fileConfig
+from pathlib import Path
+from sqlmodel import SQLModel
+from sqlalchemy import engine_from_config, pool
 
 from alembic import context
 
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
+# --- CORREÇÃO DE CAMINHO ---
+# Adiciona o diretório raiz do projeto (que contém a pasta 'src')
+# ao caminho de busca do Python. Isso deve ser feito ANTES de qualquer
+# importação de módulos do nosso projeto.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.append(str(PROJECT_ROOT))
+# --- FIM DA CORREÇÃO ---
+
+# Agora que o caminho está correto, podemos importar nossos módulos
+from src.aurora_platform.core.config import settings
+# Importe aqui todos os seus modelos para que o Alembic os reconheça.
+# Isso garante que eles sejam registrados no metadata do SQLModel.
+from src.aurora_platform.db.models import user_model
+# Esta é a configuração do Alembic que lê o alembic.ini
 config = context.config
 
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
+# Interpreta o arquivo de configuração para logging do Python.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-from src.aurora_platform.core.config import settings
-from src.aurora_platform.db.database import SQLModel # Assuming your SQLModel base is here
-target_metadata = SQLModel.metadata # Use SQLModel's metadata
+# --- CORREÇÃO PARA SecretStr ---
+# Extrai o valor da string de SecretStr de forma segura.
+# Usar .get_secret_value() é crucial para obter a URL real.
+db_url_str = settings.DATABASE_URL.get_secret_value()
 
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
+# Garante que a URL do banco de dados use a codificação correta
+if "client_encoding" not in db_url_str:
+    separator = "?" if "?" not in db_url_str else "&"
+    db_url_str += f"{separator}client_encoding=utf8"
+
+# Define a URL no contexto do Alembic, sobrescrevendo a do alembic.ini
+config.set_main_option("sqlalchemy.url", db_url_str)
+# --- FIM DA CORREÇÃO ---
+
+# Define o target_metadata para que o 'autogenerate' funcione
+target_metadata = SQLModel.metadata
 
 
 def run_migrations_offline() -> None:
-    """Run migrations in 'offline' mode.
-
-    This configures the context with just a URL
-    and not an Engine, though an Engine is acceptable
-    here as well.  By skipping the Engine creation
-    we don't even need a DBAPI to be available.
-
-    Calls to context.execute() here emit the given string to the
-    script output.
-
-    """
-    url = settings.DATABASE_URL.get_secret_value() # Use DATABASE_URL from settings
+    """Run migrations in 'offline' mode."""
+    url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
-
     with context.begin_transaction():
         context.run_migrations()
 
 
 def run_migrations_online() -> None:
-    """Run migrations in 'online' mode.
-
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
-
-    """
-    connectable = create_engine(settings.DATABASE_URL.get_secret_value())
-
+    """Run migrations in 'online' mode."""
+    # --- CORREÇÃO PARA ACESSO DE ATRIBUTO ---
+    # Pylance pode ter dificuldade em analisar estaticamente o objeto `config`.
+    # Usamos getattr para acessar com segurança o nome da seção principal.
+    main_section_name = getattr(config, "config_main_section", "alembic")
+    connectable = engine_from_config(
+        config.get_section(main_section_name, {}),
+        prefix="sqlalchemy.",
+        poolclass=pool.NullPool,
+    )
+    # --- FIM DA CORREÇÃO ---
     with connectable.connect() as connection:
         context.configure(
             connection=connection, target_metadata=target_metadata
         )
-
         with context.begin_transaction():
             context.run_migrations()
 

@@ -84,7 +84,7 @@ async def refresh_token(
         from jose import jwt
         from aurora_platform.core.config import settings
         
-        payload = jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        payload = jwt.decode(refresh_token, settings.SECRET_KEY.get_secret_value(), algorithms=[settings.ALGORITHM])
         token_type = payload.get("type")
         if token_type != "refresh":
             raise credentials_exception
