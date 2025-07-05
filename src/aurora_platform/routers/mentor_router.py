@@ -1,6 +1,8 @@
-# src/aurora_platform/routers/mentor_router.py
-from fastapi import APIRouter, Body
+# GARANTA QUE ESTE ARQUIVO ESTEJA SALVO COM ESTE CONTEÚDO
+
+from fastapi import APIRouter
 from pydantic import BaseModel
+# Importa o módulo de serviço
 from src.aurora_platform.services import sales_mentor_service
 
 router = APIRouter()
@@ -8,10 +10,12 @@ router = APIRouter()
 class MeetingRequest(BaseModel):
     client_name: str
 
-@router.post("/prepare-meeting", response_model=str)
+@router.post("/prepare-meeting", response_model=str, summary="Gera preparação para reunião de vendas")
 def prepare_meeting_endpoint(request: MeetingRequest):
     """
-    Endpoint para receber o nome do cliente e retornar a preparação da reunião.
+    Recebe o nome de um cliente e usa o "Mentor de Vendas de IA"
+    para gerar uma análise estratégica e um plano de ação para a reunião.
     """
-    advice = sales_mentor_service.prepare_for_meeting(request.client_name)
+    # A CHAMADA DA FUNÇÃO DEVE SER EXATAMENTE ESTA
+    advice = sales_mentor_service.prepare_for_meeting(client_name=request.client_name)
     return advice
