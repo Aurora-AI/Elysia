@@ -5,7 +5,7 @@ from chromadb.utils import embedding_functions
 class KnowledgeBaseService:
     def __init__(self, path: str = "aurora_knowledge_base"):
         self.client = chromadb.PersistentClient(path=path)
-        self.embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+        self.embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")  # type: ignore
         self.collection = self.client.get_or_create_collection(
             name="aurora_documents",
             embedding_function=self.embedding_function,  # type: ignore

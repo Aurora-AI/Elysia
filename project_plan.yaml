@@ -1,0 +1,83 @@
+epics:
+- id: EPICO-1
+  name: KERNEL DO AIOS (Aurora-Core v1.0)
+  tasks:
+  - id: TAREFA-06
+    name: Refatorar Configuração para Dynaconf
+    progress_percent: 100
+    status: CONCLUÍDO
+  - id: TAREFA-07
+    name: Implementar Segurança com Tokens JWT
+    progress_percent: 100
+    status: CONCLUÍDO
+- id: EPICO-2
+  name: MEMORY MANAGEMENT UNIT (MMU)
+  tasks:
+  - id: TAREFA-01
+    name: Criar KnowledgeIngestionService
+    progress_percent: 100
+    status: CONCLUÍDO
+  - id: TAREFA-02
+    name: Criar DeepDive Scraper v1.0 (Firecrawl)
+    progress_percent: 100
+    status: CONCLUÍDO
+  - id: TAREFA-03
+    name: Criar Pipeline de Ingestão de Conhecimento
+    progress_percent: 100
+    status: CONCLUÍDO
+  - id: TAREFA-04
+    name: Implementar Sistema RAG Completo
+    progress_percent: 100
+    status: CONCLUÍDO
+  - id: TAREFA-05
+    name: Criar Sistema de Plano de Projeto como Código
+    progress_percent: 100
+    status: CONCLUÍDO
+- id: EPICO-3
+  name: INTELLIGENCE LAYER (Camada de IA)
+  tasks:
+  - id: TAREFA-08
+    name: Integrar Modelos de IA Multimodais
+    progress_percent: 0
+    status: A FAZER
+  - id: TAREFA-09
+    name: Implementar Sistema de Agentes Autônomos
+    progress_percent: 0
+    status: A FAZER
+- id: EPICO-4
+  name: API GATEWAY & ORCHESTRATION
+  tasks:
+  - id: TAREFA-10
+    name: Criar Sistema de Roteamento Inteligente
+    progress_percent: 0
+    status: A FAZER
+  - id: TAREFA-11
+    name: Implementar Rate Limiting e Throttling
+    progress_percent: 0
+    status: A FAZER
+- id: EPICO-5
+  name: MONITORING & OBSERVABILITY
+  tasks:
+  - id: TAREFA-12
+    name: Implementar Logging Estruturado
+    progress_percent: 0
+    status: A FAZER
+  - id: TAREFA-13
+    name: Criar Dashboard de Métricas
+    progress_percent: 0
+    status: A FAZER
+- id: EPICO-6
+  name: DASHBOARD DE PROJETO (Fábrica de IA)
+  tasks:
+  - id: TAREFA-15
+    name: Desenvolver script dashboard.py com Streamlit
+    progress_percent: 100
+    status: CONCLUÍDO
+  - id: TAREFA-16
+    name: Criar Dockerfile para o dashboard
+    progress_percent: 0
+    status: A FAZER
+  - id: TAREFA-17
+    name: Implantar dashboard no Cloud Run
+    progress_percent: 0
+    status: A FAZER

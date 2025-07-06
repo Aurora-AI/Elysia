@@ -7,8 +7,8 @@ import google.generativeai as genai
 class LLMInterface:
     def __init__(self):
         if settings.GEMINI_API_KEY:
-            genai.configure(api_key=settings.GEMINI_API_KEY.get_secret_value())
-            self.model = genai.GenerativeModel('gemini-pro') # Or your preferred model
+            genai.configure(api_key=settings.GEMINI_API_KEY)  # type: ignore
+            self.model = genai.GenerativeModel('gemini-pro')  # type: ignore
         else:
             self.model = None
             print("GEMINI_API_KEY not found. LLMInterface will not be functional.")

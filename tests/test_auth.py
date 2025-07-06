@@ -1,15 +1,14 @@
 import pytest
 from fastapi.testclient import TestClient
-from sqlmodel import Session
+from src.aurora_platform.main import app
 
-from aurora_platform.db.models.user_model import User
+client = TestClient(app)
 
-
-def test_login_success(client: TestClient, test_user: User):
+def test_login_success():
     """Test successful login"""
     response = client.post(
-        "/api/v1/auth/token",
-        data={"username": test_user.email, "password": "testpassword"}
+        "/auth/token",
+        data={"username": "admin", "password": "secret"}
     )
     assert response.status_code == 200
     data = response.json()
@@ -17,49 +16,36 @@ def test_login_success(client: TestClient, test_user: User):
     assert "refresh_token" in data
     assert data["token_type"] == "bearer"
 
-
-def test_login_invalid_credentials(client: TestClient):
+def test_login_invalid_credentials():
     """Test login with invalid credentials"""
     response = client.post(
-        "/api/v1/auth/token",
-        data={"username": "invalid@example.com", "password": "wrongpassword"}
+        "/auth/token",
+        data={"username": "invalid", "password": "wrongpassword"}
     )
     assert response.status_code == 401
     assert "Incorrect username or password" in response.json()["detail"]
 
+def test_protected_endpoint_without_token():
+    """Test accessing protected endpoint without token"""
+    response = client.post(
+        "/mentor/sales/prepare-meeting",
+        json={"client_name": "Test Client"}
+    )
+    assert response.status_code == 401
 
-# @pytest.mark.asyncio
-# async def test_get_current_user(client: TestClient, test_user: User):
-#     """Test getting current user info"""
-#     # First login to get token
-#     login_response = client.post(
-#         "/api/v1/auth/token",
-#         data={"username": test_user.email, "password": "testpassword"}
-#     )
-#     token = login_response.json()["access_token"]
-#
-#     # Then get user info
-#     response = client.get(
-#         "/api/v1/auth/me",
-#         headers={"Authorization": f"Bearer {token}"}
-#     )
-#     assert response.status_code == 200
-#     user_data = response.json()
-#     assert user_data["email"] == test_user.email
-#
-# @pytest.mark.asyncio
-# async def test_logout(client: TestClient, test_user: User):
-#     """Test logout functionality"""
-#     # First login
-#     login_response = client.post(
-#         "/api/v1/auth/token",
-#         data={"username": test_user.email, "password": "testpassword"}
-#     )
-#     token = login_response.json()["access_token"]
-#
-#     # Then logout
-#     response = client.post(
-#         "/api/v1/auth/logout",
-#         headers={"Authorization": f"Bearer {token}"}
-#     )
-#     assert response.status_code == 204
+def test_protected_endpoint_with_token():
+    """Test accessing protected endpoint with valid token"""
+    # First login to get token
+    login_response = client.post(
+        "/auth/token",
+        data={"username": "admin", "password": "secret"}
+    )
+    token = login_response.json()["access_token"]
+    
+    # Then access protected endpoint
+    response = client.post(
+        "/mentor/sales/prepare-meeting",
+        json={"client_name": "Test Client"},
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    assert response.status_code == 200
