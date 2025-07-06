@@ -3,16 +3,18 @@ import asyncio
 import os
 import hashlib
 from firecrawl import FirecrawlApp
+from typing import Dict, Any, List, cast
 from src.aurora_platform.core.config import settings
 
-async def scrape_url(url: str) -> list:
+async def scrape_url(url: str) -> List[Dict[str, Any]]:
     """Realiza scraping de uma URL usando Firecrawl e retorna os dados extraídos."""
     try:
         # Inicializa o cliente Firecrawl com a chave de API
         app = FirecrawlApp(api_key=settings.FIRECRAWL_API_KEY.get_secret_value())
         
         # Realiza o scraping da URL
-        result = app.scrape_url(url=url)
+        # Cast para informaito se comporta como um dicionário
+        result = cast(Dict[str, Any], app.scrape_url(url=url))
         
         # Retorna os dados extraídos
         return [result] if result else []
@@ -31,7 +33,8 @@ async def scrape_and_save_url(url: str, output_dir: str) -> str:
         app = FirecrawlApp(api_key=settings.FIRECRAWL_API_KEY.get_secret_value())
         
         # Realiza o scraping
-        result = app.scrape_url(url=url)
+        # Cast para informar ao Pylance que o objeto se comporta como um dicionário
+        result = cast(Dict[str, Any], app.scrape_url(url=url))
         
         if result and 'content' in result:
             # Gera nome do arquivo baseado na URL
