@@ -40,3 +40,5 @@ local_settings.py
 
 # poetry
 poetry.lock
+# Frontend Dependencies
+frontend/node_modules
