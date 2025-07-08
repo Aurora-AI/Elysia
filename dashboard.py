@@ -16,7 +16,7 @@ st.set_page_config(
 @st.cache_data
 def load_project_data():
     """Carrega dados do project_plan.yaml."""
-    plan_file = Path("project_plan.yaml")
+    plan_file = Path("project_plan_structured.yaml")
     if plan_file.exists():
         with open(plan_file, 'r', encoding='utf-8') as f:
             return yaml.safe_load(f)

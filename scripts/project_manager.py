@@ -18,18 +18,18 @@ def save_project_plan(data):
         yaml.dump(data, f, default_flow_style=False, allow_unicode=True, indent=2)
 
 def show_status():
-    """Exibe o status atual de todos os Épicos e Tarefas."""
+    """Exibe o status atual de todos os Sprints e Tarefas."""
     data = load_project_plan()
     
     print("=== STATUS DO PROJETO AURORA ===\n")
     
-    for epic in data['epics']:
-        print(f"[EPICO] {epic['id']}: {epic['name']}")
+    for sprint in data.get('sprints', []):
+        print(f"[SPRINT] {sprint['id']}: {sprint['name']} [{sprint['status']}]")
         
-        for task in epic['tasks']:
+        for task in sprint.get('tasks', []):
             status_icon = {
                 'A FAZER': '[PENDENTE]',
-                'EM PROGRESSO': '[ATIVO]',
+                'EM ANDAMENTO': '[ATIVO]',
                 'CONCLUÍDO': '[OK]'
             }.get(task['status'], '[?]')
             
@@ -42,8 +42,8 @@ def update_task(task_id, progress, status):
     data = load_project_plan()
     
     task_found = False
-    for epic in data['epics']:
-        for task in epic['tasks']:
+    for sprint in data.get('sprints', []):
+        for task in sprint.get('tasks', []):
             if task['id'] == task_id:
                 task['progress_percent'] = progress
                 task['status'] = status
@@ -63,15 +63,16 @@ def show_next_task():
     """Identifica e exibe a próxima tarefa com status 'A FAZER'."""
     data = load_project_plan()
     
-    for epic in data['epics']:
-        for task in epic['tasks']:
-            if task['status'] == 'A FAZER':
-                print("=== PRÓXIMA TAREFA ===")
-                print(f"Epico: {epic['name']}")
-                print(f"Tarefa: {task['id']} - {task['name']}")
-                print(f"Status: {task['status']}")
-                print(f"Progresso: {task['progress_percent']}%")
-                return
+    for sprint in data.get('sprints', []):
+        if sprint.get('status') == 'EM ANDAMENTO':
+            for task in sprint.get('tasks', []):
+                if task['status'] == 'A FAZER':
+                    print("=== PRÓXIMA TAREFA ===")
+                    print(f"Sprint: {sprint['name']}")
+                    print(f"Tarefa: {task['id']} - {task['name']}")
+                    print(f"Status: {task['status']}")
+                    print(f"Progresso: {task['progress_percent']}%")
+                    return
     
     print("[SUCESSO] Todas as tarefas foram concluídas!")
 

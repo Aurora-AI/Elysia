@@ -31,7 +31,7 @@ def prepare_for_meeting(client_name: str) -> str:
         # 1. Inicializa o Cliente Azure OpenAI com as credenciais do nosso config
         client = AzureOpenAI(
             api_version=settings.openai_api_version,
-            azure_endpoint=settings.azure_openai_endpoint,
+            azure_endpoint=settings.azure_openai_endpoint.get_secret_value(),
             api_key=settings.azure_openai_api_key.get_secret_value(),
         )
 
@@ -46,7 +46,10 @@ def prepare_for_meeting(client_name: str) -> str:
         # 3. Chama a API usando streaming para melhor responsividade
         response_stream = client.chat.completions.create(
             model=settings.azure_openai_deployment_name, # ex: "aurora-flagship-reasoning"
-            messages=messages,
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT_TEMPLATE},
+                {"role": "user", "content": f"Como posso me preparar para a reunião com o cliente '{client_name}' amanhã?"}
+            ],
             stream=True
         )
 

@@ -1,68 +1,32 @@
-Sprint 1: Fundação do AIOS e Pipeline de Conhecimento (Finalizado)
-Meta: Estabilizar o Aurora-Core, construir e validar o pipeline de RAG (Percepção, Ingestão e Consulta).
+sprints:
+  - id: SPRINT-1
+    name: "Fundação do AIOS e Pipeline de Conhecimento"
+    status: "CONCLUÍDO"
+    meta: "Estabilizar o Aurora-Core, construir e validar o pipeline RAG fundamental."
+    tasks:
+      - { id: TAREFA-01, name: "Criar KnowledgeIngestionService", epic: "MMU", status: "CONCLUÍDO", progress_percent: 100 }
+      - { id: TAREFA-02, name: "Criar DeepDiveScraperService", epic: "MMU", status: "CONCLUÍDO", progress_percent: 100 }
+      - { id: TAREFA-03, name: "Criar Pipeline de Ingestão de Conhecimento", epic: "MMU", status: "CONCLUÍDO", progress_percent: 100 }
+      - { id: TAREFA-04, name: "Implementar Sistema RAG Completo", epic: "MMU", status: "CONCLUÍDO", progress_percent: 100 }
+      - { id: TAREFA-07, name: "Implementar Segurança com Tokens JWT", epic: "KERNEL", status: "CONCLUÍDO", progress_percent: 100 }
 
-Tarefas:
+  - id: SPRINT-2
+    name: "Produção do Kernel e Ferramentas de Fábrica"
+    status: "EM ANDAMENTO"
+    meta: "Endurecer o Aurora-Core e construir as ferramentas de governança da Fábrica de IA."
+    tasks:
+      - { id: TAREFA-06, name: "Refatorar Configuração para Dynaconf", epic: "KERNEL", status: "CONCLUÍDO", progress_percent: 100 }
+      - { id: TAREFA-08, name: "Aplicar correções da Auditoria Vertx AI", epic: "KERNEL", status: "A FAZER", progress_percent: 0 }
+      - { id: TAREFA-15, name: "Desenvolver script dashboard.py com Streamlit", epic: "DASHBOARD", status: "CONCLUÍDO", progress_percent: 100 }
+      - { id: TAREFA-16, name: "Criar Dockerfile para o dashboard", epic: "DASHBOARD", status: "A FAZER", progress_percent: 0 }
+      - { id: TAREFA-17, name: "Implantar dashboard no Cloud Run", epic: "DASHBOARD", status: "A FAZER", progress_percent: 0 }
+      - { id: TAREFA-05, name: "Criar Sistema de Plano de Projeto como Código", epic: "FABRICA", status: "CONCLUÍDO", progress_percent: 100 }
 
-[CONCLUÍDO] TAREFA-01: Criar KnowledgeIngestionService.
-
-[CONCLUÍDO] TAREFA-02: Criar DeepDiveScraperService.
-
-[CONCLUÍDO] TAREFA-03: Criar endpoint de orquestração /ingest-from-url.
-
-[CONCLUÍDO] TAREFA-04: Criar serviço e endpoint de consulta RAG /query.
-
-[CONCLUÍDO] TAREFA-05: Teste de ponta a ponta (Ingestão da documentação do Astro e consulta).
-
-[CONCLUÍDO] TAREFA-06: Refatorar Configuração para Dynaconf (Padrão Híbrido).
-
-[CONCLUİDO] TAREFA-07: Implementar Segurança com Tokens JWT.
-
-Sprint 2: Produção do Kernel e Ferramentas de Fábrica (Sprint Atual)
-Meta: "Endurecer" o Aurora-Core (nosso Kernel) com as correções da auditoria e construir as ferramentas de governança da nossa "Fábrica de IA".
-
-Tarefas:
-
-[A FAZER] TAREFA-08: Aplicar correções da Auditoria Vertx AI.
-
-[A FAZER] TAREFA-15: Desenvolver script dashboard.py com Streamlit para visualizar o project_plan.yaml.
-
-[A FAZER] TAREFA-16: Criar Dockerfile para o dashboard.
-
-[A FAZER] TAREFA-17: Implantar dashboard no Cloud Run.
-
-[A FAZER] TAREFA-XX: Evoluir project_manager.py com funcionalidades add-epic e add-task.
-
-Sprint 3: Lançamento do MVP - Agentes de E-commerce
-Meta: Construir e lançar a v1 do nosso primeiro módulo comercial: "Inteligência de E-commerce".
-
-Tarefas:
-
-[A FAZER] TAREFA-10: Desenvolver o Agente de Monitoramento de Preços (Price Tracking).
-
-[A FAZER] TAREFA-11: Desenvolver o Agente de Detecção de Mudanças (Change Detection).
-
-[A FAZER] TAREFA-12: Criar Dashboard de Inteligência Competitiva para visualizar os dados dos agentes.
-
-Backlog para Sprints Futuros
-ÉPICO: INTELLIGENCE LAYER
-
-TAREFA-09: Implementar Expansão de Intenção Preditiva.
-
-TAREFA-XX: Integrar Modelos de IA Multimodais.
-
-TAREFA-XX: Implementar Sistema de Agentes Autônomos com LangGraph.
-
-ÉPICO: API GATEWAY & ORCHESTRATION
-
-TAREFA-XX: Implementar AuroraRouter com "Delegação por Incompletude Semântica".
-
-TAREFA-XX: Implementar Rate Limiting e Throttling na API.
-
-ÉPICO: MONITORING & MLOPS
-
-TAREFA-XX: Implementar Logging Estruturado e Observabilidade (Prometheus/Grafana).
-
-TAREFA-XX: Criar pipeline de Fine-Tuning com QLoRA.
-
-TAREFA-XX: Realizar PoC de deploy com KServe.
-
+  - id: SPRINT-3
+    name: "MVP - Agentes de Inteligência de E-commerce"
+    status: "A FAZER"
+    meta: "Construir e lançar a v1 do nosso primeiro módulo comercial."
+    tasks:
+      - { id: TAREFA-10, name: "Agente de Monitoramento de Preços", epic: "E-COMMERCE", status: "A FAZER", progress_percent: 0 }
+      - { id: TAREFA-11, name: "Agente de Detecção de Mudanças", epic: "E-COMMERCE", status: "A FAZER", progress_percent: 0 }
+      - { id: TAREFA-12, name: "Dashboard de Inteligência Competitiva", epic: "E-COMMERCE", status: "A FAZER", progress_percent: 0 }

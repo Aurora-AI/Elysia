@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Aurora Platform - Fábrica de IA"
 authors = ["Aurora Team"]
 readme = "README.md"
+packages = [{include = "aurora_platform", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -27,6 +28,7 @@ openai = "^1.93.0"
 streamlit = "^1.28.0"
 langchain-huggingface = "^0.3.0"
 langchain-chroma = "^0.2.4"
+protobuf = "^4.21.6"
 
 [build-system]
 requires = ["poetry-core"]
