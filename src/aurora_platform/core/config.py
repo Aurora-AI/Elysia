@@ -1,8 +1,13 @@
 # src/aurora_platform/core/config.py - Padrão Definitivo com Pydantic-Settings
 
-from pydantic import SecretStr
+from pathlib import Path
+from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List, Optional
+
+# Construção do caminho absoluto para o arquivo .env
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+ENV_PATH = PROJECT_ROOT / '.env'
 
 class Settings(BaseSettings):
     """
@@ -12,7 +17,7 @@ class Settings(BaseSettings):
     """
     # Configuração para carregar de um arquivo .env e ignorar campos extras.
     model_config = SettingsConfigDict(
-        env_file=".env", env_file_encoding="utf-8", extra="ignore"
+        env_file=ENV_PATH, env_file_encoding="utf-8", extra="ignore"
     )
 
     # --- Configurações do Projeto ---
@@ -27,6 +32,12 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: SecretStr
     DEEPSEEK_API_KEY: SecretStr
     FIRECRAWL_API_KEY: SecretStr
+    
+    # --- Configurações do Azure OpenAI ---
+    azure_openai_endpoint: SecretStr
+    azure_openai_api_key: SecretStr
+    openai_api_version: str = "2024-02-01"
+    azure_openai_deployment_name: str
 
     # --- Configs de Segurança (com valores padrão do settings.toml) ---
     ALGORITHM: str = "HS256"
@@ -51,7 +62,20 @@ class Settings(BaseSettings):
     # --- Configs do Redis (com valor padrão do settings.toml) ---
     # Opcional para permitir execução sem Redis, se necessário
     REDIS_URL: Optional[str] = "redis://localhost:6379/0"
-
+    
+    @field_validator('FIRECRAWL_API_KEY')
+    @classmethod
+    def validate_firecrawl_api_key(cls, v):
+        """Valida e limpa a chave da API do Firecrawl."""
+        if isinstance(v, SecretStr):
+            key_value = v.get_secret_value().strip()
+        else:
+            key_value = str(v).strip() if v else ""
+        
+        if not key_value:
+            raise ValueError("FIRECRAWL_API_KEY não pode ser vazia ou nula")
+        
+        return SecretStr(key_value)
 
 # Instância única para ser usada em toda a aplicação
 # Pylance pode mostrar um aviso aqui sobre argumentos ausentes para os campos
