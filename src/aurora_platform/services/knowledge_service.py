@@ -16,7 +16,7 @@ class KnowledgeBaseService:
     def add_document(self, doc_text: str, doc_id: str, metadata: dict):
         self.collection.add(documents=[doc_text], metadatas=[metadata], ids=[doc_id])
 
-    def search(self, query_text: str, n_results: int = 3) -> list:
+    def search(self, query_text: str, n_results: int = 2) -> list:
         results = self.collection.query(query_texts=[query_text], n_results=n_results)
         if results and 'documents' in results:
             return results.get('documents', [[]])[0]  # type: ignore

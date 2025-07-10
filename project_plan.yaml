@@ -30,3 +30,11 @@ sprints:
       - { id: TAREFA-10, name: "Agente de Monitoramento de Preços", epic: "E-COMMERCE", status: "A FAZER", progress_percent: 0 }
       - { id: TAREFA-11, name: "Agente de Detecção de Mudanças", epic: "E-COMMERCE", status: "A FAZER", progress_percent: 0 }
       - { id: TAREFA-12, name: "Dashboard de Inteligência Competitiva", epic: "E-COMMERCE", status: "A FAZER", progress_percent: 0 }
+- id: SPRINT-4
+    name: "P&D: Motor de Raciocínio Agêntico (Baseado no Trey Agent)"
+    status: "A FAZER"
+    meta: "Construir a Prova de Conceito do nosso próprio motor de agentes autônomos."
+    tasks:
+      - { id: TAREFA-18, name: "Estudo de Viabilidade (LangGraph vs CrewAI)", epic: "P&D", status: "A FAZER", progress_percent: 0 }
+      - { id: TAREFA-19, name: "Implementar PoC do Mapa de Código Semântico", epic: "P&D", status: "A FAZER", progress_percent: 0 }
+      - { id: TAREFA-20, name: "Implementar PoC do Shell Seguro (Sandbox)", epic: "P&D", status: "A FAZER", progress_percent: 0 }

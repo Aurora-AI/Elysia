@@ -22,7 +22,7 @@ async def answer_query(query: str) -> str:
         )
         
         # Criar retriever
-        retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+        retriever = vector_store.as_retriever(search_kwargs={"k": 2})
         
         # Recuperar documentos relevantes
         docs = retriever.invoke(query)
