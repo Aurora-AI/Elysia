@@ -1,12 +1,19 @@
-from fastapi import FastAPI
-from src.aurora_platform.routers import mentor_router, knowledge_router, auth_router
+from fastapi import FastAPI, Request
+from contextlib import asynccontextmanager
+from aurora_platform.api.v1.api import api_router
+from aurora_platform.services.knowledge_service import KnowledgeBaseService
 
-app = FastAPI(title="Aurora Core")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("INFO: Iniciando aplicação... Pré-carregando KnowledgeBaseService.")
+    app.state.kb_service = KnowledgeBaseService()
+    print("INFO: KnowledgeBaseService carregado e pronto.")
+    yield
+    print("INFO: Encerrando aplicação...")
+
+app = FastAPI(title="Aurora Core", lifespan=lifespan)
+app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")
 def read_root():
-    return {"message": "Bem-vindo ao Aurora Core. O Cérebro está despertando."}
-
-app.include_router(auth_router.router)
-app.include_router(mentor_router.router, prefix="/mentor/sales", tags=["Sales Mentor"])
-app.include_router(knowledge_router.router)
+    return {"message": "Bem-vindo ao Aurora Core"}

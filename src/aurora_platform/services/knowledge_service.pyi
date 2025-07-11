@@ -1,0 +1,18 @@
+# src/aurora_platform/services/knowledge_service.pyi
+from typing import Dict, List, Any, Optional
+
+class KnowledgeBaseService:
+    def __init__(self, db_path: str = ...) -> None: ...
+
+    def add_document(
+        self,
+        document_id: str,
+        text: str,
+        metadata: Optional[Dict[str, Any]] = ...
+    ) -> None: ...
+
+    def retrieve(
+        self,
+        query: str,
+        top_k: int = ...
+    ) -> List[Dict[str, Any]]: ...

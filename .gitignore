@@ -15,11 +15,11 @@ venv.bak/
 # Configuration secrets
 config/.secrets.toml
 
-# Databases
-*.sqlite3
+# Database files
 *.db
-*.db3
 *.sqlite
+*.sqlite3
+*.db3
 *.sql
 *.psql
 # Chroma DB
@@ -42,3 +42,9 @@ local_settings.py
 poetry.lock
 # Frontend Dependencies
 frontend/node_modules
+
+# -- Arquivos de Banco de Dados Local --
+# Ignora qualquer arquivo que termine com .db, .sqlite, ou .sqlite3
+*.db
+*.sqlite
+*.sqlite3

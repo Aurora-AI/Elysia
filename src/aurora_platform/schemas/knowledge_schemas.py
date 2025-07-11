@@ -8,9 +8,11 @@ class DocumentCreate(BaseModel):
     doc_text: str
     metadata: Dict[str, Any]
 
+class IngestURLRequest(BaseModel):
+    url: str
+
 class KnowledgeQuery(BaseModel):
     """Schema para realizar uma busca na base de conhecimento."""
-    # --- CORREÇÃO AQUI ---
     query: str
     n_results: int = 3
 

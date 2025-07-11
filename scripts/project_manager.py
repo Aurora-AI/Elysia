@@ -1,107 +1,110 @@
-#!/usr/bin/env python3
-# scripts/project_manager.py
+# scripts/project_manager.py - v2.0 Corrigido para Sprints
+
 import yaml
 import argparse
-import sys
 from pathlib import Path
 
-def load_project_plan():
-    """Carrega o arquivo project_plan.yaml."""
-    plan_file = Path(__file__).parent.parent / "project_plan.yaml"
-    with open(plan_file, 'r', encoding='utf-8') as f:
+PLAN_FILE = Path(__file__).parent.parent / "project_plan.yaml"
+
+def read_plan():
+    """Lê o arquivo de plano do projeto."""
+    with open(PLAN_FILE, 'r', encoding='utf-8') as f:
         return yaml.safe_load(f)
 
-def save_project_plan(data):
-    """Salva o arquivo project_plan.yaml."""
-    plan_file = Path(__file__).parent.parent / "project_plan.yaml"
-    with open(plan_file, 'w', encoding='utf-8') as f:
-        yaml.dump(data, f, default_flow_style=False, allow_unicode=True, indent=2)
+def save_plan(data):
+    """Salva os dados de volta no arquivo de plano."""
+    with open(PLAN_FILE, 'w', encoding='utf-8') as f:
+        yaml.dump(data, f, sort_keys=False, allow_unicode=True)
 
 def show_status():
-    """Exibe o status atual de todos os Sprints e Tarefas."""
-    data = load_project_plan()
-    
-    print("=== STATUS DO PROJETO AURORA ===\n")
-    
-    for sprint in data.get('sprints', []):
-        print(f"[SPRINT] {sprint['id']}: {sprint['name']} [{sprint['status']}]")
-        
-        for task in sprint.get('tasks', []):
-            status_icon = {
-                'A FAZER': '[PENDENTE]',
-                'EM ANDAMENTO': '[ATIVO]',
-                'CONCLUÍDO': '[OK]'
-            }.get(task['status'], '[?]')
-            
-            print(f"  {status_icon} {task['id']}: {task['name']}")
-            print(f"     Status: {task['status']} | Progresso: {task['progress_percent']}%")
-        print()
+    """Exibe o status completo do projeto, organizado por sprints."""
+    plan = read_plan()
+    print("=== STATUS DO PROJETO AURORA ===")
+    # CORREÇÃO: Itera sobre 'sprints', não 'epics'
+    for sprint in plan.get("sprints", []):
+        sprint_id = sprint.get('id', 'N/A')
+        sprint_name = sprint.get('name', 'N/A')
+        sprint_status = sprint.get('status', 'N/A')
+        print(f"\n--- SPRINT: {sprint_id} - {sprint_name} [{sprint_status}] ---")
 
-def update_task(task_id, progress, status):
-    """Atualiza o progresso e status de uma tarefa específica."""
-    data = load_project_plan()
-    
+        tasks = sprint.get('tasks', [])
+        total_tasks = len(tasks)
+        completed_tasks = sum(1 for t in tasks if t.get('status') == 'CONCLUÍDO')
+
+        if total_tasks > 0:
+            sprint_progress = (completed_tasks / total_tasks) * 100
+            print(f"Progresso do Sprint: {sprint_progress:.2f}% ({completed_tasks}/{total_tasks} tarefas concluídas)")
+
+        for task in tasks:
+            task_id = task.get('id', 'N/A')
+            task_name = task.get('name', 'N/A')
+            task_status = task.get('status', 'N/A')
+            task_progress = task.get('progress_percent', 0)
+            task_epic = task.get('epic', 'N/A')
+            print(f"  - [{task_status}] {task_id}: {task_name} (Épico: {task_epic}) ({task_progress}%)")
+
+def update_task(task_id_to_update, progress, status):
+    """Atualiza o progresso e o status de uma tarefa específica."""
+    plan = read_plan()
     task_found = False
-    for sprint in data.get('sprints', []):
-        for task in sprint.get('tasks', []):
-            if task['id'] == task_id:
-                task['progress_percent'] = progress
-                task['status'] = status
+    # CORREÇÃO: Itera sobre 'sprints' para encontrar a tarefa
+    for sprint in plan.get("sprints", []):
+        for task in sprint.get("tasks", []):
+            if task.get('id') == task_id_to_update:
+                if progress is not None:
+                    task['progress_percent'] = int(progress)
+                if status is not None:
+                    task['status'] = status
                 task_found = True
                 break
         if task_found:
             break
-    
-    if task_found:
-        save_project_plan(data)
-        print(f"[OK] Tarefa {task_id} atualizada: {status} ({progress}%)")
-    else:
-        print(f"[ERRO] Tarefa {task_id} não encontrada")
-        sys.exit(1)
 
-def show_next_task():
-    """Identifica e exibe a próxima tarefa com status 'A FAZER'."""
-    data = load_project_plan()
-    
-    for sprint in data.get('sprints', []):
+    if task_found:
+        save_plan(plan)
+        print(f"✅ Tarefa {task_id_to_update} atualizada com sucesso.")
+    else:
+        print(f"❌ Erro: Tarefa com ID '{task_id_to_update}' não encontrada.")
+
+def find_next_task():
+    """Encontra a primeira tarefa 'A FAZER' no sprint 'EM ANDAMENTO'."""
+    plan = read_plan()
+    # CORREÇÃO: Itera sobre 'sprints'
+    for sprint in plan.get("sprints", []):
         if sprint.get('status') == 'EM ANDAMENTO':
-            for task in sprint.get('tasks', []):
-                if task['status'] == 'A FAZER':
-                    print("=== PRÓXIMA TAREFA ===")
-                    print(f"Sprint: {sprint['name']}")
-                    print(f"Tarefa: {task['id']} - {task['name']}")
-                    print(f"Status: {task['status']}")
-                    print(f"Progresso: {task['progress_percent']}%")
+            for task in sprint.get("tasks", []):
+                if task.get('status') == 'A FAZER':
+                    print("\n--- PRÓXIMA TAREFA NO BACKLOG ---")
+                    print(f"  ID: {task.get('id')}")
+                    print(f"  SPRINT: {sprint.get('id')} - {sprint.get('name')}")
+                    print(f"  NOME: {task.get('name')}")
+                    print(f"  STATUS: {task.get('status')}")
                     return
-    
-    print("[SUCESSO] Todas as tarefas foram concluídas!")
+    print("🎉 Todas as tarefas do sprint atual foram concluídas ou não há sprints em andamento!")
 
 def main():
+    """Função principal para analisar os argumentos da linha de comando."""
     parser = argparse.ArgumentParser(description="Gerenciador de Projeto Aurora")
-    subparsers = parser.add_subparsers(dest='command', help='Comandos disponíveis')
-    
-    # Comando status
-    subparsers.add_parser('status', help='Exibe o status atual do projeto')
-    
-    # Comando update
-    update_parser = subparsers.add_parser('update', help='Atualiza uma tarefa')
-    update_parser.add_argument('--task-id', required=True, help='ID da tarefa')
-    update_parser.add_argument('--progress', type=int, required=True, help='Progresso (0-100)')
-    update_parser.add_argument('--status', required=True, help='Status da tarefa')
-    
-    # Comando next
-    subparsers.add_parser('next', help='Mostra a próxima tarefa a fazer')
-    
-    args = parser.parse_args()
-    
-    if args.command == 'status':
-        show_status()
-    elif args.command == 'update':
-        update_task(args.task_id, args.progress, args.status)
-    elif args.command == 'next':
-        show_next_task()
-    else:
-        parser.print_help()
+    subparsers = parser.add_subparsers(dest="command", required=True)
 
-if __name__ == '__main__':
+    # Comandos
+    subparsers.add_parser("status", help="Exibe o status completo do projeto.")
+
+    parser_update = subparsers.add_parser("update", help="Atualiza o status de uma tarefa.")
+    parser_update.add_argument("--task-id", required=True, help="O ID da tarefa a ser atualizada.")
+    parser_update.add_argument("--progress", type=int, help="O novo percentual de progresso (0-100).")
+    parser_update.add_argument("--status", help="O novo status (ex: EM ANDAMENTO, CONCLUÍDO).")
+
+    subparsers.add_parser("next", help="Mostra a próxima tarefa a ser feita.")
+
+    args = parser.parse_args()
+
+    if args.command == "status":
+        show_status()
+    elif args.command == "update":
+        update_task(args.task_id, args.progress, args.status)
+    elif args.command == "next":
+        find_next_task()
+
+if __name__ == "__main__":
     main()
