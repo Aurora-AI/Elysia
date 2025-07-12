@@ -1,5 +1,6 @@
 # src/aurora_platform/core/config.py - Padrão Definitivo com Pydantic-Settings
 
+import os
 from pathlib import Path
 from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -76,6 +77,9 @@ class Settings(BaseSettings):
             raise ValueError("FIRECRAWL_API_KEY não pode ser vazia ou nula")
         
         return SecretStr(key_value)
+
+# Configuração para resolver conflito do protobuf
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 
 # Instância única para ser usada em toda a aplicação
 # Pylance pode mostrar um aviso aqui sobre argumentos ausentes para os campos
