@@ -1,6 +1,7 @@
 # src/aurora_platform/main.py
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from src.aurora_platform.api.v1.endpoints import auth_router, knowledge_router, mentor_router, profiling_router
 from src.aurora_platform.api.routers import etp_router
@@ -26,6 +27,15 @@ app = FastAPI(
     description="O Kernel do Sistema Operacional de IA da Aurora.",
     version="0.1.0",
     lifespan=lifespan
+)
+
+# Adiciona o middleware CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todas as origens
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos
+    allow_headers=["*"],  # Permite todos os cabeçalhos
 )
 
 # Inclui os roteadores na aplicação principal da API
