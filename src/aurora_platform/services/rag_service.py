@@ -1,42 +1,54 @@
 # src/aurora_platform/services/rag_service.py
 
-from langchain_google_vertexai import VertexAI
-from langchain_core.prompts import PromptTemplate
-from langchain_core.runnables import RunnablePassthrough
-from langchain_core.output_parsers import StrOutputParser
-from aurora_platform.services.knowledge_service import KnowledgeBaseService
+from langchain_core.prompts import ChatPromptTemplate
+from .knowledge_service import KnowledgeBaseService
+# --- MUDANÇA CRÍTICA: Importa a interface e a fábrica ---
+from .llm_adapters import ILLMAdapter
+from .adapter_factory import AdapterFactory
 
-def answer_query(query: str) -> str:
-    print("INFO: Iniciando a cadeia RAG para responder à consulta...")
-    kb_service = KnowledgeBaseService()
-    llm = VertexAI(model_name="gemini-1.5-flash-001")
-    
-    retrieved_docs = kb_service.retrieve(query, top_k=2)
-    context = "\n\n".join([doc["text"] for doc in retrieved_docs if doc["text"]])
-
-    template = """
-    Você é a Aurora, uma assistente de IA especialista em análise de dados.
-    Use os trechos de contexto a seguir para responder à pergunta no final.
-    Se você não sabe a resposta, apenas diga que não sabe, não tente inventar uma resposta.
-    Mantenha a resposta o mais concisa possível.
-
-    Contexto:
-    {context}
-
-    Pergunta:
-    {question}
-
-    Resposta:
+def answer_query(query: str, model_provider: str) -> str:
     """
-    prompt = PromptTemplate.from_template(template)
-
-    rag_chain = (
-        {"context": lambda x: context, "question": RunnablePassthrough()}
-        | prompt
-        | llm
-        | StrOutputParser()
-    )
+    Responde a uma pergunta usando a cadeia RAG com um adaptador de LLM dinâmico.
+    """
+    print(f"INFO: RAG Service iniciado para o provedor: {model_provider}")
     
-    response = rag_chain.invoke(query)
-    print("INFO: Resposta recebida do LLM.")
+    # 1. Obter o adaptador correto usando a fábrica
+    try:
+        adapter: ILLMAdapter = AdapterFactory.create_adapter(model_provider)
+    except ValueError as e:
+        return str(e)
+
+    # 2. Recuperar o contexto
+    kb_service = KnowledgeBaseService()
+    retrieved_docs = kb_service.retrieve(query, top_k=2)
+    
+    if not retrieved_docs:
+        return "Não encontrei informação relevante na minha base de conhecimento para responder a esta pergunta."
+        
+    context = "\n\n---\n\n".join([doc.get("text", "") for doc in retrieved_docs])
+
+    # 3. Montar o prompt (lógica inalterada)
+    template = """
+    Você é um assistente especialista e conciso. Sua tarefa é responder à pergunta do usuário.
+    Você DEVE usar APENAS as informações do CONTEXTO fornecido abaixo para formular sua resposta.
+    NÃO invente informações nem use conhecimento externo.
+    Sintetize a informação em uma resposta clara e direta.
+
+    ---
+    CONTEXTO:
+    {context}
+    ---
+    PERGUNTA:
+    {query}
+    ---
+    RESPOSTA SINTETIZADA E CONCISA:
+    """
+    # Usamos uma substituição de string simples para o prompt final
+    final_prompt = template.format(context=context, query=query)
+
+    # 4. Gerar a resposta usando o método padronizado do adaptador
+    print("INFO: Invocando o adaptador do LLM para síntese...")
+    response = adapter.generate(final_prompt)
+    
+    print("INFO: Resposta sintetizada recebida do adaptador.")
     return response

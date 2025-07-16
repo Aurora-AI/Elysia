@@ -15,7 +15,7 @@ def test_default_values():
     assert settings.ALGORITHM == "HS256"
     assert settings.ACCESS_TOKEN_EXPIRE_MINUTES == 30
     assert settings.PROJECT_NAME == "Aurora Platform"
-    assert settings.PROJECT_VERSION == "0.1.0"
+    assert settings.PROJECT_VERSION == "1.0.0"
 
 
 def test_database_url():

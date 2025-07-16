@@ -11,20 +11,19 @@ def extract_all_knowledge():
     print("INFO: Inicializando o serviço de base de conhecimento...")
     kb_service = KnowledgeBaseService()
     
-    # Acessa a coleção diretamente através da instância do serviço
-    collection = kb_service.collection
+    # Busca todos os documentos usando o método retrieve
+    all_docs = kb_service.retrieve(query="", top_k=1000)  # Busca ampla
     
     print("INFO: Extraindo todos os documentos da coleção...")
-    # O método .get() sem filtros retorna todos os itens.
-    # Incluímos 'metadatas' para ter o contexto da fonte.
-    results = collection.get(include=["documents", "metadatas"])
     
-    documents = results.get('documents', [])
-    metadatas = results.get('metadatas', [])
-    
-    if not documents:
+    if not all_docs:
         print("AVISO: Nenhum documento encontrado na base de conhecimento.")
         return
+    
+    documents = [doc.get('text', '') for doc in all_docs]
+    metadatas = [doc.get('metadata', {}) for doc in all_docs]
+    
+
 
     print(f"INFO: {len(documents)} documentos extraídos. Salvando em '{OUTPUT_FILE}'...")
 
@@ -39,7 +38,7 @@ def extract_all_knowledge():
             f.write(doc_text)
             f.write("\n\n\n")
     
-    print(f"✅ SUCESSO: Conhecimento extraído e salvo em '{OUTPUT_FILE}'.")
+    print(f"[OK] SUCESSO: Conhecimento extraído e salvo em '{OUTPUT_FILE}'.")
 
 
 if __name__ == "__main__":

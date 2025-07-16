@@ -16,5 +16,10 @@ class KnowledgeQuery(BaseModel):
     query: str
     n_results: int = 3
 
+class KnowledgeQueryWithProvider(BaseModel):
+    """Schema para realizar uma consulta RAG com seleção de provedor de LLM."""
+    query: str
+    model_provider: str  # "google", "azure", ou "deepseek"
+
 class SearchResult(BaseModel):
     results: List[str]

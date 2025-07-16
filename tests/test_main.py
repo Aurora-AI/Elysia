@@ -7,4 +7,4 @@ def test_root_endpoint(client: TestClient):
     assert response.status_code == 200
     data = response.json()
     assert "message" in data
-    assert "Bem-vindo ao Aurora Core" in data["message"]
+    assert "Bem-vindo ao Aurora-Core AIOS" in data["message"]

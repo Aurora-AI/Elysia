@@ -17,7 +17,6 @@ python-jose = "^3.3.0"
 passlib = "^1.7.4"
 bcrypt = "^4.0.0"
 google-cloud-aiplatform = "^1.58.0"
-firecrawl-py = "^1.5.0"
 chromadb = "^1.0.9"
 langchain = "^0.3.26"
 langchain-community = "^0.3.27"
@@ -33,6 +32,17 @@ protobuf = "^4.21.6"
 undetected-chromedriver = "^3.5.5"
 beautifulsoup4 = "^4.13.4"
 numpy = "^2.3.1"
+requests = "^2.31.0"
+selenium = "^4.34.2"
+async-lru = "^2.0.5"
+firecrawl-py = "^2.15.0"
+locust = "^2.37.12"
+pymupdf = "^1.23.24"
+langchain-openai = "^0.3.27"
+httpx = "^0.28.1"
+
+[tool.poetry.group.dev.dependencies]
+bandit = "^1.8.6"
 
 [build-system]
 requires = ["poetry-core"]
@@ -44,3 +54,4 @@ exclude = ["**/node_modules", "**/__pycache__", "src/experimental"]
 reportMissingImports = true
 pythonVersion = "3.11"
 extraPaths = ["src"]
+

@@ -28,7 +28,7 @@ def test_login_invalid_credentials():
 def test_protected_endpoint_without_token():
     """Test accessing protected endpoint without token"""
     response = client.post(
-        "/mentor/sales/prepare-meeting",
+        "/prepare-meeting",
         json={"client_name": "Test Client"}
     )
     assert response.status_code == 401
@@ -44,7 +44,7 @@ def test_protected_endpoint_with_token():
     
     # Then access protected endpoint
     response = client.post(
-        "/mentor/sales/prepare-meeting",
+        "/prepare-meeting",
         json={"client_name": "Test Client"},
         headers={"Authorization": f"Bearer {token}"}
     )
