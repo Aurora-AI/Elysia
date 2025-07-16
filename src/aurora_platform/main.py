@@ -3,7 +3,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from src.aurora_platform.api.v1.endpoints import auth_router, knowledge_router, mentor_router, profiling_router
+from src.aurora_platform.api.v1.endpoints import auth_router, knowledge_router, mentor_router, profiling_router, converse_router
 from src.aurora_platform.api.routers import etp_router
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 
@@ -40,6 +40,7 @@ app.add_middleware(
 
 # Inclui os roteadores na aplicação principal da API
 app.include_router(auth_router.router)
+app.include_router(converse_router.router)
 app.include_router(mentor_router.router)
 app.include_router(knowledge_router.router)
 app.include_router(profiling_router.router, prefix="/v1/profiling", tags=["Agent Profiling"])
