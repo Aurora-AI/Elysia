@@ -7,7 +7,7 @@ import uuid
 
 class ETPModel(SQLModel, table=True):
     """Modelo de banco de dados para ETPs gerados"""
-    __tablename__ = "etps"
+
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
     tipo_obra: str = Field(index=True)

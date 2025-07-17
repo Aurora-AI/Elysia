@@ -15,8 +15,7 @@ class KnowledgeBaseService:
         self.client = chromadb.HttpClient(host=host, port=port)
         self.embedding_function = embedding_functions.DefaultEmbeddingFunction()
         self.collection = self.client.get_or_create_collection(
-            name=collection_name,
-            embedding_function=self.embedding_function  # type: ignore
+            name=collection_name
         )
         logger.info(f"KnowledgeService conectado ao servidor Chroma em {host}:{port}.")
 

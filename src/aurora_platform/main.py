@@ -3,7 +3,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from src.aurora_platform.api.v1.endpoints import auth_router, knowledge_router, mentor_router, profiling_router, converse_router
+from src.aurora_platform.api.v1.endpoints import auth_router, knowledge_router, mentor_router, profiling_router, converse_router, browser_router
 from src.aurora_platform.api.routers import etp_router
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 
@@ -44,7 +44,9 @@ app.include_router(converse_router.router)
 app.include_router(mentor_router.router)
 app.include_router(knowledge_router.router)
 app.include_router(profiling_router.router, prefix="/v1/profiling", tags=["Agent Profiling"])
+
 app.include_router(etp_router.router, prefix="/v1", tags=["ETP Generator"])
+app.include_router(browser_router.router, prefix="/v1", tags=["Browser Engine"])
 
 @app.get("/", tags=["Root"])
 def read_root():

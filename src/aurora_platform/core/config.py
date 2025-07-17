@@ -2,8 +2,7 @@
 
 import os
 from pathlib import Path
-from pydantic import SecretStr, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import SecretStr, root_validator, BaseSettings
 from typing import List, Optional
 
 # Construção do caminho absoluto para o arquivo .env
@@ -17,9 +16,10 @@ class Settings(BaseSettings):
     Esta classe é a única fonte da verdade para todas as configurações.
     """
     # Configuração para carregar de um arquivo .env e ignorar campos extras.
-    model_config = SettingsConfigDict(
-        env_file=ENV_PATH, env_file_encoding="utf-8", extra="ignore"
-    )
+    class Config:
+        env_file = ENV_PATH
+        env_file_encoding = "utf-8"
+        extra = "ignore"
 
     # --- Configurações do Projeto ---
     PROJECT_NAME: str = "Aurora Core"
@@ -64,19 +64,17 @@ class Settings(BaseSettings):
     # Opcional para permitir execução sem Redis, se necessário
     REDIS_URL: Optional[str] = "redis://localhost:6379/0"
     
-    @field_validator('FIRECRAWL_API_KEY')
-    @classmethod
-    def validate_firecrawl_api_key(cls, v):
-        """Valida e limpa a chave da API do Firecrawl."""
+    @root_validator(pre=True)
+    def validate_firecrawl_api_key(cls, values):
+        v = values.get('FIRECRAWL_API_KEY')
         if isinstance(v, SecretStr):
             key_value = v.get_secret_value().strip()
         else:
             key_value = str(v).strip() if v else ""
-        
         if not key_value:
             raise ValueError("FIRECRAWL_API_KEY não pode ser vazia ou nula")
-        
-        return SecretStr(key_value)
+        values['FIRECRAWL_API_KEY'] = SecretStr(key_value)
+        return values
 
 # Configuração para resolver conflito do protobuf
 os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"

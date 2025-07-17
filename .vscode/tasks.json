@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Iniciar Aurora-Core (Uvicorn)",
+			"command": "uvicorn src.aurora_platform.main:app --host 0.0.0.0 --port 8001 --reload",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

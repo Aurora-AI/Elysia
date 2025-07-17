@@ -18,10 +18,11 @@ def test_scraper():
         "https://docs.trychroma.com/docs/overview/introduction"
     ]
     
+    import asyncio
     for url in test_urls:
         print(f"\n--- Testando: {url} ---")
         try:
-            content = scraper.extract_text_from_url(url)
+            content = asyncio.run(scraper.extract_text_from_url(url))
             print(f"[OK] Sucesso! Extraído {len(content)} caracteres")
             print(f"Prévia: {content[:200]}...")
         except Exception as e:
