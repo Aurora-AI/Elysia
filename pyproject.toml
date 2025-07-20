@@ -1,5 +1,4 @@
-
- [tool.poetry]
+[tool.poetry]
 name = "aurora-core"
 version = "1.0.0"
 description = "O Kernel do Sistema Operacional de IA da Aurora."
@@ -16,24 +15,31 @@ alembic = "^1.13.1"
 psycopg2-binary = "^2.9.9"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-    langchain-openai = "^0.1.0"  # mantendo a versão
-    langchain-google-vertexai = "^0.0.3"  # compatível com langchain 0.1.x e pydantic v1
-    langchain-core = "^0.1.7"  # compatível com langchain-google-vertexai 0.0.3
-chromadb = "^0.5.0"
+langchain-openai = "^0.1.0"  # mantendo a versão
+langchain-google-vertexai = "^0.0.3"  # compatível com langchain 0.1.x e pydantic v1
+langchain-core = "^0.1.7"  # compatível com langchain-google-vertexai 0.0.3
+chromadb = "^0.5.20"
 sentence-transformers = "^2.7.0"
 pyyaml = "^6.0.1"
 playwright = "^1.44.0"
 cryptography = "^42.0.8"
 transformers = "^4.41.2"
 torch = "^2.3.1"
-    pydantic = "^1.10.13"  # Corrigindo para Pydantic v1
+pydantic = "^2.0.0"
+pydantic-settings = "^2.10.1"
+pyotp = "^2.9.0"
+qrcode = "^8.2"
+redis = "^6.2.0"
+streamlit = "^1.47.0"
+vertexai = "^1.71.1"
+async-lru = "^2.0.5"
+httpx = "^0.28.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
 pytest-cov = "^5.0.0"
 ruff = "^0.4.4"
 black = "^24.4.2"
-httpx = "^0.27.0"
 locust = "^2.28.0"
 
 [tool.black]
@@ -51,4 +57,8 @@ testpaths = ["tests/unit", "tests/integration"]
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.deptry]
+known_first_party = ["src", "aurora_platform"]
+ignore_obsolete = ["uvicorn"]
 

@@ -35,35 +35,126 @@ class AgentProfilingService:
         """Valida se a resposta corresponde ao padrão esperado (regex)."""
         return bool(re.search(pattern, response, re.IGNORECASE))
 
-    def run_benchmarks(self) -> List[Dict[str, Any]]:
+    def run_benchmarks(self, temperatures=[0.1, 0.5, 0.9]) -> List[Dict[str, Any]]:
         """
-        Executa a suíte de benchmarks completa contra todos os modelos configurados.
+        Executa a suíte de benchmarks completa contra todos os modelos configurados, variando parâmetros.
         """
+        import time
         results = []
         timestamp = datetime.now().isoformat()
 
         for problem in self.suite:
+            # Ignora problemas de decomposição aqui
+            if problem.get('category') == 'tarefa_decomponivel':
+                continue
             for model in self.models_to_test:
-                # Simula a chamada ao LLM
-                generated_response = mock_llm_call(model, problem['prompt'])
-                
-                # Valida a resposta
-                success = self._validate_response(generated_response, problem['expected_output_pattern'])
-                
-                result_entry = {
+                for temp in temperatures:
+                    start = time.time()
+                    generated_response = mock_llm_call(model, problem['prompt'])
+                    latency = time.time() - start
+                    # Simulação de custo em tokens
+                    token_cost = len(problem['prompt'].split()) + len(generated_response.split())
+                    success = self._validate_response(generated_response, problem['expected_output_pattern'])
+                    result_entry = {
+                        "timestamp": timestamp,
+                        "model": model,
+                        "problem_id": problem['id'],
+                        "category": problem['category'],
+                        "success": success,
+                        "generated_response": generated_response,
+                        "temperature": temp,
+                        "latency": latency,
+                        "token_cost": token_cost
+                    }
+                    results.append(result_entry)
+        self._save_results(results)
+        return results
+    def run_decomposition_benchmark(self) -> List[Dict[str, Any]]:
+        """
+        Executa benchmarks para problemas de decomposição de tarefas.
+        """
+        import time
+        results = []
+        timestamp = datetime.now().isoformat()
+        for problem in self.suite:
+            if problem.get('category') != 'tarefa_decomponivel':
+                continue
+            for model in self.models_to_test:
+                # Executa o prompt pai
+                start = time.time()
+                resp_pai = mock_llm_call(model, problem['prompt_pai'])
+                latency_pai = time.time() - start
+                token_cost_pai = len(problem['prompt_pai'].split()) + len(resp_pai.split())
+                result_entry_pai = {
                     "timestamp": timestamp,
                     "model": model,
                     "problem_id": problem['id'],
                     "category": problem['category'],
-                    "success": success,
-                    "generated_response": generated_response
+                    "subtask": "pai",
+                    "generated_response": resp_pai,
+                    "latency": latency_pai,
+                    "token_cost": token_cost_pai
                 }
-                results.append(result_entry)
-        
-        # Armazena os resultados em um arquivo de log JSON
+                results.append(result_entry_pai)
+                # Executa prompts filhos
+                for filho in problem.get('prompts_filhos', []):
+                    start = time.time()
+                    resp_filho = mock_llm_call(model, filho['prompt'])
+                    latency_filho = time.time() - start
+                    token_cost_filho = len(filho['prompt'].split()) + len(resp_filho.split())
+                    result_entry_filho = {
+                        "timestamp": timestamp,
+                        "model": model,
+                        "problem_id": problem['id'],
+                        "category": filho['category'],
+                        "subtask": filho['subtask_id'],
+                        "generated_response": resp_filho,
+                        "latency": latency_filho,
+                        "token_cost": token_cost_filho
+                    }
+                    results.append(result_entry_filho)
         self._save_results(results)
-        
         return results
+    def generate_performance_report(self, results_path="profiling_results.json") -> str:
+        """
+        Gera um relatório em Markdown sobre a faixa de performance ótima dos modelos.
+        """
+        try:
+            with open(results_path, 'r', encoding='utf-8') as f:
+                results = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return "Nenhum resultado encontrado."
+        # Agrupa por modelo e categoria
+        from collections import defaultdict
+        report = "# Relatório de Faixa de Performance dos Modelos\n\n"
+        modelos = defaultdict(list)
+        for r in results:
+            modelos[r['model']].append(r)
+        for model, entradas in modelos.items():
+            report += f"## Modelo: {model}\n"
+            categorias = defaultdict(list)
+            for e in entradas:
+                categorias[e['category']].append(e)
+            for cat, lista in categorias.items():
+                report += f"### Categoria: {cat}\n"
+                # Faixa ótima: menor latência e maior sucesso
+                if not lista:
+                    continue
+                latencias = [l['latency'] for l in lista if 'latency' in l]
+                custos = [l['token_cost'] for l in lista if 'token_cost' in l]
+                success_count = sum(1 for l in lista if l.get('success'))
+                total = len(lista)
+                temp_usados = set(str(l.get('temperature')) for l in lista if 'temperature' in l)
+                report += f"- Total de testes: {total}\n"
+                report += f"- Sucesso: {success_count}/{total}\n"
+                if latencias:
+                    report += f"- Latência média: {sum(latencias)/len(latencias):.2f}s\n"
+                if custos:
+                    report += f"- Custo médio em tokens: {sum(custos)/len(custos):.1f}\n"
+                if temp_usados:
+                    report += f"- Temperaturas testadas: {', '.join(temp_usados)}\n"
+                report += "\n"
+        return report
 
     def _save_results(self, results: List[Dict[str, Any]]):
         """Salva os resultados do profiling em um arquivo."""

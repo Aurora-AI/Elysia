@@ -8,7 +8,7 @@ class LocalLLMService:
     Serviço para sumarização de texto usando um modelo local
     via HuggingFace Transformers, garantindo privacidade.
     """
-    def __init__(self, model_name: str = "philschmid/tiny-llama-summarization"):
+    def __init__(self, model_name: str = "facebook/bart-large-cnn"):
         self.model_name = model_name
         self._summarizer = None
         self._load_pipeline()

@@ -2,7 +2,8 @@
 
 import os
 from pathlib import Path
-from pydantic import SecretStr, root_validator, BaseSettings
+from pydantic import SecretStr, root_validator
+from pydantic_settings import BaseSettings
 from typing import List, Optional
 
 # Construção do caminho absoluto para o arquivo .env

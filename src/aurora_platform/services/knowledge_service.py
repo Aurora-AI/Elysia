@@ -12,6 +12,7 @@ logger = logging.getLogger("KnowledgeService")
 
 class KnowledgeBaseService:
     def __init__(self, host: str = "localhost", port: int = 8000, collection_name: str = "aurora_docs", main_model_name: str = 'all-MiniLM-L6-v2'):
+        # Ajuste a porta se o servidor ChromaDB estiver rodando em outra porta
         self.client = chromadb.HttpClient(host=host, port=port)
         self.embedding_function = embedding_functions.DefaultEmbeddingFunction()
         self.collection = self.client.get_or_create_collection(
