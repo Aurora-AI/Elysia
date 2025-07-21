@@ -6,6 +6,11 @@ from contextlib import asynccontextmanager
 from src.aurora_platform.api.v1.endpoints import auth_router, knowledge_router, mentor_router, profiling_router, converse_router, browser_router
 from src.aurora_platform.api.routers import etp_router
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
+import os
+from src.aurora_platform.core.rate_limiter import init_rate_limiter
+from src.aurora_platform.core.error_tracking import init_error_tracking
+from src.aurora_platform.api.health_router import router as health_router
+from src.aurora_platform.api.debug_router import router as debug_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -32,11 +37,19 @@ app = FastAPI(
 # Adiciona o middleware CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Permite todas as origens
+    allow_origins=os.getenv("ALLOWED_ORIGINS", "*").split(","),
     allow_credentials=True,
-    allow_methods=["*"],  # Permite todos os métodos
-    allow_headers=["*"],  # Permite todos os cabeçalhos
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+# Inicializa rate limiter e error tracking
+init_rate_limiter(app)
+init_error_tracking()
+
+# Inclui healthcheck e debug routers
+app.include_router(health_router)
+app.include_router(debug_router)
 
 # Inclui os roteadores na aplicação principal da API
 app.include_router(auth_router.router)

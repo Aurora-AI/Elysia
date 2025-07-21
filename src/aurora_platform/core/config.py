@@ -64,6 +64,11 @@ class Settings(BaseSettings):
     # --- Configs do Redis (com valor padrão do settings.toml) ---
     # Opcional para permitir execução sem Redis, se necessário
     REDIS_URL: Optional[str] = "redis://localhost:6379/0"
+    REDIS_HOST: str = "redis"
+    REDIS_PORT: int = 6379
+    REDIS_DB: int = 0
+    CHROMA_HOST: str = "chromadb"
+    CHROMA_PORT: int = 8000
     
     @root_validator(pre=True)
     def validate_firecrawl_api_key(cls, values):
