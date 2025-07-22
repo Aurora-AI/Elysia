@@ -21,6 +21,7 @@ Diretrizes para a Resposta:
 4.  **Finalize com uma Pergunta Aberta:** Termine a interação incentivando a colaboração e oferecendo ajuda adicional.
 """
 
+
 def prepare_for_meeting(client_name: str) -> str:
     """
     Usa o Azure OpenAI (GPT-4) para gerar um plano estratégico para uma reunião de vendas.
@@ -38,19 +39,27 @@ def prepare_for_meeting(client_name: str) -> str:
         # 2. Formata a mensagem para o padrão da API OpenAI
         messages = [
             {"role": "system", "content": SYSTEM_PROMPT_TEMPLATE},
-            {"role": "user", "content": f"Como posso me preparar para a reunião com o cliente '{client_name}' amanhã?"}
+            {
+                "role": "user",
+                "content": f"Como posso me preparar para a reunião com o cliente '{client_name}' amanhã?",
+            },
         ]
 
-        logger.info(f"Enviando prompt para o deployment '{settings.azure_openai_deployment_name}' no Azure...")
+        logger.info(
+            f"Enviando prompt para o deployment '{settings.azure_openai_deployment_name}' no Azure..."
+        )
 
         # 3. Chama a API usando streaming para melhor responsividade
         response_stream = client.chat.completions.create(
-            model=settings.azure_openai_deployment_name, # ex: "aurora-flagship-reasoning"
+            model=settings.azure_openai_deployment_name,  # ex: "aurora-flagship-reasoning"
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT_TEMPLATE},
-                {"role": "user", "content": f"Como posso me preparar para a reunião com o cliente '{client_name}' amanhã?"}
+                {
+                    "role": "user",
+                    "content": f"Como posso me preparar para a reunião com o cliente '{client_name}' amanhã?",
+                },
             ],
-            stream=True
+            stream=True,
         )
 
         # 4. Concatena os pedaços da resposta recebida via streaming
@@ -58,7 +67,7 @@ def prepare_for_meeting(client_name: str) -> str:
         for chunk in response_stream:
             if chunk.choices and chunk.choices[0].delta.content is not None:
                 full_response += chunk.choices[0].delta.content
-        
+
         logger.info("Resposta recebida com sucesso do Azure OpenAI.")
         return full_response
 

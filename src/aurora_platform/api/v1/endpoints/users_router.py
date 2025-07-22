@@ -8,10 +8,9 @@ from aurora_platform.core.security import get_current_user
 
 router = APIRouter()
 
+
 @router.get("/me")
-def read_users_me(
-    current_user: dict = Depends(get_current_user)
-):
+def read_users_me(current_user: dict = Depends(get_current_user)):
     """
     Retorna os dados do usuário atualmente autenticado.
     """

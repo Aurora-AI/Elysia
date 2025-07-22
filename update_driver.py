@@ -9,7 +9,9 @@ try:
     # garantir que o patch seja aplicado corretamente no processo principal.
     driver = uc.Chrome(use_subprocess=False)
 
-    print("INFO: WebDriver inicializado com sucesso. Navegando para uma página de teste...")
+    print(
+        "INFO: WebDriver inicializado com sucesso. Navegando para uma página de teste..."
+    )
     driver.get("https://www.google.com")
 
     print(f"INFO: Título da página: {driver.title}")
@@ -18,7 +20,9 @@ try:
 
     driver.quit()
 
-    print("✅ SUCESSO: O chromedriver está instalado, atualizado e funcionando corretamente.")
+    print(
+        "✅ SUCESSO: O chromedriver está instalado, atualizado e funcionando corretamente."
+    )
 
 except Exception as e:
     print(f"❌ ERRO: Ocorreu uma falha durante a atualização ou teste do driver.")

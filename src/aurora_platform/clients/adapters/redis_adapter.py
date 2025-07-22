@@ -5,8 +5,9 @@ redis_client = redis.Redis(
     host=settings.REDIS_HOST,
     port=settings.REDIS_PORT,
     db=settings.REDIS_DB,
-    socket_connect_timeout=1
+    socket_connect_timeout=1,
 )
+
 
 def ping():
     try:

@@ -11,7 +11,7 @@ class UserBase(SQLModel):
 
 class User(UserBase, table=True):
     __tablename__ = "users"  # type: ignore
-    
+
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     nome: Optional[str] = Field(default=None, sa_column=Column(SQLString(100)))
     email: str = Field(
@@ -21,7 +21,9 @@ class User(UserBase, table=True):
     is_active: bool = Field(default=True, nullable=False)
     is_superuser: bool = Field(default=False, nullable=False)
     full_name: Optional[str] = Field(default=None, sa_column=Column(SQLString(200)))
-    hashed_refresh_token: Optional[str] = Field(default=None, sa_column=Column(SQLString))
+    hashed_refresh_token: Optional[str] = Field(
+        default=None, sa_column=Column(SQLString)
+    )
     two_factor_secret: Optional[str] = Field(default=None, sa_column=Column(SQLString))
     two_factor_enabled: bool = Field(default=False, nullable=False)
 

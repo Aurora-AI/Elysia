@@ -9,11 +9,13 @@ from pydantic import SecretStr as V2SecretStr
 from pydantic.v1.types import SecretStr as V1SecretStr
 from typing import Union
 
+
 # Mock para o DeepSeek Adapter, já que não temos a biblioteca específica
 class DeepSeekMock:
     def invoke(self, prompt: str) -> str:
         print("--- MOCK: Chamada para DeepSeek ---")
         return f"Resposta simulada pelo DeepSeek para: {prompt[:50]}..."
+
 
 # --- PASSO 1: A Interface do Adaptador (O Contrato) ---
 class ILLMAdapter(ABC):
@@ -21,6 +23,7 @@ class ILLMAdapter(ABC):
     Define a interface comum para todos os adaptadores de LLM, garantindo
     que o RAG Service possa interagir com qualquer um deles de forma uniforme.
     """
+
     @abstractmethod
     def generate(self, prompt: str) -> str:
         """
@@ -28,19 +31,26 @@ class ILLMAdapter(ABC):
         """
         pass
 
+
 # --- PASSO 2: As Implementações Concretas ---
+
 
 class VertexAIAdapter(ILLMAdapter):
     """Adaptador para o Google Vertex AI (Gemini)."""
+
     def __init__(self):
-        self.llm = VertexAI(model_name="gemini-2.5-pro")  # Nome do modelo atualizado para a geração 2.5
+        self.llm = VertexAI(
+            model_name="gemini-2.5-pro"
+        )  # Nome do modelo atualizado para a geração 2.5
         print("INFO: Adaptador VertexAI inicializado com o modelo Gemini 2.5 Pro.")
 
     def generate(self, prompt: str) -> str:
         return self.llm.invoke(prompt)
 
+
 class AzureOpenAIAdapter(ILLMAdapter):
     """Adaptador para o Azure OpenAI Service."""
+
     def __init__(self):
         api_key = os.getenv("AZURE_OPENAI_API_KEY")
         api_key_v2 = V2SecretStr(api_key) if api_key else None
@@ -50,23 +60,26 @@ class AzureOpenAIAdapter(ILLMAdapter):
             api_version="2024-02-01",
             azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME"),
             api_key=api_key_v1,
-            temperature=0.7
+            temperature=0.7,
         )
         print("INFO: Adaptador Azure OpenAI inicializado.")
-    
+
     def generate(self, prompt: str) -> str:
         response_message = self.llm.invoke([HumanMessage(content=prompt)])
-        content = getattr(response_message, 'content', None)
+        content = getattr(response_message, "content", None)
         return str(content) if content is not None else ""
+
 
 class DeepSeekAdapter(ILLMAdapter):
     """Adaptador para o DeepSeek (usando um Mock para esta POC)."""
+
     def __init__(self):
         self.llm = DeepSeekMock()
         print("INFO: Adaptador DeepSeek (Mock) inicializado.")
-        
+
     def generate(self, prompt: str) -> str:
         return self.llm.invoke(prompt)
+
 
 class GeminiAdapter(ILLMAdapter):
     def __init__(

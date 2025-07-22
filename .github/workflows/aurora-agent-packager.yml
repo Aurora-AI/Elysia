@@ -1,0 +1,68 @@
+name: Aurora Agent - Packager
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+jobs:
+  add-dependency:
+    if: contains(github.event.issue.labels.*.name, 'new-dependency')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Extract dependency from issue
+        id: extract
+        run: |
+          DEP=$(echo "${{ github.event.issue.body }}" | grep -Eo '^[a-zA-Z0-9\-_\.]+' | head -1)
+          echo "DEPENDENCY=$DEP" >> $GITHUB_ENV
+
+      - name: Check allowlist
+        id: allowlist
+        run: |
+          ALLOWLIST=$(cat approved_packages.json | jq -r '.[]')
+          if echo "$ALLOWLIST" | grep -q "^${DEPENDENCY}$"; then
+            echo "ALLOWED=true" >> $GITHUB_ENV
+          else
+            echo "ALLOWED=false" >> $GITHUB_ENV
+          fi
+
+      - name: Add dependency with Poetry
+        run: poetry add "$DEPENDENCY"
+
+      - name: Commit changes
+        run: |
+          git config --local user.name 'aurora-agent-packager'
+          git config --local user.email 'aurora-agent@auroracrm.com.br'
+          git checkout -b "feat/add-dependency-${DEPENDENCY}"
+          git add pyproject.toml poetry.lock
+          git commit -m "feat: adiciona dependencia ${DEPENDENCY}"
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "feat: adiciona dependencia ${DEPENDENCY}"
+          body: |
+            Adicionando a dependência solicitada: **${DEPENDENCY}**
+
+            Issue original: #${{ github.event.issue.number }}
+
+            ${{ env.ALLOWED == 'false' && 'AVISO: A dependência solicitada não pertence à lista de pacotes pré-aprovados e requer revisão de segurança manual.' || '' }}
+
+            @aurora-dev/core-team
+
+          labels: |
+            ${{ env.ALLOWED == 'false' && 'security-review-required' || '' }}
+
+      - name: Notificar equipe
+        if: always()
+        run: echo "Notificação: PR criado para dependência ${DEPENDENCY}. Core team mencionada no corpo do PR."

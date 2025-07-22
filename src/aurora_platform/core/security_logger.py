@@ -7,9 +7,7 @@ security_logger = logging.getLogger("aurora.security")
 security_logger.setLevel(logging.INFO)
 
 handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    '%(asctime)s - SECURITY - %(levelname)s - %(message)s'
-)
+formatter = logging.Formatter("%(asctime)s - SECURITY - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 security_logger.addHandler(handler)
 

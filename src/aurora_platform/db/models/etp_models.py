@@ -5,10 +5,10 @@ from typing import Optional
 from datetime import datetime
 import uuid
 
+
 class ETPModel(SQLModel, table=True):
     """Modelo de banco de dados para ETPs gerados"""
 
-    
     id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
     tipo_obra: str = Field(index=True)
     local: str

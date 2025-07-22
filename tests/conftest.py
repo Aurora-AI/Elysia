@@ -9,6 +9,7 @@ from src.aurora_platform.main import app
 # Set testing environment
 os.environ["TESTING"] = "1"
 
+
 @pytest.fixture(name="session")
 def session_fixture():
     """Create a test database session using in-memory SQLite"""
@@ -20,6 +21,7 @@ def session_fixture():
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
         yield session
+
 
 @pytest.fixture(name="client")
 def client_fixture():

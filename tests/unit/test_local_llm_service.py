@@ -1,5 +1,8 @@
 import pytest
-from src.aurora_platform.services.browser_automation.local_llm_service import LocalLLMService
+from src.aurora_platform.services.browser_automation.local_llm_service import (
+    LocalLLMService,
+)
+
 
 def test_local_llm_service_summarize():
     service = LocalLLMService()

@@ -3,8 +3,10 @@ from pydantic import BaseModel
 
 router = APIRouter()
 
+
 class ConverseRequest(BaseModel):
     text: str
+
 
 @router.post("/converse")
 def converse(request: ConverseRequest):

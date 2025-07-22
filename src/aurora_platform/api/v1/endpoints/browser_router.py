@@ -7,6 +7,7 @@ from src.aurora_platform.services.browser_engine import BrowserEngine
 
 router = APIRouter(prefix="/browser", tags=["Browser Engine"])
 
+
 @router.post("/summarize-url", response_class=JSONResponse)
 async def summarize_url(request: SummarizeURLRequest):
     try:

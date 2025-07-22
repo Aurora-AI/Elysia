@@ -3,11 +3,13 @@ from playwright.async_api import Page, TimeoutError
 
 logger = logging.getLogger(__name__)
 
+
 class ConsentManager:
     """
     Gerencia o aceite de pop-ups de consentimento (cookies, LGPD, etc.)
     de forma genérica em páginas web.
     """
+
     def __init__(self):
         # Lista de seletores CSS/texto para botões de aceite comuns
         self.selectors = [
@@ -18,7 +20,7 @@ class ConsentManager:
             "button:has-text('Concordo')",
             "button:has-text('OK')",
             "button:has-text('Continuar')",
-            "button#onetrust-accept-btn-handler" # Seletor comum de plataformas de consentimento
+            "button#onetrust-accept-btn-handler",  # Seletor comum de plataformas de consentimento
         ]
 
     async def handle_consent(self, page: Page):
@@ -35,7 +37,11 @@ class ConsentManager:
                     # Uma vez que um botão é clicado, podemos parar de procurar
                     return True
             except TimeoutError:
-                logger.debug(f"Seletor de consentimento não encontrado ou visível: '{selector}'")
+                logger.debug(
+                    f"Seletor de consentimento não encontrado ou visível: '{selector}'"
+                )
             except Exception as e:
-                logger.warning(f"Erro ao tentar clicar no consentimento com o seletor '{selector}': {e}")
+                logger.warning(
+                    f"Erro ao tentar clicar no consentimento com o seletor '{selector}': {e}"
+                )
         return False

@@ -7,32 +7,33 @@ from datetime import datetime
 import uuid
 import json
 
+
 class ETPGeneratorService:
     """Serviço para geração de ETPs usando pipeline RAG"""
-    
+
     def __init__(self, kb_service: KnowledgeBaseService):
         self.kb_service = kb_service
         self.llm_adapter = VertexAIAdapter()
-    
+
     async def generate_etp(self, request: ETPRequest) -> ETPResponse:
         """Gera um ETP completo usando RAG e LLM"""
-        
+
         # 1. Consultas RAG para recuperar contexto relevante
         queries = [
             f"estrutura padrão de ETP para {request.tipo_obra}",
             f"normas técnicas para obras de {request.tipo_obra}",
             f"especificações técnicas {request.tipo_obra}",
             "justificativa técnica obras públicas",
-            "cronograma execução obras"
+            "cronograma execução obras",
         ]
-        
+
         contexto_rag = ""
         for query in queries:
             results = self.kb_service.retrieve(query=query, top_k=3)
             for doc in results:
                 if doc.get("text"):
                     contexto_rag += f"\n{doc['text'][:500]}...\n"
-        
+
         # 2. Construção do prompt estruturado
         prompt = f"""Você é um especialista em elaboração de Estudos Técnicos Preliminares (ETPs) para obras públicas.
 
@@ -60,20 +61,20 @@ Use APENAS as informações fornecidas no contexto técnico. Seja preciso e téc
 
         # 3. Geração via LLM
         conteudo_gerado = self.llm_adapter.generate(prompt)
-        
+
         # 4. Preparação da resposta
         etp_id = str(uuid.uuid4())
         metadados = {
             "tipo_obra": request.tipo_obra,
             "local": request.local,
             "queries_utilizadas": len(queries),
-            "contexto_chars": len(contexto_rag)
+            "contexto_chars": len(contexto_rag),
         }
-        
+
         return ETPResponse(
             id=etp_id,
             conteudo_markdown=conteudo_gerado,
             status="gerado",
             data_geracao=datetime.utcnow(),
-            metadados=metadados
+            metadados=metadados,
         )

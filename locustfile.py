@@ -6,14 +6,15 @@ from locust import HttpUser, task, between
 URLS_PARA_INGERIR = [
     "https://docs.trychroma.com/getting-started",
     "https://fastapi.tiangolo.com/tutorial/",
-    "https://pge.rj.gov.br/checklists-lei-1413321"
+    "https://pge.rj.gov.br/checklists-lei-1413321",
 ]
 
 PERGUNTAS_PARA_RAG = [
     "What is Chroma?",
     "How do I create a FastAPI application?",
-    "Summarize the main points of Lei 14.133"
+    "Summarize the main points of Lei 14.133",
 ]
+
 
 class UserBehavior(HttpUser):
     wait_time = between(1, 3)
@@ -28,7 +29,7 @@ class UserBehavior(HttpUser):
             "/api/v1/knowledge/ingest-from-web",
             json=payload,
             headers=headers,
-            name="/api/v1/knowledge/ingest-from-web"
+            name="/api/v1/knowledge/ingest-from-web",
         )
 
     @task(3)
@@ -42,5 +43,5 @@ class UserBehavior(HttpUser):
             "/api/v1/knowledge/search",
             json=payload,
             headers=headers,
-            name="/api/v1/knowledge/search"
+            name="/api/v1/knowledge/search",
         )

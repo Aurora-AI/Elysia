@@ -6,15 +6,18 @@ from pathlib import Path
 
 PLAN_FILE = Path(__file__).parent.parent / "project_plan.yaml"
 
+
 def read_plan():
     """Lê o arquivo de plano do projeto."""
-    with open(PLAN_FILE, 'r', encoding='utf-8') as f:
+    with open(PLAN_FILE, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
 
 def save_plan(data):
     """Salva os dados de volta no arquivo de plano."""
-    with open(PLAN_FILE, 'w', encoding='utf-8') as f:
+    with open(PLAN_FILE, "w", encoding="utf-8") as f:
         yaml.dump(data, f, sort_keys=False, allow_unicode=True)
+
 
 def show_status():
     """Exibe o status completo do projeto, organizado por sprints."""
@@ -22,26 +25,31 @@ def show_status():
     print("=== STATUS DO PROJETO AURORA ===")
     # CORREÇÃO: Itera sobre 'sprints', não 'epics'
     for sprint in plan.get("sprints", []):
-        sprint_id = sprint.get('id', 'N/A')
-        sprint_name = sprint.get('name', 'N/A')
-        sprint_status = sprint.get('status', 'N/A')
+        sprint_id = sprint.get("id", "N/A")
+        sprint_name = sprint.get("name", "N/A")
+        sprint_status = sprint.get("status", "N/A")
         print(f"\n--- SPRINT: {sprint_id} - {sprint_name} [{sprint_status}] ---")
 
-        tasks = sprint.get('tasks', [])
+        tasks = sprint.get("tasks", [])
         total_tasks = len(tasks)
-        completed_tasks = sum(1 for t in tasks if t.get('status') == 'CONCLUÍDO')
+        completed_tasks = sum(1 for t in tasks if t.get("status") == "CONCLUÍDO")
 
         if total_tasks > 0:
             sprint_progress = (completed_tasks / total_tasks) * 100
-            print(f"Progresso do Sprint: {sprint_progress:.2f}% ({completed_tasks}/{total_tasks} tarefas concluídas)")
+            print(
+                f"Progresso do Sprint: {sprint_progress:.2f}% ({completed_tasks}/{total_tasks} tarefas concluídas)"
+            )
 
         for task in tasks:
-            task_id = task.get('id', 'N/A')
-            task_name = task.get('name', 'N/A')
-            task_status = task.get('status', 'N/A')
-            task_progress = task.get('progress_percent', 0)
-            task_epic = task.get('epic', 'N/A')
-            print(f"  - [{task_status}] {task_id}: {task_name} (Épico: {task_epic}) ({task_progress}%)")
+            task_id = task.get("id", "N/A")
+            task_name = task.get("name", "N/A")
+            task_status = task.get("status", "N/A")
+            task_progress = task.get("progress_percent", 0)
+            task_epic = task.get("epic", "N/A")
+            print(
+                f"  - [{task_status}] {task_id}: {task_name} (Épico: {task_epic}) ({task_progress}%)"
+            )
+
 
 def update_task(task_id_to_update, progress, status):
     """Atualiza o progresso e o status de uma tarefa específica."""
@@ -50,11 +58,11 @@ def update_task(task_id_to_update, progress, status):
     # CORREÇÃO: Itera sobre 'sprints' para encontrar a tarefa
     for sprint in plan.get("sprints", []):
         for task in sprint.get("tasks", []):
-            if task.get('id') == task_id_to_update:
+            if task.get("id") == task_id_to_update:
                 if progress is not None:
-                    task['progress_percent'] = int(progress)
+                    task["progress_percent"] = int(progress)
                 if status is not None:
-                    task['status'] = status
+                    task["status"] = status
                 task_found = True
                 break
         if task_found:
@@ -66,21 +74,25 @@ def update_task(task_id_to_update, progress, status):
     else:
         print(f"❌ Erro: Tarefa com ID '{task_id_to_update}' não encontrada.")
 
+
 def find_next_task():
     """Encontra a primeira tarefa 'A FAZER' no sprint 'EM ANDAMENTO'."""
     plan = read_plan()
     # CORREÇÃO: Itera sobre 'sprints'
     for sprint in plan.get("sprints", []):
-        if sprint.get('status') == 'EM ANDAMENTO':
+        if sprint.get("status") == "EM ANDAMENTO":
             for task in sprint.get("tasks", []):
-                if task.get('status') == 'A FAZER':
+                if task.get("status") == "A FAZER":
                     print("\n--- PRÓXIMA TAREFA NO BACKLOG ---")
                     print(f"  ID: {task.get('id')}")
                     print(f"  SPRINT: {sprint.get('id')} - {sprint.get('name')}")
                     print(f"  NOME: {task.get('name')}")
                     print(f"  STATUS: {task.get('status')}")
                     return
-    print("🎉 Todas as tarefas do sprint atual foram concluídas ou não há sprints em andamento!")
+    print(
+        "🎉 Todas as tarefas do sprint atual foram concluídas ou não há sprints em andamento!"
+    )
+
 
 def main():
     """Função principal para analisar os argumentos da linha de comando."""
@@ -90,10 +102,18 @@ def main():
     # Comandos
     subparsers.add_parser("status", help="Exibe o status completo do projeto.")
 
-    parser_update = subparsers.add_parser("update", help="Atualiza o status de uma tarefa.")
-    parser_update.add_argument("--task-id", required=True, help="O ID da tarefa a ser atualizada.")
-    parser_update.add_argument("--progress", type=int, help="O novo percentual de progresso (0-100).")
-    parser_update.add_argument("--status", help="O novo status (ex: EM ANDAMENTO, CONCLUÍDO).")
+    parser_update = subparsers.add_parser(
+        "update", help="Atualiza o status de uma tarefa."
+    )
+    parser_update.add_argument(
+        "--task-id", required=True, help="O ID da tarefa a ser atualizada."
+    )
+    parser_update.add_argument(
+        "--progress", type=int, help="O novo percentual de progresso (0-100)."
+    )
+    parser_update.add_argument(
+        "--status", help="O novo status (ex: EM ANDAMENTO, CONCLUÍDO)."
+    )
 
     subparsers.add_parser("next", help="Mostra a próxima tarefa a ser feita.")
 
@@ -105,6 +125,7 @@ def main():
         update_task(args.task_id, args.progress, args.status)
     elif args.command == "next":
         find_next_task()
+
 
 if __name__ == "__main__":
     main()

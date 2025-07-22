@@ -3,7 +3,14 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from src.aurora_platform.api.v1.endpoints import auth_router, knowledge_router, mentor_router, profiling_router, converse_router, browser_router
+from src.aurora_platform.api.v1.endpoints import (
+    auth_router,
+    knowledge_router,
+    mentor_router,
+    profiling_router,
+    converse_router,
+    browser_router,
+)
 from src.aurora_platform.api.routers import etp_router
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 import os
@@ -11,6 +18,7 @@ from src.aurora_platform.core.rate_limiter import init_rate_limiter
 from src.aurora_platform.core.error_tracking import init_error_tracking
 from src.aurora_platform.api.health_router import router as health_router
 from src.aurora_platform.api.debug_router import router as debug_router
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,17 +29,18 @@ async def lifespan(app: FastAPI):
     print("INFO: Iniciando aplicação... Pré-carregando KnowledgeBaseService.")
     app.state.kb_service = KnowledgeBaseService()
     print("INFO: KnowledgeBaseService carregado e pronto.")
-    
+
     yield
-    
+
     print("INFO: Encerrando aplicação...")
+
 
 # Passa a função lifespan para a instância principal do FastAPI
 app = FastAPI(
     title="Aurora-Core AIOS",
     description="O Kernel do Sistema Operacional de IA da Aurora.",
     version="0.1.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 # Adiciona o middleware CORS
@@ -56,10 +65,13 @@ app.include_router(auth_router.router)
 app.include_router(converse_router.router)
 app.include_router(mentor_router.router)
 app.include_router(knowledge_router.router)
-app.include_router(profiling_router.router, prefix="/v1/profiling", tags=["Agent Profiling"])
+app.include_router(
+    profiling_router.router, prefix="/v1/profiling", tags=["Agent Profiling"]
+)
 
 app.include_router(etp_router.router, prefix="/v1", tags=["ETP Generator"])
 app.include_router(browser_router.router, prefix="/v1", tags=["Browser Engine"])
+
 
 @app.get("/", tags=["Root"])
 def read_root():

@@ -18,9 +18,11 @@ sys.path.append(str(PROJECT_ROOT))
 
 # Agora que o caminho está correto, podemos importar nossos módulos
 from src.aurora_platform.core.config import settings
+
 # Importe aqui todos os seus modelos para que o Alembic os reconheça.
 # Isso garante que eles sejam registrados no metadata do SQLModel.
 from src.aurora_platform.db.models import user_model
+
 # Esta é a configuração do Alembic que lê o alembic.ini
 config = context.config
 
@@ -72,9 +74,7 @@ def run_migrations_online() -> None:
     )
     # --- FIM DA CORREÇÃO ---
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
         with context.begin_transaction():
             context.run_migrations()
 

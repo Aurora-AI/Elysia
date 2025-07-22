@@ -2,6 +2,7 @@ class LLMPhi3Adapter:
     """
     Adapter para integração com o modelo Phi-3.
     """
+
     def __init__(self, config):
         self.config = config
 

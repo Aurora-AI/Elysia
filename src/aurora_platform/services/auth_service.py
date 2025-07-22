@@ -7,23 +7,26 @@ from src.aurora_platform.core.config import settings
 
 __all__ = [
     "verify_password",
-    "get_password_hash", 
+    "get_password_hash",
     "create_access_token",
     "create_refresh_token",
     "verify_token",
-    "authenticate_user"
+    "authenticate_user",
 ]
 
 # Configuração do contexto de criptografia
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verifica se a senha em texto plano corresponde ao hash."""
     return pwd_context.verify(plain_password, hashed_password)
 
+
 def get_password_hash(password: str) -> str:
     """Gera o hash de uma senha."""
     return pwd_context.hash(password)
+
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Cria um token de acesso JWT."""
@@ -31,41 +34,55 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    
+        expire = datetime.utcnow() + timedelta(
+            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+        )
+
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY.get_secret_value(), algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.SECRET_KEY.get_secret_value(), algorithm=settings.ALGORITHM
+    )
     return encoded_jwt
+
 
 def create_refresh_token(data: dict) -> str:
     """Cria um refresh token JWT."""
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY.get_secret_value(), algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.SECRET_KEY.get_secret_value(), algorithm=settings.ALGORITHM
+    )
     return encoded_jwt
+
 
 def verify_token(token: str) -> Optional[dict]:
     """Verifica e decodifica um token JWT."""
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY.get_secret_value(), algorithms=[settings.ALGORITHM])
+        payload = jwt.decode(
+            token,
+            settings.SECRET_KEY.get_secret_value(),
+            algorithms=[settings.ALGORITHM],
+        )
         return payload
     except JWTError:
         return None
+
 
 # Usuários mockados para demonstração
 fake_users_db = {
     "admin": {
         "username": "admin",
         "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # "secret"
-        "email": "admin@aurora.com"
+        "email": "admin@aurora.com",
     },
     "user": {
-        "username": "user", 
+        "username": "user",
         "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # "secret"
-        "email": "user@aurora.com"
-    }
+        "email": "user@aurora.com",
+    },
 }
+
 
 def authenticate_user(username: str, password: str):
     """Autentica um usuário verificando suas credenciais."""

@@ -5,31 +5,39 @@ import chromadb
 from chromadb.config import Settings as ChromaSettings
 from typing import Dict, Any
 
+
 class VectorStore:
     def __init__(self, path: str = "./chroma_db"):
         # Initialize ChromaDB client
         # Persistent client stores data on disk in the specified path
         self.client = chromadb.PersistentClient(
             path=path,
-            settings=ChromaSettings(anonymized_telemetry=False) # Optional: disable telemetry
+            settings=ChromaSettings(
+                anonymized_telemetry=False
+            ),  # Optional: disable telemetry
         )
-        self.collection = None # To be set or created
+        self.collection = None  # To be set or created
 
     def get_or_create_collection(self, name: str = "aurora_collection"):
         try:
             self.collection = self.client.get_collection(name=name)
             print(f"Collection '{name}' retrieved.")
-        except: # chromadb.errors.CollectionNotFoundException - more specific error handling is better
+        except:  # chromadb.errors.CollectionNotFoundException - more specific error handling is better
             self.collection = self.client.create_collection(name=name)
             print(f"Collection '{name}' created.")
         return self.collection
 
-    def add_documents(self, documents: list[str], metadatas: list[Dict[str, Any]] | None = None, ids: list[str] | None = None):
+    def add_documents(
+        self,
+        documents: list[str],
+        metadatas: list[Dict[str, Any]] | None = None,
+        ids: list[str] | None = None,
+    ):
         if not self.collection:
             print("Collection not initialized. Call get_or_create_collection first.")
             return
         if not ids:
-            ids = [f"doc_{i}" for i in range(len(documents))] # Simple ID generation
+            ids = [f"doc_{i}" for i in range(len(documents))]  # Simple ID generation
         if metadatas is None:
             metadatas = [{} for _ in documents]
 
@@ -40,15 +48,13 @@ class VectorStore:
         if not self.collection:
             print("Collection not initialized. Call get_or_create_collection first.")
             return None
-        results = self.collection.query(
-            query_texts=query_texts,
-            n_results=n_results
-        )
+        results = self.collection.query(query_texts=query_texts, n_results=n_results)
         return results
+
 
 # Example usage (optional, for testing)
 if __name__ == "__main__":
-    vector_store = VectorStore(path="./test_chroma_db") # Use a test path
+    vector_store = VectorStore(path="./test_chroma_db")  # Use a test path
     collection = vector_store.get_or_create_collection("test_collection")
 
     if collection:
@@ -58,25 +64,22 @@ if __name__ == "__main__":
                 "Aurora is a platform for AI development.",
                 "It uses FastAPI for its API.",
                 "SQLModel is used for database interactions.",
-                "Large Language Models are a key component."
+                "Large Language Models are a key component.",
             ],
             metadatas=[
                 {"source": "doc1"},
                 {"source": "doc2"},
                 {"source": "doc3"},
-                {"source": "doc4"}
+                {"source": "doc4"},
             ],
-            ids=["id1", "id2", "id3", "id4"]
+            ids=["id1", "id2", "id3", "id4"],
         )
 
         # Query the collection
-        query_results = vector_store.query(
-            query_texts=["What is Aurora?"],
-            n_results=2
-        )
+        query_results = vector_store.query(query_texts=["What is Aurora?"], n_results=2)
         print("\nQuery Results:")
         if query_results:
-            documents = query_results.get('documents', [])
+            documents = query_results.get("documents", [])
             if documents:
                 for i, docs in enumerate(documents):
                     print(f"Query {i+1}:")
@@ -88,7 +91,8 @@ if __name__ == "__main__":
             vector_store.client.delete_collection("test_collection")
             print("\nTest collection deleted.")
             import shutil
-            shutil.rmtree("./test_chroma_db") # Remove the test directory
+
+            shutil.rmtree("./test_chroma_db")  # Remove the test directory
             print("Test ChromaDB directory removed.")
         except Exception as e:
             print(f"Error during cleanup: {e}")

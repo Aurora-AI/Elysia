@@ -4,10 +4,10 @@ from src.aurora_platform.core.config import settings
 
 def test_settings_exist():
     """Test that settings are loaded"""
-    assert hasattr(settings, 'DATABASE_URL')
-    assert hasattr(settings, 'SECRET_KEY')
-    assert hasattr(settings, 'ALGORITHM')
-    assert hasattr(settings, 'ACCESS_TOKEN_EXPIRE_MINUTES')
+    assert hasattr(settings, "DATABASE_URL")
+    assert hasattr(settings, "SECRET_KEY")
+    assert hasattr(settings, "ALGORITHM")
+    assert hasattr(settings, "ACCESS_TOKEN_EXPIRE_MINUTES")
 
 
 def test_default_values():
@@ -38,5 +38,3 @@ def test_allowed_origins():
 def test_optional_settings():
     """Test optional settings have defaults"""
     assert settings.REDIS_URL is None or isinstance(settings.REDIS_URL, str)
-    
-    

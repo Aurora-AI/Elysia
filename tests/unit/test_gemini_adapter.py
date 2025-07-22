@@ -2,6 +2,7 @@ import pytest
 from pydantic import SecretStr as V2SecretStr
 from aurora_platform.services.llm_adapters import GeminiAdapter
 
+
 def test_gemini_adapter_key_types():
     # Teste com SecretStr v2
     adapter1 = GeminiAdapter(api_key=V2SecretStr("key1"))
