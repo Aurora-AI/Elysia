@@ -1,7 +1,6 @@
 # src/aurora_platform/main.py
 
 from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from src.aurora_platform.api.v1.endpoints import (
     auth_router,
@@ -13,11 +12,13 @@ from src.aurora_platform.api.v1.endpoints import (
 )
 from src.aurora_platform.api.routers import etp_router
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
-import os
 from src.aurora_platform.core.rate_limiter import init_rate_limiter
 from src.aurora_platform.core.error_tracking import init_error_tracking
 from src.aurora_platform.api.health_router import router as health_router
 from src.aurora_platform.api.debug_router import router as debug_router
+from src.aurora_platform.middleware.rate_limiter import RateLimiterMiddleware
+from fastapi.middleware.cors import CORSMiddleware
+import os
 
 
 @asynccontextmanager
@@ -43,14 +44,21 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Adiciona o middleware CORS
+# CORS dinâmico
+if os.getenv("ENVIRONMENT", "development") == "production":
+    allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+else:
+    allowed_origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("ALLOWED_ORIGINS", "*").split(","),
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Rate Limiting Middleware
+app.add_middleware(RateLimiterMiddleware)
 
 # Inicializa rate limiter e error tracking
 init_rate_limiter(app)

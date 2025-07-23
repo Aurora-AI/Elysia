@@ -1,14 +1,18 @@
-name: CI
+name: Agent Packager
 
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'src/agents/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'src/agents/**'
   workflow_dispatch:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,18 +28,12 @@ jobs:
           pip install poetry
           poetry install
           
-      - name: Lint with flake8
+      - name: Package agents
         run: |
-          poetry run flake8 src tests
+          poetry run python scripts/package_agents.py
           
-      - name: Type check with mypy
-        run: |
-          poetry run mypy src
-          
-      - name: Test with pytest
-        run: |
-          poetry run pytest tests/
-          
-      - name: Build documentation
-        run: |
-          poetry run mkdocs build
+      - name: Upload agent packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: agent-packages
+          path: dist/agents/
