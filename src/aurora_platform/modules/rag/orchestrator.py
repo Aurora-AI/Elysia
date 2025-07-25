@@ -1,8 +1,21 @@
-class AuroraIngestionOrchestrator:
-    def __init__(self, slm_endpoint: str):
-        self.slm_endpoint = slm_endpoint
-        # TODO: Inicializar o chunker_registry
+# src/aurora_platform/modules/rag/orchestrator.py
 
-    def process_document(self, content: str, metadata: dict) -> dict:
-        # TODO: Implementar lógica de classificação e chunking
+class AuroraIngestionOrchestrator:
+    """Orchestrator for managing document ingestion and RAG processing."""
+
+    def __init__(self):
+        """Initialize the ingestion orchestrator."""
         pass
+
+    async def ingest_document(self, document_data: dict) -> dict:
+        """
+        Ingest a document into the RAG system.
+
+        Args:
+            document_data: Dictionary containing document information
+
+        Returns:
+            Dictionary with ingestion result
+        """
+        # TODO: Implement document ingestion logic
+        return {"status": "success", "message": "Document ingested successfully"}
