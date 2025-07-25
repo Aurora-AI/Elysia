@@ -1,6 +1,5 @@
 # src/aurora_platform/modules/rag/orchestrator.py
 
-
 class AuroraIngestionOrchestrator:
     """Orchestrator for managing document ingestion and RAG processing."""
 

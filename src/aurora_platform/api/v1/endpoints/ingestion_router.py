@@ -1,10 +1,8 @@
 # src/aurora_platform/api/v1/endpoints/ingestion_router.py
 
 from typing import Any, Dict, Optional
-
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
-
 from aurora_platform.modules.rag.orchestrator import AuroraIngestionOrchestrator
 
 router = APIRouter(prefix="/ingest", tags=["ingestion"])
@@ -12,13 +10,12 @@ router = APIRouter(prefix="/ingest", tags=["ingestion"])
 
 class IngestRequest(BaseModel):
     """Schema for document ingestion requests."""
-
     content: str
     document_type: Optional[str] = "text"
     metadata: Optional[Dict[str, Any]] = None
 
 
-@router.post("/")
+@router.post("/", status_code=status.HTTP_202_ACCEPTED)
 async def ingest_document(request: IngestRequest):
     """
     Ingest a document into the RAG system.
