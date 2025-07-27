@@ -64,7 +64,7 @@ from src.aurora_platform.services.auth_service import verify_token
 
 # test_security.py
 from src.aurora_platform.services.auth_service import (
-    verify_password, get_password_hash, create_access_token, 
+    verify_password, get_password_hash, create_access_token,
     create_refresh_token, authenticate_user
 )
 ```

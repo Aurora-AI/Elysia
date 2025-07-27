@@ -40,11 +40,11 @@ data = await scrape_url("https://example.com")
 ## 🔄 Fluxo de Execução
 
 1. **Inicialização**: `app.crawl_url()` retorna `job_id`
-2. **Polling Loop**: 
+2. **Polling Loop**:
    - Chama `app.check_crawl_status(job_id)`
    - Verifica status retornado
    - Aguarda 10 segundos se ainda processando
-3. **Finalização**: 
+3. **Finalização**:
    - Status 'completed' → Extrai dados e salva arquivos
    - Status 'failed' → Levanta exceção com erro
 

@@ -21,7 +21,7 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!input.trim()) {
       setError('Por favor, digite uma mensagem');
       return;
@@ -33,7 +33,7 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      
+
       const result = await axios.post<ApiResponse>(
         `${apiUrl}/mentor/sales/prepare-meeting`,
         {
@@ -54,12 +54,12 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
       } else {
         setResponse('Resposta recebida com sucesso!');
       }
-      
+
       setInput(''); // Limpa o input após sucesso
-      
+
     } catch (err: any) {
       console.error('Erro na requisição:', err);
-      
+
       if (err.response?.status === 401) {
         setError('Erro de autenticação. Verifique suas credenciais.');
       } else if (err.response?.status === 500) {
@@ -83,7 +83,7 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
         <p className="chat-subtitle">
           Digite o nome do cliente para obter insights de vendas personalizados
         </p>
-        
+
         <form onSubmit={handleSubmit} className="chat-form">
           <div className="input-group">
             <input
@@ -261,19 +261,19 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
           .chat-mentor {
             padding: 16px;
           }
-          
+
           .chat-container {
             padding: 24px;
           }
-          
+
           .input-group {
             flex-direction: column;
           }
-          
+
           .chat-input {
             min-width: auto;
           }
-          
+
           .chat-title {
             font-size: 1.5rem;
           }

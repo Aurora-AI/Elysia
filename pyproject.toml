@@ -85,4 +85,3 @@ build-backend = "poetry.core.masonry.api"
 [tool.deptry]
 known_first_party = ["src", "aurora_platform"]
 ignore_obsolete = ["uvicorn"]
-

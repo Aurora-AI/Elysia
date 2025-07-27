@@ -15,14 +15,14 @@ graph TD
     C --> D[Document Processor]
     C --> E[RAG Engine]
     C --> F[Template Engine]
-    
+
     D --> G[ChromaDB]
     E --> G
     E --> H[VertexAI Gemini-2.5-Pro]
     F --> I[Jinja2 Templates]
-    
+
     C --> J[PostgreSQL]
-    
+
     subgraph "Aurora-Core Base"
         B
         G
