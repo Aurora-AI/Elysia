@@ -9,6 +9,7 @@ from src.aurora_platform.api.v1.endpoints import (
     profiling_router,
     converse_router,
     browser_router,
+    ingestion_router,
 )
 from src.aurora_platform.api.routers import etp_router
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
@@ -79,6 +80,7 @@ app.include_router(
 
 app.include_router(etp_router.router, prefix="/v1", tags=["ETP Generator"])
 app.include_router(browser_router.router, prefix="/v1", tags=["Browser Engine"])
+app.include_router(ingestion_router.router, prefix="/api/v1", tags=["Ingestion"])
 
 
 @app.get("/", tags=["Root"])
