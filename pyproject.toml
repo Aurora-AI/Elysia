@@ -49,6 +49,7 @@ black = "^24.4.2"
 locust = "^2.28.0"
 safety = "^3.6.0"
 pip-audit = "^2.9.0"
+flake8 = "^7.0.0"
 
 [[tool.poetry.source]]
 name = "pytorch_cpu"
@@ -72,6 +73,14 @@ pythonpath = [
     "src"
 ]
 testpaths = ["tests/unit", "tests/integration"]
+[[tool.poetry.source]]
+name = "pytorch_cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.deptry]
 known_first_party = ["src", "aurora_platform"]
