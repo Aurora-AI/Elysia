@@ -13,8 +13,7 @@ services:
       retries: 5
 
   chromadb:
-    build:
-      context: ./chromadb # <-- Aponta para a pasta com o Dockerfile do ChromaDB
+    image: chromadb/chroma:0.4.15
     container_name: chromadb
     ports:
       - "8000:8000"
@@ -28,8 +27,7 @@ services:
       start_period: 60s
 
   aurora-core:
-    build:
-      context: . # <-- Aponta para a raiz, usando o Dockerfile principal
+    build: .
     container_name: aurora-core
     ports:
       - "8080:8080"
