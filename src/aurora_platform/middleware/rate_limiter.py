@@ -33,10 +33,10 @@ class RateLimiterMiddleware(BaseHTTPMiddleware):
         now = int(time.time())
         window_key = f"rate:{identifier}:{now // WINDOW}"
         try:
-            current = await redis_client.incr(window_key)
+            current = redis_client.incr(window_key)
             current = int(current)
             if current == 1:
-                await redis_client.expire(window_key, WINDOW)
+                redis_client.expire(window_key, WINDOW)
             if current > RATE_LIMIT:
                 return JSONResponse(
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
