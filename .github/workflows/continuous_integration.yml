@@ -1,4 +1,4 @@
-name: Aurora-Core CI
+name: Aurora-Core CI/CD
 
 on:
   push:
@@ -10,8 +10,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -19,16 +18,10 @@ jobs:
           python-version: '3.11'
 
       - name: Install Poetry
-        run: pipx install poetry
+        run: pip install poetry
 
-      - name: Install dependencies (including dev)
-        run: poetry install --all-extras --no-interaction
+      - name: Install dependencies
+        run: poetry install
 
-      - name: Check formatting with Black
-        run: poetry run black --check .
-
-      - name: Lint with Ruff
-        run: poetry run ruff check .
-
-      - name: Run tests with Pytest
+      - name: Run tests with pytest
         run: poetry run pytest

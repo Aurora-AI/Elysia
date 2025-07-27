@@ -68,7 +68,7 @@ class YoutubeTranscriptExtractionService:
             transcript_txt_path = os.path.join(
                 self.workspace_dir, f"transcript_{video_id}.txt"
             )
-            srt_path = os.path.join(self.workspace_dir, f"{video_id}.pt.srt")
+
 
             try:
                 cmd = [

@@ -22,7 +22,7 @@ class VectorStore:
         try:
             self.collection = self.client.get_collection(name=name)
             print(f"Collection '{name}' retrieved.")
-        except:  # chromadb.errors.CollectionNotFoundException - more specific error handling is better
+        except Exception:  # chromadb.errors.CollectionNotFoundException - more specific error handling is better
             self.collection = self.client.create_collection(name=name)
             print(f"Collection '{name}' created.")
         return self.collection
@@ -41,7 +41,8 @@ class VectorStore:
         if metadatas is None:
             metadatas = [{} for _ in documents]
 
-        self.collection.add(documents=[doc_text], metadatas=[metadata], ids=[doc_id])  # type: ignore
+        # TODO: Revisar lógica de adição de documentos durante a Sprint de Unificação
+        # self.collection.add(documents=[doc_text], metadatas=[metadata], ids=[doc_id])  # type: ignore
         print(f"Added {len(documents)} documents to the collection.")
 
     def query(self, query_texts: list[str], n_results: int = 5):

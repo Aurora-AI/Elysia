@@ -36,14 +36,7 @@ def prepare_for_meeting(client_name: str) -> str:
             api_key=settings.azure_openai_api_key.get_secret_value(),
         )
 
-        # 2. Formata a mensagem para o padrão da API OpenAI
-        messages = [
-            {"role": "system", "content": SYSTEM_PROMPT_TEMPLATE},
-            {
-                "role": "user",
-                "content": f"Como posso me preparar para a reunião com o cliente '{client_name}' amanhã?",
-            },
-        ]
+
 
         logger.info(
             f"Enviando prompt para o deployment '{settings.azure_openai_deployment_name}' no Azure..."

@@ -2,7 +2,7 @@
 Geração automatizada de ETP (Estudo Técnico Preliminar) usando integração real com RAG e LLMs corporativos.
 """
 
-from typing import Optional
+
 
 from src.aurora_platform.services.etp_generator_service import (
     ETPGeneratorService,
