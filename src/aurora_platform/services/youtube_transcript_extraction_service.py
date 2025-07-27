@@ -19,7 +19,7 @@ class YoutubeTranscriptExtractionService:
         self.fallback_report = []
         # Compatibilidade com testes: caminhos esperados
         self.video_urls_file = os.path.join(self.workspace_dir, "video_urls.txt")
-        self.fallback_report_file = os.path.join(self.workspace_dir, "fallback_report.txt")
+        self.fallback_report_file = os.path.join(self.workspace_dir, "fallback_report.json")
 
     def discover_video_urls(self, channel_url: str) -> List[str]:
         """Usa yt-dlp para listar todas as URLs dos vídeos do canal."""
