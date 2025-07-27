@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  aurora-core:
+    build:
+      context: .
+      target: builder  # Mantém ferramentas de build
+    volumes:
+      - .:/app
+      # Hot-reload para desenvolvimento
+    environment:
+      PYTHONPATH: "/app/src"

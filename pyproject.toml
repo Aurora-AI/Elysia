@@ -1,3 +1,18 @@
+# Fonte PyTorch CPU
+[[tool.poetry.source]]
+name = "pytorch_cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+ [tool.pytest.ini_options]
+markers = [
+    "unit: marca testes como unitários (não requer serviços externos)",
+    "integration: marca testes como de integração (requer Docker)",
+]
+pythonpath = [
+    "src"
+]
+testpaths = ["tests/unit", "tests/integration"]
 [tool.poetry]
 name = "aurora-core"
 version = "1.0.0"
@@ -24,7 +39,9 @@ pyyaml = "^6.0.1"
 playwright = "^1.44.0"
 cryptography = "^44.0.1"
 transformers = "^4.41.2"
-torch = "^2.3.1"
+torch = { version = "*", source = "pytorch_cpu" }
+torchvision = { version = "*", source = "pytorch_cpu" }
+torchaudio = { version = "*", source = "pytorch_cpu" }
 pydantic = "^2.0.0"
 pydantic-settings = "^2.10.1"
 pyotp = "^2.9.0"
@@ -36,7 +53,12 @@ async-lru = "^2.0.5"
 httpx = "^0.28.1"
 starlette = "^0.40.0"
 python-multipart = "^0.0.18"
+[tool.poetry.dependencies]
+python = "^3.11"
+# ... outras dependências ...
 beautifulsoup4 = "^4.13.4"
+pybreaker = "^1.4.0"
+# ... demais dependências ...
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
@@ -55,9 +77,6 @@ line-length = 88
 select = ["E", "F", "W", "I"]
 ignore = ["E501"]
 
-[tool.pytest.ini_options]
-pythonpath = ["src"]
-testpaths = ["tests/unit", "tests/integration"]
 
 [build-system]
 requires = ["poetry-core"]

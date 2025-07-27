@@ -1,0 +1,8 @@
+Backup dos arquivos de automação removidos em 22/07/2025:
+- .github/workflows/agent-packager.yml
+- .github/workflows/aurora-agent-packager.yml
+- .github/workflows/ci.yml
+- .github/workflows/update-knowledge-base.yml
+- scripts/*
+- knowledge-base/*
+Motivo: Limpeza total e reprojeto incremental do pipeline Aurora-Core.

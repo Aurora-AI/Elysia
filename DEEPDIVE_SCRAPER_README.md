@@ -20,7 +20,8 @@ Serviço refatorado para implementar corretamente o fluxo assíncrono do Firecra
 
 ### Crawling Assíncrono
 ```python
-from src.aurora_platform.services.deep_dive_scraper_service import crawl_and_save
+# TODO: Reativar/substituir na integração do Crawler.
+# from src.aurora_platform.services.deep_dive_scraper_service import crawl_and_save
 
 # Crawling completo de um site
 result = crawl_and_save("https://example.com", "data/crawled")
@@ -29,7 +30,8 @@ print(result)  # "Crawling concluído. X arquivos salvos em data/crawled"
 
 ### Scraping Simples (Página Única)
 ```python
-from src.aurora_platform.services.deep_dive_scraper_service import scrape_url
+# TODO: Reativar/substituir na integração do Crawler.
+# from src.aurora_platform.services.deep_dive_scraper_service import scrape_url
 
 # Scraping de uma página específica
 data = await scrape_url("https://example.com")
