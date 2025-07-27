@@ -1,20 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 
 # --- MUDANÇA: O schema de consulta agora precisa do model_provider ---
-from src.aurora_platform.schemas.knowledge_schemas import (
+from aurora_platform.schemas.knowledge_schemas import (
     KnowledgeQuery,
     KnowledgeQueryWithProvider,
     SearchResult,
 )
-from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
-
-# TODO: Reativar/substituir na integração do Crawler.
-# from src.aurora_platform.services.deep_dive_scraper_service import (
-# TODO: Reativar/substituir na integração do Crawler.
-#     DeepDiveScraperService,
-# TODO: Reativar/substituir na integração do Crawler.
-# )
-from src.aurora_platform.services.rag_service import answer_query
+from aurora_platform.services.knowledge_service import KnowledgeBaseService
+from aurora_platform.services.rag_service import answer_query
 
 router = APIRouter(prefix="/knowledge", tags=["Knowledge"])
 
