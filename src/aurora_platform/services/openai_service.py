@@ -6,7 +6,7 @@ from tenacity import (
     stop_after_attempt,
     retry_if_exception_type,
 )
-from typing import AsyncGenerator, List, Dict, Any
+from typing import AsyncGenerator
 
 
 class OpenAIService:
@@ -37,7 +37,10 @@ class OpenAIService:
     async def _call_llm_with_retry(
         self, user_question: str, system_prompt: str
     ) -> AsyncGenerator[str, None]:
-
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_question},
+        ]
         llm_call_timeout = float(os.getenv("AZURE_OPENAI_CALL_TIMEOUT", "45.0"))
 
         response_iterator = await self.client.chat.completions.create(

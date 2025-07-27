@@ -17,7 +17,7 @@ sys.path.append(str(PROJECT_ROOT))
 # --- FIM DA CORREÇÃO ---
 
 # Agora que o caminho está correto, podemos importar nossos módulos
-from src.aurora_platform.core.config import settings
+from src.aurora_platform.core.config import settings  # noqa: E402
 
 # Importe aqui todos os seus modelos para que o Alembic os reconheça.
 # Isso garante que eles sejam registrados no metadata do SQLModel.

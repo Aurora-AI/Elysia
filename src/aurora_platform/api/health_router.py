@@ -1,5 +1,5 @@
 
-from fastapi import APIRouter, Depends, BackgroundTasks, status
+from fastapi import APIRouter, Depends, BackgroundTasks
 from aurora_platform.dependencies import get_kb_service
 from aurora_platform.services.knowledge_service import KnowledgeBaseService
 

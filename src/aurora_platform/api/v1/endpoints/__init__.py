@@ -1,3 +1,5 @@
+__all__ = ["auth_router", "two_factor_router", "knowledge_router", "profiling_router"]
+
 from .auth_router import router as auth_router
 from .two_factor_router import router as two_factor_router
 from .knowledge_router import router as knowledge_router

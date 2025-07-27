@@ -2,14 +2,14 @@
 Geração automatizada de ETP (Estudo Técnico Preliminar) usando integração real com RAG e LLMs corporativos.
 """
 
-
+from typing import Optional
+import asyncio
 
 from src.aurora_platform.services.etp_generator_service import (
     ETPGeneratorService,
     ETPRequest,
 )
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
-import asyncio
 
 
 def gerar_etp_real(
@@ -37,8 +37,6 @@ def gerar_etp_real(
 
 
 # Exemplo de uso real
-
-from typing import Optional
 
 
 def exemplo_execucao(
