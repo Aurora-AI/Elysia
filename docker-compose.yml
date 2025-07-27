@@ -13,7 +13,8 @@ services:
       retries: 5
 
   chromadb:
-    image: chromadb/chroma:0.4.15 # Fixado para versão estável e compatível
+    build:
+      context: ./chromadb # <-- Aponta para a pasta com o Dockerfile do ChromaDB
     container_name: chromadb
     ports:
       - "8000:8000"
@@ -21,15 +22,14 @@ services:
       - chroma_data:/chroma/chroma
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
-      interval: 30s
-      timeout: 10s
-      retries: 10
-      start_period: 120s
-    # A CORREÇÃO CRÍTICA: Força a instalação do NumPy compatível antes de iniciar
-    command: sh -c "pip install --force-reinstall 'numpy<2.0' && uvicorn chromadb.app:app --host 0.0.0.0 --port 8000"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
 
   aurora-core:
-    build: .
+    build:
+      context: . # <-- Aponta para a raiz, usando o Dockerfile principal
     container_name: aurora-core
     ports:
       - "8080:8080"

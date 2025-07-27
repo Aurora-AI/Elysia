@@ -22,10 +22,12 @@ jobs:
       - name: Install Poetry
         run: pip install poetry
 
-      - name: Install dependencies
+      - name: Install dependencies (including dev)
+        # A flag --all-extras garante a instalação das dependências de [project.optional-dependencies]
         run: poetry install --all-extras
 
       - name: Run linting with Ruff
+        # Este é o comando correto, usando a ferramenta que já padronizamos
         run: poetry run ruff check .
 
       - name: Run tests with pytest
