@@ -6,7 +6,6 @@ authors = ["Aurora P&D <dev@auroracrm.com.br>"]
 readme = "README.md"
 packages = [{include = "aurora_platform", from = "src"}]
 
-
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.116.1"
@@ -16,9 +15,9 @@ alembic = "^1.13.1"
 psycopg2-binary = "^2.9.9"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-langchain-openai = "^0.1.0"  # mantendo a versão
-langchain-google-vertexai = "^0.0.3"  # compatível com langchain 0.1.x e pydantic v1
-langchain-core = "^0.1.7"  # compatível com langchain-google-vertexai 0.0.3
+langchain-openai = "^0.1.0"
+langchain-google-vertexai = "^0.0.3"
+langchain-core = "^0.1.7"
 chromadb = "^0.5.20"
 sentence-transformers = "^3.1.0"
 pyyaml = "^6.0.1"
@@ -51,6 +50,11 @@ locust = "^2.28.0"
 safety = "^3.6.0"
 pip-audit = "^2.9.0"
 
+[[tool.poetry.source]]
+name = "pytorch_cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
 [tool.black]
 line-length = 88
 
@@ -69,16 +73,10 @@ pythonpath = [
 ]
 testpaths = ["tests/unit", "tests/integration"]
 
-# Fonte PyTorch CPU
-[[tool.poetry.source]]
-name = "pytorch_cpu"
-url = "https://download.pytorch.org/whl/cpu"
-priority = "explicit"
+[tool.deptry]
+known_first_party = ["src", "aurora_platform"]
+ignore_obsolete = ["uvicorn"]
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.deptry]
-known_first_party = ["src", "aurora_platform"]
-ignore_obsolete = ["uvicorn"]
