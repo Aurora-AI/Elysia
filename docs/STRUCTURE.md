@@ -22,7 +22,8 @@ aurora-core/
 │       ├── models/
 │       ├── schemas/
 │       ├── services/
-│       │   └── browser_automation/
+# TODO: Reativar/substituir na integração do Crawler.
+# │       │   └── browser_automation/
 │       └── db/
 │           └── migrations/
 │

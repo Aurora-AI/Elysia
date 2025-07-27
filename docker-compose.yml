@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   redis:
     image: redis:latest
@@ -6,14 +8,28 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    # Healthcheck para garantir que o Redis esteja pronto
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   chromadb:
-    image: chromadb/chroma:0.5.20
+    build:
+      context: ./chromadb
     container_name: chromadb
     ports:
       - "8000:8000"
     volumes:
       - chroma_data:/chroma/chroma
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; exit(0) if urllib.request.urlopen('http://localhost:8000/api/v1/heartbeat').status==200 else exit(1)"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    command: sh -c "uvicorn chromadb.app:app --host 0.0.0.0 --port 8000"
 
   aurora-core:
     build: .
@@ -22,17 +38,12 @@ services:
       - "8080:8080"
     env_file:
       - .env
+    # Orquestração de dependência baseada na saúde dos serviços
     depends_on:
-      - redis
-      - chromadb
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-    # volumes:
-    #   - .:/app
+      redis:
+        condition: service_healthy # Aguarda o Redis ficar saudável
+      chromadb:
+        condition: service_healthy # Aguarda o ChromaDB ficar saudável
 
 volumes:
   redis_data:

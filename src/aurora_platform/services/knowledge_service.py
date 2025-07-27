@@ -1,86 +1,61 @@
-import logging
-import re
-import numpy as np
-from tenacity import (
-    retry,
-    stop_after_attempt,
-    wait_exponential,
-    retry_if_exception_type,
-)
-from sentence_transformers import SentenceTransformer
 import chromadb
-from chromadb.utils import embedding_functions
-from typing import List, Dict, Any, Optional
+from chromadb.config import Settings
+from chromadb.api.client import Client
+from chromadb.api import ClientAPI
+from tenacity import retry, stop_after_attempt, wait_fixed, wait_exponential
+from pybreaker import CircuitBreaker, CircuitBreakerError
+import logging
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("KnowledgeService")
-
+logger = logging.getLogger(__name__)
 
 class KnowledgeBaseService:
-    def __init__(
-        self,
-        host: str = "localhost",
-        port: int = 8000,
-        collection_name: str = "aurora_docs",
-        main_model_name: str = "all-MiniLM-L6-v2",
-    ):
-        # Ajuste a porta se o servidor ChromaDB estiver rodando em outra porta
-        self.client = chromadb.HttpClient(host=host, port=port)
-        self.embedding_function = embedding_functions.DefaultEmbeddingFunction()
-        self.collection = self.client.get_or_create_collection(name=collection_name)
-        logger.info(f"KnowledgeService conectado ao servidor Chroma em {host}:{port}.")
+    def __init__(self, host: str = "chromadb", port: int = 8000):
+        self.host = host
+        self.port = port
+        self.client: ClientAPI = self._connect_with_retry()
 
-    def add_document(
-        self, document_id: str, text: str, metadata: Optional[Dict[str, Any]] = None
-    ):
-        if metadata is None:
-            metadata = {}
-        self.collection.add(documents=[text], metadatas=[metadata], ids=[document_id])
-        logger.info(f"Documento '{document_id}' ingerido/atualizado com sucesso.")
+    @retry(stop=stop_after_attempt(5), wait=wait_fixed(3))
+    def _connect_with_retry(self) -> ClientAPI:
+        try:
+            logger.info(f"Tentando conectar ao ChromaDB em {self.host}:{self.port}...")
+            client = chromadb.HttpClient(host=self.host, port=self.port, settings=Settings(anonymized_telemetry=False))
+            client.heartbeat()
+            logger.info("Conexão com ChromaDB estabelecida com sucesso.")
+            return client
+        except Exception as e:
+            logger.warning(f"Falha ao conectar ao ChromaDB na inicialização. Tentando novamente... Erro: {e}")
+            raise
 
-    def retrieve(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
-        results = self.collection.query(query_texts=[query], n_results=top_k)
-        formatted = []
-        if (
-            results
-            and results.get("ids")
-            and results.get("ids")
-            and len(results["ids"]) > 0
-        ):
-            ids = (
-                results["ids"][0]
-                if results.get("ids") and results["ids"] and len(results["ids"]) > 0
-                else []
-            )
-            distances = (
-                results["distances"][0]
-                if results.get("distances")
-                and results["distances"]
-                and len(results["distances"]) > 0
-                else []
-            )
-            documents = (
-                results["documents"][0]
-                if results.get("documents")
-                and results["documents"]
-                and len(results["documents"]) > 0
-                else []
-            )
-            metadatas = (
-                results["metadatas"][0]
-                if results.get("metadatas")
-                and results["metadatas"]
-                and len(results["metadatas"]) > 0
-                else []
-            )
+    async def verify_connection_health(self):
+        try:
+            logger.info("Verificando saúde da conexão com ChromaDB em background...")
+            self.client.heartbeat()
+            logger.info("Conexão com ChromaDB está saudável.")
+        except Exception:
+            logger.error("Conexão com ChromaDB falhou na verificação de saúde. Tentando reconectar...")
+            try:
+                self.client = self._connect_with_retry()
+                logger.info("Reconexão com ChromaDB bem-sucedida.")
+            except Exception as recon_e:
+                logger.critical(f"Falha crítica ao tentar reconectar com ChromaDB: {recon_e}")
 
-            for i in range(len(ids)):
-                formatted.append(
-                    {
-                        "id": ids[i],
-                        "distance": distances[i] if i < len(distances) else None,
-                        "text": documents[i] if i < len(documents) else None,
-                        "metadata": metadatas[i] if i < len(metadatas) else None,
-                    }
-                )
-        return formatted
+    def get_or_create_collection(self, name: str):
+        return self.client.get_or_create_collection(name=name)
+
+    circuit_breaker = CircuitBreaker(fail_max=3, reset_timeout=30)
+
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, max=10))
+    def query(self, collection_name: str, query_texts: list[str], n_results: int = 5):
+        try:
+            def do_query():
+                collection = self.get_or_create_collection(name=collection_name)
+                return collection.query(query_texts=query_texts, n_results=n_results)
+            return self.circuit_breaker.call(do_query)
+        except CircuitBreakerError:
+            logger.error("CIRCUITO ABERTO! Ativando modo degradado.")
+            # Aqui você pode implementar lógica de fallback, se necessário
+            raise
+        except Exception as e:
+            logger.error(f"Erro na operação de query: {e}")
+            raise
+
