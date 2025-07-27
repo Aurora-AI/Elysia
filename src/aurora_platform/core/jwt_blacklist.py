@@ -1,5 +1,4 @@
 import redis
-from typing import Optional
 from .config import settings
 from datetime import datetime, timezone
 

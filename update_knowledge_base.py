@@ -56,10 +56,10 @@ def document_technology(name, version, description, commands, links):
         content = content.replace("- **Descrição:**", f"- **Descrição:** {description}")
         content = content.replace(
             "- **Principais comandos:**",
-            f"- **Principais comandos:**\n  - " + "\n  - ".join(commands),
+            "- **Principais comandos:**\n  - " + "\n  - ".join(commands),
         )
         content = content.replace(
-            "- **Links úteis:**", f"- **Links úteis:**\n  - " + "\n  - ".join(links)
+            "- **Links úteis:**", "- **Links úteis:**\n  - " + "\n  - ".join(links)
         )
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)

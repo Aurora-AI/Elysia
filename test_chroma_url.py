@@ -2,7 +2,6 @@
 """Teste específico com a URL do Chroma que estava falhando."""
 
 import requests
-import json
 
 
 def test_chroma_ingest():

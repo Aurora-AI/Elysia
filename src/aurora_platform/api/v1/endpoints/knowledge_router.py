@@ -5,7 +5,6 @@ from src.aurora_platform.schemas.knowledge_schemas import (
     KnowledgeQuery,
     KnowledgeQueryWithProvider,
     SearchResult,
-    IngestURLRequest,
 )
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 

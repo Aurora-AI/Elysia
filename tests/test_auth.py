@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 from src.aurora_platform.main import app
 

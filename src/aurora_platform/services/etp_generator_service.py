@@ -5,7 +5,6 @@ from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 from src.aurora_platform.services.llm_adapters import VertexAIAdapter
 from datetime import datetime
 import uuid
-import json
 
 
 class ETPGeneratorService:

@@ -1,4 +1,3 @@
-import pytest
 from src.aurora_platform.services.auth_service import (
     verify_password,
     get_password_hash,

@@ -1,4 +1,3 @@
-import pytest
 from src.aurora_platform.core.config import settings
 
 

@@ -25,5 +25,5 @@ try:
     )
 
 except Exception as e:
-    print(f"❌ ERRO: Ocorreu uma falha durante a atualização ou teste do driver.")
+    print("❌ ERRO: Ocorreu uma falha durante a atualização ou teste do driver.")
     print(f"   -> Detalhes do erro: {e}")

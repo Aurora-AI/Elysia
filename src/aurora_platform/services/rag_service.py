@@ -1,6 +1,5 @@
 # src/aurora_platform/services/rag_service.py
 
-from langchain_core.prompts import ChatPromptTemplate
 from .knowledge_service import KnowledgeBaseService
 
 # --- MUDANÇA CRÍTICA: Importa a interface e a fábrica ---

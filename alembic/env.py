@@ -21,7 +21,6 @@ from src.aurora_platform.core.config import settings
 
 # Importe aqui todos os seus modelos para que o Alembic os reconheça.
 # Isso garante que eles sejam registrados no metadata do SQLModel.
-from src.aurora_platform.db.models import user_model
 
 # Esta é a configuração do Alembic que lê o alembic.ini
 config = context.config

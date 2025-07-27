@@ -122,7 +122,7 @@ def ingest_to_api(content_list):
 
             if response.status_code in [200, 202]:
                 success_count += 1
-                print(f"[OK] Ingerido com sucesso")
+                print("[OK] Ingerido com sucesso")
             else:
                 print(f"[ERRO] Status {response.status_code}")
 
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     with open("scraped_redelog.json", "w", encoding="utf-8") as f:
         json.dump(content, f, ensure_ascii=False, indent=2)
 
-    print(f"\n[STATS] ESTATÍSTICAS:")
+    print("\n[STATS] ESTATÍSTICAS:")
     print(f"- Páginas processadas: {len(content)}")
     print(f"- Total de caracteres: {sum(item['length'] for item in content)}")
 

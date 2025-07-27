@@ -1,6 +1,5 @@
 import chromadb
 from chromadb.config import Settings
-from chromadb.api.client import Client
 from chromadb.api import ClientAPI
 from tenacity import retry, stop_after_attempt, wait_fixed, wait_exponential
 from pybreaker import CircuitBreaker, CircuitBreakerError

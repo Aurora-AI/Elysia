@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, status
 
 # TODO: Reativar/substituir na integração do Crawler.
 # from src.aurora_platform.services.agent_profiling_service import AgentProfilingService

@@ -1,10 +1,9 @@
 import time
 import os
 import redis
-from fastapi import Request, HTTPException, status
+from fastapi import Request, status
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
-from ..core.config import settings
 
 
 REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
@@ -42,7 +41,7 @@ class RateLimiterMiddleware(BaseHTTPMiddleware):
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                     content={"detail": "Rate limit exceeded"},
                 )
-        except Exception as e:
+        except Exception:
             # Em caso de erro no Redis, não bloqueia a requisição
             pass
         response = await call_next(request)

@@ -7,7 +7,6 @@ from langchain_openai import AzureChatOpenAI
 from langchain_core.messages import HumanMessage
 from pydantic import SecretStr as V2SecretStr
 from pydantic.v1.types import SecretStr as V1SecretStr
-from typing import Union
 
 
 # Mock para o DeepSeek Adapter, já que não temos a biblioteca específica

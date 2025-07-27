@@ -1,4 +1,3 @@
-import pytest
 
 # TODO: Reativar/substituir na integração do Crawler.
 # from src.aurora_platform.services.browser_automation.local_llm_service import (

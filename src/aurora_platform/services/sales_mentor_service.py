@@ -72,6 +72,6 @@ def prepare_for_meeting(client_name: str) -> str:
         return full_response
 
     except Exception as e:
-        logger.error(f"Erro ao contatar a API do Azure OpenAI.", exc_info=True)
+        logger.error("Erro ao contatar a API do Azure OpenAI.", exc_info=True)
         # Retorna uma mensagem de erro clara para a API
         return f"Erro ao contatar a API de IA: {e}"

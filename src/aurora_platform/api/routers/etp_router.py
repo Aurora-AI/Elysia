@@ -5,8 +5,6 @@ from src.aurora_platform.schemas.etp_schemas import ETPRequest, ETPResponse, ETP
 from src.aurora_platform.core.security import get_current_user
 from src.aurora_platform.services.etp_generator_service import ETPGeneratorService
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
-from datetime import datetime
-import uuid
 
 router = APIRouter()
 

@@ -20,7 +20,7 @@ try:
     print(f"Localização Padrão: {vertexai.preview.global_config.location}")
 
 except Exception as e:
-    print(f"\n❌ FALHA! Ocorreu um erro durante a inicialização do Vertex AI.")
+    print("\n❌ FALHA! Ocorreu um erro durante a inicialização do Vertex AI.")
     print(f"Erro: {e}")
 
 print("\n--- Teste de Autenticação Concluído ---")

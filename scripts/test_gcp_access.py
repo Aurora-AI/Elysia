@@ -24,7 +24,7 @@ try:
     )
 
 except Exception as e:
-    print(f"\n❌ FALHA! Ocorreu um erro.")
+    print("\n❌ FALHA! Ocorreu um erro.")
     print(f"\nDIAGNÓSTICO DO ERRO: {e}")
     print(
         "\nINSTRUÇÃO: O problema persiste na configuração do projeto/conta no Google Cloud. Contate o suporte do Google."

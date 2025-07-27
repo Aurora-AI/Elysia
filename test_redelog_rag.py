@@ -2,7 +2,6 @@
 """Teste do RAG com conteúdo da Rede Log RJ."""
 
 import requests
-import json
 
 
 def test_redelog_search():

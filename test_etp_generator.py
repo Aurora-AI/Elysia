@@ -2,7 +2,6 @@
 """Teste do Gerador de ETP."""
 
 import requests
-import json
 
 
 def test_etp_generation():

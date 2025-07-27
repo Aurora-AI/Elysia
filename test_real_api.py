@@ -2,7 +2,6 @@
 """Teste da API real com ingestão de URL."""
 
 import requests
-import json
 
 
 def test_ingest_api():
