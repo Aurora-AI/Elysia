@@ -38,6 +38,6 @@ async def health_check():
 
 # Inclui os roteadores do Core
 app.include_router(
-    knowledge_router.router, prefix="/api/v1/knowledge", tags=["Knowledge Base"]
+    knowledge_router, prefix="/api/v1/knowledge", tags=["Knowledge Base"]
 )
-app.include_router(auth_router.router, prefix="/api/v1/auth", tags=["Authentication"])
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])
