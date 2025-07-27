@@ -73,14 +73,6 @@ pythonpath = [
     "src"
 ]
 testpaths = ["tests/unit", "tests/integration"]
-[[tool.poetry.source]]
-name = "pytorch_cpu"
-url = "https://download.pytorch.org/whl/cpu"
-priority = "explicit"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.deptry]
 known_first_party = ["src", "aurora_platform"]
