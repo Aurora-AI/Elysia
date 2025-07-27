@@ -1,58 +1,52 @@
+# Dockerfile - Versão 1.1 (Production-Ready com Healthcheck)
 
 # --- Estágio 1: Builder ---
+# Usamos uma imagem Python completa que contém as ferramentas de build necessárias.
 FROM python:3.11-bookworm AS builder
 
-# Configurações críticas do Poetry para um ambiente de CI/CD
-ENV POETRY_VERSION=1.8.2 \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1
+# Configurações críticas do Poetry para um ambiente de CI/CD.
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=true
 
 WORKDIR /app
 
-# Instalação segura do Poetry
-RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
+# Instalação segura do Poetry.
+RUN pip install --no-cache-dir poetry
 
-# Instala as dependências de sistema obrigatórias para compilar pacotes como chroma-hnswlib
+# Instala as dependências de sistema obrigatórias para compilar pacotes como os do ChromaDB.
 RUN apt-get update && apt-get install -y build-essential curl && rm -rf /var/lib/apt/lists/*
 
-# Copia apenas os arquivos de dependência PRIMEIRO para otimizar o cache do Docker
+# Copia apenas os arquivos de dependência PRIMEIRO para otimizar o cache do Docker.
 COPY poetry.lock pyproject.toml ./
 
-# Instala APENAS as dependências, sem o projeto raiz, para evitar problemas de contexto
-RUN poetry install --no-root --no-ansi --only main
+# Instala APENAS as dependências, sem o projeto raiz, para evitar problemas de contexto.
+RUN poetry install --no-root --no-ansi
 
-# Copia código e instala a aplicação
-COPY . .
-RUN poetry install --no-ansi --only main
-
-# --- Estágio 2: Runtime ---
-FROM python:3.11-slim-bookworm AS runtime
+# --- Estágio 2: Final (Runtime) ---
+# Usamos a imagem slim para um resultado final leve e seguro.
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
-# Define o PYTHONPATH para que os imports absolutos da nossa aplicação funcionem
-ENV PYTHONPATH /app/src
+# Define o PYTHONPATH para que os imports absolutos da nossa aplicação (a partir de 'src') funcionem.
+ENV PYTHONPATH="/app/src"
 
-# Copia o ambiente virtual com as dependências já instaladas do estágio builder
+# Copia o ambiente virtual com as dependências já instaladas do estágio builder.
 COPY --from=builder /app/.venv ./.venv
-COPY --from=builder /app .
 
-# Adiciona o executável do ambiente virtual ao PATH do sistema
+# Adiciona o executável do ambiente virtual ao PATH do sistema.
+# Assim, comandos como 'uvicorn' e 'pytest' funcionam diretamente.
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Expõe a porta que a aplicação irá rodar
+# Copia todo o código-fonte da aplicação.
+COPY . .
+
+# Expõe a porta que a aplicação irá rodar.
 EXPOSE 8080
 
+# HEALTHCHECK: Instrui o Docker a verificar a saúde da aplicação a cada 30 segundos.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1
 
-# Configurações de ambiente
-ENV PATH="/app/.venv/bin:$PATH" \
-    PYTHONPATH=/app/src \
-    CHROMA_SERVER_HOST=chromadb \
-    REDIS_URL=redis://redis:6379/0
-
-# Health check para orquestração
-HEALTHCHECK --interval=30s --timeout=5s \
-  CMD curl --fail http://localhost:8000/health || exit 1
-
-EXPOSE 8000
-CMD ["uvicorn", "aurora_platform.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Define o comando padrão para iniciar a aplicação.
+CMD ["uvicorn", "src.aurora_platform.main:app", "--host", "0.0.0.0", "--port", "8080"]

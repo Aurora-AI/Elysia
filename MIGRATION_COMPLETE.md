@@ -2,13 +2,13 @@
 
 ## ✅ Ordem de Serviço Mestra (ÉPICO AUR-MIG-001) - FINALIZADA
 
-A unificação do Core da Aurora foi **CONCLUÍDA COM SUCESSO**! 
+A unificação do Core da Aurora foi **CONCLUÍDA COM SUCESSO**!
 
 ### 📋 Resumo da Migração
 
-**Status:** ✅ **COMPLETA**  
-**Data:** 02/07/2025  
-**Agente Responsável:** Amazon Q  
+**Status:** ✅ **COMPLETA**
+**Data:** 02/07/2025
+**Agente Responsável:** Amazon Q
 
 ### 🔄 O que foi realizado:
 
@@ -108,6 +108,6 @@ http://localhost:8000/docs
 
 ---
 
-**Migração executada por:** Amazon Q (AI Assistant)  
-**Metodologia:** Análise → Migração → Unificação → Validação → Limpeza  
+**Migração executada por:** Amazon Q (AI Assistant)
+**Metodologia:** Análise → Migração → Unificação → Validação → Limpeza
 **Status:** ✅ **SUCESSO TOTAL**

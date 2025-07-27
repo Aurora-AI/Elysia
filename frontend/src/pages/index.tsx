@@ -71,11 +71,11 @@ const HomePage: React.FC = () => {
           .main-title {
             font-size: 2.5rem;
           }
-          
+
           .main-subtitle {
             font-size: 1.1rem;
           }
-          
+
           .header {
             padding: 40px 20px 30px;
           }

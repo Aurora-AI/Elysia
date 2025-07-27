@@ -92,7 +92,7 @@ Se ao iniciar o Aurora ocorrer erro 500 do ChromaDB com `KeyError: '_type'`, sig
    curl http://localhost:8000/version
    ```
 
-2. **Garanta que cliente e servidor ChromaDB usam a mesma versão.**  
+2. **Garanta que cliente e servidor ChromaDB usam a mesma versão.**
    Recomenda-se usar `chromadb@0.5.20` ou superior (compatível com Pydantic V2):
 
    ```bash

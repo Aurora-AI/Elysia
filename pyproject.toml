@@ -51,6 +51,11 @@ safety = "^3.6.0"
 pip-audit = "^2.9.0"
 flake8 = "^7.0.0"
 
+[[tool.poetry.source]]
+name = "pytorch_cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
 [tool.black]
 line-length = 88
 
@@ -68,7 +73,6 @@ pythonpath = [
     "src"
 ]
 testpaths = ["tests/unit", "tests/integration"]
-
 [[tool.poetry.source]]
 name = "pytorch_cpu"
 url = "https://download.pytorch.org/whl/cpu"
@@ -82,3 +86,6 @@ build-backend = "poetry.core.masonry.api"
 known_first_party = ["src", "aurora_platform"]
 ignore_obsolete = ["uvicorn"]
 
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

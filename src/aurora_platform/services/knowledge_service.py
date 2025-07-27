@@ -58,4 +58,3 @@ class KnowledgeBaseService:
         except Exception as e:
             logger.error(f"Erro na operação de query: {e}")
             raise
-

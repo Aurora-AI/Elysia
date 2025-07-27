@@ -6,7 +6,7 @@ Sistema completo de autenticação baseado em tokens JWT (Access e Refresh Token
 
 ### 1. Serviço de Autenticação (`auth_service.py`)
 - `create_access_token()` - Gera tokens de acesso
-- `create_refresh_token()` - Gera refresh tokens  
+- `create_refresh_token()` - Gera refresh tokens
 - `verify_password()` - Verifica senhas
 - `get_password_hash()` - Gera hash de senhas
 - `verify_token()` - Valida tokens JWT
@@ -26,7 +26,7 @@ Sistema completo de autenticação baseado em tokens JWT (Access e Refresh Token
 Usuário: admin
 Senha: secret
 
-Usuário: user  
+Usuário: user
 Senha: secret
 ```
 
