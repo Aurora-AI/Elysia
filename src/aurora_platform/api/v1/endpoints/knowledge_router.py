@@ -8,6 +8,7 @@ from src.aurora_platform.schemas.knowledge_schemas import (
     IngestURLRequest,
 )
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
+
 # TODO: Reativar/substituir na integração do Crawler.
 # from src.aurora_platform.services.deep_dive_scraper_service import (
 # TODO: Reativar/substituir na integração do Crawler.
@@ -21,7 +22,6 @@ router = APIRouter(prefix="/knowledge", tags=["Knowledge"])
 
 def get_kb_service(request: Request) -> KnowledgeBaseService:
     return request.app.state.kb_service
-
 
     # TODO: Reativar/substituir na integração do Crawler
     # @router.post("/ingest-from-web", status_code=status.HTTP_202_ACCEPTED)

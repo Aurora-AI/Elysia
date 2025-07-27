@@ -4,10 +4,12 @@ import logging
 
 router = APIRouter()
 
+
 class YoutubeTranscriptExtractionRequest(BaseModel):
     project_name: str
     ordem_servico_id: str
     channel_url: str
+
 
 @router.post("/extract-youtube-transcripts", status_code=status.HTTP_202_ACCEPTED)
 async def extract_youtube_transcripts(
@@ -20,7 +22,10 @@ async def extract_youtube_transcripts(
     """
     try:
         # Serviço YoutubeTranscriptExtractionService removido do Aurora-Core (CLEANUP-FINAL)
-        raise HTTPException(status_code=501, detail="Serviço de extração de transcrições não está mais disponível no Aurora-Core.")
+        raise HTTPException(
+            status_code=501,
+            detail="Serviço de extração de transcrições não está mais disponível no Aurora-Core.",
+        )
     except Exception as e:
         logging.error(f"Erro ao iniciar extração de transcrições: {e}")
         raise HTTPException(

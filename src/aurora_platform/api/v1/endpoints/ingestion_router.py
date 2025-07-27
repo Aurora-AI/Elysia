@@ -10,6 +10,7 @@ router = APIRouter(prefix="/ingest", tags=["ingestion"])
 
 class IngestRequest(BaseModel):
     """Schema for document ingestion requests."""
+
     content: str
     document_type: Optional[str] = "text"
     metadata: Optional[Dict[str, Any]] = None

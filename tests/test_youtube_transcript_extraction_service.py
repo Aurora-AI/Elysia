@@ -1,6 +1,9 @@
 import os
 import pytest
-from aurora_platform.services.youtube_transcript_extraction_service import YoutubeTranscriptExtractionService
+from aurora_platform.services.youtube_transcript_extraction_service import (
+    YoutubeTranscriptExtractionService,
+)
+
 
 def test_extract_transcripts_from_channel(tmp_path):
     # Setup
@@ -9,8 +12,7 @@ def test_extract_transcripts_from_channel(tmp_path):
     workspace = tmp_path / project_name / "youtube" / ordem_servico_id
     workspace.mkdir(parents=True, exist_ok=True)
     service = YoutubeTranscriptExtractionService(
-        project_name=project_name,
-        ordem_servico_id=ordem_servico_id
+        project_name=project_name, ordem_servico_id=ordem_servico_id
     )
     # Canal de teste com poucos vídeos e legendas automáticas
     channel_url = "https://www.youtube.com/@ronnaldhawk"
@@ -24,4 +26,6 @@ def test_extract_transcripts_from_channel(tmp_path):
     assert os.path.exists(service.fallback_report_file)
     # Pelo menos um arquivo de transcrição ou fallback
     transcript_files = list(workspace.glob("transcript_*.txt"))
-    assert len(transcript_files) > 0 or os.path.getsize(service.fallback_report_file) > 0
+    assert (
+        len(transcript_files) > 0 or os.path.getsize(service.fallback_report_file) > 0
+    )

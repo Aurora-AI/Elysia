@@ -4,10 +4,11 @@ from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 
 router = APIRouter()
 
+
 @router.get("/health", tags=["Health"])
 async def health_check(
     background_tasks: BackgroundTasks,
-    kb_service: KnowledgeBaseService = Depends(get_kb_service)
+    kb_service: KnowledgeBaseService = Depends(get_kb_service),
 ):
     """
     Retorna um status imediato e dispara uma verificação de saúde
@@ -15,6 +16,8 @@ async def health_check(
     """
     background_tasks.add_task(kb_service.verify_connection_health)
     return {"status": "Health check initiated"}
+
+
 from fastapi import APIRouter, status
 from aurora_platform.clients.adapters.redis_adapter import ping as redis_ping
 from aurora_platform.clients.adapters.chroma_adapter import (

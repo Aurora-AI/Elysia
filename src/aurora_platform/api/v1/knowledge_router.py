@@ -7,6 +7,7 @@ from aurora_platform.schemas.knowledge_schemas import (
     SearchResult,
 )
 from aurora_platform.services.knowledge_service import KnowledgeBaseService
+
 # TODO: Reativar/substituir na integração do Crawler.
 # from aurora_platform.services.deep_dive_scraper_service import DeepDiveScraperService
 
@@ -15,7 +16,6 @@ router = APIRouter(prefix="/knowledge", tags=["Knowledge"])
 
 def get_kb_service(request: Request) -> KnowledgeBaseService:
     return request.app.state.kb_service
-
 
 
 # TODO: Reativar/substituir na integração do Crawler

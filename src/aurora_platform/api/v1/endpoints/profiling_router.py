@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+
 # TODO: Reativar/substituir na integração do Crawler.
 # from src.aurora_platform.services.agent_profiling_service import AgentProfilingService
 
@@ -17,7 +18,9 @@ async def run_profiling_suite():
     Dispara a execução completa da suíte de benchmarks de IA.
     Esta é uma operação que pode levar tempo.
     """
-    return {"message": "Endpoint desativado temporariamente para integração do Crawler."}
+    return {
+        "message": "Endpoint desativado temporariamente para integração do Crawler."
+    }
     # TODO: Reativar/substituir na integração do Crawler.
     # try:
     #     results = profiling_service.run_benchmarks()
