@@ -8,7 +8,6 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
-    # Healthcheck para garantir que o Redis esteja pronto
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -38,12 +37,11 @@ services:
       - "8080:8080"
     env_file:
       - .env
-    # Orquestração de dependência baseada na saúde dos serviços
     depends_on:
       redis:
-        condition: service_healthy # Aguarda o Redis ficar saudável
+        condition: service_healthy
       chromadb:
-        condition: service_healthy # Aguarda o ChromaDB ficar saudável
+        condition: service_healthy
 
 volumes:
   redis_data:

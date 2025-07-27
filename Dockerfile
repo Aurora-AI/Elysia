@@ -43,7 +43,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Expõe a porta que a aplicação irá rodar
 EXPOSE 8080
 
-
 # Configurações de ambiente
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONPATH=/app/src \
@@ -52,7 +51,6 @@ ENV PATH="/app/.venv/bin:$PATH" \
 
 # Health check para orquestração
 HEALTHCHECK --interval=30s --timeout=5s \
-  CMD curl --fail http://localhost:8000/health || exit 1
+  CMD curl --fail http://localhost:8080/health || exit 1
 
-EXPOSE 8000
-CMD ["uvicorn", "aurora_platform.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "aurora_platform.main:app", "--host", "0.0.0.0", "--port", "8080"]
