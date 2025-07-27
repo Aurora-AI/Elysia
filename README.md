@@ -43,3 +43,5 @@ A arquitetura é baseada nos princípios de:
     poetry run uvicorn src.aurora_platform.main:app --reload
     ```
 A API estará disponível em `http://127.0.0.1:8000/docs`.
+
+# Aurora-Core: Trigger manual do workflow após migração
