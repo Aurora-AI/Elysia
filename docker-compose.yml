@@ -5,28 +5,32 @@ services:
     ports:
       - "6379:6379"
     volumes:
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
       - redis_data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-
-  chromadb:
-    image: chromadb/chroma:0.4.15 # Fixado para versão estável e compatível
-    container_name: chromadb
-    ports:
-      - "8000:8000"
-    volumes:
-      - chroma_data:/chroma/chroma
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 60s
-    # A CORREÇÃO CRÍTICA: Força a instalação do NumPy compatível antes de iniciar
-    command: sh -c "pip install --force-reinstall 'numpy<2.0' && uvicorn chromadb.app:app --host 0.0.0.0 --port 8000"
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   aurora-core:
     build: .
@@ -38,9 +42,9 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-      chromadb:
+      qdrant:
         condition: service_healthy
 
 volumes:
   redis_data:
-  chroma_data:
+  qdrant_data:

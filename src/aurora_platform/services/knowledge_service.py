@@ -1,74 +1,52 @@
+from aurora_platform.clients.adapters.qdrant_adapter import QdrantAdapter
+from typing import List, Dict, Any
+import numpy as np
 import logging
 
-from pybreaker import CircuitBreaker, CircuitBreakerError
-from tenacity import retry, stop_after_attempt, wait_exponential, wait_fixed
+class KnowledgeService:
+    def __init__(self, embedding_model, persist_dir: str = None):
+        self.embedding_model = embedding_model
+        self.vector_db = QdrantAdapter()
+        logging.info("KnowledgeService usando Qdrant como backend vetorial")
 
-import chromadb
-from chromadb.api import ClientAPI
-from chromadb.config import Settings
-
-logger = logging.getLogger(__name__)
-
-
-class KnowledgeBaseService:
-    def __init__(self, host: str = "chromadb", port: int = 8000):
-        self.host = host
-        self.port = port
-        self.client: ClientAPI = self._connect_with_retry()
-
-    @retry(stop=stop_after_attempt(5), wait=wait_fixed(3))
-    def _connect_with_retry(self) -> ClientAPI:
+    def add_knowledge(self, documents: List[Dict[str, Any]]):
+        """Processa e armazena documentos com resiliência aprimorada"""
         try:
-            logger.info(f"Tentando conectar ao ChromaDB em {self.host}:{self.port}...")
-            client = chromadb.HttpClient(
-                host=self.host,
-                port=self.port,
-                settings=Settings(anonymized_telemetry=False),
-            )
-            client.heartbeat()
-            logger.info("Conexão com ChromaDB estabelecida com sucesso.")
-            return client
+            # Extrai metadados e conteúdo
+            contents = [doc["content"] for doc in documents]
+            metadatas = [doc["metadata"] for doc in documents]
+            # Gera embeddings
+            embeddings = self.embedding_model.embed_documents(contents)
+            # Gera IDs únicos
+            ids = [f"doc_{hash(content)}" for content in contents]
+            # Armazena no Qdrant
+            self.vector_db.add_embeddings(ids, embeddings, metadatas)
+            return True
         except Exception as e:
-            logger.warning(
-                f"Falha ao conectar ao ChromaDB na inicialização. Tentando novamente... Erro: {e}"
-            )
-            raise
+            logging.error(f"Falha ao adicionar conhecimento: {e}")
+            # Implementar estratégia de fallback aqui
+            return False
 
-    async def verify_connection_health(self):
+    def retrieve_knowledge(
+        self,
+        query: str,
+        k: int = 5,
+        **filters
+    ) -> List[Dict[str, Any]]:
+        """Recupera conhecimento relevante com filtragem avançada"""
         try:
-            logger.info("Verificando saúde da conexão com ChromaDB em background...")
-            self.client.heartbeat()
-            logger.info("Conexão com ChromaDB está saudável.")
-        except Exception:
-            logger.error(
-                "Conexão com ChromaDB falhou na verificação de saúde. Tentando reconectar..."
-            )
-            try:
-                self.client = self._connect_with_retry()
-                logger.info("Reconexão com ChromaDB bem-sucedida.")
-            except Exception as recon_e:
-                logger.critical(
-                    f"Falha crítica ao tentar reconectar com ChromaDB: {recon_e}"
-                )
-
-    def get_or_create_collection(self, name: str):
-        return self.client.get_or_create_collection(name=name)
-
-    circuit_breaker = CircuitBreaker(fail_max=3, reset_timeout=30)
-
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, max=10))
-    def query(self, collection_name: str, query_texts: list[str], n_results: int = 5):
-        try:
-
-            def do_query():
-                collection = self.get_or_create_collection(name=collection_name)
-                return collection.query(query_texts=query_texts, n_results=n_results)
-
-            return self.circuit_breaker.call(do_query)
-        except CircuitBreakerError:
-            logger.error("CIRCUITO ABERTO! Ativando modo degradado.")
-            # Aqui você pode implementar lógica de fallback, se necessário
-            raise
+            # Gera embedding da consulta
+            query_embedding = self.embedding_model.embed_query(query)
+            # Busca no Qdrant
+            results = self.vector_db.search(query_embedding, k=k, **filters)
+            return [
+                {
+                    "content": result["payload"].get("content", ""),
+                    "metadata": result["payload"],
+                    "score": result["score"]
+                }
+                for result in results
+            ]
         except Exception as e:
-            logger.error(f"Erro na operação de query: {e}")
-            raise
+            logging.error(f"Falha na recuperação de conhecimento: {e}")
+            return []
