@@ -1,12 +1,13 @@
 # src/aurora_platform/main.py - Versão Corrigida para Aurora-Core
 
-from contextlib import asynccontextmanager
-from fastapi import FastAPI, status
 import logging
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, status
 
 # Importa apenas os roteadores que existem no Aurora-Core
 # Importa apenas os roteadores que existem no Aurora-Core
-from aurora_platform.api.v1.endpoints import knowledge_router, auth_router
+from aurora_platform.api.v1.endpoints import auth_router, knowledge_router
 
 # Importa as configurações do local correto no Core
 from aurora_platform.core.config import settings

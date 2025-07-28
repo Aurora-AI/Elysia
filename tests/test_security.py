@@ -1,9 +1,9 @@
 from src.aurora_platform.services.auth_service import (
-    verify_password,
-    get_password_hash,
+    authenticate_user,
     create_access_token,
     create_refresh_token,
-    authenticate_user,
+    get_password_hash,
+    verify_password,
 )
 
 

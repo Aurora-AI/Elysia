@@ -2,9 +2,10 @@
 
 import os
 from pathlib import Path
+from typing import List, Optional
+
 from pydantic import SecretStr, root_validator
 from pydantic_settings import BaseSettings
-from typing import List, Optional
 
 # Construção do caminho absoluto para o arquivo .env
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent

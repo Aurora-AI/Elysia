@@ -1,9 +1,10 @@
 from fastapi import APIRouter
+
 from .endpoints import (
     auth_router,
-    two_factor_router,
     knowledge_router,
     profiling_router,
+    two_factor_router,
 )
 
 api_v1_router = APIRouter()

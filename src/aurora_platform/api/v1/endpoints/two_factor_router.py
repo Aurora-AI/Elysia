@@ -1,12 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
-from aurora_platform.db.database import get_session
+
 from aurora_platform.core.security import get_current_user
 from aurora_platform.core.two_factor import (
     generate_2fa_secret,
     generate_qr_code,
     verify_2fa_token,
 )
+from aurora_platform.db.database import get_session
 from aurora_platform.db.models.user_model import User
 
 router = APIRouter()

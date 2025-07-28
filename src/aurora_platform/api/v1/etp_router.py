@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import PlainTextResponse
+
 from src.aurora_platform.services.etp_generator_service import (
     ETPGeneratorService,
     ETPRequest,

@@ -1,5 +1,7 @@
 from typing import Optional
-from sqlmodel import Field, SQLModel, Column, String as SQLString
+
+from sqlmodel import Column, Field, SQLModel
+from sqlmodel import String as SQLString
 
 
 class UserBase(SQLModel):

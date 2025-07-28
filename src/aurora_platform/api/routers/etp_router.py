@@ -1,8 +1,9 @@
 # src/aurora_platform/api/routers/etp_router.py
 
-from fastapi import APIRouter, Depends, HTTPException, status, Request
-from src.aurora_platform.schemas.etp_schemas import ETPRequest, ETPResponse, ETPStatus
+from fastapi import APIRouter, Depends, HTTPException, Request, status
+
 from src.aurora_platform.core.security import get_current_user
+from src.aurora_platform.schemas.etp_schemas import ETPRequest, ETPResponse, ETPStatus
 from src.aurora_platform.services.etp_generator_service import ETPGeneratorService
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 

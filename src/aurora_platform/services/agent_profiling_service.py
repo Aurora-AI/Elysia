@@ -1,7 +1,7 @@
 import json
 import re
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 
 # Mock para simular as respostas dos modelos de IA

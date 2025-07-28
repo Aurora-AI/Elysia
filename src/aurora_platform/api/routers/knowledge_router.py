@@ -1,10 +1,11 @@
 # src/aurora_platform/api/routers/knowledge_router.py
 
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Request, status
-import tempfile
 import os
+import tempfile
+from typing import Any, Dict
+
 import fitz  # PyMuPDF
-from typing import Dict, Any
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 
 from src.aurora_platform.schemas.knowledge_schemas import KnowledgeQuery, SearchResult
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService

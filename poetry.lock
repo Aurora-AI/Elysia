@@ -3432,4 +3432,4 @@ dev = ["black", "httpx", "isort", "pre-commit", "pytest", "pytest-asyncio", "ruf
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4.0"
-content-hash = "d6581d64d8c3b5902db75b7034f60690a66742b884c41336817224a47ba9462f"
+content-hash = "8dd4200d2107b76607a26425b7433808941e04708f79516afabb777f3b095341"

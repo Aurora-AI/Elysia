@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Scraper massivo para teste de estresse - Rede Log RJ."""
 
-import sys
-import os
-import requests
-import time
-from urllib.parse import urljoin, urlparse
-from bs4 import BeautifulSoup
-from collections import deque
 import json
+import os
+import sys
+import time
+from collections import deque
+from urllib.parse import urljoin, urlparse
+
+import requests
+from bs4 import BeautifulSoup
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 

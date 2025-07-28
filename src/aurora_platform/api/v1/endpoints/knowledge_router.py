@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 # --- MUDANÇA: O schema de consulta agora precisa do model_provider ---
 from aurora_platform.schemas.knowledge_schemas import (

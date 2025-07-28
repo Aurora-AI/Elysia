@@ -1,6 +1,7 @@
 # update_driver.py
-import undetected_chromedriver as uc
 import time
+
+import undetected_chromedriver as uc
 
 print("INFO: Iniciando a verificação e atualização do chromedriver...")
 

@@ -1,4 +1,5 @@
-from sqlmodel import create_engine, SQLModel, Session
+from sqlmodel import Session, SQLModel, create_engine
+
 from aurora_platform.core.config import settings
 
 # Define the database engine

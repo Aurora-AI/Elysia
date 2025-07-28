@@ -1,8 +1,9 @@
 # tests/integration/test_ingestion_api.py
 
-import pytest
-import sys
 import os
+import sys
+
+import pytest
 
 # Add src to path for direct imports
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../src"))
@@ -32,7 +33,7 @@ async def test_ingest_document_success():
 
 def test_ingest_router_imports():
     """Test that the ingestion router can be imported."""
-    from aurora_platform.api.v1.endpoints.ingestion_router import router, IngestRequest
+    from aurora_platform.api.v1.endpoints.ingestion_router import IngestRequest, router
 
     # Verify router is configured correctly
     assert router.prefix == "/ingest"

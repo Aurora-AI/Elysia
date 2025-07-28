@@ -1,8 +1,10 @@
 # src/aurora_platform/services/auth_service.py
 from datetime import datetime, timedelta
 from typing import Optional
+
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+
 from src.aurora_platform.core.config import settings
 
 __all__ = [

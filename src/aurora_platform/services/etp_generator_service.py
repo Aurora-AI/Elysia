@@ -1,10 +1,11 @@
 # src/aurora_platform/services/etp_generator_service.py
 
+import uuid
+from datetime import datetime
+
 from src.aurora_platform.schemas.etp_schemas import ETPRequest, ETPResponse
 from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
 from src.aurora_platform.services.llm_adapters import VertexAIAdapter
-from datetime import datetime
-import uuid
 
 
 class ETPGeneratorService:

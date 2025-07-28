@@ -1,6 +1,7 @@
 # src/aurora_platform/api/v1/endpoints/auth_router.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+
 from aurora_platform.services.auth_service import (
     authenticate_user,
     create_access_token,

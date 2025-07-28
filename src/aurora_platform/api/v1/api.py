@@ -1,7 +1,8 @@
 # src/aurora_platform/api/v1/api.py
 
 from fastapi import APIRouter
-from .endpoints import knowledge_router, auth_router, two_factor_router, profiling_router
+
+from .endpoints import auth_router, knowledge_router, profiling_router, two_factor_router
 
 api_router = APIRouter()
 

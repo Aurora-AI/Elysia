@@ -1,10 +1,11 @@
 # src/aurora_platform/services/llm_adapters.py
 
-from abc import ABC, abstractmethod
 import os
+from abc import ABC, abstractmethod
+
+from langchain_core.messages import HumanMessage
 from langchain_google_vertexai import VertexAI
 from langchain_openai import AzureChatOpenAI
-from langchain_core.messages import HumanMessage
 from pydantic import SecretStr as V2SecretStr
 from pydantic.v1.types import SecretStr as V1SecretStr
 

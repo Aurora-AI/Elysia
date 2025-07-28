@@ -1,9 +1,11 @@
-import chromadb
-from chromadb.config import Settings
-from chromadb.api import ClientAPI
-from tenacity import retry, stop_after_attempt, wait_fixed, wait_exponential
-from pybreaker import CircuitBreaker, CircuitBreakerError
 import logging
+
+from pybreaker import CircuitBreaker, CircuitBreakerError
+from tenacity import retry, stop_after_attempt, wait_exponential, wait_fixed
+
+import chromadb
+from chromadb.api import ClientAPI
+from chromadb.config import Settings
 
 logger = logging.getLogger(__name__)
 

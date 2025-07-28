@@ -1,8 +1,9 @@
 # Caminho: src/aurora_platform/db/models/cliente_model.py
-from typing import Optional, Dict, Any
-from sqlmodel import Field, SQLModel
-from sqlalchemy.dialects.postgresql import JSONB
+from typing import Any, Dict, Optional
+
 from sqlalchemy import Column
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlmodel import Field, SQLModel
 
 
 # --- Modelo Base ---

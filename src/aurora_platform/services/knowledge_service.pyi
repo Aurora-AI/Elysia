@@ -1,6 +1,7 @@
+from typing import List
+
 from chromadb.api import ClientAPI
 from chromadb.api.models.Collection import Collection
-from typing import List
 
 class KnowledgeBaseService:
     client: ClientAPI

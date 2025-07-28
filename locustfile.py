@@ -1,7 +1,8 @@
 # locustfile.py
 
 import random
-from locust import HttpUser, task, between
+
+from locust import HttpUser, between, task
 
 URLS_PARA_INGERIR = [
     "https://docs.trychroma.com/getting-started",

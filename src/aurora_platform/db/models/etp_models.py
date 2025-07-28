@@ -1,9 +1,10 @@
 # src/aurora_platform/db/models/etp_models.py
 
-from sqlmodel import SQLModel, Field
-from typing import Optional
-from datetime import datetime
 import uuid
+from datetime import datetime
+from typing import Optional
+
+from sqlmodel import Field, SQLModel
 
 
 class ETPModel(SQLModel, table=True):

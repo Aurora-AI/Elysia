@@ -1,7 +1,8 @@
 # src/aurora_platform/schemas/knowledge_schemas.py
 
+from typing import Any, Dict, List
+
 from pydantic import BaseModel
-from typing import List, Dict, Any
 
 
 class DocumentCreate(BaseModel):

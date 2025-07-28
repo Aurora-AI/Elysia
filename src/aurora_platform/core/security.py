@@ -1,6 +1,7 @@
 # src/aurora_platform/core/security.py
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+
 from src.aurora_platform.services.auth_service import verify_token
 
 # Configuração do esquema OAuth2

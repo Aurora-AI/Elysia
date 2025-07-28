@@ -1,6 +1,7 @@
 # check_auth.py
-import vertexai
 import os
+
+import vertexai
 
 print("--- Iniciando Teste de Autenticação Vertex AI ---")
 

@@ -1,8 +1,9 @@
 # scripts/project_manager.py - v2.0 Corrigido para Sprints
 
-import yaml
 import argparse
 from pathlib import Path
+
+import yaml
 
 PLAN_FILE = Path(__file__).parent.parent / "project_plan.yaml"
 

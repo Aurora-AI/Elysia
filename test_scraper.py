@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Script de teste para validar o scraper melhorado."""
 
-import sys
 import os
+import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 

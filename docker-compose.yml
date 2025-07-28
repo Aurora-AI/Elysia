@@ -13,7 +13,7 @@ services:
       retries: 5
 
   chromadb:
-    image: chromadb/chroma:0.4.15
+    image: chromadb/chroma:0.4.15 # Fixado para versão estável e compatível
     container_name: chromadb
     ports:
       - "8000:8000"
@@ -25,6 +25,8 @@ services:
       timeout: 5s
       retries: 5
       start_period: 60s
+    # A CORREÇÃO CRÍTICA: Força a instalação do NumPy compatível antes de iniciar
+    command: sh -c "pip install --force-reinstall 'numpy<2.0' && uvicorn chromadb.app:app --host 0.0.0.0 --port 8000"
 
   aurora-core:
     build: .

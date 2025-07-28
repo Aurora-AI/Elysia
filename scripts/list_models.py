@@ -1,6 +1,7 @@
 # list_models.py
 import vertexai
 from vertexai.generative_models import GenerativeModel
+
 from src.aurora_platform.core.config import settings
 
 print("--- Listando modelos disponíveis no Vertex AI ---")

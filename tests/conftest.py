@@ -1,7 +1,8 @@
 import os
+
 import pytest
 from fastapi.testclient import TestClient
-from sqlmodel import SQLModel, Session, create_engine
+from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
 from src.aurora_platform.main import app

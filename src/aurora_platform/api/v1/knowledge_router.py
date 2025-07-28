@@ -1,6 +1,7 @@
 # src/aurora_platform/api/v1/endpoints/knowledge_router.py
 
 from fastapi import APIRouter, Depends, Request
+
 from aurora_platform.schemas.knowledge_schemas import (
     KnowledgeQuery,
     SearchResult,

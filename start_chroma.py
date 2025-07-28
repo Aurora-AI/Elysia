@@ -1,7 +1,7 @@
 # start_chroma.py
+import os
 import subprocess
 import sys
-import os
 
 
 def start_chroma_server():

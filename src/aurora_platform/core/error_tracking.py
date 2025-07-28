@@ -1,6 +1,7 @@
+import os
+
 import sentry_sdk
 from sentry_sdk.integrations.fastapi import FastApiIntegration
-import os
 
 
 def init_error_tracking():

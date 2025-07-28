@@ -1,8 +1,9 @@
 # Placeholder for Large Language Model (LLM) interfacing logic
 # This could involve connecting to services like OpenAI, Google Gemini, etc.
 
-from src.aurora_platform.core.config import settings
 import google.generativeai as genai
+
+from src.aurora_platform.core.config import settings
 
 
 class LLMInterface:

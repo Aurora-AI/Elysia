@@ -1,10 +1,10 @@
 # src/aurora_platform/services/rag_service.py
 
+from .adapter_factory import AdapterFactory
 from .knowledge_service import KnowledgeBaseService
 
 # --- MUDANÇA CRÍTICA: Importa a interface e a fábrica ---
 from .llm_adapters import ILLMAdapter
-from .adapter_factory import AdapterFactory
 
 
 def answer_query(query: str, model_provider: str) -> str:

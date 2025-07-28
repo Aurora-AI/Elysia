@@ -1,12 +1,13 @@
 import os
-from openai import AsyncAzureOpenAI, APITimeoutError, APIConnectionError, APIStatusError
+from typing import AsyncGenerator
+
+from openai import APIConnectionError, APIStatusError, APITimeoutError, AsyncAzureOpenAI
 from tenacity import (
     retry,
-    wait_random_exponential,
-    stop_after_attempt,
     retry_if_exception_type,
+    stop_after_attempt,
+    wait_random_exponential,
 )
-from typing import AsyncGenerator
 
 
 class OpenAIService:

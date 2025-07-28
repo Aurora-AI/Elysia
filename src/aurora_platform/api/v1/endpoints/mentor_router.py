@@ -2,8 +2,9 @@
 
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
-from aurora_platform.services import sales_mentor_service
+
 from aurora_platform.core.security import get_current_user
+from aurora_platform.services import sales_mentor_service
 
 router = APIRouter()
 

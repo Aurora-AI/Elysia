@@ -1,10 +1,10 @@
 from aurora_platform.db.models.user_model import (
+    Token,
+    TokenData,
     User,
     UserCreate,
     UserRead,
     UserUpdate,
-    Token,
-    TokenData,
 )
 
 

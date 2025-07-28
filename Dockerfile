@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir poetry
 RUN apt-get update && apt-get install -y build-essential curl && rm -rf /var/lib/apt/lists/*
 
 COPY poetry.lock pyproject.toml ./
+
 RUN poetry install --no-ansi
 
 # --- Estágio 2: Runtime (Final) ---
@@ -19,6 +20,7 @@ FROM python:3.11-slim-bookworm AS runtime
 WORKDIR /app
 
 ENV PYTHONPATH=/app
+
 COPY --from=builder /app/.venv ./.venv
 ENV PATH="/app/.venv/bin:$PATH"
 

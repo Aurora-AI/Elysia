@@ -1,9 +1,10 @@
 # Placeholder for Vector Store interaction logic
 # This could involve using libraries like ChromaDB, FAISS, etc.
 
+from typing import Any, Dict
+
 import chromadb
 from chromadb.config import Settings as ChromaSettings
-from typing import Dict, Any
 
 
 class VectorStore:

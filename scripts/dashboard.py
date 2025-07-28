@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # dashboard.py
+from datetime import datetime
+from pathlib import Path
+
+import pandas as pd
 import streamlit as st
 import yaml
-import pandas as pd
-from pathlib import Path
-from datetime import datetime
 
 # Configuração da página
 st.set_page_config(page_title="Aurora Project Dashboard", page_icon="🚀", layout="wide")

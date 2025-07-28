@@ -1,6 +1,6 @@
+import logging
 import os
 from datetime import datetime
-import logging
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ERRORS_DIR = os.path.join(BASE_DIR, "knowledge-base", "errors")

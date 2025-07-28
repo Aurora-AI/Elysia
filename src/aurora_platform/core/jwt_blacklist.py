@@ -1,6 +1,8 @@
-import redis
-from .config import settings
 from datetime import datetime, timezone
+
+import redis
+
+from .config import settings
 
 # Redis connection for token blacklist
 redis_client = None
