@@ -1,0 +1,34 @@
+name: Aurora-Core CI
+
+on:
+  push:
+    branches: [ "main", "feature/*", "bugfix/*" ]
+  pull_request:
+    branches: [ "main", "feature/*", "bugfix/*" ]
+
+jobs:
+  quality-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Check Formatting with Ruff
+        run: poetry run ruff format --check .
+
+      - name: Lint with Ruff
+        run: poetry run ruff check .
+
+      - name: Run tests with Pytest
+        run: poetry run pytest
