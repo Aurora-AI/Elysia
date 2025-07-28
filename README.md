@@ -21,7 +21,7 @@ A arquitetura é baseada nos princípios de:
 ## 3. Módulos Principais
 
 - **Orquestrador Central (`AuroraRouter`):** O cérebro que roteia tarefas para o recurso mais eficiente.
-- **Memória Ativa (RAG):** Nossa Unidade de Gerenciamento de Memória, usando ChromaDB para armazenar e recuperar conhecimento.
+- **Memória Ativa (RAG):** Nossa Unidade de Gerenciamento de Memória, usando Qdrant para armazenar e recuperar conhecimento.
 - **Camada de Percepção (`DeepDiveScraper`):** Nossos "sentidos" para coletar informações da web e de documentos.
 - **Fábrica de IA (Ferramentas):** Inclui o `project_manager.py` e o `dashboard.py` para governança automatizada do projeto.
 
