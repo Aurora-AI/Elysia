@@ -9,7 +9,6 @@
   "langchain-openai",
   "langchain-google-vertexai",
   "langchain-core",
-  "chromadb",
   "sentence-transformers",
   "pyyaml",
   "playwright",

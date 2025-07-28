@@ -16,7 +16,6 @@ graph TD
     C --> E[RAG Engine]
     C --> F[Template Engine]
 
-    D --> G[ChromaDB]
     E --> G
     E --> H[VertexAI Gemini-2.5-Pro]
     F --> I[Jinja2 Templates]
@@ -35,7 +34,6 @@ graph TD
 ### ETP Service
 - **Responsabilidade:** Orquestração do pipeline de geração
 - **Tecnologia:** Python/FastAPI
-- **Integração:** ChromaDB + VertexAI
 
 ### Document Processor
 - **Responsabilidade:** Extração e processamento de documentos
@@ -44,7 +42,6 @@ graph TD
 
 ### RAG Engine
 - **Responsabilidade:** Consulta semântica e geração contextual
-- **Tecnologia:** ChromaDB + VertexAI
 - **Estratégia:** Retrieval híbrido (semântico + keyword)
 
 ### Template Engine
@@ -65,7 +62,6 @@ graph TD
 
 ## Fluxo de Dados
 1. Upload de documentos → Document Processor
-2. Extração de entidades → ChromaDB
 3. Input do usuário → ETP Service
 4. Consulta RAG → VertexAI
 5. Geração estruturada → Template Engine

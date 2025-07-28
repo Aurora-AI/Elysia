@@ -12,7 +12,6 @@
 - Estender `knowledge_router.py` para suportar DOCX
 - Implementar extrator de entidades específicas (NER)
 - Criar parser para links de legislação
-- Integrar com ChromaDB existente
 
 ## Etapa 3: Módulo RAG Especializado
 **Objetivo:** Consulta inteligente para geração de ETP

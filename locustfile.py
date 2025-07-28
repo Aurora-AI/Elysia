@@ -5,13 +5,11 @@ import random
 from locust import HttpUser, between, task
 
 URLS_PARA_INGERIR = [
-    "https://docs.trychroma.com/getting-started",
     "https://fastapi.tiangolo.com/tutorial/",
     "https://pge.rj.gov.br/checklists-lei-1413321",
 ]
 
 PERGUNTAS_PARA_RAG = [
-    "What is Chroma?",
     "How do I create a FastAPI application?",
     "Summarize the main points of Lei 14.133",
 ]

@@ -3,8 +3,10 @@ from typing import List, Dict, Any
 import numpy as np
 import logging
 
+from typing import Optional
+
 class KnowledgeService:
-    def __init__(self, embedding_model, persist_dir: str = None):
+    def __init__(self, embedding_model, persist_dir: Optional[str] = None):
         self.embedding_model = embedding_model
         self.vector_db = QdrantAdapter()
         logging.info("KnowledgeService usando Qdrant como backend vetorial")

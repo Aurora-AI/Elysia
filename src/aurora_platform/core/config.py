@@ -70,8 +70,6 @@ class Settings(BaseSettings):
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0
-    CHROMA_HOST: str = "chromadb"
-    CHROMA_PORT: int = 8000
 
     @root_validator(pre=True)
     def validate_firecrawl_api_key(cls, values):
