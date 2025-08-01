@@ -1,10 +1,5 @@
-version: '3.8'
-
 services:
   aurora-core:
-    build:
-      context: .
-      target: builder
-    volumes:
-      - .:/app
+    # A CORREÇÃO CRÍTICA: Chamamos 'uvicorn' diretamente, pois ele já está no PATH
+    # graças à configuração no Dockerfile.
     command: ["uvicorn", "src.aurora_platform.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]

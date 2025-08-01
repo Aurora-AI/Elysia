@@ -13,6 +13,9 @@ ENV_PATH = PROJECT_ROOT / ".env"
 
 
 class Settings(BaseSettings):
+    # --- Configurações do Qdrant Cloud ---
+    QDRANT_URL: str
+    QDRANT_API_KEY: str
     """
     Carrega e valida todas as configurações da aplicação a partir de um arquivo .env
     e/ou variáveis de ambiente.

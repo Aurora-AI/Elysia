@@ -7,21 +7,21 @@ ENV POETRY_NO_INTERACTION=1 \
 WORKDIR /app
 
 RUN pip install --no-cache-dir poetry
-
-RUN apt-get update && apt-get install -y build-essential curl libgomp1 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y build-essential curl && rm -rf /var/lib/apt/lists/*
 
 COPY poetry.lock pyproject.toml ./
-
-RUN poetry install --no-ansi
+RUN poetry install --no-root --no-ansi
 
 # --- Estágio 2: Runtime (Final) ---
-FROM python:3.11-slim-bookworm AS runtime
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app/src
 
 COPY --from=builder /app/.venv ./.venv
+
+# A CORREÇÃO CRÍTICA: Adiciona os executáveis do .venv ao PATH do sistema
 ENV PATH="/app/.venv/bin:$PATH"
 
 COPY . .

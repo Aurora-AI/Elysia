@@ -1,18 +1,17 @@
 {
-  "name": "Aurora-Core (Development)",
-  "dockerComposeFile": [
-    "../docker-compose.yml",
-    "../docker-compose.override.yml"
-  ],
-  "service": "aurora-core",
-  "workspaceFolder": "/app",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "charliermarsh.ruff"
-      ]
+    "name": "Aurora Platform Dev Container",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "aurora-core",
+    // A CORREÇÃO CRÍTICA: Define a raiz do projeto como o workspace.
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "charliermarsh.ruff"
+            ]
+        }
     }
-  }
 }

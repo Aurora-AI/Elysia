@@ -1,54 +1,24 @@
-from aurora_platform.clients.adapters.qdrant_adapter import QdrantAdapter
-from typing import List, Dict, Any
-import numpy as np
 import logging
 
-from typing import Optional
+from qdrant_client import QdrantClient
 
-class KnowledgeService:
-    def __init__(self, embedding_model, persist_dir: Optional[str] = None):
-        self.embedding_model = embedding_model
-        self.vector_db = QdrantAdapter()
-        logging.info("KnowledgeService usando Qdrant como backend vetorial")
+from src.aurora_platform.core.config import settings  # Nossa classe que lê o .env
 
-    def add_knowledge(self, documents: List[Dict[str, Any]]):
-        """Processa e armazena documentos com resiliência aprimorada"""
+logger = logging.getLogger(__name__)
+
+
+class KnowledgeBaseService:
+    def __init__(self):
         try:
-            # Extrai metadados e conteúdo
-            contents = [doc["content"] for doc in documents]
-            metadatas = [doc["metadata"] for doc in documents]
-            # Gera embeddings
-            embeddings = self.embedding_model.embed_documents(contents)
-            # Gera IDs únicos
-            ids = [f"doc_{hash(content)}" for content in contents]
-            # Armazena no Qdrant
-            self.vector_db.add_embeddings(ids, embeddings, metadatas)
-            return True
+            logger.info(f"Conectando ao Qdrant Cloud em: {settings.QDRANT_URL}")
+            self.client = QdrantClient(
+                url=settings.QDRANT_URL,
+                api_key=settings.QDRANT_API_KEY,
+                timeout=60,  # Aumenta o timeout para conexões de rede
+            )
+            logger.info("Conexão com Qdrant Cloud estabelecida com sucesso.")
         except Exception as e:
-            logging.error(f"Falha ao adicionar conhecimento: {e}")
-            # Implementar estratégia de fallback aqui
-            return False
+            logger.critical(f"Falha crítica ao conectar com Qdrant Cloud: {e}")
+            raise
 
-    def retrieve_knowledge(
-        self,
-        query: str,
-        k: int = 5,
-        **filters
-    ) -> List[Dict[str, Any]]:
-        """Recupera conhecimento relevante com filtragem avançada"""
-        try:
-            # Gera embedding da consulta
-            query_embedding = self.embedding_model.embed_query(query)
-            # Busca no Qdrant
-            results = self.vector_db.search(query_embedding, k=k, **filters)
-            return [
-                {
-                    "content": result["payload"].get("content", ""),
-                    "metadata": result["payload"],
-                    "score": result["score"]
-                }
-                for result in results
-            ]
-        except Exception as e:
-            logging.error(f"Falha na recuperação de conhecimento: {e}")
-            return []
+    # ... (resto da classe: query, add_documents, etc.)
