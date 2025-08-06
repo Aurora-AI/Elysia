@@ -1,17 +1,18 @@
 # src/aurora_platform/main.py - Versão Corrigida para Aurora-Core
 
 
+
 import logging
 import os
 from contextlib import asynccontextmanager
 
 import firebase_admin
 import sentry_sdk
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from firebase_admin import credentials
 from aurora_platform.core.config import settings
-from aurora_platform.services.knowledge_service import KnowledgeService
-from .routers import cliente_router
+from aurora_platform.services.knowledge_service import KnowledgeBaseService
+from aurora_platform.api.v1.endpoints import auth_router, knowledge_router, debug_router
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -26,8 +27,6 @@ if getattr(settings, "SENTRY_DSN", None):
         environment=getattr(settings, "ENVIRONMENT", "development"),
     )
 
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
@@ -38,34 +37,20 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"Erro ao inicializar Firebase Admin SDK: {e}")
         raise RuntimeError(f"Falha na inicialização do Firebase: {e}")
-    # Lógica de startup e shutdown
     logger.info("Iniciando Aurora-Core AIOS...")
-    app.state.kb_service = KnowledgeService()
+    app.state.kb_service = KnowledgeBaseService()
     yield
     logger.info("Encerrando Aurora-Core AIOS...")
 
-
-
 app = FastAPI(
-    title="Aurora Platform API",
-    version="1.0.0",
+    title=getattr(settings, "PROJECT_NAME", "Aurora Platform API"),
+    version=getattr(settings, "PROJECT_VERSION", "1.0.0"),
     lifespan=lifespan
 )
 
-
-
-# Inclui o roteador de clientes no app principal
-app.include_router(cliente_router.router, prefix="/v1/clientes", tags=["Clientes"])
-
-@app.get("/health", summary="Verificação de Saúde da API")
-def health_check():
+@app.get("/health", status_code=status.HTTP_200_OK, tags=["Health Check"])
+async def health_check():
     return {"status": "ok"}
-
-
-
-# Inclui os roteadores do Core
-from aurora_platform.api.v1.endpoints import auth_router, knowledge_router, debug_router
-
 
 app.include_router(
     knowledge_router, prefix="/api/v1/knowledge", tags=["Knowledge Base"]

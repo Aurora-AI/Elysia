@@ -1,23 +1,48 @@
-name: CI Aurora-Core
+name: CI Aurora-Plataforma
+
 on:
-  push:
-    branches: [main]
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - develop
+
 jobs:
-  build:
+  build-and-test-core:
+    name: Build and Test Aurora Core
     runs-on: ubuntu-latest
+
+    # Define o diretório de trabalho padrão para todos os steps
+    defaults:
+      run:
+        working-directory: ./aurora-core
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
       - name: Install Poetry
         run: pip install poetry
+
       - name: Install dependencies
-        run: poetry install
-      - name: Lint with Ruff
-        run: poetry run ruff check .
+        run: poetry install --no-interaction
+
+      - name: Lint and Format Code
+        run: |
+          poetry run ruff check . --fix
+          poetry run ruff format .
+
       - name: Run tests
         run: poetry run pytest

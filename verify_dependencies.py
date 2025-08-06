@@ -4,13 +4,13 @@ from pathlib import Path
 
 import toml
 
-# --- Configuração ---
+# --- Configura√ß√£o ---
 SRC_DIRECTORY = "src"
 PYPROJECT_FILE = "pyproject.toml"
 PROJECT_ROOT_PACKAGE = "aurora_platform"  # Nome do pacote principal em 'src'
 # --------------------
 
-# Lista de bibliotecas padrão do Python para ignorar
+# Lista de bibliotecas padr√£o do Python para ignorar
 STANDARD_LIBS = {
     "abc",
     "argparse",
@@ -52,10 +52,10 @@ IMPORT_TO_PACKAGE_MAP = {
 
 
 def get_declared_dependencies(pyproject_path):
-    """Lê o pyproject.toml e extrai todas as dependências declaradas."""
+    """L√™ o pyproject.toml e extrai todas as depend√™ncias declaradas."""
     try:
         data = toml.load(pyproject_path)
-        # Unifica dependências principais e de desenvolvimento
+        # Unifica depend√™ncias principais e de desenvolvimento
         deps = set(
             data.get("tool", {}).get("poetry", {}).get("dependencies", {}).keys()
         )
@@ -72,12 +72,12 @@ def get_declared_dependencies(pyproject_path):
         normalized_deps = {dep.split("[")[0] for dep in deps.union(dev_deps)}
         return normalized_deps
     except Exception as e:
-        print(f"❌ Erro ao ler o arquivo '{PYPROJECT_FILE}': {e}")
+        print(f"‚ùå Erro ao ler o arquivo '{PYPROJECT_FILE}': {e}")
         return None
 
 
 def find_imports(start_path):
-    """Encontra todos os pacotes de alto nível importados nos arquivos .py."""
+    """Encontra todos os pacotes de alto n√≠vel importados nos arquivos .py."""
     imported_modules = set()
     for root, _, files in os.walk(start_path):
         for file in files:
@@ -101,7 +101,7 @@ def find_imports(start_path):
 
 
 def main():
-    print("--- 🔍 Iniciando Verificador de Dependências da Aurora (v2) ---")
+    print("--- üîç Iniciando Verificador de Depend√™ncias da Aurora (v2) ---")
     declared_deps = get_declared_dependencies(Path(PYPROJECT_FILE))
 
     if declared_deps is None:
@@ -109,7 +109,7 @@ def main():
 
     imported_modules = find_imports(SRC_DIRECTORY)
 
-    # Filtra bibliotecas padrão, o próprio projeto e as já declaradas
+    # Filtra bibliotecas padr√£o, o pr√≥prio projeto e as j√° declaradas
     missing_deps_imports = (
         imported_modules - declared_deps - STANDARD_LIBS - {PROJECT_ROOT_PACKAGE}
     )
@@ -120,20 +120,20 @@ def main():
     }
 
     if not missing_packages:
-        print("\n✅ SUCESSO! Todas as dependências externas parecem estar declaradas.")
+        print("\n‚úÖ SUCESSO! Todas as depend√™ncias externas parecem estar declaradas.")
     else:
-        print("\n🚨 ALERTA! Dependências ausentes encontradas:")
+        print("\nüö® ALERTA! Depend√™ncias ausentes encontradas:")
         print(
-            "As seguintes bibliotecas são importadas no código, mas não estão no 'pyproject.toml':"
+            "As seguintes bibliotecas s√£o importadas no c√≥digo, mas n√£o est√£o no 'pyproject.toml':"
         )
         for pkg in sorted(list(missing_packages)):
             print(f"  - {pkg}")
 
-        print("\n👉 Ação Recomendada:")
-        print("Execute o seguinte comando para adicioná-las:")
+        print("\nüëâ A√ß√£o Recomendada:")
+        print("Execute o seguinte comando para adicion√°-las:")
         print(f'\npoetry add {" ".join(sorted(list(missing_packages)))}')
 
-    print("\n--- Verificação Concluída ---")
+    print("\n--- Verifica√ß√£o Conclu√≠da ---")
 
 
 if __name__ == "__main__":

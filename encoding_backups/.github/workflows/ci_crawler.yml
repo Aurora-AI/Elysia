@@ -1,0 +1,15 @@
+name: CI Aurora-Crawler
+
+on:
+  pull_request:
+    paths:
+      - 'aurora-crawler/**'
+  push:
+    paths:
+      - 'aurora-crawler/**'
+
+jobs:
+  call-template:
+    uses: ./.github/workflows/_ci_template.yml
+    with:
+      service_name: aurora-crawler

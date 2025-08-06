@@ -1,0 +1,12 @@
+Este é um documento de exemplo para testar o serviço de ingestão de conhecimento da plataforma Aurora.
+
+O sistema Aurora é uma plataforma de CRM inteligente que utiliza inteligência artificial para automatizar processos de vendas e atendimento ao cliente.
+
+Principais funcionalidades:
+- Gestão de leads e oportunidades
+- Automação de marketing
+- Análise preditiva de vendas
+- Chatbot inteligente para atendimento
+- Integração com múltiplos canais de comunicação
+
+A plataforma utiliza modelos de linguagem avançados e bancos de dados vetoriais para fornecer respostas contextuais e precisas aos usuários.

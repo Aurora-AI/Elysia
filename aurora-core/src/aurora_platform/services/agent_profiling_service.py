@@ -157,6 +157,7 @@ class AgentProfilingService:
                     report += f"### Categoria: {cat}\n"
                     # Faixa ótima: menor latência e maior sucesso
                     if lista:
+<<<<<<< HEAD
                         latencias = [
                             log_entry["latency"]
                             for log_entry in lista
@@ -175,10 +176,19 @@ class AgentProfilingService:
                             str(log_entry.get("temperature"))
                             for log_entry in lista
                             if "temperature" in log_entry
+=======
+                        latencias = [log_entry["latency"] for log_entry in lista if "latency" in log_entry]
+                        custos = [log_entry["token_cost"] for log_entry in lista if "token_cost" in log_entry]
+                        success_count = sum(1 for log_entry in lista if log_entry.get("success"))
+                        total = len(lista)
+                        temp_usados = set(
+                            str(log_entry.get("temperature")) for log_entry in lista if "temperature" in log_entry
+>>>>>>> origin/main
                         )
                         report += f"- Total de testes: {total}\n"
                         report += f"- Sucesso: {success_count}/{total}\n"
                         if latencias:
+<<<<<<< HEAD
                             report += f"- Latência média: {sum(latencias)/len(latencias):.2f}s\n"
                         if custos:
                             report += f"- Custo médio em tokens: {sum(custos)/len(custos):.1f}\n"
@@ -186,6 +196,17 @@ class AgentProfilingService:
                             report += (
                                 f"- Temperaturas testadas: {', '.join(temp_usados)}\n"
                             )
+=======
+                            report += (
+                                f"- Latência média: {sum(latencias)/len(latencias):.2f}s\n"
+                            )
+                        if custos:
+                            report += (
+                                f"- Custo médio em tokens: {sum(custos)/len(custos):.1f}\n"
+                            )
+                        if temp_usados:
+                            report += f"- Temperaturas testadas: {', '.join(temp_usados)}\n"
+>>>>>>> origin/main
                         report += "\n"
         return report
 

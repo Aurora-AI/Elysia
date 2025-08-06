@@ -1,0 +1,59 @@
+[
+  {
+    "id": "math-001",
+    "category": "raciocinio_matematico",
+    "prompt": "Um trem sai de São Paulo às 14:00 e viaja a 80 km/h. Outro trem sai do Rio de Janeiro, a 400 km de distância, às 15:00 e viaja a 100 km/h em direção a São Paulo. A que horas eles se encontrarão?",
+    "expected_output_pattern": "16:00"
+  },
+  {
+    "id": "math-002",
+    "category": "raciocinio_matematico",
+    "prompt": "Se 5 impressoras imprimem 5 páginas em 5 minutos, quanto tempo levaria para 100 impressoras imprimirem 100 páginas?",
+    "expected_output_pattern": "5 minutos"
+  },
+  {
+    "id": "code-001",
+    "category": "geracao_de_codigo_python",
+    "prompt": "Escreva uma função em Python chamada `is_palindrome` que recebe uma string e retorna `True` se a string for um palíndromo e `False` caso contrário. Ignore espaços e capitalização.",
+    "expected_output_pattern": "def is_palindrome\\(s: str\\) -> bool:"
+  },
+  {
+    "id": "code-002",
+    "category": "geracao_de_codigo_python",
+    "prompt": "Escreva uma função em Python que use uma list comprehension para retornar uma lista de todos os números pares de 0 a 100.",
+    "expected_output_pattern": "\\[x for x in range\\(101\\) if x % 2 == 0\\]"
+  },
+  {
+    "id": "creative-001",
+    "category": "criatividade_textual",
+    "prompt": "Escreva um slogan de duas frases para uma empresa de café que usa grãos cultivados em Marte.",
+    "expected_output_pattern": "gravidade|universo|estrelas|planeta|vermelho"
+  },
+  {
+    "id": "creative-002",
+    "category": "criatividade_textual",
+    "prompt": "Descreva a cor 'azul' para uma pessoa que nunca a viu.",
+    "expected_output_pattern": "céu|oceano|tranquilidade|frio|serenidade"
+  },
+  {
+    "id": "logic-001",
+    "category": "logica_espacial",
+    "prompt": "Eu tenho uma caixa dentro de outra caixa. A caixa interna tem 3 bolas vermelhas. A caixa externa tem 2 bolas azuis. Se eu tirar todas as bolas da caixa interna, quantas bolas restarão na caixa externa?",
+    "expected_output_pattern": "2|duas"
+  },
+  {
+    "id": "logic-002",
+    "category": "logica_espacial",
+    "prompt": "Se você está virado para o norte e vira 90 graus para a direita, depois vira 180 graus e, finalmente, vira 90 graus para a esquerda, para qual direção você está virado agora?",
+    "expected_output_pattern": "sul"
+  },
+  {
+    "id": "decomp-001",
+    "category": "tarefa_decomponivel",
+    "prompt_pai": "Com base nos dados em anexo, crie um relatório de vendas que inclua uma análise de tendências matemáticas e uma conclusão textual criativa.",
+    "prompts_filhos": [
+      { "subtask_id": "decomp-001a", "category": "raciocinio_matematico", "prompt": "Analise os seguintes dados e descreva a tendência de vendas: [dados]" },
+      { "subtask_id": "decomp-001b", "category": "criatividade_textual", "prompt": "Com base na análise de tendência [resultado_a], escreva uma conclusão otimista." }
+    ]
+  }
+]

@@ -139,3 +139,4 @@ config/settings.local.toml
 
 # Node modules
 /frontend/node_modules/
+aurora-knowledge-base/

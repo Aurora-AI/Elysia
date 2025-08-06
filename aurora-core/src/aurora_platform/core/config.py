@@ -13,11 +13,6 @@ ENV_PATH = PROJECT_ROOT / ".env"
 
 
 class Settings(BaseSettings):
-    # --- Monitoramento de Erros (Sentry) ---
-    SENTRY_DSN: Optional[str] = None
-    # --- Configurações do Qdrant Cloud ---
-    QDRANT_URL: str
-    QDRANT_API_KEY: str
     """
     Carrega e valida todas as configurações da aplicação a partir de um arquivo .env
     e/ou variáveis de ambiente.
@@ -53,7 +48,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000"]
+    ALLOWED_ORIGINS: List[str] = []
     HTTPS_ONLY: bool = False
     MIN_PASSWORD_LENGTH: int = 8
     REQUIRE_UPPERCASE: bool = True
@@ -75,6 +70,8 @@ class Settings(BaseSettings):
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0
+    CHROMA_HOST: str = "chromadb"
+    CHROMA_PORT: int = 8000
 
     @root_validator(pre=True)
     def validate_firecrawl_api_key(cls, values):
