@@ -5,7 +5,7 @@ from typing import Optional
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from src.aurora_platform.core.config import settings
+from aurora_platform.core.config import settings
 
 __all__ = [
     "verify_password",

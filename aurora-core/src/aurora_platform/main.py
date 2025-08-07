@@ -13,6 +13,7 @@ from firebase_admin import credentials
 from aurora_platform.core.config import settings
 from aurora_platform.services.knowledge_service import KnowledgeBaseService
 from aurora_platform.api.v1.endpoints import auth_router, knowledge_router, debug_router
+from aurora_platform.api.v1.routers import system_router
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -61,3 +62,4 @@ app.include_router(
     prefix="/api/v1/debug",
     tags=["Debug"]
 )
+app.include_router(system_router.router, prefix="/v1/system", tags=["System"])

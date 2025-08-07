@@ -3,15 +3,19 @@
     "dockerComposeFile": [
         "../docker-compose.yml"
     ],
+    // A CORREÇÃO: "service" foi renomeado para "service"
     "service": "aurora-core",
-    // A CORREÇÃO CRÍTICA: Define a raiz do projeto como o workspace.
     "workspaceFolder": "/app",
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-python.python",
                 "charliermarsh.ruff"
-            ]
+            ],
+            "settings": {
+                // Garante que o VS Code no contêiner use o venv do Poetry
+                "python.defaultInterpreterPath": "/app/.venv/bin/python"
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 
-from src.aurora_platform.schemas.browser_schemas import SummarizeURLRequest
-from src.aurora_platform.services.browser_engine import BrowserEngine
+from aurora_platform.schemas.browser_schemas import SummarizeURLRequest
+from aurora_platform.services.browser_engine import BrowserEngine
 
 router = APIRouter(prefix="/browser", tags=["Browser Engine"])
 

@@ -3,9 +3,9 @@
 import uuid
 from datetime import datetime
 
-from src.aurora_platform.schemas.etp_schemas import ETPRequest, ETPResponse
-from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
-from src.aurora_platform.services.llm_adapters import VertexAIAdapter
+from aurora_platform.schemas.etp_schemas import ETPRequest, ETPResponse
+from aurora_platform.services.knowledge_service import KnowledgeBaseService
+from aurora_platform.services.llm_adapters import VertexAIAdapter
 
 
 class ETPGeneratorService:

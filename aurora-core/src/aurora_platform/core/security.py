@@ -2,7 +2,7 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
-from src.aurora_platform.services.auth_service import verify_token
+from aurora_platform.services.auth_service import verify_token
 
 # Configuração do esquema OAuth2
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")

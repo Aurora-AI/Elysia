@@ -7,8 +7,8 @@ from typing import Any, Dict
 import fitz  # PyMuPDF
 from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 
-from src.aurora_platform.schemas.knowledge_schemas import KnowledgeQuery, SearchResult
-from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
+from aurora_platform.schemas.knowledge_schemas import KnowledgeQuery, SearchResult
+from aurora_platform.services.knowledge_service import KnowledgeBaseService
 
 # Cria a instância do roteador para este módulo
 router = APIRouter()

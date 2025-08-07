@@ -3,7 +3,7 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import PlainTextResponse
 
-from src.aurora_platform.services.etp_generator_service import (
+from aurora_platform.services.etp_generator_service import (
     ETPGeneratorService,
     ETPRequest,
 )
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/etp", tags=["ETP Generator"])
 async def generate_etp(request: ETPRequest):
     """Gera Estudo Técnico Preliminar baseado em RAG."""
     try:
-        from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
+        from aurora_platform.services.knowledge_service import KnowledgeBaseService
 
         kb_service = KnowledgeBaseService()
         generator = ETPGeneratorService(kb_service)

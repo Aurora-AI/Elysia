@@ -1,4 +1,4 @@
-from src.aurora_platform.clients.adapters.llm_phi3_adapter import LLMPhi3Adapter
+from aurora_platform.clients.adapters.llm_phi3_adapter import LLMPhi3Adapter
 
 
 class LLMFactory:

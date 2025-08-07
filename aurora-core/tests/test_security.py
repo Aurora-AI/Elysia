@@ -1,4 +1,4 @@
-from src.aurora_platform.services.auth_service import (
+from aurora_platform.services.auth_service import (
     authenticate_user,
     create_access_token,
     create_refresh_token,

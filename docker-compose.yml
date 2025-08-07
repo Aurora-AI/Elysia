@@ -1,3 +1,4 @@
+
 services:
   redis:
     image: redis:7.0-alpine
@@ -17,6 +18,19 @@ services:
     env_file: .env
     ports:
       - "8000:8000"
+    depends_on:
+      - redis
+
+  aurora-crawler:
+    build:
+      context: .
+      dockerfile: ./aurora-crawler/Dockerfile
+    container_name: aurora-crawler
+    networks:
+      - aurora-net
+    env_file: .env
+    ports:
+      - "8001:8001"
     depends_on:
       - redis
 

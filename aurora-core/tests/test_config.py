@@ -1,4 +1,4 @@
-from src.aurora_platform.core.config import settings
+from aurora_platform.core.config import settings
 
 
 def test_settings_exist():

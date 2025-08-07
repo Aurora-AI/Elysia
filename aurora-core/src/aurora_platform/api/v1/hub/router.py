@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 
-from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
+from aurora_platform.services.knowledge_service import KnowledgeBaseService
 
 from .rule_based_router import RuleBasedRouter
 from .schemas import HubRequest, HubResponse

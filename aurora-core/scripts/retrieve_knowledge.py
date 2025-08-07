@@ -1,6 +1,6 @@
 # retrieve_knowledge.py
 
-from src.aurora_platform.services.knowledge_service import KnowledgeBaseService
+from aurora_platform.services.knowledge_service import KnowledgeBaseService
 
 OUTPUT_FILE = "retrieved_knowledge.md"
 

@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from src.aurora_platform.main import app
+from aurora_platform.main import app
 
 client = TestClient(app)
 

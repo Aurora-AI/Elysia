@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 
 # TODO: Reativar/substituir na integração do Crawler.
-# from src.aurora_platform.services.agent_profiling_service import AgentProfilingService
+# from aurora_platform.services.agent_profiling_service import AgentProfilingService
 
 router = APIRouter(prefix="/profiling", tags=["Agent Profiling"])
 

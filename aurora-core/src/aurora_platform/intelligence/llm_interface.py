@@ -3,7 +3,7 @@
 
 import google.generativeai as genai
 
-from src.aurora_platform.core.config import settings
+from aurora_platform.core.config import settings
 
 
 class LLMInterface:
