@@ -1,38 +1,53 @@
-
 services:
-  redis:
-    image: redis:7.0-alpine
-    container_name: aurora-redis
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: aurora-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
     networks:
       - aurora-net
+
+  gpt-oss:
+    build:
+      context: .
+      dockerfile: ./gpt-oss/Dockerfile
+    container_name: aurora-gpt-oss
     ports:
-      - "6379:6379"
+      - "8002:8002"
+    networks:
+      - aurora-net
 
   aurora-core:
     build:
       context: .
       dockerfile: ./aurora-core/Dockerfile
     container_name: aurora-core
+    ports:
+      - "8008:8000"
     networks:
       - aurora-net
-    env_file: .env
-    ports:
-      - "8000:8000"
     depends_on:
-      - redis
+      - qdrant
+      - gpt-oss
 
   aurora-crawler:
     build:
       context: .
       dockerfile: ./aurora-crawler/Dockerfile
     container_name: aurora-crawler
-    networks:
-      - aurora-net
-    env_file: .env
     ports:
       - "8001:8001"
+    networks:
+      - aurora-net
     depends_on:
-      - redis
+      - qdrant
+      - gpt-oss
+
+volumes:
+  qdrant_data:
 
 networks:
   aurora-net:

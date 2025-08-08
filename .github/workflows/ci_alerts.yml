@@ -30,10 +30,10 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.EMAIL_USER }}
-          password: ${{ secrets.EMAIL_APP_PASSWORD }}
+          password: ${{ secrets.EMAIL_PASS }}
           subject: "ðŸš¨ Falha no CI Aurora Platform"
           to: dev-alerts@aurora.ai
-          from: Aurora CI/CD <${{ secrets.EMAIL_USER }}>
+          from: ${{ secrets.EMAIL_USER }}
           body: |
             O workflow '${{ github.event.workflow_run.name }}' falhou.
             Verifique os logs em: ${{ github.event.workflow_run.html_url }}

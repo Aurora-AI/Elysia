@@ -1,38 +1,32 @@
 # --- Estágio 1: Builder ---
-FROM python:3.11-slim AS builder
+FROM python:3.11-bookworm AS builder
 
-# Configura o Poetry para criar o .venv dentro do diretório do projeto
 ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=true
+    POETRY_VIRTUALENVS_CREATE=false
 
 WORKDIR /app
 
-# Instala o Poetry
 RUN pip install --no-cache-dir poetry
 
-# Copia apenas os arquivos de dependência para otimizar o cache do Docker
+RUN python -m venv .venv
+
 COPY pyproject.toml poetry.lock ./
 
-# Instala as dependências de produção (CPU only)
-RUN poetry install --no-root --no-ansi --only main
+# OTIMIZAÇÃO: Usamos --no-dev para instalar apenas as dependências de produção.
+RUN . .venv/bin/activate && poetry install --only main --no-root --no-ansi
 
+# VERIFICAÇÃO: Garante que o ambiente foi criado antes de prosseguir.
+RUN ls -la .venv/bin
 
 # --- Estágio 2: Runtime (Final) ---
-FROM python:3.11-slim
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
-# Copia o ambiente virtual já pronto e populado do estágio builder
 COPY --from=builder /app/.venv ./.venv
 
-# A CORREÇÃO DEFINITIVA: Adiciona os executáveis do .venv ao PATH do sistema
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Copia o código-fonte da aplicação para o diretório de trabalho
-# Atenção: O caminho reflete a estrutura do monorepo
+# ---- SEÇÃO ESPECIALIZADA POR SERVIÇO ----
 COPY ./aurora-core/src/aurora_platform ./aurora_platform
-
-EXPOSE 8000
-
-# Comando final que agora encontrará 'uvicorn' no PATH
 CMD ["uvicorn", "aurora_platform.main:app", "--host", "0.0.0.0", "--port", "8000"]

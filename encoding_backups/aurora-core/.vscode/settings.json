@@ -1,5 +1,0 @@
-{
-    "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.stubPath": "src",
-    "python.analysis.autoSearchPaths": true
-}
