@@ -1,19 +1,12 @@
-# .dockerignore
-.venv
-.vscode
-__pycache__
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-.DS_Store
-.mypy_cache
-.pytest_cache
-.ruff_cache
-.venv/
-__pycache__/
-*.pyc
-.pytest_cache/
+*.log
+.env
+.venv
+dist/
+build/
+node_modules/
 .git/
-.idea/
-.vscode/
+.gitignore

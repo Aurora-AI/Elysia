@@ -1,40 +1,45 @@
-# --- Estágio 1: Builder ---
-# Usamos uma imagem completa para ter as ferramentas de build necessárias
-FROM python:3.11-bookworm AS builder
+FROM python:3.12-slim AS base
 
-# Configura o Poetry para não ser interativo e criar o .venv dentro do projeto
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=true
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    VENV_PATH=/opt/venv
 
-WORKDIR /app
+# venv único para toda a imagem
+RUN python -m venv ${VENV_PATH} \
+ && ${VENV_PATH}/bin/pip install --upgrade pip setuptools wheel
 
-# Instala o Poetry
-RUN pip install --no-cache-dir poetry
-
-# Copia os arquivos de dependência da raiz do projeto (contexto) para o WORKDIR
-# Esta é a correção crucial para a estrutura do monorepo
-COPY pyproject.toml poetry.lock ./
-
-# Instala apenas as dependências, sem o projeto em si (mais rápido para build)
-RUN poetry install --no-root --no-ansi
-
-# --- Estágio 2: Runtime (Final) ---
-# Usamos uma imagem 'slim' para uma imagem final menor e mais segura
-FROM python:3.11-slim-bookworm
+# Dependências nativas mínimas (adicione libs de sistema se necessário)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copia o ambiente virtual com as dependências já instaladas do estágio de 'builder'
-COPY --from=builder /app/.venv ./.venv
+# Copia dependências primeiro (cache)
+COPY requirements.txt /app/requirements.txt
 
-# Adiciona os executáveis do ambiente virtual ao PATH do sistema
-ENV PATH="/app/.venv/bin:$PATH"
+# Instala dependências no MESMO venv do runtime
+RUN ${VENV_PATH}/bin/pip install --no-cache-dir -r /app/requirements.txt
 
-# Copia o código-fonte específico do serviço 'aurora-core' para dentro da imagem
-COPY ./aurora-core/src/aurora_platform ./aurora_platform
+# Copia o código
+COPY . /app
 
-# Expõe a porta que a aplicação usará
-EXPOSE 8000
+# PATH prioriza o venv
+ENV PATH="${VENV_PATH}/bin:${PATH}"
 
-# Comando para iniciar a aplicação, referenciando o módulo a partir da nova raiz
-CMD ["uvicorn", "aurora_platform.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Parâmetros do app/porta ajustáveis em build/run
+ARG APP_MODULE=app.main:app
+ARG PORT=8000
+ENV APP_MODULE=${APP_MODULE}
+ENV PORT=${PORT}
+
+# Smoke checks de build — falham cedo se algo estiver errado
+RUN python -V \
+ && which python \
+ && python -c "import sys,site; print(sys.executable); print(site.getsitepackages())" \
+ && python -c "import firebase_admin; print('firebase_admin OK (build)')"
+
+EXPOSE ${PORT}
+
+# Executa uvicorn usando o MESMO Python do venv
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host","0.0.0.0","--port","8000"]
