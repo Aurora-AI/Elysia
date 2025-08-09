@@ -9,16 +9,12 @@ services:
       - qdrant_data:/qdrant/storage
     networks:
       - aurora-net
-
-  gpt-oss:
-    build:
-      context: .
-      dockerfile: ./gpt-oss/Dockerfile
-    container_name: aurora-gpt-oss
-    ports:
-      - "8002:8002"
-    networks:
-      - aurora-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/cluster"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
 
   aurora-core:
     build:
@@ -30,8 +26,8 @@ services:
     networks:
       - aurora-net
     depends_on:
-      - qdrant
-      - gpt-oss
+      qdrant:
+        condition: service_healthy
 
   aurora-crawler:
     build:
@@ -43,8 +39,8 @@ services:
     networks:
       - aurora-net
     depends_on:
-      - qdrant
-      - gpt-oss
+      qdrant:
+        condition: service_healthy
 
 volumes:
   qdrant_data:
