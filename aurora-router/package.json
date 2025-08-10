@@ -1,0 +1,19 @@
+{
+  "name": "aurora-router",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/router.js",
+    "build": "tsc -p .",
+    "test": "vitest run",
+    "dev": "tsc -w & node --watch dist/router.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}
