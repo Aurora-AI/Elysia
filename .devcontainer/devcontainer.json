@@ -1,37 +1,53 @@
 {
-  "name": "Aurora Dev",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
-
-  "features": {
-    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "installZsh": false,
-      "upgradePackages": true
-    }
+  "name": "Aurora-Plataform Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
 
-  "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  "remoteUser": "vscode",
+  "overrideCommand": false,
+
+  "runArgs": [
+    "-v", "/var/run/docker.sock:/var/run/docker.sock",
+    "-e", "DOCKER_HOST=unix:///var/run/docker.sock"
   ],
+
   "containerEnv": {
-    "DOCKER_HOST": "unix:///var/run/docker.sock"
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUNBUFFERED": "1"
   },
 
-  // user padrão é 'vscode' -> usar sudo
-  "postCreateCommand": "bash -lc 'sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl jq dos2unix && echo postCreate OK'",
-  "postStartCommand": "bash -lc 'if [ -S /var/run/docker.sock ]; then GID=$(stat -c %g /var/run/docker.sock); sudo groupadd -for -g $GID dockhost || true; sudo usermod -aG dockhost $(whoami) || true; fi'",
-
+  "updateRemoteUserUID": "on",
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
+        "ms-python.vscode-pylance",
         "ms-azuretools.vscode-docker",
-        "ms-vscode-remote.remote-containers",
+        "tamasfe.even-better-toml",
+        "github.vscode-github-actions",
         "charliermarsh.ruff"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.analysis.typeCheckingMode": "basic",
+        "python.testing.pytestEnabled": true,
+        "python.formatting.provider": "none",
+        "editor.formatOnSave": true,
+        "ruff.organizeImports": true
       }
     }
+  },
+
+  "mounts": [
+    "source=vscode,target=/vscode,type=volume"
+  ],
+
+  "postCreateCommand": "/bin/bash -lc './.devcontainer/init.sh'",
+  "portsAttributes": {
+    "8000": { "label": "Aurora API", "onAutoForward": "notify" }
   }
 }

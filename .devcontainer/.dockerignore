@@ -1,0 +1,2 @@
+# Não ignore a pasta de certs (precisamos do CA no build)
+!certs/

@@ -1,0 +1,6 @@
+# Coloque aqui o seu certificado raiz (CA) em PEM/Base64 e salve como:
+#   .devcontainer/certs/corp.crt
+# Exemplo de cabeçalho/rodapé:
+# -----BEGIN CERTIFICATE-----
+# MIID...
+# -----END CERTIFICATE-----
