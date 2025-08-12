@@ -1,21 +1,37 @@
 {
-    "name": "Aurora Platform Dev Container",
-    "dockerComposeFile": [
-        "../docker-compose.yml"
-    ],
-    // A CORREÇÃO: "service" foi renomeado para "service"
-    "service": "aurora-core",
-    "workspaceFolder": "/app",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-python.python",
-                "charliermarsh.ruff"
-            ],
-            "settings": {
-                // Garante que o VS Code no contêiner use o venv do Poetry
-                "python.defaultInterpreterPath": "/app/.venv/bin/python"
-            }
-        }
+  "name": "Aurora Dev",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "upgradePackages": true
     }
+  },
+
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "containerEnv": {
+    "DOCKER_HOST": "unix:///var/run/docker.sock"
+  },
+
+  // user padrão é 'vscode' -> usar sudo
+  "postCreateCommand": "bash -lc 'sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl jq dos2unix && echo postCreate OK'",
+  "postStartCommand": "bash -lc 'if [ -S /var/run/docker.sock ]; then GID=$(stat -c %g /var/run/docker.sock); sudo groupadd -for -g $GID dockhost || true; sudo usermod -aG dockhost $(whoami) || true; fi'",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "charliermarsh.ruff"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  }
 }

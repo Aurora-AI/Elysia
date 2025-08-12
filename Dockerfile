@@ -15,20 +15,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Copia dependências primeiro (cache)
+# Copia apenas o que é necessário para resolver deps
+COPY pyproject.toml poetry.lock* /app/
 COPY requirements.txt /app/requirements.txt
 
 # Instala dependências no MESMO venv do runtime
 RUN ${VENV_PATH}/bin/pip install --no-cache-dir -r /app/requirements.txt
 
-# Copia o código
-COPY . /app
+# Agora copie só o código-fonte e configs mínimas
+COPY aurora-core/src/ /app/aurora-core/src/
+COPY alembic/ /app/alembic/
+COPY alembic.ini /app/alembic.ini
+COPY config/ /app/config/
+COPY README.md /app/README.md
 
-# PATH prioriza o venv
+# PATH prioriza o venv e PYTHONPATH para encontrar os módulos
 ENV PATH="${VENV_PATH}/bin:${PATH}"
+ENV PYTHONPATH="/app/aurora-core/src:${PYTHONPATH}"
 
 # Parâmetros do app/porta ajustáveis em build/run
-ARG APP_MODULE=app.main:app
+ARG APP_MODULE=aurora-core.src.aurora_platform.main:app
 ARG PORT=8000
 ENV APP_MODULE=${APP_MODULE}
 ENV PORT=${PORT}
@@ -42,4 +48,4 @@ RUN python -V \
 EXPOSE ${PORT}
 
 # Executa uvicorn usando o MESMO Python do venv
-CMD ["python", "-m", "uvicorn", "app.main:app", "--host","0.0.0.0","--port","8000"]
+CMD ["python", "-m", "uvicorn", "aurora_platform.main:app", "--host","0.0.0.0","--port","8000"]

@@ -32,6 +32,8 @@ openai = "*"
 pyotp = "*"
 qrcode = {extras = ["pil"], version = "*"}
 firebase-admin = "==6.5.0" # Versão travada para compatibilidade
+requests = "^2.32.4"
+sentry-sdk = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"

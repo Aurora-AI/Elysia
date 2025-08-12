@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: aurora-qdrant
+    ports:
+      - "6333:6333"   # REST / dashboard
+      - "6334:6334"   # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage:rw
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:6333/readyz >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    networks:
+      - aurora-net
+    restart: unless-stopped
+
+  aurora-core:
+    build:
+      context: .
+      dockerfile: ./aurora-core/Dockerfile
+    container_name: aurora-core
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+    ports:
+      - "8008:8000"
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    command: ["bash", "-lc", "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"]
+    networks:
+      - aurora-net
+    restart: unless-stopped
+
+networks:
+  aurora-net:
+    driver: bridge
+
+volumes:
+  qdrant_data:
+    driver: local
+  pg_data:
+    driver: local

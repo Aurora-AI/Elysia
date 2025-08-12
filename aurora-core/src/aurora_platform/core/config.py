@@ -30,19 +30,18 @@ class Settings(BaseSettings):
     PROJECT_VERSION: str = "0.1.0"
 
     # --- Segredos da Aplicação e Banco de Dados (Obrigatórios no .env) ---
-    DATABASE_URL: SecretStr
+    DATABASE_URL: Optional[SecretStr] = None
     SECRET_KEY: SecretStr
 
     # --- Chaves de API de Serviços Externos (Obrigatórias no .env) ---
-    GEMINI_API_KEY: SecretStr
-    DEEPSEEK_API_KEY: SecretStr
-    FIRECRAWL_API_KEY: SecretStr
+    GEMINI_API_KEY: Optional[SecretStr] = None
+    DEEPSEEK_API_KEY: Optional[SecretStr] = None
 
     # --- Configurações do Azure OpenAI ---
-    azure_openai_endpoint: SecretStr
-    azure_openai_api_key: SecretStr
+    azure_openai_endpoint: Optional[SecretStr] = None
+    azure_openai_api_key: Optional[SecretStr] = None
     openai_api_version: str = "2024-02-01"
-    azure_openai_deployment_name: str
+    azure_openai_deployment_name: Optional[str] = None
 
     # --- Configs de Segurança (com valores padrão do settings.toml) ---
     ALGORITHM: str = "HS256"
@@ -61,8 +60,8 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 20
 
     # --- Configs do Google Cloud (Obrigatórias no .env) ---
-    GOOGLE_CLOUD_PROJECT: str
-    GOOGLE_CLOUD_LOCATION: str
+    GOOGLE_CLOUD_PROJECT: Optional[str] = None
+    GOOGLE_CLOUD_LOCATION: Optional[str] = None
 
     # --- Configs do Redis (com valor padrão do settings.toml) ---
     # Opcional para permitir execução sem Redis, se necessário
@@ -73,17 +72,7 @@ class Settings(BaseSettings):
     CHROMA_HOST: str = "chromadb"
     CHROMA_PORT: int = 8000
 
-    @root_validator(pre=True)
-    def validate_firecrawl_api_key(cls, values):
-        v = values.get("FIRECRAWL_API_KEY")
-        if isinstance(v, SecretStr):
-            key_value = v.get_secret_value().strip()
-        else:
-            key_value = str(v).strip() if v else ""
-        if not key_value:
-            raise ValueError("FIRECRAWL_API_KEY não pode ser vazia ou nula")
-        values["FIRECRAWL_API_KEY"] = SecretStr(key_value)
-        return values
+
 
 
 # Configuração para resolver conflito do protobuf
