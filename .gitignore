@@ -1,3 +1,6 @@
+# Bloqueio de auditorias legadas
+**/scripts/audit/**
+**/aurora_audit.ps1
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

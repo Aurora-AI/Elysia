@@ -1,1 +1,7 @@
-*.sh text eol=lf
+*.yml text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+
+# Em caso de conflito, preferir o compose atual do repo (reduz chance de lixo voltar)
+docker-compose.yml merge=ours
+# Em caso de conflito, preferir o compose atual do repo (reduz chance de lixo voltar)
