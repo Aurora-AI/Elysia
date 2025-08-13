@@ -3,37 +3,35 @@ version: "3.8"
 version: "3.8"
 
 services:
-  qdrant:
-    image: qdrant/qdrant:v1.10.0
-    container_name: aurora-qdrant
-    restart: unless-stopped
+  # Serviço do Aurora-CRM (Core)
+  aurora-crm:
+    build:
+      context: ./aurora-crm
+      dockerfile: Dockerfile
+    container_name: aurora-crm
     ports:
-      - "6333:6333"   # HTTP API
-      - "6334:6334"   # gRPC (opcional)
+      - "8000:8000"
     volumes:
-      - qdrant_storage:/qdrant/storage
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:6333/readyz"]
-      interval: 10s
-      timeout: 3s
-      retries: 10
-      start_period: 10s
+      - ./aurora-crm:/app
     networks:
       - aurora-net
-
-  aurora-core:
-    build:
-      context: .
-      dockerfile: ./aurora-core/Dockerfile
-    container_name: aurora-core
-    restart: unless-stopped
-    environment:
-      QDRANT_URL: http://qdrant:6333
-    ports:
-      - "8008:8000"
     depends_on:
-      qdrant:
-        condition: service_healthy
+      - db
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/auroracrmdb
+
+  # Serviço do Banco de Dados PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: aurora-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=auroracrmdb
+    ports:
+      - "5432:5432"
     networks:
       - aurora-net
 
@@ -42,5 +40,4 @@ networks:
     driver: bridge
 
 volumes:
-  qdrant_storage:
-    driver: local
+  postgres_data:

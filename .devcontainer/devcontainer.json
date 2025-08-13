@@ -1,20 +1,10 @@
 {
   "name": "Aurora Dev",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  },
-
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
+  
   "remoteUser": "vscode",
-  "overrideCommand": false,
-
-  "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "installZsh": false,
-      "installOhMyZsh": false,
-      "upgradePackages": false
-    }
-  },
+  "overrideCommand": true,
+  "runArgs": ["--init"],
 
   "containerEnv": {
     "PIP_DISABLE_PIP_VERSION_CHECK": "1",
@@ -22,7 +12,12 @@
     "PYTHONUNBUFFERED": "1"
   },
 
-  "updateRemoteUserUID": "on",
+  "updateRemoteUserUID": true,
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
+  },
+
+  "postCreateCommand": "pip install --upgrade pip setuptools wheel",
 
   "customizations": {
     "vscode": {

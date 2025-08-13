@@ -6,9 +6,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# Copia o CA corporativo (substitua corp.crt pelo seu real)
-# Mantemos também o example no contexto para orientar outros times.
-COPY .devcontainer/certs/corp.crt /usr/local/share/ca-certificates/corp.crt
+# Copia certificados corporativos, se houver (.crt). O diretório existe no repo por padrão.
+# Arquivos .example são ignorados pelo update-ca-certificates.
+COPY .devcontainer/certs/ /usr/local/share/ca-certificates/
 
 # Atualiza a store de certificados do sistema (inclui nosso CA)
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl \
@@ -24,4 +24,4 @@ RUN python -m pip install --upgrade pip setuptools wheel
 # ARG NO_PROXY
 # ENV http_proxy=${HTTP_PROXY} https_proxy=${HTTPS_PROXY} no_proxy=${NO_PROXY}
 
-# Pronto. Features GHCR serão injetadas pelo Dev Containers (Dockerfile-with-features).
+# Ambiente pronto sem depender de features GHCR (opera offline).

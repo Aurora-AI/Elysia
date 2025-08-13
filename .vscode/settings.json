@@ -1,5 +1,10 @@
 {
   "json.schemaDownload.enable": false,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true
+{
+  "files.eol": "\n"
+}
   "json.schemas": [
     {
       "fileMatch": ["/.devcontainer/devcontainer.json"],

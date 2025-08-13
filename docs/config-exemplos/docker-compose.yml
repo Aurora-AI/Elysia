@@ -1,0 +1,20 @@
+# Snapshot de referência (não usado pelo runtime)
+# Mantido para auditoria e comparação.
+version: "3.8"
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.10.0
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    networks: [aurora-net]
+  aurora-core:
+    build: { context: ".", dockerfile: "./aurora-core/Dockerfile" }
+    environment:
+      QDRANT_URL: http://qdrant:6333
+    networks: [aurora-net]
+networks:
+  aurora-net:
+    driver: bridge
+volumes:
+  qdrant_storage:
+    driver: local
