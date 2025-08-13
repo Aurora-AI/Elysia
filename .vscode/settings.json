@@ -1,5 +1,14 @@
 {
-    "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.stubPath": "src",
-    "python.analysis.autoSearchPaths": true
+  "json.schemaDownload.enable": false,
+  "json.schemas": [
+    {
+      "fileMatch": ["/.devcontainer/devcontainer.json"],
+      "schema": {
+        "type": "object",
+        "description": "Stub local para evitar fetch remoto do schema.",
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  ]
 }

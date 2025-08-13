@@ -1,5 +1,5 @@
 {
-  "name": "Aurora-Plataform Dev",
+  "name": "Aurora Dev",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
@@ -8,10 +8,13 @@
   "remoteUser": "vscode",
   "overrideCommand": false,
 
-  "runArgs": [
-    "-v", "/var/run/docker.sock:/var/run/docker.sock",
-    "-e", "DOCKER_HOST=unix:///var/run/docker.sock"
-  ],
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "upgradePackages": false
+    }
+  },
 
   "containerEnv": {
     "PIP_DISABLE_PIP_VERSION_CHECK": "1",
@@ -20,6 +23,7 @@
   },
 
   "updateRemoteUserUID": "on",
+
   "customizations": {
     "vscode": {
       "extensions": [
@@ -27,8 +31,8 @@
         "ms-python.vscode-pylance",
         "ms-azuretools.vscode-docker",
         "tamasfe.even-better-toml",
-        "github.vscode-github-actions",
-        "charliermarsh.ruff"
+        "charliermarsh.ruff",
+        "github.vscode-github-actions"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
@@ -40,14 +44,5 @@
         "ruff.organizeImports": true
       }
     }
-  },
-
-  "mounts": [
-    "source=vscode,target=/vscode,type=volume"
-  ],
-
-  "postCreateCommand": "/bin/bash -lc './.devcontainer/init.sh'",
-  "portsAttributes": {
-    "8000": { "label": "Aurora API", "onAutoForward": "notify" }
   }
 }

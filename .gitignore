@@ -140,3 +140,6 @@ config/settings.local.toml
 # Node modules
 /frontend/node_modules/
 aurora-knowledge-base/
+
+# Certificados corporativos (manter apenas o .example versionado)
+.devcontainer/certs/corp.crt

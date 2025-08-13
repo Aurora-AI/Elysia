@@ -1,2 +1,4 @@
-# Não ignore a pasta de certs (precisamos do CA no build)
+# Garantir inclusão de certs na build do devcontainer
 !certs/
+!certs/corp.crt
+!certs/corp.crt.example
