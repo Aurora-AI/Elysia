@@ -4,3 +4,20 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
+  - repo: local
+    hooks:
+      - id: block-example-copy
+        name: Block committing EXEMPLO blocks to outputs
+        entry: bash -c 'grep -RIn "<<<EXEMPLO_INICIO>>>" -- . && echo "[ERRO] Blocos EXEMPLO são ilustrativos e não devem ir para saída/commit." && exit 1 || exit 0'
+        language: system
+        types: [text]
+      - id: block-legacy-audits
+        name: Block legacy audit scripts
+        entry: bash -c 'git diff --cached --name-only | grep -E "(aurora_audit\\.ps1|audit.*\\.sh)" && echo "[ERRO] Scripts de auditoria legados são proibidos." && exit 1 || exit 0'
+        language: system
+        types: [text]
+      - id: ensure-copilot-constitution
+        name: Ensure constitution sections exist
+        entry: bash -c 'grep -q "## 3.1 Auditoria 360º (EXECUTAR, não analisar)" COPILOT_AGENTE_CONSTITUCION.md && grep -q "## 3.2 Tratamento de Exemplos (NÃO COPIAR)" COPILOT_AGENTE_CONSTITUCION.md'
+        language: system
+        types: [text]

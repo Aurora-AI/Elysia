@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "aurora-core"
+version = "1.0.0"
+description = "Core da Plataforma Aurora."
+authors = ["Equipe Aurora <dev@aurora.ai>"]
+
+packages = [{ include = "aurora_platform", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+fastapi = "^0.111.0"
+uvicorn = "^0.30.0"
+pydantic = "^2.8.2"
+qdrant-client = "^1.11.0"
+fastembed = "^0.3.4"
+kafka-python = "^2.0.2"
+structlog = "^24.1.0"
+python-dotenv = "^1.0.1"
+beautifulsoup4 = "^4.12.3"
+selectolax = "^0.3.21"
+trafilatura = "^1.9.0"
+lxml = "^5.2.2"
+chardet = "^5.2.0"
+rank-bm25 = "^0.2.2"
+sentence-transformers = "^3.0.1"
+prometheus-fastapi-instrumentator = "^7.0.0"
+slowapi = "^0.1.9"
+python-multipart = "^0.0.9"
+sqlmodel = "^0.0.24"
+firebase-admin = "6.5.0"
+sentry-sdk = "^2.34.1"
+pydantic-settings = "^2.10.1"
+langchain = "^0.3.27"
+pybreaker = "^1.4.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+ruff = ">=0.5.3"
+pre-commit = "*"
+black = "*"
+toml = "*"
+
+[build-system]
+requires = ["poetry-core>=1.7.0"]
+build-backend = "poetry.core.masonry.api"

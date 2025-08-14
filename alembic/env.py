@@ -1,13 +1,75 @@
+from __future__ import annotations
+from sqlmodel import SQLModel  # garanta que seus modelos importem SQLModel
+from aurora_platform.core.settings import settings
+from alembic import context
+from sqlalchemy import engine_from_config, pool
+from logging.config import fileConfig
+def run_migrations_offline() -> None:
+
+
+def run_migrations_online() -> None:
+
+    # Importa settings e modelos:
+    # Esta config é provida pelo alembic.ini
+config = context.config
+
+# Logging do Alembic
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
+
+# Target metadata para autogenerate
+target_metadata = SQLModel.metadata
+
+
+def get_url() -> str:
+    # Usamos URL síncrona no Alembic
+    return settings.sync_database_url
+
+
+def run_migrations_offline() -> None:
+    """Rodar migrações em modo 'offline'."""
+    url = get_url()
+    context.configure(
+        url=url,
+        target_metadata=target_metadata,
+        literal_binds=True,
+        dialect_opts={"paramstyle": "named"},
+        compare_type=True,
+    )
+
+    with context.begin_transaction():
+        context.run_migrations()
+
+
+def run_migrations_online() -> None:
+    """Rodar migrações em modo 'online'."""
+    configuration = config.get_section(config.config_ini_section) or {}
+    configuration["sqlalchemy.url"] = get_url()
+
+    connectable = engine_from_config(
+        configuration,
+        prefix="sqlalchemy.",
+        poolclass=pool.NullPool,
+    )
+
+    with connectable.connect() as connection:
+        context.configure(
+            connection=connection,
+            target_metadata=target_metadata,
+            compare_type=True,
+        )
+
+        with context.begin_transaction():
+            context.run_migrations()
+
+
+# Entrypoint
+if context.is_offline_mode():
+    run_migrations_offline()
+else:
+    run_migrations_online()
 # alembic/env.py - Versão Definitiva com Correção de Caminho e Tipagem
 
-import sys
-from logging.config import fileConfig
-from pathlib import Path
-
-from sqlalchemy import engine_from_config, pool
-from sqlmodel import SQLModel
-
-from alembic import context
 
 # --- CORREÇÃO DE CAMINHO ---
 # Adiciona o diretório raiz do projeto (que contém a pasta 'src')
@@ -18,7 +80,7 @@ sys.path.append(str(PROJECT_ROOT))
 # --- FIM DA CORREÇÃO ---
 
 # Agora que o caminho está correto, podemos importar nossos módulos
-from src.aurora_platform.core.config import settings  # noqa: E402
+from aurora_platform.core.settings import settings  # noqa: E402
 
 # Importe aqui todos os seus modelos para que o Alembic os reconheça.
 # Isso garante que eles sejam registrados no metadata do SQLModel.
@@ -74,7 +136,8 @@ def run_migrations_online() -> None:
     )
     # --- FIM DA CORREÇÃO ---
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+        context.configure(connection=connection,
+                          target_metadata=target_metadata)
         with context.begin_transaction():
             context.run_migrations()
 

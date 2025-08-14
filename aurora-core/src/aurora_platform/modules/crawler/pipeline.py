@@ -2,11 +2,11 @@ from __future__ import annotations
 import json
 import os
 from typing import Dict, Any
-from aurora_platform.modules.crawler.ingestion.metadata import CanonicalMetadata
-from aurora_platform.modules.crawler.ingestion.normalizer import to_markdown
-from aurora_platform.modules.crawler.ingestion.dedupe import compute_id
-from aurora_platform.modules.crawler.chunking.splitter import split_markdown
-from aurora_platform.modules.crawler.chunking import policies as chunk_policies
+from .ingestion.metadata import CanonicalMetadata
+from .ingestion.normalizer import to_markdown
+from .ingestion.dedupe import compute_id
+from .chunking.splitter import split_markdown
+from .chunking import policies as chunk_policies
 
 
 def run_ingestion(content: str, media_type: str, source: str, tags: Dict[str, Any] | None = None) -> Dict[str, Any]:

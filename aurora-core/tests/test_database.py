@@ -1,7 +1,7 @@
 import pytest
 from sqlmodel import Session
 
-from aurora_platform.db.database import create_db_and_tables, engine, get_session
+from aurora_platform.core.db import get_session
 from aurora_platform.db.models.user_model import User
 
 

@@ -8,13 +8,13 @@ version = "1.0.0"
 description = "Plataforma unificada para os serviços Aurora."
 authors = ["Equipe Aurora <dev@aurora.ai>"]
 readme = "README.md"
-packages = [{ include = "aurora_platform", from = "aurora-core/src" }]
+packages = [{ include = "aurora_platform" }]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
 fastapi = ">=0.110.0"
 sqlmodel = ">=0.0.16"
-alembic = ">=1.13.1"
+alembic = ">=1.13"
 uvicorn = ">=0.29.0"
 pydantic = ">=2.0.0"
 dynaconf = ">=3.2.4"
@@ -34,11 +34,18 @@ qrcode = {extras = ["pil"], version = "*"}
 firebase-admin = "==6.5.0" # Versão travada para compatibilidade
 requests = "^2.32.4"
 sentry-sdk = "^2.0.0"
+pydantic-settings = "^2.10.1"
+pybreaker = "^1.4.0"
+python-multipart = "^0.0.20"
+sqlalchemy = ">=2.0"
+aiosqlite = ">=0.19"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "*"
-pytest-asyncio = "*"
+pytest = ">=8.0"
+pytest-asyncio = ">=0.23"
 ruff = ">=0.5.3"
 pre-commit = "*"
 black = "*"
 toml = "*"
+sqlalchemy = "^2.0.43"
+aiosqlite = "^0.21.0"

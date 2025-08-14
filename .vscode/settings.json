@@ -1,10 +1,7 @@
 {
   "json.schemaDownload.enable": false,
   "files.eol": "\n",
-  "files.insertFinalNewline": true
-{
-  "files.eol": "\n"
-}
+  "files.insertFinalNewline": true,
   "json.schemas": [
     {
       "fileMatch": ["/.devcontainer/devcontainer.json"],
@@ -15,5 +12,14 @@
         "additionalProperties": true
       }
     }
-  ]
+  ],
+  "python.analysis.extraPaths": [
+    "aurora-core/src"
+  ],
+  "python.testing.pytestArgs": [
+    "aurora-core/tests"
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.terminal.activateEnvironment": true,
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
 }
