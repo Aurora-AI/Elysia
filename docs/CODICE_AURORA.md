@@ -73,23 +73,23 @@
 
 #### **PARTE VI: A BIBLIOTECA DE REFERÊNCIA**
 
-- **Vertex AI: Supervised fine-tuning for Gemini 2.5 Pro & Flash-Lite**  
+- **Vertex AI: Supervised fine-tuning for Gemini 2.5 Pro & Flash-Lite**
   [Estudo Detalhado](library/vertex_ai_finetune_gemini_2_5.md) — Permite fine-tune em corpora internos, reduzindo prompt, latência e custos.
 
-- **Cloud Run: Manual scaling is now GA**  
+- **Cloud Run: Manual scaling is now GA**
   [Estudo Detalhado](library/cloud_run_manual_scaling.md) — Controle rigoroso de cold starts/custos para endpoints de agentes.
 
-- **LangGraph 0.6.x shipped**  
+- **LangGraph 0.6.x shipped**
   [Estudo Detalhado](library/langgraph_0_6_x.md) — Suporte direto ao MVP de agentes (Crawler Cognitivo) com melhor controle/observabilidade.
 
-- **Qdrant 1.15.x: smarter quantization, better text filtering**  
+- **Qdrant 1.15.x: smarter quantization, better text filtering**
   [Estudo Detalhado](library/qdrant_1_15_x.md) — Reduz RAM/IO e melhora filtragem híbrida; agendar teste de upgrade.
 
-- **LangGraph v0.6.5 released**  
+- **LangGraph v0.6.5 released**
   [Estudo Detalhado](library/langgraph_0_6_5.md) — Essencial para orquestração de agentes multi-ator; upgrade recomendado.
 
-- **Qdrant Cloud Inference for multimodal embeddings**  
+- **Qdrant Cloud Inference for multimodal embeddings**
   [Estudo Detalhado](library/qdrant_cloud_inference_multimodal.md) — Simplifica pipelines de RAG, colapsando embedding e indexação.
 
-- **Vertex AI: Prompt Optimizer (GA)**  
+- **Vertex AI: Prompt Optimizer (GA)**
   [Estudo Detalhado](library/vertex_ai_prompt_optimizer.md) — Otimização de prompts reduz custo de tokens e melhora qualidade.
