@@ -3,8 +3,8 @@ from __future__ import annotations
 import httpx
 import pytest
 
-from backend.app.connectors.tce_rn.client import TCERNClient
-from backend.app.connectors.tce_rn.pipeline import normalize, run
+from backend.app.connectors.tce_rn.pipeline import normalize
+from typing import cast
 from backend.app.connectors.tce_rn.schemas import RawApiExpense
 
 
@@ -125,7 +125,7 @@ def test_pipeline_run(monkeypatch):
         return httpx.Client(transport=transport)
 
     client_mod._build_client = _client_source
-    pipe_mod.httpx.Client = _client_sink
+    pipe_mod.httpx.Client = cast(type, _client_sink)
 
     res = pipe_mod.run(page_size=2)
     assert res["ok"] is True

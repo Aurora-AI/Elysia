@@ -15,7 +15,7 @@ def env_str(name: str, default: Optional[str] = None, required: bool = False) ->
     return val
 
 
-TCE_RN_BASE_URL = env_str("TCE_RN_BASE_URL", required=True)
+TCE_RN_BASE_URL: str = env_str("TCE_RN_BASE_URL", required=True) or ""
 TCE_RN_API_KEY = env_str("TCE_RN_API_KEY", required=False)
 TCE_RN_EXPENSES_PATH = env_str(
     "TCE_RN_EXPENSES_PATH", "/expenses") or "/expenses"

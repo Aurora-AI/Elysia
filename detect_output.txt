@@ -1,0 +1,475 @@
+{
+  "version": "1.5.0",
+  "plugins_used": [
+    {
+      "name": "ArtifactoryDetector"
+    },
+    {
+      "name": "AWSKeyDetector"
+    },
+    {
+      "name": "AzureStorageKeyDetector"
+    },
+    {
+      "name": "Base64HighEntropyString",
+      "limit": 4.5
+    },
+    {
+      "name": "BasicAuthDetector"
+    },
+    {
+      "name": "CloudantDetector"
+    },
+    {
+      "name": "DiscordBotTokenDetector"
+    },
+    {
+      "name": "GitHubTokenDetector"
+    },
+    {
+      "name": "GitLabTokenDetector"
+    },
+    {
+      "name": "HexHighEntropyString",
+      "limit": 3.0
+    },
+    {
+      "name": "IbmCloudIamDetector"
+    },
+    {
+      "name": "IbmCosHmacDetector"
+    },
+    {
+      "name": "IPPublicDetector"
+    },
+    {
+      "name": "JwtTokenDetector"
+    },
+    {
+      "name": "KeywordDetector",
+      "keyword_exclude": ""
+    },
+    {
+      "name": "MailchimpDetector"
+    },
+    {
+      "name": "NpmDetector"
+    },
+    {
+      "name": "OpenAIDetector"
+    },
+    {
+      "name": "PrivateKeyDetector"
+    },
+    {
+      "name": "PypiTokenDetector"
+    },
+    {
+      "name": "SendGridDetector"
+    },
+    {
+      "name": "SlackDetector"
+    },
+    {
+      "name": "SoftlayerDetector"
+    },
+    {
+      "name": "SquareOAuthDetector"
+    },
+    {
+      "name": "StripeDetector"
+    },
+    {
+      "name": "TelegramBotTokenDetector"
+    },
+    {
+      "name": "TwilioKeyDetector"
+    }
+  ],
+  "filters_used": [
+    {
+      "path": "detect_secrets.filters.allowlist.is_line_allowlisted"
+    },
+    {
+      "path": "detect_secrets.filters.common.is_ignored_due_to_verification_policies",
+      "min_level": 2
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_indirect_reference"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_likely_id_string"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_lock_file"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_not_alphanumeric_string"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_potential_uuid"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_prefixed_with_dollar_sign"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_sequential_string"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_swagger_file"
+    },
+    {
+      "path": "detect_secrets.filters.heuristic.is_templated_secret"
+    }
+  ],
+  "results": {
+    ".env": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": ".env",
+        "hashed_secret": "7ded8354a6266a413c06f29598dd6f9dc5c0fd88",
+        "is_verified": false,
+        "line_number": 17
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": ".env",
+        "hashed_secret": "7ded8354a6266a413c06f29598dd6f9dc5c0fd88",
+        "is_verified": false,
+        "line_number": 17
+      },
+      {
+        "type": "Base64 High Entropy String",
+        "filename": ".env",
+        "hashed_secret": "257b0ad4ad496b7f67c604501ec107cbd0b904a4",
+        "is_verified": false,
+        "line_number": 23
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": ".env",
+        "hashed_secret": "257b0ad4ad496b7f67c604501ec107cbd0b904a4",
+        "is_verified": false,
+        "line_number": 23
+      },
+      {
+        "type": "Base64 High Entropy String",
+        "filename": ".env",
+        "hashed_secret": "d3c0af7b88edd1085e33dca997faa06e1c92223a",
+        "is_verified": false,
+        "line_number": 26
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": ".env",
+        "hashed_secret": "d3c0af7b88edd1085e33dca997faa06e1c92223a",
+        "is_verified": false,
+        "line_number": 26
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": ".env",
+        "hashed_secret": "b51ce28599cda62998f1b876c63605f8b10d0211",
+        "is_verified": false,
+        "line_number": 31
+      },
+      {
+        "type": "JSON Web Token",
+        "filename": ".env",
+        "hashed_secret": "4b11eb5ab7b31e834bdc06fb295f2d054e5e8d23",
+        "is_verified": false,
+        "line_number": 39
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": ".env",
+        "hashed_secret": "7a6755f2460e9b392024c58faa659474fd1f198f",
+        "is_verified": false,
+        "line_number": 39
+      },
+      {
+        "type": "Slack Token",
+        "filename": ".env",
+        "hashed_secret": "f86376a1505b88e3e3304dd03a9ad9c763d33349",
+        "is_verified": true,
+        "line_number": 45
+      }
+    ],
+    ".env.example": [
+      {
+        "type": "Basic Auth Credentials",
+        "filename": ".env.example",
+        "hashed_secret": "c8251d848e225e4d6952dde1bb52f47579046246",
+        "is_verified": false,
+        "line_number": 2
+      }
+    ],
+    ".pytest_cache/CACHEDIR.TAG": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": ".pytest_cache/CACHEDIR.TAG",
+        "hashed_secret": "e8f8c345877b2411a59897798e422b15b0c16d76",
+        "is_verified": false,
+        "line_number": 1
+      }
+    ],
+    ".ruff_cache/CACHEDIR.TAG": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": ".ruff_cache/CACHEDIR.TAG",
+        "hashed_secret": "e8f8c345877b2411a59897798e422b15b0c16d76",
+        "is_verified": false,
+        "line_number": 1
+      }
+    ],
+    "DEEPDIVE_SCRAPER_README.md": [
+      {
+        "type": "Secret Keyword",
+        "filename": "DEEPDIVE_SCRAPER_README.md",
+        "hashed_secret": "c11332d165f7ca754e4a06fbebfec731b3f912b9",
+        "is_verified": false,
+        "line_number": 76
+      }
+    ],
+    "alembic.ini": [
+      {
+        "type": "Basic Auth Credentials",
+        "filename": "alembic.ini",
+        "hashed_secret": "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8",
+        "is_verified": false,
+        "line_number": 6
+      }
+    ],
+    "alembic/versions/49d19e6c95b6_initial_tables.py": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": "alembic/versions/49d19e6c95b6_initial_tables.py",
+        "hashed_secret": "d24237379509913d7ad761e05da88ee7102a6f6e",
+        "is_verified": false,
+        "line_number": 16
+      }
+    ],
+    "aurora-core/.env": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/.env",
+        "hashed_secret": "1e7f6fccb91f266443982b94bc2b63b6c777e2ce",
+        "is_verified": false,
+        "line_number": 2
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/.env",
+        "hashed_secret": "da94772251681339e46ebf99618c5e7bad430218",
+        "is_verified": false,
+        "line_number": 13
+      }
+    ],
+    "aurora-core/.pytest_cache/CACHEDIR.TAG": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": "aurora-core/.pytest_cache/CACHEDIR.TAG",
+        "hashed_secret": "e8f8c345877b2411a59897798e422b15b0c16d76",
+        "is_verified": false,
+        "line_number": 1
+      }
+    ],
+    "aurora-core/.ruff_cache/CACHEDIR.TAG": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": "aurora-core/.ruff_cache/CACHEDIR.TAG",
+        "hashed_secret": "e8f8c345877b2411a59897798e422b15b0c16d76",
+        "is_verified": false,
+        "line_number": 1
+      }
+    ],
+    "aurora-core/DEEPDIVE_SCRAPER_README.md": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/DEEPDIVE_SCRAPER_README.md",
+        "hashed_secret": "c11332d165f7ca754e4a06fbebfec731b3f912b9",
+        "is_verified": false,
+        "line_number": 76
+      }
+    ],
+    "aurora-core/alembic.ini": [
+      {
+        "type": "Basic Auth Credentials",
+        "filename": "aurora-core/alembic.ini",
+        "hashed_secret": "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8",
+        "is_verified": false,
+        "line_number": 6
+      }
+    ],
+    "aurora-core/alembic/versions/49d19e6c95b6_initial_tables.py": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": "aurora-core/alembic/versions/49d19e6c95b6_initial_tables.py",
+        "hashed_secret": "d24237379509913d7ad761e05da88ee7102a6f6e",
+        "is_verified": false,
+        "line_number": 16
+      }
+    ],
+    "aurora-core/config/.secrets.example.toml": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/config/.secrets.example.toml",
+        "hashed_secret": "29b8dca3de5ff27bcf8bd3b622adf9970f29381c",
+        "is_verified": false,
+        "line_number": 8
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/config/.secrets.example.toml",
+        "hashed_secret": "0b076cacdd3bc99c8f4c5e7b53921913984acf02",
+        "is_verified": false,
+        "line_number": 11
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/config/.secrets.example.toml",
+        "hashed_secret": "d716ffcc80f133c9ed2c5ee4eec9bf478aab9403",
+        "is_verified": false,
+        "line_number": 12
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/config/.secrets.example.toml",
+        "hashed_secret": "4c83ff2aca6b6ff50d5d680a16d7cf6936b5e632",
+        "is_verified": false,
+        "line_number": 17
+      }
+    ],
+    "aurora-core/frontend/test-api.js": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/frontend/test-api.js",
+        "hashed_secret": "e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4",
+        "is_verified": false,
+        "line_number": 35
+      }
+    ],
+    "aurora-core/src/aurora_platform/core/password_validator.py": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": "aurora-core/src/aurora_platform/core/password_validator.py",
+        "hashed_secret": "9808b66337964ae3417b959a1541e81515a967d7",
+        "is_verified": false,
+        "line_number": 81
+      },
+      {
+        "type": "Hex High Entropy String",
+        "filename": "aurora-core/src/aurora_platform/core/password_validator.py",
+        "hashed_secret": "664173a37197cac430175ceb04c969b5e58d73ad",
+        "is_verified": false,
+        "line_number": 82
+      }
+    ],
+    "aurora-core/tests/test_auth.py": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/tests/test_auth.py",
+        "hashed_secret": "e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4",
+        "is_verified": false,
+        "line_number": 11
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/tests/test_auth.py",
+        "hashed_secret": "d8ecf7db8fc9ec9c31bc5c9ae2929cc599c75f8d",
+        "is_verified": false,
+        "line_number": 23
+      }
+    ],
+    "aurora-core/tests/test_database.py": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/tests/test_database.py",
+        "hashed_secret": "f409ce90a1cd144912d1df8620215b2dc9fda731",
+        "is_verified": false,
+        "line_number": 32
+      }
+    ],
+    "aurora-core/tests/test_models.py": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/tests/test_models.py",
+        "hashed_secret": "f409ce90a1cd144912d1df8620215b2dc9fda731",
+        "is_verified": false,
+        "line_number": 15
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/tests/test_models.py",
+        "hashed_secret": "8bb6118f8fd6935ad0876a3be34a717d32708ffd",
+        "is_verified": false,
+        "line_number": 28
+      }
+    ],
+    "aurora-core/tests/test_security.py": [
+      {
+        "type": "Secret Keyword",
+        "filename": "aurora-core/tests/test_security.py",
+        "hashed_secret": "c18006fc138809314751cd1991f1e0b820fabd37",
+        "is_verified": false,
+        "line_number": 12
+      }
+    ],
+    "aurora_platform/core/password_validator.py": [
+      {
+        "type": "Hex High Entropy String",
+        "filename": "aurora_platform/core/password_validator.py",
+        "hashed_secret": "9808b66337964ae3417b959a1541e81515a967d7",
+        "is_verified": false,
+        "line_number": 81
+      },
+      {
+        "type": "Hex High Entropy String",
+        "filename": "aurora_platform/core/password_validator.py",
+        "hashed_secret": "664173a37197cac430175ceb04c969b5e58d73ad",
+        "is_verified": false,
+        "line_number": 82
+      }
+    ],
+    "config/.secrets.example.toml": [
+      {
+        "type": "Secret Keyword",
+        "filename": "config/.secrets.example.toml",
+        "hashed_secret": "29b8dca3de5ff27bcf8bd3b622adf9970f29381c",
+        "is_verified": false,
+        "line_number": 8
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "config/.secrets.example.toml",
+        "hashed_secret": "0b076cacdd3bc99c8f4c5e7b53921913984acf02",
+        "is_verified": false,
+        "line_number": 11
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "config/.secrets.example.toml",
+        "hashed_secret": "d716ffcc80f133c9ed2c5ee4eec9bf478aab9403",
+        "is_verified": false,
+        "line_number": 12
+      },
+      {
+        "type": "Secret Keyword",
+        "filename": "config/.secrets.example.toml",
+        "hashed_secret": "4c83ff2aca6b6ff50d5d680a16d7cf6936b5e632",
+        "is_verified": false,
+        "line_number": 17
+      }
+    ],
+    "frontend/test-api.js": [
+      {
+        "type": "Secret Keyword",
+        "filename": "frontend/test-api.js",
+        "hashed_secret": "e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4",
+        "is_verified": false,
+        "line_number": 35
+      }
+    ]
+  },
+  "generated_at": "2025-08-15T02:23:32Z"
+}

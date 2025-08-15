@@ -1,0 +1,46 @@
+name: crawler-tests
+on:
+  pull_request:
+    paths:
+      - "aurora_platform/modules/crawler/**"
+      - "tests/crawler/**"
+      - ".github/workflows/crawler-tests.yml"
+  push:
+    branches: [ main, master ]
+    paths:
+      - "aurora_platform/modules/crawler/**"
+      - "tests/crawler/**"
+
+jobs:
+  tests-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        extras: [ "none", "html+pdf+docx" ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Validate Poetry lockfile
+        run: |
+          poetry install --no-interaction --no-root
+          poetry check
+
+      - name: Install base deps
+        run: poetry install --no-interaction --no-root
+
+      - name: Install crawler extras (if any)
+        if: matrix.extras == 'html+pdf+docx'
+        run: poetry install --no-interaction --no-root -E crawler-html -E crawler-pdf -E crawler-docx
+
+      - name: Run tests (crawler)
+        env:
+          PYTHONPATH: .
+          TESTING: "1"
+        run: poetry run pytest -q tests/crawler

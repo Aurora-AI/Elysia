@@ -146,3 +146,4 @@ aurora-knowledge-base/
 
 # Certificados corporativos (manter apenas o .example versionado)
 .devcontainer/certs/corp.crt
+.env

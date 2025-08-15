@@ -1,7 +1,7 @@
 {
   "name": "Aurora Dev",
   "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
-  
+
   "remoteUser": "vscode",
   "overrideCommand": true,
   "runArgs": ["--init"],
