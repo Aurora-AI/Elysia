@@ -1,4 +1,5 @@
 """Core package exports used in tests."""
+
 from . import db
 
 # Re-export common test helpers for static analysis

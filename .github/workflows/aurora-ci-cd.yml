@@ -44,6 +44,9 @@ jobs:
       - name: Instalar dependências
         run: |
           poetry install --no-interaction --no-root
+      - name: Set PYTHONPATH for monorepo
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/aurora-core/src" >> $GITHUB_ENV
+
       - name: Rodar Pytest
         run: |
           poetry run pytest -q

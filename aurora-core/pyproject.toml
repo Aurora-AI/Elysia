@@ -32,6 +32,7 @@ sentry-sdk = "^2.34.1"
 pydantic-settings = "^2.10.1"
 langchain = "^0.3.27"
 pybreaker = "^1.4.0"
+aiosqlite = "^0.21.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"

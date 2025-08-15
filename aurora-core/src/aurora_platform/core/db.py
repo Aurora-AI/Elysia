@@ -57,10 +57,12 @@ def create_db_and_tables() -> None:
         from sqlalchemy import create_engine
 
         sync_engine = create_engine(
-            "sqlite:///./test.db", connect_args={"check_same_thread": False})
+            "sqlite:///./test.db", connect_args={"check_same_thread": False}
+        )
         SQLModel.metadata.create_all(bind=sync_engine)
     except Exception:
         # best-effort: if creation fails in this env, do nothing
         return
+
 
 # alias 'engine' already exists above
