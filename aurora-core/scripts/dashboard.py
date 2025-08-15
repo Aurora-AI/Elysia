@@ -8,7 +8,9 @@ import streamlit as st
 import yaml
 
 # ConfiguraÃ§Ã£o da pÃ¡gina
-st.set_page_config(page_title="Aurora Project Dashboard", page_icon="ðŸš€", layout="wide")
+st.set_page_config(
+    page_title="Aurora Project Dashboard", page_icon="ðŸš€", layout="wide"
+)
 
 
 @st.cache_data

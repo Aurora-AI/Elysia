@@ -23,10 +23,11 @@ jobs:
           docker version
           docker compose version || true
 
-      - name: Ensure compose plugin + tools
+      - name: Ensure compose tools available
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose-plugin curl jq
+          # GitHub-hosted runners provide docker compose; avoid installing docker-compose-plugin here
+          docker compose version || true
+          jq --version || true
 
       - name: Build Qdrant image if needed
         run: |

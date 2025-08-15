@@ -1,11 +1,10 @@
 from __future__ import annotations
 import os
-import io
 import uuid
 import hashlib
 import logging
-from typing import Optional, List, Dict, Any
-from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Header
+from typing import Optional, List
+from fastapi import FastAPI, Depends, HTTPException, Form, Header
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -53,6 +52,7 @@ class QueryHit(BaseModel):
 class QueryResponse(BaseModel):
     hits: List[QueryHit]
 
+
 # --- Helpers ---
 
 
@@ -70,18 +70,26 @@ def _to_hit(h: Hit) -> QueryHit:
         source_type=p.get("source_type"),
         url=p.get("url"),
         text_preview=(p.get("chunk_text") or "")[:400],
-        source=h.source
+        source=h.source,
     )
+
 
 # --- Endpoints ---
 
 
-@app.post("/rag/query", response_model=QueryResponse, dependencies=[Depends(api_key_guard)])
+@app.post(
+    "/rag/query", response_model=QueryResponse, dependencies=[Depends(api_key_guard)]
+)
 def rag_query(req: QueryRequest):
     coll = os.getenv("QDRANT_COLLECTION", "aurora_docs@v1")
     svc = HybridSearchService(coll)
-    hits = svc.query(req.query, k_vec=max(10, req.top_k), k_lex=max(10, req.top_k),
-                     k_out=req.top_k, enable_lex=req.use_hybrid)
+    hits = svc.query(
+        req.query,
+        k_vec=max(10, req.top_k),
+        k_lex=max(10, req.top_k),
+        k_out=req.top_k,
+        enable_lex=req.use_hybrid,
+    )
     if req.use_rerank:
         rr = CrossEncoderReranker()
         hits = rr.rerank(req.query, hits, top_k=req.top_k)
@@ -89,10 +97,12 @@ def rag_query(req: QueryRequest):
 
 
 @app.post("/rag/ingest", dependencies=[Depends(api_key_guard)])
-def rag_ingest(text: str = Form(...),
-               title: str = Form(default=""),
-               url: str = Form(default=""),
-               source_type: str = Form(default="manual")):
+def rag_ingest(
+    text: str = Form(...),
+    title: str = Form(default=""),
+    url: str = Form(default=""),
+    source_type: str = Form(default="manual"),
+):
     """Ingesta 1 'chunk' simples direto (atalho para demos/testes)."""
     idx = QdrantIndexer.from_env()
     rec = {
@@ -107,7 +117,7 @@ def rag_ingest(text: str = Form(...),
         "chunk_id": f"{(title or 'doc')}-0000",
         "chunk_index": 0,
         "chunk_text": text,
-        "tokens_est": len(text.split())
+        "tokens_est": len(text.split()),
     }
     idx.upsert_record(rec)
     return {"status": "ok", "canonical_id": rec["canonical_id"]}
@@ -117,18 +127,20 @@ def rag_ingest(text: str = Form(...),
 def rag_health():
     # confere Qdrant
     from qdrant_client import QdrantClient
+
     url = os.getenv("QDRANT_URL", "http://localhost:6333")
     coll = os.getenv("QDRANT_COLLECTION", "aurora_docs@v1")
     try:
         c = QdrantClient(url=url)
         c.get_collection(coll)
         qdrant_ok = True
-    except Exception as e:
+    except Exception:
         qdrant_ok = False
     # opcional: kafka
     kafka_ok = bool(os.getenv("KAFKA_BOOTSTRAP"))
     # lexical arquivo
     import pathlib
+
     lf = pathlib.Path("artifacts/lexical") / f"{coll}.jsonl"
     lexical_ok = lf.exists()
     return f"qdrant={qdrant_ok} kafka_cfg={'yes' if kafka_ok else 'no'} lexical={'yes' if lexical_ok else 'no'}"

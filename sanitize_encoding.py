@@ -1,5 +1,3 @@
-import os
-
 import shutil
 
 import chardet
@@ -9,25 +7,21 @@ import logging
 from pathlib import Path
 
 
-
 # --- Configura√ß√£o ---
 
 PROJECT_PATH = Path.cwd()
 
 BACKUP_DIR = PROJECT_PATH / "encoding_backups"
 
-EXTENSIONS_TO_CHECK = ['.py', '.toml', '.md', '.yml', '.yaml', '.txt', '.json']
+EXTENSIONS_TO_CHECK = [".py", ".toml", ".md", ".yml", ".yaml", ".txt", ".json"]
 
 # --------------------
-
 
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
-
 def convert_file_to_utf8(file_path: Path):
-
     """
 
     Detecta a codifica√ß√£o de um arquivo e o converte para UTF-8 se necess√°rio,
@@ -37,30 +31,24 @@ def convert_file_to_utf8(file_path: Path):
     """
 
     try:
-
-        with open(file_path, 'rb') as f:
-
+        with open(file_path, "rb") as f:
             raw_data = f.read()
 
             if not raw_data:
-
-                logging.info(f"[‚úì] Ignorado (vazio): {file_path.relative_to(PROJECT_PATH)}")
+                logging.info(
+                    f"[‚úì] Ignorado (vazio): {file_path.relative_to(PROJECT_PATH)}"
+                )
 
                 return
 
-
-
         detected = chardet.detect(raw_data)
 
-        encoding = detected['encoding']
+        encoding = detected["encoding"]
 
-
-
-        if encoding and encoding.lower().strip() != 'utf-8':
-
-            logging.warning(f"[!] Detectado '{encoding}' em: {file_path.relative_to(PROJECT_PATH)}")
-
-
+        if encoding and encoding.lower().strip() != "utf-8":
+            logging.warning(
+                f"[!] Detectado '{encoding}' em: {file_path.relative_to(PROJECT_PATH)}"
+            )
 
             # 1. Criar Backup
 
@@ -72,62 +60,54 @@ def convert_file_to_utf8(file_path: Path):
 
             shutil.copy(file_path, backup_path)
 
-            logging.info(f"    -> Backup criado em: {backup_path.relative_to(PROJECT_PATH)}")
-
-
+            logging.info(
+                f"    -> Backup criado em: {backup_path.relative_to(PROJECT_PATH)}"
+            )
 
             # 2. Converter e Sobrescrever
 
-            text = raw_data.decode(encoding, errors='replace')
+            text = raw_data.decode(encoding, errors="replace")
 
-            with open(file_path, 'w', encoding='utf-8') as f:
-
+            with open(file_path, "w", encoding="utf-8") as f:
                 f.write(text)
 
-            logging.info(f"    -> [‚úî] Convertido com sucesso para UTF-8.")
-
-
+            logging.info("    -> [‚úî] Convertido com sucesso para UTF-8.")
 
     except Exception as e:
-
-        logging.error(f"[‚ö†] Erro ao processar {file_path.relative_to(PROJECT_PATH)}: {e}")
-
+        logging.error(
+            f"[‚ö†] Erro ao processar {file_path.relative_to(PROJECT_PATH)}: {e}"
+        )
 
 
 def main():
-
     """Varre o projeto e executa a convers√£o."""
 
-    logging.info("--- üîÑ Iniciando Verifica√ß√£o e Convers√£o de Codifica√ß√£o de Arquivos ---")
-
-
+    logging.info(
+        "--- üîÑ Iniciando Verifica√ß√£o e Convers√£o de Codifica√ß√£o de Arquivos ---"
+    )
 
     if not BACKUP_DIR.exists():
-
         BACKUP_DIR.mkdir()
 
-        logging.info(f"Diret√≥rio de backup criado em: {BACKUP_DIR.relative_to(PROJECT_PATH)}")
-
-
+        logging.info(
+            f"Diret√≥rio de backup criado em: {BACKUP_DIR.relative_to(PROJECT_PATH)}"
+        )
 
     file_count = 0
 
     for ext in EXTENSIONS_TO_CHECK:
-
-        for file_path in PROJECT_PATH.rglob(f'*{ext}'):
-
-            if ".venv" not in str(file_path) and "encoding_backups" not in str(file_path):
-
+        for file_path in PROJECT_PATH.rglob(f"*{ext}"):
+            if ".venv" not in str(file_path) and "encoding_backups" not in str(
+                file_path
+            ):
                 convert_file_to_utf8(file_path)
 
                 file_count += 1
 
-
-
-    logging.info(f"\n--- ‚úÖ Verifica√ß√£o Conclu√≠da. {file_count} arquivos analisados. ---")
-
+    logging.info(
+        f"\n--- ‚úÖ Verifica√ß√£o Conclu√≠da. {file_count} arquivos analisados. ---"
+    )
 
 
 if __name__ == "__main__":
-
     main()

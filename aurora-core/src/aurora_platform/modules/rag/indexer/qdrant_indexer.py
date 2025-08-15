@@ -23,8 +23,9 @@ class QdrantIndexer:
         url = os.getenv("QDRANT_URL", "http://localhost:6333")
         col = os.getenv("QDRANT_COLLECTION", "aurora_docs@v1")
         client = QdrantClient(url=url)
-        embedder = TextEmbedding(model_name=os.getenv(
-            "EMBEDDINGS_MODEL", "BAAI/bge-small-en-v1.5"))
+        embedder = TextEmbedding(
+            model_name=os.getenv("EMBEDDINGS_MODEL", "BAAI/bge-small-en-v1.5")
+        )
         return cls(client, col, embedder)
 
     def _ensure_collection(self):
@@ -34,8 +35,7 @@ class QdrantIndexer:
         except Exception:
             self.client.recreate_collection(
                 collection_name=self.collection,
-                vectors_config=VectorParams(
-                    size=dim, distance=Distance.COSINE),
+                vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
             )
             logging.info(f"Criada coleção {self.collection} (dim={dim})")
 
@@ -43,13 +43,15 @@ class QdrantIndexer:
         text = rec["chunk_text"]
         vec = list(self.embedder.embed([text]))[0]
         point = PointStruct(
-            id=rec["canonical_id"] + f":{rec['chunk_index']}",
-            vector=vec,
-            payload=rec
+            id=rec["canonical_id"] + f":{rec['chunk_index']}", vector=vec, payload=rec
         )
         self.client.upsert(collection_name=self.collection, points=[point])
         # 🔹 Persistência lexical simples para BM25:
         lf = LEXICAL_DIR / f"{self.collection}.jsonl"
         with lf.open("a", encoding="utf-8") as f:
-            f.write(json.dumps({"id": point.id, "text": text,
-                    "meta": rec}, ensure_ascii=False) + "\n")
+            f.write(
+                json.dumps(
+                    {"id": point.id, "text": text, "meta": rec}, ensure_ascii=False
+                )
+                + "\n"
+            )

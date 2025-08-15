@@ -3,6 +3,7 @@ from ..schemas.harmony_schema import HarmonyMessage
 
 router = APIRouter()
 
+
 @router.post("/harmony-echo", response_model=HarmonyMessage)
 async def harmony_echo(message: HarmonyMessage) -> HarmonyMessage:
     """

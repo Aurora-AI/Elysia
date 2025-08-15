@@ -5,6 +5,7 @@ import sys
 # Ajuste se o nome da pasta do serviço for diferente
 TARGET_DIR = "aurora-core"
 
+
 def harmonize_imports():
     """
     Percorre todos os arquivos .py no diretório alvo e substitui
@@ -26,14 +27,21 @@ def harmonize_imports():
             if file.endswith(".py"):
                 file_path = os.path.join(root, file)
                 try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
+                    with open(file_path, "r", encoding="utf-8") as f:
                         content = f.read()
 
-                    if "from src.aurora_platform" in content or "import src.aurora_platform" in content:
-                        new_content = content.replace("from src.aurora_platform", "from aurora_platform")
-                        new_content = new_content.replace("import src.aurora_platform", "import aurora_platform")
+                    if (
+                        "from src.aurora_platform" in content
+                        or "import src.aurora_platform" in content
+                    ):
+                        new_content = content.replace(
+                            "from src.aurora_platform", "from aurora_platform"
+                        )
+                        new_content = new_content.replace(
+                            "import src.aurora_platform", "import aurora_platform"
+                        )
 
-                        with open(file_path, 'w', encoding='utf-8') as f:
+                        with open(file_path, "w", encoding="utf-8") as f:
                             f.write(new_content)
 
                         print(f"  -> ✅ Patch aplicado em: {file_path}")
@@ -45,7 +53,10 @@ def harmonize_imports():
     if files_patched == 0:
         print("✅ Nenhum arquivo precisou de patch. Os imports já estão harmonizados.")
     else:
-        print(f"\n🚀 Harmonização concluída. {files_patched} arquivo(s) foram atualizados.")
+        print(
+            f"\n🚀 Harmonização concluída. {files_patched} arquivo(s) foram atualizados."
+        )
+
 
 if __name__ == "__main__":
     harmonize_imports()

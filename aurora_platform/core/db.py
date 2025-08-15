@@ -31,11 +31,7 @@ elif _is_sqlite(db_url):
     connect_args = {"check_same_thread": False}
 
 engine = create_async_engine(
-    db_url,
-    echo=False,
-    future=True,
-    connect_args=connect_args,
-    **engine_kwargs
+    db_url, echo=False, future=True, connect_args=connect_args, **engine_kwargs
 )
 
 SessionLocal = async_sessionmaker(

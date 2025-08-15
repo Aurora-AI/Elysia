@@ -31,7 +31,7 @@ def test_redelog_search():
             if response.status_code == 200:
                 results = response.json()["results"]
                 for i, result in enumerate(results):
-                    print(f"[{i+1}] {result[:200]}...")
+                    print(f"[{i + 1}] {result[:200]}...")
             else:
                 print(f"[ERRO] Status {response.status_code}")
 

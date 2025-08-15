@@ -1,7 +1,3 @@
-
-import fitz  # PyMuPDF
-
-
 class DoclingLoader:
     AVAILABLE = False
 

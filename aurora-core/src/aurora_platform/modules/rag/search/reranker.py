@@ -9,7 +9,8 @@ from .hybrid import Hit
 class CrossEncoderReranker:
     def __init__(self, model_name: str | None = None):
         self.model_name = model_name or os.getenv(
-            "RERANK_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2")
+            "RERANK_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"
+        )
         self.model = CrossEncoder(self.model_name)
 
     def rerank(self, query: str, hits: List[Hit], top_k: int = 10) -> List[Hit]:
@@ -21,6 +22,7 @@ class CrossEncoderReranker:
         scored.sort(key=lambda x: float(x[1]), reverse=True)
         out: List[Hit] = []
         for h, sc in scored[:top_k]:
-            out.append(Hit(id=h.id, score=float(sc),
-                       payload=h.payload, source="rerank"))
+            out.append(
+                Hit(id=h.id, score=float(sc), payload=h.payload, source="rerank")
+            )
         return out

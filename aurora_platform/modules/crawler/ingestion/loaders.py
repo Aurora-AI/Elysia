@@ -1,5 +1,3 @@
-
-
 class DoclingLoader:
     AVAILABLE = False
 

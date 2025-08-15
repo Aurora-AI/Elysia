@@ -1,10 +1,9 @@
 from __future__ import annotations
-from typing import List, Tuple, Dict, Any
+from typing import List, Dict, Any
 from dataclasses import dataclass
 from rank_bm25 import BM25Okapi
 import pathlib
 import json
-import os
 import re
 
 TOKEN_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ0-9_]+")
@@ -54,10 +53,10 @@ class LexicalBM25:
             return []
         toks = tokenize(query)
         scores = self._bm25.get_scores(toks)
-        pairs = sorted(enumerate(scores),
-                       key=lambda x: x[1], reverse=True)[:top_k]
+        pairs = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)[:top_k]
         hits: List[BM25Hit] = []
         for idx, sc in pairs:
-            hits.append(BM25Hit(id=self._ids[idx], score=float(
-                sc), payload=self._payloads[idx]))
+            hits.append(
+                BM25Hit(id=self._ids[idx], score=float(sc), payload=self._payloads[idx])
+            )
         return hits

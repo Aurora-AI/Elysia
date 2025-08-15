@@ -8,7 +8,8 @@ repos:
     hooks:
       - id: block-example-copy
         name: Block committing EXEMPLO blocks to outputs
-        entry: bash -c 'grep -RIn "<<<EXEMPLO_INICIO>>>" -- . && echo "[ERRO] Blocos EXEMPLO são ilustrativos e não devem ir para saída/commit." && exit 1 || exit 0'
+        # Exclude the pre-commit config itself to avoid self-match false positives
+        entry: bash -c 'grep -RIn "<<<EXEMPLO_INICIO>>>" -- . | grep -v "\.pre-commit-config.yaml" && echo "[ERRO] Blocos EXEMPLO são ilustrativos e não devem ir para saída/commit." && exit 1 || exit 0'
         language: system
         types: [text]
       - id: block-legacy-audits

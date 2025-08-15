@@ -69,10 +69,6 @@ class YoutubeTranscriptExtractionService:
                 self.workspace_dir, f"transcript_{video_id}.txt"
             )
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
             try:
                 cmd = [
                     "yt-dlp",

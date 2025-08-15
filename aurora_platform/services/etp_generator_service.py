@@ -44,8 +44,8 @@ DADOS DO PROJETO:
 - Tipo de Obra: {request.tipo_obra}
 - Local: {request.local}
 - Objetivo: {request.objetivo}
-- Valor Estimado: R$ {request.valor_estimado or 'A definir'}
-- Prazo Estimado: {request.prazo_estimado or 'A definir'} dias
+- Valor Estimado: R$ {request.valor_estimado or "A definir"}
+- Prazo Estimado: {request.prazo_estimado or "A definir"} dias
 
 INSTRUÇÕES:
 Gere um ETP completo em formato Markdown seguindo a estrutura padrão:

@@ -35,7 +35,7 @@ def register_error(description, stacktrace, solution, refs=None):
             "- **Solução Aplicada:**", f"- **Solução Aplicada:** {solution}"
         )
         content = content.replace(
-            "- **Referências:**", f'- **Referências:** {refs or "-"}'
+            "- **Referências:**", f"- **Referências:** {refs or '-'}"
         )
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)

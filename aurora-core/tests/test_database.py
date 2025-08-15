@@ -1,13 +1,13 @@
 import pytest
 from sqlmodel import Session
 
-from aurora_platform.core.db import get_session
+import aurora_platform.core.db as db
 from aurora_platform.db.models.user_model import User
 
 
 def test_get_session():
     """Test database session creation"""
-    session_gen = get_session()
+    session_gen = db.get_session()
     session = next(session_gen)
     assert isinstance(session, Session)
     session.close()
@@ -16,12 +16,12 @@ def test_get_session():
 def test_create_db_and_tables():
     """Test database table creation"""
     # This should not raise an exception
-    create_db_and_tables()
+    db.create_db_and_tables()
 
 
 def test_engine_exists():
     """Test database engine exists"""
-    assert engine is not None
+    assert getattr(db, "engine", None) is not None
 
 
 def test_user_crud_operations(session: Session):

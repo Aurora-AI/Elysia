@@ -1,7 +1,6 @@
 # src/aurora_platform/main.py - Versão Corrigida para Aurora-Core
 
 
-
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -28,6 +27,7 @@ if getattr(settings, "SENTRY_DSN", None):
         environment=getattr(settings, "ENVIRONMENT", "development"),
     )
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
@@ -43,23 +43,22 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Encerrando Aurora-Core AIOS...")
 
+
 app = FastAPI(
     title=getattr(settings, "PROJECT_NAME", "Aurora Platform API"),
     version=getattr(settings, "PROJECT_VERSION", "1.0.0"),
-    lifespan=lifespan
+    lifespan=lifespan,
 )
+
 
 @app.get("/health", status_code=status.HTTP_200_OK, tags=["Health Check"])
 async def health_check():
     return {"status": "ok"}
 
+
 app.include_router(
     knowledge_router, prefix="/api/v1/knowledge", tags=["Knowledge Base"]
 )
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])
-app.include_router(
-    debug_router.router,
-    prefix="/api/v1/debug",
-    tags=["Debug"]
-)
+app.include_router(debug_router.router, prefix="/api/v1/debug", tags=["Debug"])
 app.include_router(system_router.router, prefix="/v1/system", tags=["System"])

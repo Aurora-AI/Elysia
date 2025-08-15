@@ -6,5 +6,5 @@ def parse_with_fallback(content: bytes) -> dict:
     return {
         "texto_markdown": "# Documento\n\nConteúdo extraído via fallback (simulado).",
         "tabelas": [],
-        "imagens": []
+        "imagens": [],
     }

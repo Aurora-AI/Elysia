@@ -33,7 +33,7 @@ def extract_all_knowledge():
             metadata = metadatas[i] if metadatas and i < len(metadatas) else {}
             source_url = metadata.get("sourceURL", "Fonte desconhecida")
 
-            f.write(f"--- Documento {i+1} ---\n")
+            f.write(f"--- Documento {i + 1} ---\n")
             f.write(f"Fonte: {source_url}\n")
             f.write("-------------------------------------\n\n")
             f.write(doc_text)

@@ -71,25 +71,39 @@
 
     Status: Prioridade Alta. Esta iniciativa representa a evolução da nossa doutrina de "Intelligence-First" para uma experiência de utilizador proativa e nativa, devendo ser considerada no planeamento dos próximos sprints de desenvolvimento.
 
+* **4. Nova Iniciativa Estratégica: O Banco de Preços Online**
+
+  Descrição: Uma nova capacidade estratégica a ser desenvolvida, que servirá como um ativo de inteligência de mercado para futuros produtos. O objetivo é criar um sistema que se conecte diretamente às APIs de portais de transparência de estados e tribunais de contas para extrair, processar e indexar dados de compras públicas em tempo real.
+
+  Arquitetura (Estratégia "Ponta de Lança"): A implementação seguirá uma abordagem faseada e incremental para mitigar os riscos associados à heterogeneidade das fontes de dados:
+
+  Fase 1 (Prova de Conceito): O foco inicial será a construção de um conector piloto para uma única fonte de dados bem-documentada. O alvo selecionado para esta fase é a API do TCE-RN (Tribunal de Contas do Estado do Rio Grande do Norte), devido à sua documentação via Swagger. Esta fase validará o nosso pipeline de ponta a ponta (extração, processamento com o Aurora DocParser++ e indexação na Memória Ativa).
+
+  Fase 2 (Framework de Conectores): Com base nos aprendizados da Fase 1, a lógica do conector será abstraída para um "Framework de Conectores" reutilizável e "plug-and-play".
+
+  Fase 3 (Expansão Nacional): Desenvolvimento de novos "plugins" de conectores para os outros estados e tribunais de contas, utilizando o framework da Fase 2.
+
+  Status: Prioridade Alta. Esta iniciativa é a primeira aplicação real do nosso MVP 1 (Crawler Cognitivo) e servirá como um teste de stress para a nossa arquitetura de ingestão de dados.
+
 #### **PARTE VI: A BIBLIOTECA DE REFERÊNCIA**
 
-- **Vertex AI: Supervised fine-tuning for Gemini 2.5 Pro & Flash-Lite**  
+- **Vertex AI: Supervised fine-tuning for Gemini 2.5 Pro & Flash-Lite**
   [Estudo Detalhado](library/vertex_ai_finetune_gemini_2_5.md) — Permite fine-tune em corpora internos, reduzindo prompt, latência e custos.
 
-- **Cloud Run: Manual scaling is now GA**  
+- **Cloud Run: Manual scaling is now GA**
   [Estudo Detalhado](library/cloud_run_manual_scaling.md) — Controle rigoroso de cold starts/custos para endpoints de agentes.
 
-- **LangGraph 0.6.x shipped**  
+- **LangGraph 0.6.x shipped**
   [Estudo Detalhado](library/langgraph_0_6_x.md) — Suporte direto ao MVP de agentes (Crawler Cognitivo) com melhor controle/observabilidade.
 
-- **Qdrant 1.15.x: smarter quantization, better text filtering**  
+- **Qdrant 1.15.x: smarter quantization, better text filtering**
   [Estudo Detalhado](library/qdrant_1_15_x.md) — Reduz RAM/IO e melhora filtragem híbrida; agendar teste de upgrade.
 
-- **LangGraph v0.6.5 released**  
+- **LangGraph v0.6.5 released**
   [Estudo Detalhado](library/langgraph_0_6_5.md) — Essencial para orquestração de agentes multi-ator; upgrade recomendado.
 
-- **Qdrant Cloud Inference for multimodal embeddings**  
+- **Qdrant Cloud Inference for multimodal embeddings**
   [Estudo Detalhado](library/qdrant_cloud_inference_multimodal.md) — Simplifica pipelines de RAG, colapsando embedding e indexação.
 
-- **Vertex AI: Prompt Optimizer (GA)**  
+- **Vertex AI: Prompt Optimizer (GA)**
   [Estudo Detalhado](library/vertex_ai_prompt_optimizer.md) — Otimização de prompts reduz custo de tokens e melhora qualidade.

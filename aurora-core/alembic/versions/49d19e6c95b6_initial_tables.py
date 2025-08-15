@@ -1,4 +1,4 @@
-""""initial_tables"
+""" "initial_tables"
 
 Revision ID: 49d19e6c95b6
 Revises:

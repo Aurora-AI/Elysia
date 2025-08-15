@@ -22,8 +22,8 @@ async def process_document_pipeline(filename: str, content: bytes) -> IngestResp
         metadados={
             "fonte": filename,
             "mime_type": "application/pdf",
-            "hash_conteudo": hash_conteudo
+            "hash_conteudo": hash_conteudo,
         },
         proveniencia={},
-        custo={"usd_total": 0.0001}
+        custo={"usd_total": 0.0001},
     )

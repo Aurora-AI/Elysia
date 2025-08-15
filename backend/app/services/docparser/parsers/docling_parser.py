@@ -7,5 +7,5 @@ def parse_with_docling(content: bytes) -> dict:
     return {
         "texto_markdown": "# Documento\n\nConteúdo extraído via Docling (simulado).",
         "tabelas": [],
-        "imagens": []
+        "imagens": [],
     }

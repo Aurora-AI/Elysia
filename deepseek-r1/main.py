@@ -22,10 +22,12 @@ MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8000"))
 
+
 # Modelos de dados para compatibilidade OpenAI
 class ChatMessage(BaseModel):
     role: str
     content: str
+
 
 class ChatCompletionRequest(BaseModel):
     model: str
@@ -33,6 +35,7 @@ class ChatCompletionRequest(BaseModel):
     max_tokens: Optional[int] = 100
     temperature: Optional[float] = 0.7
     stream: Optional[bool] = False
+
 
 class ChatCompletionResponse(BaseModel):
     id: str
@@ -42,15 +45,18 @@ class ChatCompletionResponse(BaseModel):
     choices: List[Dict[str, Any]]
     usage: Dict[str, int]
 
+
 class ModelInfo(BaseModel):
     id: str
     object: str = "model"
     created: int
     owned_by: str = "deepseek"
 
+
 # Simulação simples do modelo (para demonstração)
 # Em produção, aqui carregaria o modelo real
 model_loaded = False
+
 
 def load_model():
     """Simula carregamento do modelo"""
@@ -64,6 +70,7 @@ def load_model():
     except Exception as e:
         logger.error(f"Erro ao carregar modelo: {e}")
         return False
+
 
 def generate_response(messages: List[ChatMessage], max_tokens: int = 100) -> str:
     """Gera resposta simples (mock para demonstração)"""
@@ -81,14 +88,12 @@ def generate_response(messages: List[ChatMessage], max_tokens: int = 100) -> str
     else:
         return f"Entendi sua mensagem: '{user_message}'. Como posso ajudar?"
 
+
 @app.get("/health")
 async def health_check():
     """Endpoint de health check"""
-    return {
-        "status": "healthy",
-        "model_loaded": model_loaded,
-        "model_name": MODEL_NAME
-    }
+    return {"status": "healthy", "model_loaded": model_loaded, "model_name": MODEL_NAME}
+
 
 @app.get("/v1/models")
 async def list_models():
@@ -100,10 +105,11 @@ async def list_models():
                 "id": MODEL_NAME,
                 "object": "model",
                 "created": 1640995200,
-                "owned_by": "deepseek"
+                "owned_by": "deepseek",
             }
-        ]
+        ],
     }
+
 
 @app.post("/v1/chat/completions")
 async def chat_completions(request: ChatCompletionRequest):
@@ -126,29 +132,33 @@ async def chat_completions(request: ChatCompletionRequest):
             "choices": [
                 {
                     "index": 0,
-                    "message": {
-                        "role": "assistant",
-                        "content": response_text
-                    },
-                    "finish_reason": "stop"
+                    "message": {"role": "assistant", "content": response_text},
+                    "finish_reason": "stop",
                 }
             ],
             "usage": {
-                "prompt_tokens": sum(len(msg.content.split()) for msg in request.messages),
+                "prompt_tokens": sum(
+                    len(msg.content.split()) for msg in request.messages
+                ),
                 "completion_tokens": len(response_text.split()),
-                "total_tokens": sum(len(msg.content.split()) for msg in request.messages) + len(response_text.split())
-            }
+                "total_tokens": sum(
+                    len(msg.content.split()) for msg in request.messages
+                )
+                + len(response_text.split()),
+            },
         }
 
     except Exception as e:
         logger.error(f"Erro no chat completion: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.on_event("startup")
 async def startup_event():
     """Carrega modelo na inicialização"""
     logger.info("Iniciando servidor DeepSeek R1...")
     load_model()
+
 
 if __name__ == "__main__":
     logger.info(f"Iniciando servidor em {HOST}:{PORT}")

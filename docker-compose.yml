@@ -1,7 +1,5 @@
 version: "3.8"
 
-version: "3.8"
-
 services:
   # Serviço do Aurora-CRM (Core)
   aurora-crm:
@@ -32,6 +30,20 @@ services:
       - POSTGRES_DB=auroracrmdb
     ports:
       - "5432:5432"
+    networks:
+      - aurora-net
+
+  aurora-qdrant:
+    image: qdrant/qdrant:latest
+    container_name: aurora-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:6333/ready || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
     networks:
       - aurora-net
 

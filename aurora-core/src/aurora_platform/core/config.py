@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from typing import List, Optional
 
-from pydantic import SecretStr, root_validator
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
 # Construção do caminho absoluto para o arquivo .env
@@ -71,8 +71,6 @@ class Settings(BaseSettings):
     REDIS_DB: int = 0
     CHROMA_HOST: str = "chromadb"
     CHROMA_PORT: int = 8000
-
-
 
 
 # Configuração para resolver conflito do protobuf

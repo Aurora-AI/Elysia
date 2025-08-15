@@ -5,6 +5,7 @@ from aurora_platform.services.etp_service import ETPGeneratorService
 router = APIRouter()
 etp_service = ETPGeneratorService()
 
+
 @router.post("/generate")
 # Substitua 'dict' pelo schema de request quando ele for criado
 async def generate_etp_endpoint(request_data: dict):
