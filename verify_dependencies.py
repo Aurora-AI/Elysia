@@ -120,7 +120,9 @@ def main():
     }
 
     if not missing_packages:
-        print("\n‚úÖ SUCESSO! Todas as depend√™ncias externas parecem estar declaradas.")
+        print(
+            "\n‚úÖ SUCESSO! Todas as depend√™ncias externas parecem estar declaradas."
+        )
     else:
         print("\nüö® ALERTA! Depend√™ncias ausentes encontradas:")
         print(
@@ -131,7 +133,7 @@ def main():
 
         print("\nüëâ A√ß√£o Recomendada:")
         print("Execute o seguinte comando para adicion√°-las:")
-        print(f'\npoetry add {" ".join(sorted(list(missing_packages)))}')
+        print(f"\npoetry add {' '.join(sorted(list(missing_packages)))}")
 
     print("\n--- Verifica√ß√£o Conclu√≠da ---")
 

@@ -7,18 +7,21 @@ import re
 
 try:
     from selectolax.parser import HTMLParser
+
     HAS_SELECTOLAX = True
 except Exception:
     HAS_SELECTOLAX = False
 
 try:
     import trafilatura
+
     HAS_TRAFILATURA = True
 except Exception:
     HAS_TRAFILATURA = False
 
 try:
     from bs4 import BeautifulSoup
+
     HAS_BS4 = True
 except Exception:
     HAS_BS4 = False
@@ -35,14 +38,16 @@ class HTMLLoadResult:
 
 class HTMLLoader:
     """Extrai conteúdo e metadados de HTML:
-       1) tenta 'artigo legível' via trafilatura (se disponível),
-       2) senão parseia com selectolax (rápido) ou fallback bs4.
+    1) tenta 'artigo legível' via trafilatura (se disponível),
+    2) senão parseia com selectolax (rápido) ou fallback bs4.
     """
 
     def __init__(self, prefer_readable: bool = True) -> None:
         self.prefer_readable = prefer_readable
 
-    def load_from_string(self, html: str, base_url: Optional[str] = None) -> HTMLLoadResult:
+    def load_from_string(
+        self, html: str, base_url: Optional[str] = None
+    ) -> HTMLLoadResult:
         if self.prefer_readable and HAS_TRAFILATURA:
             try:
                 extracted = trafilatura.extract(
@@ -57,10 +62,14 @@ class HTMLLoader:
             return self._parse_with_selectolax(html, base_url)
         if HAS_BS4:
             return self._parse_with_bs4(html, base_url)
-        return HTMLLoadResult(text=self._fallback_text(html), html=html, meta={"source_type": "html"})
+        return HTMLLoadResult(
+            text=self._fallback_text(html), html=html, meta={"source_type": "html"}
+        )
 
     # -------- selectolax --------
-    def _parse_with_selectolax(self, html: str, base_url: Optional[str]) -> HTMLLoadResult:
+    def _parse_with_selectolax(
+        self, html: str, base_url: Optional[str]
+    ) -> HTMLLoadResult:
         tree = HTMLParser(html)
         title = self._first_text(tree, ["title", "h1"]) or ""
         text = self._heuristic_main_text_selectolax(tree)
@@ -68,7 +77,9 @@ class HTMLLoader:
             "title": title.strip() or None,
             "authors": self._guess_authors_selectolax(tree),
             "published_at": self._guess_date_selectolax(tree),
-            "source_type": "html", "url": base_url, "parser": "selectolax",
+            "source_type": "html",
+            "url": base_url,
+            "parser": "selectolax",
         }
         return HTMLLoadResult(text=text, html=html, meta=meta)
 
@@ -84,15 +95,22 @@ class HTMLLoader:
             for n in tree.css(sel) or []:
                 n.decompose()
         candidates = []
-        for sel in ["article", "main", "[role=main]", ".article", ".post", ".content", ".entry-content"]:
+        for sel in [
+            "article",
+            "main",
+            "[role=main]",
+            ".article",
+            ".post",
+            ".content",
+            ".entry-content",
+        ]:
             for n in tree.css(sel) or []:
                 t = n.text(separator=" ").strip()
                 if t:
                     candidates.append((len(t), t))
         if candidates:
             return max(candidates, key=lambda x: x[0])[1]
-        paragraphs = [n.text().strip()
-                      for n in tree.css("p") or [] if n.text().strip()]
+        paragraphs = [n.text().strip() for n in tree.css("p") or [] if n.text().strip()]
         if paragraphs:
             return "\n\n".join(paragraphs)
         return self._fallback_text(tree.html)
@@ -101,8 +119,7 @@ class HTMLLoader:
         authors = set()
         for sel in ["meta[name=author]", "[itemprop=author]", ".author", ".byline"]:
             for n in tree.css(sel) or []:
-                content = n.attributes.get(
-                    "content") if n.tag == "meta" else n.text()
+                content = n.attributes.get("content") if n.tag == "meta" else n.text()
                 if content and content.strip():
                     authors.add(content.strip())
         return list(authors) or None
@@ -120,13 +137,16 @@ class HTMLLoader:
     def _parse_with_bs4(self, html: str, base_url: Optional[str]) -> HTMLLoadResult:
         soup = BeautifulSoup(html, "lxml")
         title = (soup.title.string if soup.title else None) or self._first_tag_text_bs4(
-            soup, ["h1"])
+            soup, ["h1"]
+        )
         text = self._heuristic_main_text_bs4(soup)
         meta = {
             "title": (title.strip() if title else None),
             "authors": self._guess_authors_bs4(soup),
             "published_at": self._guess_date_bs4(soup),
-            "source_type": "html", "url": base_url, "parser": "bs4",
+            "source_type": "html",
+            "url": base_url,
+            "parser": "bs4",
         }
         return HTMLLoadResult(text=text, html=html, meta=meta)
 
@@ -141,9 +161,17 @@ class HTMLLoader:
         for tag in soup(["script", "style", "nav", "footer", "form", "aside"]):
             tag.decompose()
         candidates = []
-        for sel in ["article", "main", {"role": "main"}, {"class": "article"}, {"class": "post"}, {"class": "content"}]:
-            found = soup.find_all(sel) if isinstance(
-                sel, str) else soup.find_all(attrs=sel)
+        for sel in [
+            "article",
+            "main",
+            {"role": "main"},
+            {"class": "article"},
+            {"class": "post"},
+            {"class": "content"},
+        ]:
+            found = (
+                soup.find_all(sel) if isinstance(sel, str) else soup.find_all(attrs=sel)
+            )
             for n in found:
                 t = n.get_text(" ", strip=True)
                 if t:

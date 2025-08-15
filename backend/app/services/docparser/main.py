@@ -13,23 +13,21 @@ app = FastAPI(title="Aurora DocParser++ Service")
 async def ingest_document_url(source: IngestRequest):
     """Ingestão via JSON contendo uma URL."""
     if not source.url:
-        raise HTTPException(
-            status_code=400, detail="Campo 'url' é obrigatório.")
+        raise HTTPException(status_code=400, detail="Campo 'url' é obrigatório.")
 
     logger.info(f"Simulando download de {source.url}")
     content = b"conteudo-simulado-url"
     # Pydantic HttpUrl ensures .path exists; still guard for safety
-    path = source.url.path if hasattr(source.url, 'path') else ''
-    tail = path.rsplit('/', 1)[-1] if path else ''
-    filename = tail or 'documento_url.pdf'
+    path = source.url.path if hasattr(source.url, "path") else ""
+    tail = path.rsplit("/", 1)[-1] if path else ""
+    filename = tail or "documento_url.pdf"
 
     try:
         result = await process_document_pipeline(filename, content)
         return result
     except Exception as e:
         logger.exception("Erro no processamento de documento")
-        raise HTTPException(
-            status_code=500, detail=f"Falha no processamento: {e}")
+        raise HTTPException(status_code=500, detail=f"Falha no processamento: {e}")
 
 
 @app.post("/ingest/file", response_model=IngestResponse)
@@ -42,5 +40,4 @@ async def ingest_document_file(file: UploadFile = File(...)):
         return result
     except Exception as e:
         logger.exception("Erro no processamento de documento via arquivo")
-        raise HTTPException(
-            status_code=500, detail=f"Falha no processamento: {e}")
+        raise HTTPException(status_code=500, detail=f"Falha no processamento: {e}")

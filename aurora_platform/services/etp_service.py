@@ -1,8 +1,10 @@
-import os
 from pathlib import Path
 
+
 class ETPGeneratorService:
-    TEMPLATE_PATH = Path("Template ERP/Modelo CGP - Estudo Técnico Preliminar - ETP.pdf")
+    TEMPLATE_PATH = Path(
+        "Template ERP/Modelo CGP - Estudo Técnico Preliminar - ETP.pdf"
+    )
 
     def generate_etp(self, data: dict) -> str:
         # 1. Carregar o template PDF (simulação para MVP)

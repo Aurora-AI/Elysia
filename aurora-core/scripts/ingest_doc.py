@@ -14,7 +14,8 @@ if SRC not in sys.path:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Ingest a document (PDF/HTML) into normalized markdown + chunks.")
+        description="Ingest a document (PDF/HTML) into normalized markdown + chunks."
+    )
     parser.add_argument("--path", required=True)
     parser.add_argument("--source", required=True)
     parser.add_argument("--tags", default="")

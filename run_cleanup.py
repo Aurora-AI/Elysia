@@ -5,9 +5,18 @@ from pathlib import Path
 # --- CONFIGURAÇÃO DA ARQUITETURA CANÔNICA ---
 PROJECT_ROOT = Path(__file__).parent.resolve()
 LEGACY_DIRS_TO_REMOVE = ["apps"]
-DUPLICATE_FILES_TO_REMOVE_IN_SERVICES = ["pyproject.toml", "poetry.lock", "docker-compose.yml"]
-NESTED_GIT_DIRS_TO_REMOVE = ["aurora-knowledge-base", "gpt-oss", "aurora-core"] # Adicionado aurora-core por segurança
+DUPLICATE_FILES_TO_REMOVE_IN_SERVICES = [
+    "pyproject.toml",
+    "poetry.lock",
+    "docker-compose.yml",
+]
+NESTED_GIT_DIRS_TO_REMOVE = [
+    "aurora-knowledge-base",
+    "gpt-oss",
+    "aurora-core",
+]  # Adicionado aurora-core por segurança
 # -------------------------------------------
+
 
 def run_cleanup():
     """
@@ -31,7 +40,9 @@ def run_cleanup():
             for file_to_remove in DUPLICATE_FILES_TO_REMOVE_IN_SERVICES:
                 file_path = service_path / file_to_remove
                 if file_path.is_file():
-                    print(f"   -> Removendo configuração duplicada: '{file_path.relative_to(PROJECT_ROOT)}'...")
+                    print(
+                        f"   -> Removendo configuração duplicada: '{file_path.relative_to(PROJECT_ROOT)}'..."
+                    )
                     os.remove(file_path)
                     print(f"   Arquivo '{file_path.name}' removido de '{service_dir}'.")
 
@@ -45,6 +56,7 @@ def run_cleanup():
 
     print("\nProtocolo de Saneamento concluído.")
     print("Por favor, execute o auditor novamente para validar o resultado.")
+
 
 if __name__ == "__main__":
     run_cleanup()

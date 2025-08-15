@@ -1,9 +1,9 @@
 import logging
-from typing import Optional, List, Dict, Any
+from typing import Optional, Dict
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from pybreaker import CircuitBreaker, CircuitBreakerError
-from tenacity import retry, stop_after_attempt, wait_exponential, wait_fixed
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 try:
     from aurora_platform.intelligence.vector_store import VectorStore
@@ -27,14 +27,15 @@ class KnowledgeService:
                 self.vector_store = VectorStore()
                 logger.info("KnowledgeService inicializado com Qdrant")
             except Exception as e:
-                logger.warning(f"Falha ao inicializar Qdrant: {e}. Usando modo simplificado.")
+                logger.warning(
+                    f"Falha ao inicializar Qdrant: {e}. Usando modo simplificado."
+                )
                 self.vector_store = None
         else:
             self.vector_store = None
 
         self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,
-            chunk_overlap=200
+            chunk_size=1000, chunk_overlap=200
         )
         self.circuit_breaker = CircuitBreaker(fail_max=3, reset_timeout=30)
 
@@ -58,6 +59,7 @@ class KnowledgeService:
     def query(self, text: str, n_results: int = 5) -> str:
         """Consulta a base de conhecimento."""
         try:
+
             def do_query():
                 if self.vector_store:
                     # Implementar query real no Qdrant

@@ -9,10 +9,13 @@ class ClienteBase(BaseModel):
     telefone: Optional[str] = None
     endereco: Optional[str] = None
 
+
 class ClienteCreate(ClienteBase):
     pass
 
+
 class Cliente(ClienteBase):
     id: str
+
     class Config:
         from_attributes = True

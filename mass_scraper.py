@@ -112,7 +112,7 @@ def ingest_to_api(content_list):
     success_count = 0
     for i, item in enumerate(content_list):
         try:
-            print(f"Ingerindo {i+1}/{len(content_list)}: {item['url']}")
+            print(f"Ingerindo {i + 1}/{len(content_list)}: {item['url']}")
 
             response = requests.post(
                 api_url,

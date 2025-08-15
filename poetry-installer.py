@@ -23,6 +23,7 @@ script to alternatives, consider maintaining a local copy as part of your infras
 
 For full documentation, visit https://python-poetry.org/docs/#installation.
 """
+
 import sys
 
 
@@ -737,9 +738,10 @@ class Installer:
     def get_windows_path_var(self) -> Optional[str]:
         import winreg
 
-        with winreg.ConnectRegistry(
-            None, winreg.HKEY_CURRENT_USER
-        ) as root, winreg.OpenKey(root, "Environment", 0, winreg.KEY_ALL_ACCESS) as key:
+        with (
+            winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER) as root,
+            winreg.OpenKey(root, "Environment", 0, winreg.KEY_ALL_ACCESS) as key,
+        ):
             path, _ = winreg.QueryValueEx(key, "PATH")
 
             return path
@@ -837,7 +839,7 @@ class Installer:
 
         if current_version == version and not self._force:
             self._write(
-                f'The latest version ({colorize("b", version)}) is already installed.'
+                f"The latest version ({colorize('b', version)}) is already installed."
             )
 
             return None, current_version

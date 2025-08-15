@@ -64,15 +64,11 @@ class OpenAIService:
     async def generate_answer_stream(
         self, user_question: str, context: str
     ) -> AsyncGenerator[str, None]:
-<<<<<<< HEAD
-        system_prompt = f"Você é Aurora, uma assistente de IA. Responda à pergunta do usuário baseando-se estritamente no contexto fornecido.\n\nContexto:\n---\n{context}\n---"
-=======
         system_prompt = (
             "Você é Aurora, uma assistente de IA. Responda à pergunta do usuário baseando-se "
             "estritamente no contexto fornecido.\n\n"
             f"Contexto:\n---\n{context}\n---"
         )
->>>>>>> origin/main
         try:
             async for chunk in self._call_llm_with_retry(
                 user_question=user_question, system_prompt=system_prompt

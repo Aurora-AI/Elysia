@@ -15,7 +15,7 @@ from pathlib import Path
 logging.basicConfig(
     level=logging.INFO,
     format="%(levelname)s: %(message)s",
-    handlers=[logging.StreamHandler()]
+    handlers=[logging.StreamHandler()],
 )
 
 # Lista de artefatos redundantes (baseado no Relatório de Saneamento)
@@ -26,19 +26,18 @@ REDUNDANT_PATHS = [
     "docs/old",
     "experimental",
     "deprecated_scripts",
-
     # Arquivos duplicados/desatualizados
     "aurora-core/.env.backup",
     "docker-compose.override.yml",
     "config_old.yaml",
     "aurora-dashboard/.env.local",
-
     # Artefatos temporários
     "temp_logs",
     "*.tmp",
     "*.bak",
-    "*.log"
+    "*.log",
 ]
+
 
 def sanitize_platform():
     """Executa o processo de saneamento da plataforma"""
@@ -73,6 +72,7 @@ def sanitize_platform():
         for error in errors:
             logging.error(f"  - {error}")
 
+
 def _remove_path(path: Path):
     """Remove arquivo/diretório com logging"""
     try:
@@ -86,6 +86,7 @@ def _remove_path(path: Path):
         logging.warning(f"Permissão negada: {path}. Tentando forçar remoção...")
         os.chmod(path, 0o777)
         _remove_path(path)
+
 
 if __name__ == "__main__":
     # Modo seguro para execuções repetidas

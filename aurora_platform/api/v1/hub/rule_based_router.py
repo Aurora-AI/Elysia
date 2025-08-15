@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
 from aurora_platform.schemas.etp_schemas import ETPRequest
 from aurora_platform.services.etp_generator_service import ETPGeneratorService
 

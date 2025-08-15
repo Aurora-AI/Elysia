@@ -1,10 +1,11 @@
-
 from __future__ import annotations
 from functools import lru_cache
+
 try:
     from pydantic_settings import BaseSettings, SettingsConfigDict
 except ImportError:
     from pydantic import BaseSettings  # type: ignore
+
     SettingsConfigDict = dict  # type: ignore
 from pydantic import SecretStr, Field
 
@@ -16,8 +17,9 @@ class Settings(BaseSettings):
 
     # Banco
     DATABASE_URL: SecretStr | None = Field(default=None)
-    TEST_DATABASE_URL: SecretStr = Field(default=SecretStr(
-        "sqlite+aiosqlite:///:memory:?cache=shared"))
+    TEST_DATABASE_URL: SecretStr = Field(
+        default=SecretStr("sqlite+aiosqlite:///:memory:?cache=shared")
+    )
 
     # Segurança
     SECRET_KEY: SecretStr = Field(default=SecretStr("dev"))
@@ -25,7 +27,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         case_sensitive=True,
-        extra="allow",   # <- ignora variáveis extras no .env
+        extra="allow",  # <- ignora variáveis extras no .env
     )
 
     @property

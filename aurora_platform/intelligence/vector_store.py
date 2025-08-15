@@ -1,13 +1,25 @@
-
 # Vector Store implementation using Qdrant
 
 from typing import Any, Dict, List, Optional
 from qdrant_client import QdrantClient
-from qdrant_client.http.models import PointStruct, VectorParams, Distance, Filter, FieldCondition, MatchValue
+from qdrant_client.http.models import (
+    PointStruct,
+    VectorParams,
+    Distance,
+    Filter,
+    FieldCondition,
+    MatchValue,
+)
 
 
 class VectorStore:
-    def __init__(self, host: str = "localhost", port: int = 6333, collection_name: str = "aurora_collection", vector_size: int = 384):
+    def __init__(
+        self,
+        host: str = "localhost",
+        port: int = 6333,
+        collection_name: str = "aurora_collection",
+        vector_size: int = 384,
+    ):
         """
         Inicializa o cliente Qdrant e garante a existência da coleção.
         """
@@ -25,7 +37,8 @@ class VectorStore:
             self.client.create_collection(
                 collection_name=self.collection_name,
                 vectors_config=VectorParams(
-                    size=self.vector_size, distance=Distance.COSINE)
+                    size=self.vector_size, distance=Distance.COSINE
+                ),
             )
             print(f"Collection '{self.collection_name}' created.")
         else:
@@ -49,15 +62,21 @@ class VectorStore:
             PointStruct(
                 id=ids[i],
                 vector=embeddings[i],
-                payload={"text": documents[i], **metadatas[i]}
+                payload={"text": documents[i], **metadatas[i]},
             )
             for i in range(len(documents))
         ]
         self.client.upsert(collection_name=self.collection_name, points=points)
         print(
-            f"Added {len(documents)} documents to the collection '{self.collection_name}'.")
+            f"Added {len(documents)} documents to the collection '{self.collection_name}'."
+        )
 
-    def query(self, embedding: List[float], n_results: int = 5, filter_metadata: Optional[Dict[str, Any]] = None):
+    def query(
+        self,
+        embedding: List[float],
+        n_results: int = 5,
+        filter_metadata: Optional[Dict[str, Any]] = None,
+    ):
         """
         Realiza busca vetorial na coleção Qdrant.
         """
@@ -73,6 +92,6 @@ class VectorStore:
             collection_name=self.collection_name,
             query_vector=embedding,
             limit=n_results,
-            query_filter=qdrant_filter
+            query_filter=qdrant_filter,
         )
         return results

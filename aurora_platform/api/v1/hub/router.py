@@ -11,10 +11,7 @@ router = APIRouter()
 kb_service = KnowledgeBaseService()
 hub_router = RuleBasedRouter(kb_service=kb_service)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
 @router.post("/dispatch", response_model=HubResponse)
 async def dispatch(request: HubRequest):
     try:
