@@ -39,6 +39,7 @@ pybreaker = "^1.4.0"
 python-multipart = "^0.0.20"
 sqlalchemy = ">=2.0"
 aiosqlite = ">=0.19"
+tenacity = "^9.1.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=8.0"

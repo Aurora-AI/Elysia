@@ -1,0 +1,42 @@
+*** Begin Patch
+*** Add File: docs/os/AUR-CRAWLER-CONN-001.md
++<paste the file docs/os/AUR-CRAWLER-CONN-001.md content>
++
+*** Add File: backend/app/connectors/tce_rn/__init__.py
++from .client import TCERNClient
++from .pipeline import run, normalize
++
++__all__ = ["TCERNClient", "run", "normalize"]
++
+*** Add File: backend/app/connectors/tce_rn/config.py
++import os
++
++def _env_str(name: str, default: str | None = None, required: bool = False) -> str | None:
++    val = os.getenv(name, default)
++    if required and not val:
++        raise RuntimeError(f"Missing required env var: {name}")
++    return val
++
++TCE_RN_BASE_URL: str = _env_str("TCE_RN_BASE_URL", required=True)
++TCE_RN_API_KEY: str | None = _env_str("TCE_RN_API_KEY", required=False)
++TCE_RN_EXPENSES_PATH: str = _env_str("TCE_RN_EXPENSES_PATH", "/expenses")
++
++PAGE_SIZE: int = int(_env_str("CONNECTOR_DEFAULT_PAGE_SIZE", "100"))
++HTTP_TIMEOUT: int = int(_env_str("CONNECTOR_HTTP_TIMEOUT", "30"))
++MAX_RETRIES: int = int(_env_str("CONNECTOR_MAX_RETRIES", "5"))
++
++AURORA_INGEST_URL: str = _env_str("AURORA_INGEST_URL", required=True)
++AURORA_INGEST_TOKEN: str = _env_str("AURORA_INGEST_TOKEN", required=True)
++
+*** Add File: backend/app/connectors/tce_rn/schemas.py
++<paste the schemas.py content>
++
+*** Add File: backend/app/connectors/tce_rn/client.py
++<paste the client.py content>
++
+*** Add File: backend/app/connectors/tce_rn/pipeline.py
++<paste the pipeline.py content>
++
+*** Add File: tests/connectors/test_connector_tce_rn.py
++<paste the tests/connectors/test_connector_tce_rn.py content>
+*** End Patch
