@@ -4,6 +4,7 @@ from typing import Any, Dict, Iterator, Optional
 
 import httpx
 try:
+    # type: ignore[reportMissingImports]
     from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 except Exception:  # pragma: no cover - fallback when tenacity not installed
     def retry(*args, **kwargs):

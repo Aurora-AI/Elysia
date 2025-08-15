@@ -6,6 +6,7 @@ from .llm_adapters import (
     ILLMAdapter,
     VertexAIAdapter,
 )
+from .langgraph_adapter import LangGraphAdapter
 
 
 class AdapterFactory:
@@ -23,6 +24,9 @@ class AdapterFactory:
             return AzureOpenAIAdapter()
         elif provider_name == "deepseek":
             return DeepSeekAdapter()
+        elif provider_name == "langgraph":
+            # Provide a LangGraph shim adapter for compatibility.
+            return LangGraphAdapter()
         else:
             raise ValueError(
                 f"Provedor de LLM desconhecido: '{provider_name}'. Os provedores suportados são: google, azure, deepseek."

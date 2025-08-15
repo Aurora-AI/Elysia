@@ -11,6 +11,9 @@
 * **4. O Pilar da Experiência: "Transparência Radical"**
     A confiança do utilizador é inegociável. As nossas IAs não devem ser "caixas pretas". Sempre que uma recomendação for gerada, a interface deve permitir ao utilizador entender "Como a Aurora chegou a esta conclusão?".
 
+* **5. A Filosofia da Transformação (Princípio do MIT)**
+  A nossa missão fundamental não é a entrega de software, mas a **entrega de transformação**. Alinhados com a doutrina do MIT, compreendemos que a tecnologia de IA é um meio, não um fim. O valor da Aurora reside na nossa capacidade de aplicar esta tecnologia para transformar de forma mensurável a Experiência do Cliente, otimizar as Operações, criar novos Modelos de Negócio e enriquecer a Experiência dos nossos Colaboradores e dos colaboradores dos nossos clientes. Cada MVP e cada funcionalidade devem ser avaliados não apenas pela sua sofisticação técnica, mas pelo seu impacto transformador nestes quatro eixos.
+
 #### **PARTE II: A ARQUITETURA (O Nosso "O Quê")**
 
 * **1. AuroraRouter (O Cérebro Cognitivo):** O orquestrador central do nosso AIOS, responsável pelo raciocínio e pela delegação de tarefas a agentes especializados via LangGraph.
@@ -107,3 +110,6 @@
 
 - **Vertex AI: Prompt Optimizer (GA)**
   [Estudo Detalhado](library/vertex_ai_prompt_optimizer.md) — Otimização de prompts reduz custo de tokens e melhora qualidade.
+
+- **Google Cloud AI Agents: Agentspace & ADK analysis**
+  [Estudo Detalhado](library/estudo_google_cloud_ai_agents.md) — Análise da plataforma agêntica da Google (Agentspace, ADK). Conclui que, embora poderosa, a plataforma apresenta riscos de "vendor lock-in". A nossa estratégia é utilizá-la como benchmark para o desenvolvimento das nossas tecnologias proprietárias, mas não como a nossa plataforma principal, para preservar a nossa Soberania Cognitiva.

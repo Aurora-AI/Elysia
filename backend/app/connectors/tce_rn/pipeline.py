@@ -15,11 +15,12 @@ _real_httpx = importlib.import_module("httpx")
 
 
 class _HttpxProxy:
-    pass
+    # annotate Client to please static type checkers; runtime assignment below is valid
+    Client: type
 
 
 httpx = _HttpxProxy()
-httpx.Client = _real_httpx.Client
+httpx.Client = _real_httpx.Client  # type: ignore[attr-defined]
 
 
 def _cnpj_digits(cnpj: str | None) -> str | None:
