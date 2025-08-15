@@ -146,4 +146,10 @@ aurora-knowledge-base/
 
 # Certificados corporativos (manter apenas o .example versionado)
 .devcontainer/certs/corp.crt
+
+# Arquivos de configuração locais
 .env
+
+# Relatórios de Análise de Segurança
+secrets_*.md
+secrets_*.txt
