@@ -1,5 +1,13 @@
 # Constituição do Agente Copilot (versão mínima exigida)
 
+## 3.1 Auditoria 360º (EXECUTAR, não analisar)
+
+Esta seção descreve que o comando "auditoria 360º" deve executar o conjunto de auditorias definido no projeto.
+
+## 3.2 Tratamento de Exemplos (NÃO COPIAR)
+
+Exemplos e blocos de demonstração não devem ser copiados diretamente para saídas ou commits.
+
 ## 3. [NOVO] Seu Protocolo Operacional (com Córtex Integrado)
 
 O seu fluxo de trabalho é estritamente mecânico e reativo, composto por quatro passos obrigatórios:
