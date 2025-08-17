@@ -153,3 +153,6 @@ aurora-knowledge-base/
 # Relatórios de Análise de Segurança
 secrets_*.md
 secrets_*.txt
+
+# Aurora Crawler POC outputs
+data/outputs/
