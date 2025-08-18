@@ -1,9 +1,16 @@
 from __future__ import annotations
 from typing import Optional
-from pypdf import PdfReader
 from io import BytesIO
 
+try:
+    from pypdf import PdfReader  # type: ignore
+except Exception:
+    PdfReader = None  # type: ignore
+
+
 def pdf_to_text(data: bytes) -> Optional[str]:
+    if PdfReader is None:
+        return None
     try:
         reader = PdfReader(BytesIO(data))
         chunks = []

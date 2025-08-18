@@ -156,3 +156,4 @@ secrets_*.txt
 
 # Aurora Crawler POC outputs
 data/outputs/
+.tmp.driveupload/
