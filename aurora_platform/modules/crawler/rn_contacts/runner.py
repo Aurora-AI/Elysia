@@ -74,7 +74,7 @@ def can_fetch(robots: robotparser.RobotFileParser, url: str) -> bool:
         return True
 
 
-async def crawl(*, seeds: List[str], out_dir: str, max_pages: int = 250, allow_non_official: bool = False, dry_run: bool = False) -> Dict[str, Any]:
+async def crawl(*, seeds: List[str], out_dir: str, max_pages: int = 250, allow_non_official: bool = False, dry_run: bool = False, mission: Dict[str, Any] | None = None) -> Dict[str, Any]:
     """Crawl seeds and extract contacts.
 
     dry_run: when True, write deterministic empty outputs and skip network.

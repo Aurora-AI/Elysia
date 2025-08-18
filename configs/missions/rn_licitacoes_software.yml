@@ -1,0 +1,28 @@
+mission_id: rn_licitacoes_software_v1
+objective: licitacoes
+topics:
+  - software
+  - tecnologia da informação
+  - sistema
+  - desenvolvimento
+  - TI
+entities:
+  - tipo: secretaria
+    nome: "Administração e TI (RN)"
+    hosts: ["rn.gov.br", "natal.rn.gov.br", "mossoro.rn.gov.br", "parnamirim.rn.gov.br"]
+constraints:
+  max_pages: 300
+  per_host_cap: 80
+  require_topic_match: true
+  allow_non_official: false
+  allowed_suffixes: [".rn.gov.br", ".gov.br"]
+seeds:
+  - "https://www.rn.gov.br/"
+  - "https://www.natal.rn.gov.br/"
+  - "https://www.mossoro.rn.gov.br/"
+  - "https://www.parnamirim.rn.gov.br/"
+hosts:
+  - "rn.gov.br"
+  - "natal.rn.gov.br"
+  - "mossoro.rn.gov.br"
+  - "parnamirim.rn.gov.br"
