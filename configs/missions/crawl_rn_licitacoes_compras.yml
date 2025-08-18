@@ -1,7 +1,6 @@
 mission_id: CRAWL-20250818-001
 title: Mapeamento Massivo - Compras Públicas RN
-objective: Mapear contatos de comissões de licitação, pregoeiros e departamentos de
-  compras/contratos nas prefeituras e secretarias do RN
+objective: licitacoes
 topics:
 - licitacoes
 - compras
