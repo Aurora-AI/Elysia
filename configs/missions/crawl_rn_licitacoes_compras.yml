@@ -1,0 +1,22 @@
+mission_id: CRAWL-20250818-001
+title: Mapeamento Massivo - Compras Públicas RN
+objective: "Mapear contatos de comissões de licitação, pregoeiros e departamentos de compras/contratos nas prefeituras e secretarias do RN"
+topics:
+  - licitacoes
+  - compras
+  - contratos
+entities:
+  - tipo: estado
+    nome: Rio Grande do Norte
+    sigla: RN
+constraints:
+  require_topic_match: true
+  allowed_suffixes:
+    - ".rn.gov.br"
+    - ".rn.gov"
+  per_host_cap: 500
+  max_pages_per_seed: 1000
+seeds: []
+notes: |
+  Esta missão é destinada a uma varredura em larga escala. Os seeds devem ser populados com domínios oficiais dos municípios e secretarias do RN antes da execução.
+  Recomenda-se executar primeiro em modo `--dry-run` para validar saída e manifestos, depois em modo normal com monitoramento.
