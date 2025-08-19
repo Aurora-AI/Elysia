@@ -20,14 +20,27 @@ with open("aurora_platform/events/schemas/kg_relation_upsert.json") as f:
 entity_serializer = JSONSerializer(entity_schema_str, schema_registry)
 relation_serializer = JSONSerializer(relation_schema_str, schema_registry)
 
+def _delivery_report(err, msg):
+    """Callback para confirmação de entrega"""
+    if err:
+        print(f"ERRO ao entregar {msg.topic()}[{msg.partition()}]@{msg.offset()}: {err}")
+    # else: sucesso silencioso
+
 producer = SerializingProducer({
     "bootstrap.servers": BOOTSTRAP,
-    "value.serializer": entity_serializer
+    "value.serializer": entity_serializer,
+    "acks": "all",
+    "retries": 3
 })
 
 def send_entity_upsert(payload: dict):
     """Envia evento de upsert de entidade com chave = entity_id"""
-    producer.produce(topic="kg.entity.upsert", key=payload["entity_id"], value=payload)
+    producer.produce(
+        topic="kg.entity.upsert",
+        key=payload["entity_id"],
+        value=payload,
+        on_delivery=_delivery_report
+    )
     producer.flush()
 
 def send_relation_upsert(payload: dict):

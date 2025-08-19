@@ -36,3 +36,19 @@ kafka-logs:
 
 kafka-topics:
 	docker exec aurora-kafka kafka-topics --bootstrap-server localhost:9092 --list
+
+kafka-setup-prod:
+	bash infra/kafka/topics-dlq.sh
+	bash scripts/schema_compat.sh
+	@echo "✅ Setup produção completo"
+
+kg-consumer-batch:
+	python -m aurora_platform.services.kg_consumer_neo4j_batch
+
+kafka-compaction:
+	@echo "Configurando log compaction..."
+	docker exec aurora-kafka kafka-configs --bootstrap-server localhost:9092 --alter \
+		--topic kg.entity.upsert --add-config cleanup.policy=compact,min.cleanable.dirty.ratio=0.01,segment.ms=300000
+	docker exec aurora-kafka kafka-configs --bootstrap-server localhost:9092 --alter \
+		--topic kg.relation.upsert --add-config cleanup.policy=compact,min.cleanable.dirty.ratio=0.01,segment.ms=300000
+	@echo "✅ Compaction configurado"
