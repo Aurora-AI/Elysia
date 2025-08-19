@@ -1,0 +1,37 @@
+name: Runner meta (TESTING)
+
+on:
+  pull_request:
+    paths:
+      - "aurora_platform/modules/crawler/rn_contacts/runner.py"
+      - "aurora_platform/modules/crawler/rn_contacts/output.py"
+      - "tests/modules/crawler/test_runner_meta.py"
+      - "tests/modules/crawler/test_smoke_dry_run_meta.py"
+  workflow_dispatch: {}
+
+jobs:
+  test-runner-meta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TESTING: "1"
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install minimal deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyyaml
+
+      - name: Run meta unit test
+        run: pytest -q tests/modules/crawler/test_runner_meta.py
+
+      - name: Run dry-run integration (no network)
+        run: pytest -q tests/modules/crawler/test_smoke_dry_run_meta.py

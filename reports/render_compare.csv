@@ -1,0 +1,7 @@
+manifest,mission_id,records,mode,budget,timeout_sec,available,used,cap
+data/outputs/rn_contacts/rn_contacts_20250818-2323/manifest.json,backfill_612808f0,0,auto,0.01,5,False,0,1
+data/outputs/rn_contacts/rn_contacts_20250818-2326/manifest.json,backfill_197fefaf,4,auto,0.01,5,False,0,1
+data/outputs/rn_contacts/rn_contacts_20250819-0122/manifest.json,backfill_b8059e74,0,auto,0.01,5,False,0,1
+data/outputs/rn_contacts/rn_contacts_20250819-0123/manifest.json,backfill_3478b06b,4,auto,0.01,5,False,0,1
+data/outputs/rn_contacts/rn_contacts_20250819-0133/manifest.json,backfill_b8059e74,0,auto,0.01,5,False,0,1
+data/outputs/rn_contacts/rn_contacts_20250819-0135/manifest.json,backfill_3478b06b,4,auto,0.01,5,False,0,1
