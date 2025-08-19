@@ -1,0 +1,11 @@
+{
+  "version": "rn-contacts-0.1",
+  "seeds": [
+    "https://example.com"
+  ],
+  "max_pages": 250,
+  "allow_non_official": false,
+  "user_agent": "AuroraCrawler/1.0 (+https://aurora.example)",
+  "written_at": "2025-08-19T17:17:35.352735",
+  "total": 0
+}
