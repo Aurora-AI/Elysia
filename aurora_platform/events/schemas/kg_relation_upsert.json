@@ -1,0 +1,13 @@
+{
+  "$id": "kg_relation_upsert",
+  "type": "object",
+  "required": ["relation_id","from_id","to_id","rel_type","properties"],
+  "properties": {
+    "relation_id": {"type": "string"},
+    "from_id": {"type": "string"},
+    "to_id": {"type": "string"},
+    "rel_type": {"type": "string"},
+    "properties": {"type": "object"},
+    "provenance": {"type": "object"}
+  }
+}

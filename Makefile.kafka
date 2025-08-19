@@ -1,0 +1,38 @@
+# Makefile para operações Kafka + KG
+.PHONY: kafka-up kafka-down kafka-setup kafka-ui kg-consumer kg-test
+
+kafka-up:
+	docker network create aurora-net || true
+	docker compose -f infra/docker/docker-compose.kafka.yml up -d
+	@echo "🚀 Kafka stack iniciado"
+	@echo "📊 Kafka UI: http://localhost:8082"
+	@echo "🔗 Schema Registry: http://localhost:8081"
+
+kafka-down:
+	docker compose -f infra/docker/docker-compose.kafka.yml down -v
+
+kafka-setup:
+	python scripts/kafka_setup.py
+
+kafka-ui:
+	@echo "📊 Kafka UI: http://localhost:8082"
+	@echo "🔗 Schema Registry: http://localhost:8081"
+
+kg-consumer:
+	python -m aurora_platform.services.kg_consumer_neo4j
+
+kg-test:
+	@echo "🧪 Testando KG via API..."
+	curl -X POST "http://localhost:8000/kg/upsert-entity" \
+		-H "Content-Type: application/json" \
+		-d '{"entity_type":"Person","labels":["Advogado"],"properties":{"name":"João Silva","oab":"12345"}}'
+	@echo ""
+	curl -X POST "http://localhost:8000/kg/upsert-relation" \
+		-H "Content-Type: application/json" \
+		-d '{"from_id":"person-1","to_id":"case-1","rel_type":"REPRESENTS","properties":{"since":"2024-01-01"}}'
+
+kafka-logs:
+	docker logs -f aurora-kafka
+
+kafka-topics:
+	docker exec aurora-kafka kafka-topics --bootstrap-server localhost:9092 --list
