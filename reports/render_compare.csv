@@ -1,0 +1,3 @@
+manifest,mission_id,records,mode,budget,timeout_sec,available,used,cap
+data/outputs/rn_contacts/rn_contacts_20250818-2323/manifest.json,,0,auto,0.01,5,False,0,1
+data/outputs/rn_contacts/rn_contacts_20250818-2326/manifest.json,,4,auto,0.01,5,False,0,1
