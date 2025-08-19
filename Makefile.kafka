@@ -21,6 +21,13 @@ kafka-ui:
 kg-consumer:
 	python -m aurora_platform.services.kg_consumer_neo4j
 
+kg-consumer-batch:
+	python -m aurora_platform.services.kg_consumer_neo4j_batch
+
+neo4j-constraints:
+	@echo "Aplicando constraints Neo4j..."
+	@python -c "from py2neo import Graph; g = Graph('bolt://localhost:7687', auth=('neo4j','password')); [g.run(q) for q in open('infra/neo4j/constraints.cypher').read().split(';') if q.strip()]; print('✅ Constraints aplicados')" || echo "⚠️ Neo4j não disponível"
+
 kg-test:
 	@echo "🧪 Testando KG via API..."
 	curl -X POST "http://localhost:8000/kg/upsert-entity" \

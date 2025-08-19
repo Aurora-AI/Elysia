@@ -1,13 +1,66 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "shell",
-			"label": "Iniciar Aurora-Core (Uvicorn)",
-			"command": "uvicorn src.aurora_platform.main:app --host 0.0.0.0 --port 8001 --reload",
-			"group": "build",
-			"isBackground": true,
-			"problemMatcher": []
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Kafka: Up",
+            "type": "shell",
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "kafka-up"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Kafka: Setup",
+            "type": "shell",
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "kafka-setup"],
+            "group": "build",
+            "dependsOn": "Kafka: Up"
+        },
+        {
+            "label": "Neo4j: Constraints",
+            "type": "shell",
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "neo4j-constraints"],
+            "group": "build"
+        },
+        {
+            "label": "API Run",
+            "type": "shell",
+            "command": "uvicorn",
+            "args": ["aurora_platform.api.kg_endpoints:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "KG Consumer",
+            "type": "shell",
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "kg-consumer-batch"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "KG Test",
+            "type": "shell",
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "kg-test"],
+            "group": "test"
+        }
+    ]
 }

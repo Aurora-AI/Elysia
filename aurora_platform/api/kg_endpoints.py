@@ -1,8 +1,14 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Dict, List, Optional
 from ..services.kafka_producer import send_entity_upsert, send_relation_upsert
 import uuid
+
+app = FastAPI(
+    title="Aurora Platform KG API",
+    description="Kafka + Knowledge Graph RAG 2.0",
+    version="2.0.0"
+)
 
 router = APIRouter(prefix="/kg", tags=["Knowledge Graph"])
 
@@ -53,3 +59,13 @@ async def upsert_relation(relation: RelationUpsert):
 async def kg_health():
     """Health check do sistema KG"""
     return {"status": "ok", "service": "knowledge-graph"}
+
+@app.get("/")
+async def root():
+    return {"message": "Aurora Platform KG API", "version": "2.0.0"}
+
+@app.get("/health")
+async def health():
+    return {"status": "ok", "service": "aurora-kg-api"}
+
+app.include_router(router)

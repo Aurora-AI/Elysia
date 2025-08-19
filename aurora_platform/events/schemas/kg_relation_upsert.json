@@ -1,5 +1,6 @@
 {
   "$id": "kg_relation_upsert",
+  "title": "KG Relation Upsert",
   "type": "object",
   "required": ["relation_id","from_id","to_id","rel_type","properties"],
   "properties": {

@@ -1,5 +1,6 @@
 {
   "$id": "kg_entity_upsert",
+  "title": "KG Entity Upsert",
   "type": "object",
   "required": ["entity_id", "entity_type", "labels", "properties"],
   "properties": {
