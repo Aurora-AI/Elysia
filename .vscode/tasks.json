@@ -1,66 +1,165 @@
 {
     "version": "2.0.0",
+    "options": {
+        "env": {
+            "PYTHONPATH": "${workspaceFolder}",
+            "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/aurora"
+        }
+    },
     "tasks": [
+        {
+            "label": "Dev: Install base",
+            "type": "shell",
+            "command": "pip install -r requirements.txt",
+            "problemMatcher": []
+        },
+        {
+            "label": "Dev: Install dev (ruff/pytest/pyright)",
+            "type": "shell",
+            "command": "python -m pip install -U pip && pip install -r dev-requirements.txt || (echo 'dev-requirements.txt não encontrado; instalando pacotes avulsos' && pip install ruff pytest pyright)",
+            "problemMatcher": []
+        },
+
+        { "label": "Sanity: Import package", "type": "shell", "command": "python -c \"import aurora_platform; print('import ok')\"", "problemMatcher": [] },
+        { "label": "Lint: Ruff check", "type": "shell", "command": "ruff check .", "problemMatcher": [] },
+        { "label": "Lint: Ruff fix", "type": "shell", "command": "ruff check . --fix", "problemMatcher": [] },
+        { "label": "Type: Pyright", "type": "shell", "command": "pyright", "problemMatcher": [] },
+
+        {
+            "label": "Pilares: Up (no-kafka)",
+            "type": "shell",
+            "command": "docker compose -f docker-compose.pilares.yml up -d postgres neo4j",
+            "problemMatcher": []
+        },
+        {
+            "label": "Pilares: Down",
+            "type": "shell",
+            "command": "docker compose -f docker-compose.pilares.yml down",
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Pilares: Ingest",
+            "type": "shell",
+            "command": "python scripts/ingest_pilares.py",
+            "problemMatcher": []
+        },
+        {
+            "label": "Pilares: Validate",
+            "type": "shell",
+            "command": "python scripts/validate_ingest.py",
+            "problemMatcher": []
+        },
+
+        {
+            "label": "API: Run (Uvicorn)",
+            "type": "shell",
+            "command": "uvicorn aurora_platform.api.kg_endpoints:app --host 0.0.0.0 --port 8000 --reload",
+            "problemMatcher": []
+        },
+        {
+            "label": "API: Health",
+            "type": "shell",
+            "command": "curl -sS http://localhost:8000/health || python -c \"import urllib.request,sys;print(urllib.request.urlopen('http://localhost:8000/health').read().decode())\"",
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Neo4j: Seed Pilares",
+            "type": "shell",
+            "options": {
+                "env": {
+                    "NEO4J_URI": "bolt://localhost:7687",
+                    "NEO4J_USER": "neo4j",
+                    "NEO4J_PASS": "test"
+                }
+            },
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "neo4j-seed-pilares"],
+            "problemMatcher": []
+        },
         {
             "label": "Kafka: Up",
             "type": "shell",
             "command": "make",
             "args": ["-f", "Makefile.kafka", "kafka-up"],
-            "group": "build",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
-            }
+            "problemMatcher": []
         },
         {
-            "label": "Kafka: Setup",
+            "label": "Kafka: Down",
             "type": "shell",
             "command": "make",
-            "args": ["-f", "Makefile.kafka", "kafka-setup"],
-            "group": "build",
-            "dependsOn": "Kafka: Up"
+            "args": ["-f", "Makefile.kafka", "kafka-down"],
+            "problemMatcher": []
         },
         {
-            "label": "Neo4j: Constraints",
+            "label": "Kafka: Topic Create (PILAR_UPSERT)",
             "type": "shell",
             "command": "make",
-            "args": ["-f", "Makefile.kafka", "neo4j-constraints"],
-            "group": "build"
+            "args": ["-f", "Makefile.kafka", "kafka-topic-create"],
+            "problemMatcher": []
         },
         {
-            "label": "API Run",
-            "type": "shell",
-            "command": "uvicorn",
-            "args": ["aurora_platform.api.kg_endpoints:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
-            "group": "build",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "dedicated"
-            }
-        },
-        {
-            "label": "KG Consumer",
+            "label": "Kafka: Topic List",
             "type": "shell",
             "command": "make",
-            "args": ["-f", "Makefile.kafka", "kg-consumer-batch"],
-            "group": "build",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "dedicated"
-            }
+            "args": ["-f", "Makefile.kafka", "kafka-topic-list"],
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Kafka: Consumer (PILAR_UPSERT)",
+            "type": "shell",
+            "options": {
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder}",
+                    "KAFKA_BOOTSTRAP": "localhost:9092",
+                    "KAFKA_TOPIC": "PILAR_UPSERT",
+                    "KAFKA_GROUP_ID": "aurora-pilares-consumer",
+                    "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/aurora",
+                    "NEO4J_URI": "bolt://localhost:7687",
+                    "NEO4J_USER": "neo4j",
+                    "NEO4J_PASS": "test"
+                }
+            },
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "kafka-consumer-run"],
+            "problemMatcher": []
         },
         {
-            "label": "KG Test",
+            "label": "Kafka: Consumer (PILAR_UPSERT, skip Neo4j)",
             "type": "shell",
+            "options": {
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder}",
+                    "KAFKA_BOOTSTRAP": "localhost:9092",
+                    "KAFKA_TOPIC": "PILAR_UPSERT",
+                    "KAFKA_GROUP_ID": "aurora-pilares-consumer",
+                    "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/aurora",
+                    "SKIP_NEO4J": "true",
+                    "STARTUP_MAX_RETRIES": "30",
+                    "STARTUP_BACKOFF_SEC": "1.5"
+                }
+            },
             "command": "make",
-            "args": ["-f", "Makefile.kafka", "kg-test"],
-            "group": "test"
-        }
+            "args": ["-f", "Makefile.kafka", "kafka-consumer-run"],
+            "problemMatcher": []
+        },
+        {
+            "label": "Kafka: Produce (test)",
+            "type": "shell",
+            "options": {
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder}",
+                    "KAFKA_BOOTSTRAP": "localhost:9092",
+                    "KAFKA_TOPIC": "PILAR_UPSERT"
+                }
+            },
+            "command": "make",
+            "args": ["-f", "Makefile.kafka", "kafka-producer-test"],
+            "problemMatcher": []
+        },
+
+        { "label": "Test: Pytest", "type": "shell", "command": "pytest -q", "problemMatcher": [] }
     ]
 }

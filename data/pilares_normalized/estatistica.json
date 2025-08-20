@@ -1,0 +1,9 @@
+[
+  {
+    "metodo": "regressão logística",
+    "modelo": "binário",
+    "metricas": "AUC, precisão",
+    "fonte": "corpus base",
+    "referencia": "autor Y, 2019"
+  }
+]
