@@ -1,0 +1,33 @@
+# smoke_memory.txt (template)
+
+# make schema output (last lines)
+# -------------------------------
+# (paste here)
+
+# ingest trf1 last lines
+# -------------------------------
+# (paste here)
+
+# ingest trt9 last lines
+# -------------------------------
+# (paste here)
+
+# GET /healthz
+# -------------------------------
+# (paste here)
+
+# GET /search?query=prazo+recurso&k=5&alpha=0.5
+# -------------------------------
+# (paste here)
+
+# GET /search?query=penhora+on-line&k=5&alpha=0.5
+# -------------------------------
+# (paste here)
+
+# Qdrant collection counts
+# -------------------------------
+# (paste here)
+
+# Notes / anomalies
+# -------------------------------
+# (optional)

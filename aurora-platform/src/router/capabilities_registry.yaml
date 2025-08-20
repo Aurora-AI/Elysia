@@ -1,0 +1,24 @@
+version: 2
+capabilities:
+  - id: datajud.search_by_process_number
+    name: "DataJud: Buscar por número de processo"
+    description: "Consulta processos por número no DataJud (conector interno via import)."
+    input_schema:
+      type: object
+      required: [numero_processo]
+      properties:
+        numero_processo: { type: string }
+    output_schema:
+      type: object
+      properties:
+        status: { type: string }
+        data: { type: array }
+    cost_hint:
+      latency_ms: 800-2500
+      tokens_in: 0
+      tokens_out: 0
+    transport: internal_python
+    entrypoint:
+      module: "src.connectors.datajud_connector"
+      function: "search_by_process_number"
+    version: "1.1.0"

@@ -1,0 +1,14 @@
+version: 1
+domain: "juridico/processual"
+description: "Regras iniciais de validação processual"
+rules:
+  - id: prazo-recurso-trabalhista
+    description: "Prazo de interposição de recurso trabalhista (exemplo ilustrativo)"
+    when:
+      # Campos esperados na entrada do HRM
+      tribunal: "TRT"
+      classe: "Recurso"
+    then:
+      prazo_dias: 8
+      base_legal: "CLT, art. 895"
+      severity: "info"

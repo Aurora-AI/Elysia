@@ -1,38 +1,25 @@
-import os
+"""
+Garante que 'aurora-platform/src' e 'aurora-core/src' estejam no sys.path,
+independente de onde os testes são executados.
+"""
 import sys
-import asyncio
-import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
-from aurora_platform.core.db import Base, engine, SessionLocal
-
-# Ensure aurora-core/src is on sys.path for imports
-ROOT = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(ROOT)
-SRC = os.path.join(REPO, "aurora-core", "src")
-if SRC not in sys.path:
-    sys.path.insert(0, SRC)
+from pathlib import Path
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    # Permite escopo de sessão para async tests
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
+def _add_path(p: Path):
+    s = str(p)
+    if s not in sys.path:
+        sys.path.insert(0, s)
 
 
-@pytest.fixture(scope="session", autouse=True)
-async def _create_test_schema():
-    # Cria o schema do SQLAlchemy em memória (sem alembic) para os testes
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield
-    # Limpa ao final da sessão de testes
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-
-
-@pytest.fixture
-async def db_session() -> AsyncSession:
-    async with SessionLocal() as session:
-        yield session
+HERE = Path(__file__).resolve()
+for parent in [HERE] + list(HERE.parents):
+    ap_src = parent / "aurora-platform" / "src"
+    if ap_src.exists():
+        _add_path(ap_src)
+    ac_src = parent / "aurora-core" / "src"
+    if ac_src.exists():
+        _add_path(ac_src)
+    only_src = parent / "src"
+    if only_src.exists():
+        _add_path(only_src)
