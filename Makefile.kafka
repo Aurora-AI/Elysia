@@ -1,0 +1,62 @@
+# ===============================
+# Aurora Kafka Makefile (Final)
+# ===============================
+
+COMPOSE_FILE := infra/docker/docker-compose.kafka.yml
+TOPIC := pilares
+BROKER := localhost:9092
+
+.PHONY: help kafka-up kafka-down kafka-logs kafka-topic-create kafka-topic-list kafka-producer-test kafka-consumer-run
+
+COMPOSE_FILE_MINIMAL := infra/docker/docker-compose.kafka.yml
+COMPOSE_MIN=infra/docker/docker-compose.kafka.yml
+COMPOSE_PERSIST=infra/docker/docker-compose.kafka.persist.yml
+TOPIC=pilares
+
+# --- Minimal stack ---
+kafka-up:
+	docker compose -f $(COMPOSE_MIN) up -d
+kafka-down:
+	docker compose -f $(COMPOSE_MIN) down -v
+
+# --- Persistent stack ---
+kafka-persist-up:
+	docker compose -f $(COMPOSE_PERSIST) up -d
+kafka-persist-down:
+	docker compose -f $(COMPOSE_PERSIST) down -v
+
+# --- Kafka helpers ---
+kafka-topic-create:
+	docker exec kafka kafka-topics.sh --create --if-not-exists --topic $(TOPIC) --bootstrap-server kafka:9092
+kafka-topic-list:
+	docker exec kafka kafka-topics.sh --list --bootstrap-server kafka:9092
+
+# --- Dev / debug ---
+kafka-logs:
+	docker logs -f kafka
+	@echo "  make kafka-logs           -> logs do Kafka"
+	@echo "  make kafka-topic-create   -> cria tópico padrão (pilares)"
+	@echo "  make kafka-topic-list     -> lista tópicos"
+	@echo "  make kafka-consumer-run   -> roda consumer Aurora"
+	@echo "  make kafka-producer-test  -> envia mensagem de teste"
+
+kafka-up:
+	docker compose -f $(COMPOSE_FILE) up -d
+
+kafka-down:
+	docker compose -f $(COMPOSE_FILE) down -v
+
+kafka-logs:
+	docker compose -f $(COMPOSE_FILE) logs -f kafka
+
+kafka-topic-create:
+	docker exec -it kafka kafka-topics --bootstrap-server $(BROKER) --create --if-not-exists --topic $(TOPIC)
+
+kafka-topic-list:
+	docker exec -it kafka kafka-topics --bootstrap-server $(BROKER) --list
+
+kafka-consumer-run:
+	PYTHONPATH=. python scripts/kg_consumer.py
+
+kafka-producer-test:
+	PYTHONPATH=. python scripts/produce_pilar_upsert.py

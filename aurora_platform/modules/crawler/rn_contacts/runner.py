@@ -30,7 +30,8 @@ async def _get_with_retry(client: httpx.AsyncClient, url: str, retries: int = 4)
         try:
             r = await client.get(url, timeout=15.0, follow_redirects=True)
             if r.status_code >= 500 or r.status_code == 429:
-                raise httpx.HTTPStatusError("retry", request=r.request, response=r)
+                raise httpx.HTTPStatusError(
+                    "retry", request=r.request, response=r)
             r.raise_for_status()
             return r
         except Exception:
@@ -52,7 +53,8 @@ async def fetch_text(client: httpx.AsyncClient, url: str):
 
 def extract_links(base_url: str, html: bytes):
     doc = HTMLParser(html.decode("utf-8", "ignore"))
-    title = (doc.css_first("title").text(strip=True) if doc.css_first("title") else None)
+    title = (doc.css_first("title").text(strip=True)
+             if doc.css_first("title") else None)
     links = []
     for a in doc.css("a[href]"):
         href = a.attributes.get("href")
@@ -84,14 +86,24 @@ async def crawl(*, seeds: List[str], out_dir: str, max_pages: int = 250, allow_n
         records = []
         stamp = dt.datetime.utcnow().strftime("%Y%m%d-%H%M")
         out_base = os.path.join(out_dir, f"rn_contacts_{stamp}")
-        paths = write_outputs(out_base, records, {
+        # Build meta and include mission_id when provided so manifest contains mission context
+        meta = {
             "version": "rn-contacts-0.1",
             "seeds": seeds,
             "max_pages": max_pages,
             "allow_non_official": allow_non_official,
             "user_agent": USER_AGENT,
             "dry_run": True,
-        })
+            # include a render capability hint so dry-run manifests signal render budget
+            "render": {"cap": 1, "mode": "auto"},
+        }
+        if mission and isinstance(mission, dict) and mission.get("mission_id"):
+            meta["mission_id"] = mission.get("mission_id")
+            mission_name = mission.get("mission_id")
+        else:
+            mission_name = None
+        paths = write_outputs(out_base, records, meta,
+                              mission_name=mission_name)
         return {"count": 0, "paths": paths, "visited": 0}
 
     visited: Set[str] = set()
@@ -141,20 +153,23 @@ async def crawl(*, seeds: List[str], out_dir: str, max_pages: int = 250, allow_n
             if kind == "html":
                 title, links, text = extract_links(url, body)
                 # extract emails from HTML
-                found.extend(extract_from_text(url, title, text, allow_non_official=allow_non_official))
+                found.extend(extract_from_text(url, title, text,
+                             allow_non_official=allow_non_official))
                 # extract mailto immediate
-                for l in links:
-                    if l.startswith("mailto:"):
-                        email = l.split("mailto:", 1)[1]
-                        found.extend(extract_from_text(url, title, email, allow_non_official=allow_non_official))
+                for link in links:
+                    if link.startswith("mailto:"):
+                        email = link.split("mailto:", 1)[1]
+                        found.extend(extract_from_text(
+                            url, title, email, allow_non_official=allow_non_official))
                 # enqueue new links
-                for l in links:
-                    if l.startswith("http"):
-                        queue.append(l)
+                for link in links:
+                    if link.startswith("http"):
+                        queue.append(link)
             else:  # pdf
                 text = pdf_to_text(body or b"")
                 if text:
-                    found.extend(extract_from_text(url, None, text, allow_non_official=allow_non_official))
+                    found.extend(extract_from_text(
+                        url, None, text, allow_non_official=allow_non_official))
 
             per_host_last[host] = time.monotonic()
 
@@ -176,10 +191,13 @@ if __name__ == "__main__":
     import argparse
 
     ap = argparse.ArgumentParser(description="RN contacts crawler (POC)")
-    ap.add_argument("--out", default="data/outputs/rn_contacts", help="output directory")
+    ap.add_argument("--out", default="data/outputs/rn_contacts",
+                    help="output directory")
     ap.add_argument("--max-pages", type=int, default=250)
-    ap.add_argument("--allow-non-official", action="store_true", help="include non-gov emails")
-    ap.add_argument("--dry-run", action="store_true", dest="dry_run", help="run a deterministic offline dry-run")
+    ap.add_argument("--allow-non-official", action="store_true",
+                    help="include non-gov emails")
+    ap.add_argument("--dry-run", action="store_true",
+                    dest="dry_run", help="run a deterministic offline dry-run")
     args = ap.parse_args()
     res = asyncio.run(
         crawl(

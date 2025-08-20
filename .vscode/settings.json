@@ -14,12 +14,15 @@
     }
   ],
   "python.analysis.extraPaths": [
-    "aurora-core/src"
+    "aurora-core/src",
+    "./"
   ],
   "python.testing.pytestArgs": [
     "aurora-core/tests"
   ],
   "python.testing.pytestEnabled": true,
+  "python.defaultInterpreterPath": ".venv/bin/python",
+  "python.testing.unittestEnabled": false,
   "python.terminal.activateEnvironment": true,
   "terminal.integrated.defaultProfile.windows": "PowerShell"
 }

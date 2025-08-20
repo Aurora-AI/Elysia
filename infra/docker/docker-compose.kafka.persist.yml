@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+  kafka:
+    image: bitnami/kafka:3.7
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "9101:9101" # métricas JMX
+    environment:
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - JMX_PORT=9101
+    volumes:
+      - ./data/kafka:/bitnami/kafka
+    networks:
+      - aurora-net
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+    depends_on:
+      - kafka
+    networks:
+      - aurora-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - aurora-net
+    depends_on:
+      - kafka
+
+  kafka-jmx:
+    image: vdesabou/jmx_prometheus_httpserver:0.16.1
+    container_name: kafka-jmx
+    ports:
+      - "9404:9404"
+    volumes:
+      - ./jmx-exporter-config.yml:/config/jmx-exporter-config.yml:ro
+    command: ["9404", "/config/jmx-exporter-config.yml", "kafka:9101"]
+    networks:
+      - aurora-net
+    depends_on:
+      - kafka
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./../grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+    networks:
+      - aurora-net
+
+networks:
+  aurora-net:
+    driver: bridge

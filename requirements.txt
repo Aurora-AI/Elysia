@@ -148,3 +148,8 @@ httpx[http2]>=0.27
 selectolax>=0.3.12
 tldextract>=5.1
 pypdf>=4.0
+
+# Kafka / Neo4j / Postgres client dependencies for pillars consumer
+confluent-kafka==2.3.0
+neo4j==5.28.2
+psycopg2-binary==2.9.10
