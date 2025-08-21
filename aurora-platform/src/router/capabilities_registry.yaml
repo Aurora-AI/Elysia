@@ -1,3 +1,4 @@
+```yaml
 version: 2
 capabilities:
   - id: datajud.search_by_process_number
@@ -22,3 +23,65 @@ capabilities:
       module: "src.connectors.datajud_connector"
       function: "search_by_process_number"
     version: "1.1.0"
+
+  - id: hrm.evaluate
+    name: "HRM: Avaliar regras"
+    description: "Avalia um conjunto de regras YAML sobre fatos fornecidos, produzindo decisão e justificativa."
+    input_schema:
+      type: object
+      required: [facts]
+      properties:
+        facts:
+          type: object
+          description: "Mapa de fatos de entrada (ex.: tribunal, classe, etc.)"
+        rule_set_path:
+          type: string
+          description: "Caminho do RuleSet YAML; se ausente, usa HRM_DEFAULT_RULESET"
+    output_schema:
+      type: object
+      properties:
+        status: { type: string }
+        decisions: { type: array }
+        matched_rules: { type: array }
+        explanation: { type: array }
+    cost_hint:
+      latency_ms: 1-30
+      tokens_in: 0
+      tokens_out: 0
+    transport: internal_python
+    entrypoint:
+      module: "src.hrm.engine"
+      function: "evaluate"
+    version: "1.0.0"
+
+  - id: decision.evaluate_case
+    name: "Decision: Avaliar caso (Memória → HRM)"
+    description: "Busca contexto na Memória, deriva fatos e avalia o HRM, retornando decisão + justificativa."
+    input_schema:
+      type: object
+      required: []
+      properties:
+        numero_processo: { type: string }
+        query:           { type: string }
+        extra_facts:
+          type: object
+          description: "Fatos adicionais/overrides"
+        top_k:          { type: integer }
+        rule_set_path:  { type: string }
+    output_schema:
+      type: object
+      properties:
+        status:    { type: string }
+        facts:     { type: object }
+        hrm:       { type: object }
+        context_sample: { type: array }
+    cost_hint:
+      latency_ms: 30-400
+      tokens_in: 0
+      tokens_out: 0
+    transport: internal_python
+    entrypoint:
+      module: "src.orchestration.decision_flow"
+      function: "evaluate_case"
+    version: "1.0.0"
+```

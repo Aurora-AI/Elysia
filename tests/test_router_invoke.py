@@ -1,16 +1,11 @@
-import json
-from fastapi.testclient import TestClient
-import subprocess
+Aqui está o arquivo corrigido (sem conflitos e alinhado ao `transport: internal_python`, com monkeypatch no conector interno):
 
+```python
+from fastapi.testclient import TestClient
 from src.router.router_service import app
+from src.connectors import datajud_connector
 
 client = TestClient(app)
-
-
-class DummyCompleted:
-    def __init__(self, stdout, stderr=""):
-        self.stdout = stdout
-        self.stderr = stderr
 
 
 def test_capabilities_list():
@@ -18,25 +13,34 @@ def test_capabilities_list():
     assert r.status_code == 200
     j = r.json()
     assert "capabilities" in j
+    ids = [c["id"] for c in j["capabilities"]]
+    assert "datajud.search_by_process_number" in ids
 
 
 def test_invoke_missing_capability():
-    r = client.post(
-        "/invoke", json={"capability_id": "not.exist", "input": {}})
+    r = client.post("/invoke", json={"capability_id": "not.exist", "payload": {}})
     assert r.status_code == 404
 
 
 def test_invoke_datajud_monkeypatch(monkeypatch):
-    # simulate subprocess.run returning a JSON payload
-    expected = {"hits": [{"_id": "1", "_source": {"numeroProcesso": "0001"}}]}
+    # monkeypatch do conector interno (sem subprocess)
+    def fake(numero_processo: str):
+        return {"status": "ok", "numero_processo": numero_processo, "from": "fake"}
 
-    def fake_run(cmd, capture_output, text, check, timeout):
-        return DummyCompleted(stdout=json.dumps(expected))
+    monkeypatch.setattr(
+        datajud_connector, "search_by_process_number", fake, raising=True
+    )
 
-    monkeypatch.setattr(subprocess, "run", fake_run)
-
-    payload = {"capability_id": "datajud.search_by_process_number",
-               "input": {"numero_processo": "0000993-58.2022.5.09.0014"}}
+    payload = {
+        "capability_id": "datajud.search_by_process_number",
+        "payload": {"numero_processo": "0000993-58.2022.5.09.0014"},
+    }
     r = client.post("/invoke", json=payload)
-    assert r.status_code == 200
-    assert r.json() == expected
+    assert r.status_code == 200, r.text
+    body = r.json()
+    assert isinstance(body, dict)
+    assert body.get("capability_id") == "datajud.search_by_process_number"
+    res = body.get("result") or {}
+    assert res.get("status") == "ok"
+    assert res.get("numero_processo") == payload["payload"]["numero_processo"]
+```
