@@ -1,5 +1,4 @@
-```make
-.PHONY: venv install schema ingest-trf1 ingest-trt9 ingest-dir search api router hrm-test test-router test-hrm test-decision test-all
+.PHONY: venv install schema ingest-trf1 ingest-trt9 ingest-dir search api router hrm-test test-router test-hrm test-all
 
 PYTHON := python
 PIP := pip
@@ -34,7 +33,7 @@ search:
 	PYTHONPATH=. python -m src.memory.search_local
 
 api:
-	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
+	. .venv/Scripts/activate 2>/dev/null || . . .venv/bin/activate; \
 	PYTHONPATH=. uvicorn src.memory.search_local:app --host 0.0.0.0 --port 8089 --reload
 
 router:
@@ -53,14 +52,20 @@ test-hrm:
 	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
 	PYTHONPATH=. pytest -q aurora-platform/tests/test_hrm_invoke.py
 
-test-decision:
+.PHONY: test-hrm-ops
+
+test-hrm-ops:
 	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
-	PYTHONPATH=. pytest -q aurora-platform/tests/test_decision_invoke.py
+	PYTHONPATH=. pytest -q aurora-platform/tests/test_hrm_operators.py
 
 test-all:
 	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
 	PYTHONPATH=. pytest -q \
 	  aurora-platform/tests/test_router_invoke.py \
 	  aurora-platform/tests/test_hrm_invoke.py \
-	  aurora-platform/tests/test_decision_invoke.py
-```
+	  aurora-platform/tests/test_decision_invoke.py \
+	  aurora-platform/tests/test_hrm_operators.py
+
+test-decision:
+	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
+	PYTHONPATH=. pytest -q aurora-platform/tests/test_decision_invoke.py

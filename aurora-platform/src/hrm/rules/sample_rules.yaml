@@ -12,3 +12,11 @@ rules:
       prazo_dias: 8
       base_legal: "CLT, art. 895"
       severity: "info"
+  - id: anotacao_trt
+    priority: 1
+    when:
+      tribunal: "TRT"  # eq implícito
+    then:
+      observacao: "Aplicar rito trabalhista"
+      prazo_dias: 0
+      base_legal: "Procedimento local"
