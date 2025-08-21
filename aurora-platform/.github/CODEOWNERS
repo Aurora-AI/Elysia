@@ -1,0 +1,14 @@
+# --- HRM ---
+/aurora-platform/src/hrm/**              @curadoria-lead @aurora-research
+/aurora-platform/tests/test_hrm_*.py     @curadoria-lead @aurora-research
+
+# --- Router ---
+/aurora-platform/src/router/**           @curadoria-lead @aurora-research
+/aurora-platform/tests/test_router_*.py  @curadoria-lead @aurora-research
+
+# --- Decision Flow ---
+/aurora-platform/src/orchestration/**          @curadoria-lead @aurora-research
+/aurora-platform/tests/test_decision_*.py      @curadoria-lead @aurora-research
+
+# Dica: quando tiver os slugs de times, substitua pelos times:
+#   @Aurora-AI/curadoria  @Aurora-AI/research

@@ -166,3 +166,5 @@ def evaluate(facts: Dict[str, Any], rule_set_path: str | None = None) -> Dict[st
         "ruleset_version": rs.version,
         "ruleset_path": path,
     }
+
+
