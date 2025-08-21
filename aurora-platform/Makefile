@@ -1,5 +1,3 @@
-Aqui está o **Makefile** corrigido, sem conflitos e com os alvos adicionados (inclui `test-hrm`, `test-decision` e `test-all`), além de corrigir o typo no alvo `api`:
-
 ```make
 .PHONY: venv install schema ingest-trf1 ingest-trt9 ingest-dir search api router hrm-test test-router test-hrm test-decision test-all
 
@@ -61,5 +59,8 @@ test-decision:
 
 test-all:
 	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
-	PYTHONPATH=. pytest -q aurora-platform/tests/test_router_invoke.py aurora-platform/tests/test_hrm_invoke.py aurora-platform/tests/test_decision_invoke.py
+	PYTHONPATH=. pytest -q \
+	  aurora-platform/tests/test_router_invoke.py \
+	  aurora-platform/tests/test_hrm_invoke.py \
+	  aurora-platform/tests/test_decision_invoke.py
 ```

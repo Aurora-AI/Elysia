@@ -1,4 +1,3 @@
-```yaml
 version: 2
 capabilities:
   - id: datajud.search_by_process_number
@@ -84,4 +83,3 @@ capabilities:
       module: "src.orchestration.decision_flow"
       function: "evaluate_case"
     version: "1.0.0"
-```

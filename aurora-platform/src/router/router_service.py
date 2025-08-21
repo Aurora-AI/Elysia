@@ -1,6 +1,3 @@
-Aqui está o arquivo **limpo e consolidado**, com suporte ao campo legado `input` e sem marcadores de conflito:
-
-```python
 from pydantic import BaseModel, Field
 from typing import Any, Dict, List, Optional
 import logging
@@ -121,4 +118,3 @@ async def invoke(req: InvokeRequest):
 @app.get("/healthz")
 def healthz():
     return {"ok": True}
-```

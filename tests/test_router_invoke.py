@@ -1,5 +1,3 @@
-Aqui está o arquivo corrigido (sem conflitos e alinhado ao `transport: internal_python`, com monkeypatch no conector interno):
-
 ```python
 from fastapi.testclient import TestClient
 from src.router.router_service import app
