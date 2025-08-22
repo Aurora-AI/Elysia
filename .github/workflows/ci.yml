@@ -1,48 +1,28 @@
-name: CI Aurora-Plataforma
-
+name: CI
 on:
   pull_request:
-    branches:
-      - main
-      - develop
-
+  push:
+    branches: [ main ]
 jobs:
-  build-and-test-core:
-    name: Build and Test Aurora Core
+  test:
     runs-on: ubuntu-latest
-
-    # Define o diretório de trabalho padrão para todos os steps
-    defaults:
-      run:
-        working-directory: ./aurora-core
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-
-      - name: Cache Poetry dependencies
+          python-version: "3.11"
+      - name: Cache pip
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-poetry-
-
-      - name: Install Poetry
-        run: pip install poetry
-
-      - name: Install dependencies
-        run: poetry install --no-interaction
-
-      - name: Lint and Format Code
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+      - name: Install deps
         run: |
-          poetry run ruff check . --fix
-          poetry run ruff format .
-
-      - name: Run tests
-        run: poetry run pytest
+          python -m pip install -U pip
+          pip install -r requirements.txt
+          pip install pytest httpx
+      - name: Run tests (router/hrm/decision)
+        env:
+          PYTHONPATH: .
+        run: |
+          pytest -q aurora-platform/tests/test_*.py
