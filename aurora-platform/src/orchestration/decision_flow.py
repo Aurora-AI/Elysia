@@ -1,6 +1,6 @@
 from __future__ import annotations
 import os
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List
 from collections import Counter
 
 from qdrant_client import QdrantClient
@@ -49,8 +49,8 @@ def fetch_context(query: str | None = None, numero_processo: str | None = None, 
     return cand[:k]
 
 
-def _majority(values: Sequence[Optional[str]]) -> Optional[str]:
-    vals = [v for v in values if isinstance(v, str) and v]
+def _majority(values: List[str]) -> str | None:
+    vals = [v for v in values if v]
     if not vals:
         return None
     c = Counter(vals).most_common(1)
@@ -59,11 +59,9 @@ def _majority(values: Sequence[Optional[str]]) -> Optional[str]:
 
 def derive_facts(context: List[Dict[str, Any]], extra: Dict[str, Any] | None = None) -> Dict[str, Any]:
     """Heurística simples: agrega metadados dominantes do contexto."""
-    tribunais: List[Optional[str]] = [
-        (c.get("tribunal") or c.get("jurisdicao")) for c in context
-    ]
-    classes: List[Optional[str]] = [c.get("classe") for c in context]
-    assunto: List[Optional[str]] = [c.get("assunto") for c in context]
+    tribunais = [c.get("tribunal") or c.get("jurisdicao") for c in context]
+    classes = [c.get("classe") for c in context]
+    assunto = [c.get("assunto") for c in context]
 
     facts = {
         "tribunal": _majority(tribunais),

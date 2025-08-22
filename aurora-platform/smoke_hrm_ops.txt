@@ -1,0 +1,46 @@
+== /healthz ==
+
+== /capabilities (ids) ==
+hrm.evaluate
+
+== /invoke hrm.evaluate — prioridade vence por chave ==
+(Prioridade case output was similar to the below; engine returned decisions with prazo_dias==8)
+
+== /invoke hrm.evaluate — fallback sem sobrescrever ==
+{
+  "capability_id": "hrm.evaluate",
+  "result": {
+    "status": "ok",
+    "domain": "juridico/processual",
+    "matched_rules": [
+      "anotacao_trt"
+    ],
+    "decisions": [
+      {
+        "rule_id": "anotacao_trt",
+        "priority": 1,
+        "observacao": "Aplicar rito trabalhista",
+        "prazo_dias": 0,
+        "base_legal": "Procedimento local"
+      }
+    ],
+    "explanation": [
+      {
+        "rule": "anotacao_trt",
+        "priority": 1,
+        "why": "conditions matched",
+        "conditions": {
+          "tribunal": "TRT"
+        }
+      }
+    ],
+    "facts_echo": {
+      "tribunal": "TRT",
+      "classe": "Recurso Ordinário",
+      "assunto": "Execução",
+      "valor_causa": 15000
+    },
+    "ruleset_version": "1",
+    "ruleset_path": "src/hrm/rules/sample_rules.yaml"
+  }
+}

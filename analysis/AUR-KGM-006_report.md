@@ -47,3 +47,12 @@ Responsável pela Execução
 Conclusão
 ---------
 A nova iniciativa está documentada no Códice e pronta para entrar no roadmap ativo. Recomenda-se iniciar imediatamente a OS AUR-CRAWLER-CONN-001 para validar a arquitetura com a API do TCE-RN.
+
+
+---
+CONCLUSÃO DA ORDEM DE SERVIÇO
+- Status: FINALIZADA
+- Data: 2025-08-22
+- Responsável: Rodrigo C. Winhaski
+- Observações: Ações realizadas (resumo): merge direto via API (HTTP 204), branch rd/20250820-004-docparser-testing-shortcut deletada (HTTP 204).
+---

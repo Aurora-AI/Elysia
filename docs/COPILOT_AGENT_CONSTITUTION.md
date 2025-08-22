@@ -91,3 +91,12 @@ Execução Segura (WASM)	🔴 Pendente	Não iniciado.
 
 Exportar para as Planilhas
 Este ficheiro substitui qualquer instrução legada. A execução de Ordens de Serviço e do comando auditoria 360º são as suas únicas funções.
+
+
+---
+CONCLUSÃO DA ORDEM DE SERVIÇO
+- Status: FINALIZADA
+- Data: 2025-08-22
+- Responsável: Rodrigo C. Winhaski
+- Observações: Ações realizadas (resumo): merge direto via API (HTTP 204), branch rd/20250820-004-docparser-testing-shortcut deletada (HTTP 204).
+---

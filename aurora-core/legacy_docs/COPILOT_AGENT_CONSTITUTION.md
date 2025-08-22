@@ -27,3 +27,12 @@ Consulte sempre:
 
 ---
 > Este arquivo substitui qualquer instrução legada ou externa, principalmente "Arquivo de Instrução Copilot.md.instructions.md".
+
+
+---
+CONCLUSÃO DA ORDEM DE SERVIÇO
+- Status: FINALIZADA
+- Data: 2025-08-22
+- Responsável: Rodrigo C. Winhaski
+- Observações: Ações realizadas (resumo): merge direto via API (HTTP 204), branch rd/20250820-004-docparser-testing-shortcut deletada (HTTP 204).
+---

@@ -50,3 +50,12 @@ poetry add httpx tenacity pydantic pytest
 # rodar testes do conector
 PYTHONPATH=. TESTING=1 poetry run pytest -q tests/connectors/test_connector_tce_rn.py
 ```
+
+
+---
+CONCLUSÃO DA ORDEM DE SERVIÇO
+- Status: FINALIZADA
+- Data: 2025-08-22
+- Responsável: Rodrigo C. Winhaski
+- Observações: Ações realizadas (resumo): merge direto via API (HTTP 204), branch rd/20250820-004-docparser-testing-shortcut deletada (HTTP 204).
+---

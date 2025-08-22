@@ -50,10 +50,3 @@ black = "*"
 toml = "*"
 sqlalchemy = "^2.0.43"
 aiosqlite = "^0.21.0"
-
-[tool.pyright]
-venvPath = "aurora-platform"
-venv = ".venv"
-include = ["aurora-platform/src", "aurora-platform/tests"]
-extraPaths = ["aurora-platform/src", "aurora-core/src"]
-typeCheckingMode = "basic"

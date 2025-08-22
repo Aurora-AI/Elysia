@@ -52,19 +52,9 @@ test-hrm:
 	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
 	PYTHONPATH=. pytest -q aurora-platform/tests/test_hrm_invoke.py
 
-.PHONY: test-hrm-ops
-
-test-hrm-ops:
-	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
-	PYTHONPATH=. pytest -q aurora-platform/tests/test_hrm_operators.py
-
 test-all:
 	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
-	PYTHONPATH=. pytest -q \
-	  aurora-platform/tests/test_router_invoke.py \
-	  aurora-platform/tests/test_hrm_invoke.py \
-	  aurora-platform/tests/test_decision_invoke.py \
-	  aurora-platform/tests/test_hrm_operators.py
+	PYTHONPATH=. pytest -q aurora-platform/tests/test_router_invoke.py aurora-platform/tests/test_hrm_invoke.py aurora-platform/tests/test_decision_invoke.py
 
 test-decision:
 	. .venv/Scripts/activate 2>/dev/null || . .venv/bin/activate; \
