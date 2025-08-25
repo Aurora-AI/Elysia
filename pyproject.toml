@@ -40,6 +40,8 @@ python-multipart = "^0.0.20"
 sqlalchemy = ">=2.0"
 aiosqlite = ">=0.19"
 tenacity = "^9.1.2"
+google-cloud-aiplatform = ">=1.66.0"
+neo4j = ">=5.22.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=8.0"

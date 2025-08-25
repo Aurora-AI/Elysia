@@ -1,0 +1,6 @@
+CREATE CONSTRAINT entity_id_unique IF NOT EXISTS
+FOR (n:Entity)
+REQUIRE n.id IS UNIQUE;
+CREATE CONSTRAINT relation_id_unique IF NOT EXISTS
+FOR (n:Relation)
+REQUIRE n.id IS UNIQUE;
