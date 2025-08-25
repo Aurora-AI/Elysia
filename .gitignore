@@ -157,3 +157,12 @@ secrets_*.txt
 # Aurora Crawler POC outputs
 data/outputs/
 .tmp.driveupload/
+
+# Extra safety: ignore nested .git metadata directories accidentally committed
+**/*.git/**
+
+# Env patterns: keep examples but ignore real envs
+.env
+.env.*
+!.env.example
+!.env.aura.example

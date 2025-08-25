@@ -1,4 +1,21 @@
 {
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "KG: Seed Neo4j (com .env)",
+      "type": "shell",
+      "command": "set -a; [ -f .env ] && . ./.env; [ -f .env.aura ] && . ./.env.aura; python3 scripts/seed_neo4j_pillars.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "KG: Check Pillars (Cypher)",
+      "type": "shell",
+      "command": "cypher-shell -u ${env:AURA_NEO4J_USERNAME:-neo4j} -p ${env:AURA_NEO4J_PASSWORD:-neo4j} -a ${env:AURA_NEO4J_URI:-bolt://localhost:7687} 'MATCH (p:Pillar) RETURN p.key, p.name ORDER BY p.key'",
+      "problemMatcher": []
+    }
+  ]
+}
+{
     "version": "2.0.0",
     "options": {
         "env": {
