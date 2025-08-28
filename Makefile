@@ -86,7 +86,6 @@ neo4j-check-pillars-strict: ## Checagem strict (obriga índices, override via en
 # ----------------------------
 # PR helper
 # ----------------------------
-
 .PHONY: pr-aura-kg-seed
 pr-aura-kg-seed:
 	@branch=aura/kg-seed; \
@@ -101,8 +100,8 @@ pr-aura-kg-seed:
 # ----------------------------
 # Poetry / Qualidade
 # ----------------------------
-
 .PHONY: install lock test test-verbose lint format clean
+
 install:
 	@poetry install --no-interaction
 
