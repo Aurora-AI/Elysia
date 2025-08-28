@@ -9,3 +9,24 @@
 # --- Decision Flow ---
 /aurora-platform/src/orchestration/**          @Aurora-AI
 /aurora-platform/tests/test_decision_*.py      @Aurora-AI
+
+# General ownership (fallbacks / new areas)
+# Workflows and CI
+.github/workflows/ @Aurora-AI
+
+# Docs and audit material
+/docs/ @Aurora-AI
+
+docs/ @Aurora-AI
+
+# Source code
+/src/ @Aurora-AI
+
+# Tests
+/tests/ @Aurora-AI
+
+# Top-level files
+README.md @Aurora-AI
+
+# Fallback: everything else
+/ @Aurora-AI
