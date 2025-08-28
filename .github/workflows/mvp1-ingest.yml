@@ -1,0 +1,46 @@
+name: MVP1 - Ingest tests
+
+on:
+  pull_request:
+    paths:
+      - 'aurora_platform/ingest/**'
+      - 'tests/ingest/**'
+      - '.github/workflows/mvp1-ingest.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction
+      - name: Start Qdrant (compose + healthcheck)
+        run: |
+          if [ -f docker-compose.qdrant.yml ]; then
+            docker compose -f docker-compose.qdrant.yml up -d qdrant
+            for i in $(seq 1 60); do
+              if curl -fsS http://localhost:6333/ > /dev/null; then
+                echo "Qdrant is up"; break
+              fi
+              echo "Waiting Qdrant... ($i/60)"; sleep 1
+            done
+          else
+            echo "No docker-compose.qdrant.yml found; skipping Qdrant bring-up."
+          fi
+
+      - name: Export Qdrant env
+        run: |
+          echo "QDRANT_URL=http://localhost:6333" >> $GITHUB_ENV
+          echo "QDRANT_COLLECTION=aurora_docs" >> $GITHUB_ENV
+      - name: Run ingest tests
+        run: |
+          poetry run pytest tests/ingest -q
