@@ -1,6 +1,6 @@
 name: CI Stress Test
 
-on:
+'on':
   workflow_dispatch:
 
 jobs:

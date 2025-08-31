@@ -1,6 +1,6 @@
 name: CI Alerts
 
-on:
+'on':
   workflow_run:
     workflows: ["CI"]
     types:

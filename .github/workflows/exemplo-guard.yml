@@ -1,6 +1,6 @@
 name: EXEMPLO Guard
 
-on:
+'on':
   pull_request:
     paths-ignore:
       - "**/*.md"

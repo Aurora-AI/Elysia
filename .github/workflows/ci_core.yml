@@ -1,6 +1,6 @@
 name: CI Aurora-Core
 
-on:
+'on':
   pull_request:
     paths:
       - 'aurora-core/**'

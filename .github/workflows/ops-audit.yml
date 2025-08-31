@@ -1,0 +1,51 @@
+name: "Ops - Audit"
+
+'on':
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create audit artifact
+        run: |
+          mkdir -p audit/artifacts
+          echo '{"audit": "ok", "timestamp": '"$(date +%s)"'}' > audit/artifacts/audit.json
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-audit-report
+          path: audit/artifacts/
+name: "Ops - Audit"
+
+'on':
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run audit stub
+        run: |
+          mkdir -p audit/artifacts
+          echo '{"status":"ok"}' > audit/artifacts/summary.json
+
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-audit-report
+          path: audit/artifacts/
+          retention-days: 7

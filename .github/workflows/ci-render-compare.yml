@@ -1,6 +1,6 @@
 name: Crawler render compare (dry-run)
 
-on:
+'on':
   pull_request:
     paths:
       - "aurora_platform/modules/crawler/rn_contacts/**"

@@ -1,6 +1,6 @@
 name: Runner meta (TESTING)
 
-on:
+'on':
   pull_request:
     paths:
       - "aurora_platform/modules/crawler/rn_contacts/runner.py"

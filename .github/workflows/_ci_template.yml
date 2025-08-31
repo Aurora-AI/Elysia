@@ -1,6 +1,6 @@
 name: CI Template
 
-on:
+'on':
   workflow_call:
     inputs:
       service_name:

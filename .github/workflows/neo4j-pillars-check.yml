@@ -1,6 +1,6 @@
 name: Neo4j Pillars Check
 
-on:
+'on':
   push:
     branches: [ feat/memory-adk-f1 ]
     paths:

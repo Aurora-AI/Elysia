@@ -1,6 +1,6 @@
 name: KG Seed Smoke
 
-on:
+'on':
   pull_request:
     paths:
       - "scripts/seed_neo4j_pillars.py"

@@ -1,6 +1,6 @@
 name: Qdrant Health
 
-on:
+'on':
   push:
     branches: [ "main", "develop", "feature/**" ]
   pull_request:

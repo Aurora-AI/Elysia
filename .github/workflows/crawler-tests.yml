@@ -1,5 +1,5 @@
 name: crawler-tests
-on:
+'on':
   pull_request:
     paths:
       - "aurora_platform/modules/crawler/**"

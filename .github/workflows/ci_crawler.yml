@@ -1,6 +1,6 @@
 name: CI Aurora-Crawler
 
-on:
+'on':
   pull_request:
     paths:
       - 'aurora-crawler/**'

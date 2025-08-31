@@ -1,0 +1,65 @@
+name: "CODEOWNERS Guard"
+
+'on':
+  pull_request:
+    types: [opened, edited, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-author:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify PR author is allowed to modify CODEOWNERS
+        run: |
+          ALLOWED='Aurora-AI'
+          if [ "${{ github.event.pull_request.user.login }}" != "${ALLOWED}" ]; then
+            echo "Author not allowed to modify CODEOWNERS"
+            exit 1
+          finame: "CODEOWNERS Guard"
+
+'on':
+  pull_request:
+    paths:
+      - ".github/CODEOWNERS"
+      - "CODEOWNERS"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify authorized author
+        env:
+          ALLOWED_AUTHORS: "rodwinha,rodrigocesarw"
+          PR_AUTHOR: ${{ github.actor }}
+        run: |
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+
+            - name: Verify authorized author
+              env:
+                ALLOWED_AUTHORS: "rodwinha,rodrigocesarw"
+                PR_AUTHOR: ${{ github.actor }}
+              run: |
+                IFS=',' read -r -a ALLOWED <<< "$ALLOWED_AUTHORS"
+                ok=0
+                for a in "${ALLOWED[@]}"; do
+                  if [[ "$PR_AUTHOR" == "$a" ]]; then ok=1; fi
+                done
+                if [[ $ok -eq 0 ]]; then
+                  echo "Only allowed authors ($ALLOWED_AUTHORS) may modify CODEOWNERS."
+                  exit 1
+                fi
+                echo "Author '$PR_AUTHOR' allowed."
