@@ -1,6 +1,6 @@
 tag:
 
-.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test crawl-api crawl-worker crawl-seed
+.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test crawl-api crawl-worker crawl-seed rag-consumer rag-ask e2e-test api-server
 
 python := python
 
@@ -47,5 +47,19 @@ crawl-worker:
 
 crawl-seed:
 	@python -c "from aurora_platform.modules.crawler.producers.enqueue import enqueue_crawl; enqueue_crawl('https://example.com', 'seed'); print('enqueued')"
+
+rag-consumer:
+	@python -m aurora_platform.modules.rag.consumers.rag_ingestion_consumer
+
+rag-ask:
+	@curl -s -X POST http://localhost:8000/api/v1/memory/ask \
+	  -H "Content-Type: application/json" \
+	  -d '{"query":"example domain"}' | jq .
+
+e2e-test:
+	@ENABLE_E2E_TESTS=1 pytest -q tests/modules/rag/test_memory_e2e.py
+
+api-server:
+	@uvicorn aurora_platform.api.server:app --host 0.0.0.0 --port 8000
 
 ci-local: guard lint type test
