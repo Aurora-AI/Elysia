@@ -1,5 +1,7 @@
 from fastapi import APIRouter
+
 from aurora_platform.services.etp_service import ETPGeneratorService
+
 # Adicione os schemas Pydantic necessários aqui, ex: from aurora_platform.schemas.etp_schemas import ETPRequest
 
 router = APIRouter()

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Inicializa a base de dados cortex.db e cria a tabela execution_logs."""
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 
 SQL_CREATE = """
 CREATE TABLE IF NOT EXISTS execution_logs (
@@ -33,6 +33,18 @@ def init(db_path: Path | None = None) -> None:
         print(f"cortex DB initialized at: {db_path}")
     finally:
         conn.close()
+    # best-effort operational trace
+    try:
+        from backend.app.core.cortex_logger import safe_log_execution
+
+        safe_log_execution(
+            os_id="INIT_CORTEX_DB",
+            agente_executor="tool",
+            status="SUCESSO",
+            resumo_execucao=(f"db_path={db_path}"),
+        )
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

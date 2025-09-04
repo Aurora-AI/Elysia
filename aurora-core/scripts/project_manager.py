@@ -10,7 +10,7 @@ PLAN_FILE = Path(__file__).parent.parent / "project_plan.yaml"
 
 def read_plan():
     """L√™ o arquivo de plano do projeto."""
-    with open(PLAN_FILE, "r", encoding="utf-8") as f:
+    with open(PLAN_FILE, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 

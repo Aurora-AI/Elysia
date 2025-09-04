@@ -1,10 +1,10 @@
 """Logger para gravar execuções de Ordens de Serviço no cortex.db"""
 from __future__ import annotations
-from pathlib import Path
-import sqlite3
+
 import logging
-from typing import Optional
+import sqlite3
 import subprocess
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ def _default_db_path() -> Path:
     return repo_root / "db" / "cortex.db"
 
 
-def _get_commit_hash() -> Optional[str]:
+def _get_commit_hash() -> str | None:
     """Try to obtain the current git commit hash for the repository root.
 
     Returns: commit hash string or None on failure.
@@ -69,7 +69,7 @@ def _get_commit_hash() -> Optional[str]:
     return None
 
 
-def _get_commit_message() -> Optional[str]:
+def _get_commit_message() -> str | None:
     try:
         repo_root = None
         p = Path(__file__).resolve()
@@ -88,7 +88,7 @@ def _get_commit_message() -> Optional[str]:
     return None
 
 
-def _get_git_status() -> Optional[str]:
+def _get_git_status() -> str | None:
     try:
         repo_root = None
         p = Path(__file__).resolve()
@@ -157,11 +157,11 @@ def log_execution(
     timestamp_fim: str,
     agente_executor: str,
     status: str,
-    resumo_execucao: Optional[str] = None,
-    erros_encontrados: Optional[str] = None,
-    resolucao_aplicada: Optional[str] = None,
-    commit_hash: Optional[str] = None,
-    db_path: Optional[str | Path] = None,
+    resumo_execucao: str | None = None,
+    erros_encontrados: str | None = None,
+    resolucao_aplicada: str | None = None,
+    commit_hash: str | None = None,
+    db_path: str | Path | None = None,
 ) -> int:
     """Insere um registo na tabela execution_logs.
 
@@ -204,3 +204,48 @@ def log_execution(
         raise
     finally:
         conn.close()
+
+
+def safe_log_execution(
+    os_id: str,
+    agente_executor: str = "script",
+    status: str = "SUCESSO",
+    resumo_execucao: str | None = None,
+    erros_encontrados: str | None = None,
+    resolucao_aplicada: str | None = None,
+    commit_hash: str | None = None,
+    db_path: str | Path | None = None,
+) -> int | None:
+    """A thin, non-raising wrapper around log_execution.
+
+    This helper will attempt to record a simple execution row using current
+    UTC timestamps. On failure it logs the error but does not propagate it,
+    ensuring scripts can call it in finalizers without changing program flow.
+    Returns the inserted row id on success, or None on failure.
+    """
+    try:
+        from datetime import datetime
+
+        now = datetime.utcnow().isoformat() + "Z"
+        try:
+            return log_execution(
+                os_id=os_id,
+                timestamp_inicio=now,
+                timestamp_fim=now,
+                agente_executor=agente_executor,
+                status=status,
+                resumo_execucao=resumo_execucao,
+                erros_encontrados=erros_encontrados,
+                resolucao_aplicada=resolucao_aplicada,
+                commit_hash=commit_hash,
+                db_path=db_path,
+            )
+        except Exception:
+            logger.exception(
+                "safe_log_execution: failed to write execution row for %s", os_id)
+            return None
+    except Exception:
+        # protect against any import-time or other unexpected failure
+        logger.exception(
+            "safe_log_execution: unexpected error preparing log for %s", os_id)
+        return None

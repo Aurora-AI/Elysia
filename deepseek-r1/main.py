@@ -4,12 +4,13 @@ Servidor DeepSeek R1 simples usando FastAPI e transformers
 Compatível com OpenAI API para integração com Aurora
 """
 
+import logging
 import os
+from typing import Any
+
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
-import logging
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -31,10 +32,10 @@ class ChatMessage(BaseModel):
 
 class ChatCompletionRequest(BaseModel):
     model: str
-    messages: List[ChatMessage]
-    max_tokens: Optional[int] = 100
-    temperature: Optional[float] = 0.7
-    stream: Optional[bool] = False
+    messages: list[ChatMessage]
+    max_tokens: int | None = 100
+    temperature: float | None = 0.7
+    stream: bool | None = False
 
 
 class ChatCompletionResponse(BaseModel):
@@ -42,8 +43,8 @@ class ChatCompletionResponse(BaseModel):
     object: str = "chat.completion"
     created: int
     model: str
-    choices: List[Dict[str, Any]]
-    usage: Dict[str, int]
+    choices: list[dict[str, Any]]
+    usage: dict[str, int]
 
 
 class ModelInfo(BaseModel):
@@ -72,7 +73,7 @@ def load_model():
         return False
 
 
-def generate_response(messages: List[ChatMessage], max_tokens: int = 100) -> str:
+def generate_response(messages: list[ChatMessage], max_tokens: int = 100) -> str:
     """Gera resposta simples (mock para demonstração)"""
     if not model_loaded:
         return "Modelo não carregado. Resposta simulada: Olá! Sou o DeepSeek R1."

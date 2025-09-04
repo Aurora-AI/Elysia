@@ -1,7 +1,7 @@
 import argparse
+
 import yaml
 from pydantic import BaseModel, Field, ValidationError
-from typing import List, Optional
 
 
 class Rule(BaseModel):
@@ -14,12 +14,12 @@ class Rule(BaseModel):
 class RuleSet(BaseModel):
     version: int
     domain: str
-    description: Optional[str] = None
-    rules: List[Rule] = Field(default_factory=list)
+    description: str | None = None
+    rules: list[Rule] = Field(default_factory=list)
 
 
 def load_rules(path: str) -> RuleSet:
-    data = yaml.safe_load(open(path, "r", encoding="utf-8"))
+    data = yaml.safe_load(open(path, encoding="utf-8"))
     return RuleSet(**data)
 
 

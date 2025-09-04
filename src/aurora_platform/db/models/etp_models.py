@@ -2,7 +2,6 @@
 
 import uuid
 from datetime import datetime
-from typing import Optional
 
 from sqlmodel import Field, SQLModel
 
@@ -14,11 +13,11 @@ class ETPModel(SQLModel, table=True):
     tipo_obra: str = Field(index=True)
     local: str
     objetivo: str
-    valor_estimado: Optional[float] = None
-    prazo_estimado: Optional[int] = None
+    valor_estimado: float | None = None
+    prazo_estimado: int | None = None
     conteudo_markdown: str
     status: str = Field(default="gerado", index=True)
     data_geracao: datetime = Field(default_factory=datetime.utcnow)
     data_atualizacao: datetime = Field(default_factory=datetime.utcnow)
     metadados: str = Field(default="{}")  # JSON string para metadados
-    usuario_id: Optional[str] = Field(default=None, index=True)
+    usuario_id: str | None = Field(default=None, index=True)

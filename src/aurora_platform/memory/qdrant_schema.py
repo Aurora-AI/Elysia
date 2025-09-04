@@ -1,6 +1,8 @@
 import os
+
 from qdrant_client import QdrantClient
-from qdrant_client.http.models import VectorParams, Distance, PayloadSchemaType
+from qdrant_client.http.models import Distance, PayloadSchemaType, VectorParams
+
 from src.memory.embeddings import embedding_dim  # import absoluto e estável
 
 

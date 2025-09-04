@@ -1,11 +1,13 @@
 import os
-from typing import List, Dict, Any
+from typing import Any
+
 from fastapi import FastAPI, Query
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
+from rank_bm25 import BM25Okapi
+
 # qdrant models are not required directly here
 from src.memory.embeddings import encode_one
-from rank_bm25 import BM25Okapi
 
 app = FastAPI(title="Aurora Memory Search (Hybrid)")
 
@@ -22,7 +24,7 @@ ALPHA = float(os.getenv("HYBRID_ALPHA", "0.5"))
 class SearchResult(BaseModel):
     id: str
     score: float
-    payload: Dict[str, Any]
+    payload: dict[str, Any]
 
 
 def vector_search(client: QdrantClient, query: str, k: int = 50):
@@ -45,7 +47,7 @@ def vector_search(client: QdrantClient, query: str, k: int = 50):
     return out
 
 
-def bm25_scores(candidates: List[tuple], query: str):
+def bm25_scores(candidates: list[tuple], query: str):
     texts = [t[3] for t in candidates]
     if not texts:
         return []
@@ -57,7 +59,7 @@ def bm25_scores(candidates: List[tuple], query: str):
     return [(float(s) / float(mx)) if mx > 0 else 0.0 for s in scores]
 
 
-@app.get("/search", response_model=List[SearchResult])
+@app.get("/search", response_model=list[SearchResult])
 def search(query: str = Query(...), k: int = Query(10, ge=1, le=100), alpha: float | None = Query(None)):
     client = qdr()
     cand = vector_search(client, query, k=max(k, 50))

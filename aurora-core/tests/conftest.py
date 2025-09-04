@@ -1,9 +1,11 @@
-from aurora_platform.main import app
-from fastapi.testclient import TestClient
 import os
+
 import pytest
+from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
+
+from aurora_platform.main import app
 
 # Set testing environment
 os.environ["TESTING"] = "1"

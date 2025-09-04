@@ -3,10 +3,10 @@
 from fastapi import APIRouter
 
 from .endpoints.auth_router import router as auth_router
+from .endpoints.etp_router import router as etp_router
 from .endpoints.knowledge_router import router as knowledge_router
 from .endpoints.profiling_router import router as profiling_router
 from .endpoints.two_factor_router import router as two_factor_router
-from .endpoints.etp_router import router as etp_router
 
 api_router = APIRouter()
 

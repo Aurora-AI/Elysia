@@ -1,11 +1,12 @@
-from aurora_platform.core.db_legacy import SessionLocal, Base, get_engine
-from aurora_platform.models.pilar_antropologia import PilarAntropologia
-from aurora_platform.models.pilar_psicologia import PilarPsicologia
-from aurora_platform.models.pilar_vendas import PilarVendas
-from aurora_platform.models.pilar_estatistica import PilarEstatistica
+import json
 import os
 import sys
-import json
+
+from aurora_platform.core.db_legacy import Base, SessionLocal, get_engine
+from aurora_platform.models.pilar_antropologia import PilarAntropologia
+from aurora_platform.models.pilar_estatistica import PilarEstatistica
+from aurora_platform.models.pilar_psicologia import PilarPsicologia
+from aurora_platform.models.pilar_vendas import PilarVendas
 
 # Ensure repository root is on sys.path when running script directly
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

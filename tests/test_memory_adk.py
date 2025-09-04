@@ -1,7 +1,8 @@
-import pytest
-from aurora.memory import adk_client
-
 import os
+
+import pytest
+
+from aurora.memory import adk_client
 
 
 @pytest.mark.skipif("VERTEX_MEMORY_BANK_ID" not in os.environ, reason="Memory Bank não configurado")

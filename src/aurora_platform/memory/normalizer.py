@@ -1,5 +1,5 @@
 import re
-from typing import Dict, Any
+from typing import Any
 
 WHITESPACE_RE = re.compile(r"\s+")
 
@@ -12,7 +12,7 @@ def normalize_text(text: str) -> str:
     return text.strip()
 
 
-def extract_metadata_from_datajud(obj: Dict[str, Any]) -> Dict[str, Any]:
+def extract_metadata_from_datajud(obj: dict[str, Any]) -> dict[str, Any]:
     # Ajuste leve para campos comuns; mantém resiliente a variações
     meta = {}
     meta["numero_processo"] = obj.get("numeroProcesso") or obj.get(

@@ -1,4 +1,5 @@
 import os
+
 import pytest
 
 NEO4J_URL = os.getenv("NEO4J_URL", "bolt://localhost:7687")

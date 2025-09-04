@@ -1,4 +1,5 @@
 import os
+
 import chardet
 
 # Caminho do projeto

@@ -1,10 +1,11 @@
 from __future__ import annotations
-from typing import List, Dict, Any
+
+from typing import Any
 
 
 def split_markdown(
     md: str, chunk_size: int = 800, overlap: int = 100
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     # Use langchain splitter if available, else fallback to naive splitter
     try:
         from langchain.text_splitter import RecursiveCharacterTextSplitter  # type: ignore

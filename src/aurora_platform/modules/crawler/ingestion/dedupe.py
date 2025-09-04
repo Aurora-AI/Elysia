@@ -1,4 +1,5 @@
 import hashlib
+
 from aurora_platform.modules.crawler.ingestion.normalizer import NormalizedDoc
 
 

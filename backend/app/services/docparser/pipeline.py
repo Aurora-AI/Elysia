@@ -1,15 +1,16 @@
-from .schemas import (
-    IngestResponse,
-    Metadata,
-    Diagnostics,
-    CostBreakdown,
-    StepRecord,
-    TableSchema,
-    ImageSchema,
-)
+import time
+
 from .parsers.docling_parser import parse_with_docling
 from .parsers.fallback_parser import parse_with_fallback
-import time
+from .schemas import (
+    CostBreakdown,
+    Diagnostics,
+    ImageSchema,
+    IngestResponse,
+    Metadata,
+    StepRecord,
+    TableSchema,
+)
 
 
 async def process_document_pipeline(

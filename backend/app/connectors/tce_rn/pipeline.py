@@ -3,11 +3,11 @@ from __future__ import annotations
 import hashlib
 import importlib
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any
 
-from .schemas import ExpenseRecord, IngestEnvelope, RawApiExpense
-from .config import AURORA_INGEST_TOKEN, AURORA_INGEST_URL
 from .client import TCERNClient
+from .config import AURORA_INGEST_TOKEN, AURORA_INGEST_URL
+from .schemas import ExpenseRecord, IngestEnvelope, RawApiExpense
 
 # Use a local proxy for httpx so tests can monkeypatch `pipe_mod.httpx.Client`
 # without mutating the global httpx module.
@@ -77,7 +77,7 @@ def normalize(raw: RawApiExpense) -> ExpenseRecord:
     )
 
 
-def _post_ingest(payload: IngestEnvelope) -> Dict[str, Any]:
+def _post_ingest(payload: IngestEnvelope) -> dict[str, Any]:
     ingest_url = AURORA_INGEST_URL or os.getenv("AURORA_INGEST_URL")
     ingest_token = AURORA_INGEST_TOKEN or os.getenv("AURORA_INGEST_TOKEN")
     if not ingest_url:
@@ -97,18 +97,18 @@ def _post_ingest(payload: IngestEnvelope) -> Dict[str, Any]:
 
 
 def run(
-    date_from: Optional[str] = None,
-    date_to: Optional[str] = None,
-    page_size: Optional[int] = None,
-    max_pages: Optional[int] = None,
+    date_from: str | None = None,
+    date_to: str | None = None,
+    page_size: int | None = None,
+    max_pages: int | None = None,
     batch_size: int = 500,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Extrai, normaliza e envia registros ao Aurora DocParser++ em lotes.
     """
     client = TCERNClient()
     total = 0
-    batch: List[ExpenseRecord] = []
+    batch: list[ExpenseRecord] = []
     try:
         for raw in client.iter_expenses(
             date_from=date_from, date_to=date_to, page_size=page_size or 100, max_pages=max_pages

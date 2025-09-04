@@ -1,12 +1,12 @@
-from pydantic import BaseModel, Field
-from typing import Any, Dict, List, Optional
-import logging
-import importlib
 import asyncio
+import importlib
+import logging
 from pathlib import Path
+from typing import Any
 
 import yaml
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 
 # --- logging simples (stdout) ---
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -17,22 +17,22 @@ app = FastAPI(title="AuroraRouter Capabilities API")
 
 class InvokeRequest(BaseModel):
     capability_id: str
-    payload: Dict[str, Any] = Field(default_factory=dict)
+    payload: dict[str, Any] = Field(default_factory=dict)
     # legacy compatibility: alguns clientes usam `input` em vez de `payload`
-    input: Optional[Dict[str, Any]] = None
-    timeout_ms: Optional[int] = Field(default=5000)
+    input: dict[str, Any] | None = None
+    timeout_ms: int | None = Field(default=5000)
 
 
 def _registry_path() -> Path:
     return Path(__file__).parent / "capabilities_registry.yaml"
 
 
-def load_registry() -> Dict[str, Any]:
+def load_registry() -> dict[str, Any]:
     p = _registry_path()
     return yaml.safe_load(p.read_text(encoding="utf-8"))
 
 
-def find_capability(cap_id: str) -> Optional[Dict[str, Any]]:
+def find_capability(cap_id: str) -> dict[str, Any] | None:
     reg = load_registry()
     for c in (reg or {}).get("capabilities", []):
         if c.get("id") == cap_id:
@@ -40,13 +40,13 @@ def find_capability(cap_id: str) -> Optional[Dict[str, Any]]:
     return None
 
 
-def _validate_required(payload: Dict[str, Any], required: List[str]) -> None:
+def _validate_required(payload: dict[str, Any], required: list[str]) -> None:
     missing = [k for k in required if k not in payload]
     if missing:
         raise HTTPException(status_code=400, detail=f"Campos obrigatórios ausentes: {missing}")
 
 
-async def _dispatch_internal_python(module: str, func: str, payload: Dict[str, Any]) -> Any:
+async def _dispatch_internal_python(module: str, func: str, payload: dict[str, Any]) -> Any:
     try:
         mod = importlib.import_module(module)
     except Exception as e:
@@ -104,7 +104,7 @@ async def invoke(req: InvokeRequest):
                 _dispatch_internal_python(module, function, req.payload),
                 timeout=timeout_sec,
             )
-        except asyncio.TimeoutError:
+        except TimeoutError:
             raise HTTPException(status_code=504, detail="Invoke timeout")
     else:
         raise HTTPException(

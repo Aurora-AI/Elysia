@@ -2,7 +2,6 @@
 
 import os
 from pathlib import Path
-from typing import List, Optional
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
@@ -30,24 +29,24 @@ class Settings(BaseSettings):
     PROJECT_VERSION: str = "0.1.0"
 
     # --- Segredos da Aplicação e Banco de Dados (Obrigatórios no .env) ---
-    DATABASE_URL: Optional[SecretStr] = None
+    DATABASE_URL: SecretStr | None = None
     SECRET_KEY: SecretStr
 
     # --- Chaves de API de Serviços Externos (Obrigatórias no .env) ---
-    GEMINI_API_KEY: Optional[SecretStr] = None
-    DEEPSEEK_API_KEY: Optional[SecretStr] = None
+    GEMINI_API_KEY: SecretStr | None = None
+    DEEPSEEK_API_KEY: SecretStr | None = None
 
     # --- Configurações do Azure OpenAI ---
-    azure_openai_endpoint: Optional[SecretStr] = None
-    azure_openai_api_key: Optional[SecretStr] = None
+    azure_openai_endpoint: SecretStr | None = None
+    azure_openai_api_key: SecretStr | None = None
     openai_api_version: str = "2024-02-01"
-    azure_openai_deployment_name: Optional[str] = None
+    azure_openai_deployment_name: str | None = None
 
     # --- Configs de Segurança (com valores padrão do settings.toml) ---
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
-    ALLOWED_ORIGINS: List[str] = []
+    ALLOWED_ORIGINS: list[str] = []
     HTTPS_ONLY: bool = False
     MIN_PASSWORD_LENGTH: int = 8
     REQUIRE_UPPERCASE: bool = True
@@ -60,12 +59,12 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 20
 
     # --- Configs do Google Cloud (Obrigatórias no .env) ---
-    GOOGLE_CLOUD_PROJECT: Optional[str] = None
-    GOOGLE_CLOUD_LOCATION: Optional[str] = None
+    GOOGLE_CLOUD_PROJECT: str | None = None
+    GOOGLE_CLOUD_LOCATION: str | None = None
 
     # --- Configs do Redis (com valor padrão do settings.toml) ---
     # Opcional para permitir execução sem Redis, se necessário
-    REDIS_URL: Optional[str] = "redis://localhost:6379/0"
+    REDIS_URL: str | None = "redis://localhost:6379/0"
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0

@@ -1,11 +1,11 @@
-from typing import Any, Dict
+from typing import Any
 
 from pydantic import BaseModel
 
 
 class HubRequest(BaseModel):
     task: str
-    payload: Dict[str, Any] = {}
+    payload: dict[str, Any] = {}
 
 
 class HubResponse(BaseModel):

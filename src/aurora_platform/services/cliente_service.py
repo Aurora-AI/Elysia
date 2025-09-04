@@ -1,4 +1,3 @@
-from typing import List
 
 from fastapi import HTTPException, status
 from firebase_admin import firestore
@@ -21,7 +20,7 @@ def create_cliente(cliente_data: ClienteCreate) -> Cliente:
         )
 
 
-def get_all_clientes() -> List[Cliente]:
+def get_all_clientes() -> list[Cliente]:
     try:
         db = firestore.client()
         clientes_ref = db.collection("clientes")

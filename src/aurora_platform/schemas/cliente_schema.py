@@ -1,4 +1,3 @@
-from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
@@ -6,8 +5,8 @@ from pydantic import BaseModel, EmailStr
 class ClienteBase(BaseModel):
     nome: str
     email: EmailStr
-    telefone: Optional[str] = None
-    endereco: Optional[str] = None
+    telefone: str | None = None
+    endereco: str | None = None
 
 
 class ClienteCreate(ClienteBase):

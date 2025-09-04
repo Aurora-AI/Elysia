@@ -1,5 +1,5 @@
-from typing import Any, Iterable, Mapping
-
+from collections.abc import Iterable
+from typing import Any
 
 class Session:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...

@@ -1,5 +1,7 @@
+import textwrap
+
 from aurora_platform.modules.crawler.mission.spec import load_mission
-import os, textwrap
+
 
 def test_load_mission_ok(tmp_path):
     p = tmp_path / "m.yml"

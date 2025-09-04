@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 import argparse
 import hashlib
 import json
 import os
 from pathlib import Path
-from typing import Dict, List
 
 CANON = Path("src/aurora_platform")
 MERGE = Path("src/aurora_platform__merge_candidates")
@@ -27,8 +27,8 @@ def rel_under_label(p: Path) -> Path:
     return Path(*parts[1:]) if len(parts) > 1 else Path()
 
 
-def collect() -> List[Dict]:
-    items: List[Dict] = []
+def collect() -> list[dict]:
+    items: list[dict] = []
     if not MERGE.exists():
         return items
     for file in MERGE.rglob("*"):
@@ -50,7 +50,11 @@ def collect() -> List[Dict]:
                 # só existe no merge_candidates
                 entry["status"] = "NEW_ONLY"
             else:
-                entry["status"] = "DUP_IDENT" if entry["merge_sha"] == entry["canon_sha"] else "DUP_DIFF"
+                entry["status"] = (
+                    "DUP_IDENT"
+                    if entry["merge_sha"] == entry["canon_sha"]
+                    else "DUP_DIFF"
+                )
             items.append(entry)
     return items
 
@@ -59,8 +63,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report-json", default="artifacts/merge_triage.json")
     ap.add_argument("--report-md", default="artifacts/merge_triage.md")
-    ap.add_argument("--apply-delete-identical", action="store_true",
-                    help="Remove do git os arquivos em MERGE que são idênticos aos da árvore canônica (DUP_IDENT).")
+    ap.add_argument(
+        "--apply-delete-identical",
+        action="store_true",
+        help=(
+            "Remove do git os arquivos em MERGE que são idênticos "
+            "aos da árvore canônica (DUP_IDENT)."
+        ),
+    )
     ap.add_argument("--apply-adopt-new", action="store_true",
                     help="Move (git mv) arquivos NEW_ONLY do MERGE para a árvore canônica.")
     args = ap.parse_args()
@@ -105,6 +115,24 @@ def main():
             dst.parent.mkdir(parents=True, exist_ok=True)
             os.system(f'git mv "{src.as_posix()}" "{dst.as_posix()}"')
         print(f"[apply] Adotados (NEW_ONLY -> canônico): {len(to_move)}")
+
+        # Operational trace (non-blocking)
+        try:
+            from backend.app.core.cortex_logger import safe_log_execution
+
+            safe_log_execution(
+                os_id="TRIAGE_MERGE_CANDIDATES",
+                agente_executor="tool",
+                status="SUCESSO",
+                resumo_execucao=(
+                    f"items={len(items)} new_only={counts.get('NEW_ONLY', 0)} "
+                    f"dup_ident={counts.get('DUP_IDENT', 0)} "
+                    f"dup_diff={counts.get('DUP_DIFF', 0)}"
+                ),
+            )
+        except Exception:
+            # already non-fatal by design
+            pass
 
 
 if __name__ == "__main__":

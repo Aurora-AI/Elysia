@@ -1,7 +1,7 @@
 import os
-from typing import List
-from sentence_transformers import SentenceTransformer
+
 import numpy as np
+from sentence_transformers import SentenceTransformer
 
 _MODEL = None
 _MODEL_NAME = os.getenv("EMBEDDING_MODEL_NAME",
@@ -36,7 +36,7 @@ def embedding_dim() -> int:
     return int(v.shape[-1])
 
 
-def encode_texts(texts: List[str]) -> np.ndarray:
+def encode_texts(texts: list[str]) -> np.ndarray:
     model = _load_model()
     vecs = model.encode(texts, convert_to_numpy=True,
                         normalize_embeddings=False, show_progress_bar=False)

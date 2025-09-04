@@ -1,8 +1,9 @@
 from __future__ import annotations
-from typing import List
+
 import os
 
 from sentence_transformers import CrossEncoder
+
 from .hybrid import Hit
 
 
@@ -13,14 +14,14 @@ class CrossEncoderReranker:
         )
         self.model = CrossEncoder(self.model_name)
 
-    def rerank(self, query: str, hits: List[Hit], top_k: int = 10) -> List[Hit]:
+    def rerank(self, query: str, hits: list[Hit], top_k: int = 10) -> list[Hit]:
         if not hits:
             return []
         pairs = [[query, h.payload["chunk_text"]] for h in hits]
         scores = self.model.predict(pairs)  # maior = melhor
-        scored = list(zip(hits, scores))
+        scored = list(zip(hits, scores, strict=False))
         scored.sort(key=lambda x: float(x[1]), reverse=True)
-        out: List[Hit] = []
+        out: list[Hit] = []
         for h, sc in scored[:top_k]:
             out.append(
                 Hit(id=h.id, score=float(sc), payload=h.payload, source="rerank")

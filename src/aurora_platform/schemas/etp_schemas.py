@@ -1,7 +1,6 @@
 # src/aurora_platform/schemas/etp_schemas.py
 
 from datetime import datetime
-from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -14,9 +13,9 @@ class ETPRequest(BaseModel):
     )
     local: str = Field(..., description="Local da obra")
     objetivo: str = Field(..., description="Objetivo do projeto")
-    valor_estimado: Optional[float] = Field(None, description="Valor estimado da obra")
-    prazo_estimado: Optional[int] = Field(None, description="Prazo estimado em dias")
-    documentos_referencia: Optional[List[str]] = Field(
+    valor_estimado: float | None = Field(None, description="Valor estimado da obra")
+    prazo_estimado: int | None = Field(None, description="Prazo estimado em dias")
+    documentos_referencia: list[str] | None = Field(
         default=[], description="IDs dos documentos de referência"
     )
 

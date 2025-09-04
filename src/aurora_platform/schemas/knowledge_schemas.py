@@ -1,6 +1,6 @@
 # src/aurora_platform/schemas/knowledge_schemas.py
 
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -8,7 +8,7 @@ from pydantic import BaseModel
 class DocumentCreate(BaseModel):
     doc_id: str
     doc_text: str
-    metadata: Dict[str, Any]
+    metadata: dict[str, Any]
 
 
 class IngestURLRequest(BaseModel):
@@ -30,4 +30,4 @@ class KnowledgeQueryWithProvider(BaseModel):
 
 
 class SearchResult(BaseModel):
-    results: List[str]
+    results: list[str]

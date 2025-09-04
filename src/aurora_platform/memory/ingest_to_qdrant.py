@@ -3,17 +3,16 @@ import json
 import os
 import uuid
 from pathlib import Path
-from typing import Dict, Any, List, Tuple
+from typing import Any
 
+from docx import Document
+from pypdf import PdfReader
 from qdrant_client import QdrantClient
 from qdrant_client.http import models as qm
 
-from src.memory.embeddings import encode_texts
-from src.memory.normalizer import normalize_text, extract_metadata_from_datajud
 from src.memory.chunker import split_into_chunks
-
-from pypdf import PdfReader
-from docx import Document
+from src.memory.embeddings import encode_texts
+from src.memory.normalizer import extract_metadata_from_datajud, normalize_text
 
 DEFAULT_SOURCE = os.getenv("DEFAULT_SOURCE", "DataJud")
 DEFAULT_JUR = os.getenv("DEFAULT_JURISDICAO", "")
@@ -36,7 +35,7 @@ def read_docx(path: Path) -> str:
     return "\n".join(p.text for p in doc.paragraphs)
 
 
-def read_json(path: Path) -> Tuple[str, Dict[str, Any]]:
+def read_json(path: Path) -> tuple[str, dict[str, Any]]:
     obj = json.loads(path.read_text(encoding="utf-8", errors="ignore"))
     # Tenta campos de texto evidentes
     text = obj.get("conteudo") or obj.get("texto") or obj.get(
@@ -45,16 +44,16 @@ def read_json(path: Path) -> Tuple[str, Dict[str, Any]]:
     return text, meta
 
 
-def upsert_one(client: QdrantClient, collection: str, vectors: List[List[float]] | Any, payloads: List[Dict[str, Any]]):
+def upsert_one(client: QdrantClient, collection: str, vectors: list[list[float]] | Any, payloads: list[dict[str, Any]]):
     points = [qm.PointStruct(id=str(uuid.uuid4()), vector=v, payload=p)
-              for v, p in zip(vectors, payloads)]
+              for v, p in zip(vectors, payloads, strict=False)]
     client.upsert(collection_name=collection, points=points)
 
 
 def ingest_file(client: QdrantClient, path: Path):
     ext = path.suffix.lower()
     raw_text = ""
-    meta: Dict[str, Any] = {}
+    meta: dict[str, Any] = {}
 
     if ext == ".pdf":
         raw_text = read_pdf(path)

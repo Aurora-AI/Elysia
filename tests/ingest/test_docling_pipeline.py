@@ -1,4 +1,4 @@
-from aurora_platform.ingest.docling_pipeline import run_pipeline, chunk_text, to_markdown
+from aurora_platform.ingest.docling_pipeline import chunk_text, run_pipeline, to_markdown
 
 
 def test_run_pipeline_from_url():

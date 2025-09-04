@@ -2,10 +2,10 @@
 """
 Teste de performance batch KG - validação ordenação e throughput
 """
-import pytest
-import json
 import time
+
 from aurora_platform.services.kafka_producer import send_entity_upsert
+
 
 def test_batch_ordering():
     """Testa ordenação local por entity_id"""

@@ -2,7 +2,6 @@ import json
 import logging
 import os
 import subprocess
-from typing import List
 
 from aurora_platform.services.audio_transcription_service import (
     AudioTranscriptionService,
@@ -26,7 +25,7 @@ class YoutubeTranscriptExtractionService:
             self.workspace_dir, "fallback_report.json"
         )
 
-    def discover_video_urls(self, channel_url: str) -> List[str]:
+    def discover_video_urls(self, channel_url: str) -> list[str]:
         """Usa yt-dlp para listar todas as URLs dos vídeos do canal."""
         output_path = os.path.join(self.workspace_dir, "video_urls.txt")
         cmd = [
@@ -92,7 +91,7 @@ class YoutubeTranscriptExtractionService:
                 for lang in ["pt", "pt-BR", "en"]:
                     srt_try = os.path.join(self.workspace_dir, f"{video_id}.{lang}.srt")
                     if os.path.exists(srt_try):
-                        with open(srt_try, "r", encoding="utf-8") as f:
+                        with open(srt_try, encoding="utf-8") as f:
                             transcript = self.srt_to_text(f.read())
                         os.remove(srt_try)
                         found = True

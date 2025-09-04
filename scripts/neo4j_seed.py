@@ -11,7 +11,6 @@ This script is idempotent and will create uniqueness constraints and four Pilar 
 from __future__ import annotations
 
 import os
-from typing import List
 
 try:
     from neo4j import GraphDatabase
@@ -39,7 +38,7 @@ def _create_pilar(tx, pilar_id: str, name: str, titulo: str, descricao: str):
     tx.run(cypher, id=pilar_id, name=name, titulo=titulo, descricao=descricao)
 
 
-def seed(pilares: List[dict]):
+def seed(pilares: list[dict]):
     driver = GraphDatabase.driver(NEO4J_URL, auth=(NEO4J_USER, NEO4J_PASSWORD))
     try:
         with driver.session() as session:

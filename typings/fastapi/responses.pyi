@@ -1,6 +1,6 @@
 # Stub de respostas (ex.: typings/starlette/responses.pyi ou typings/fastapi/responses.pyi)
-from typing import Any, Mapping
-
+from collections.abc import Mapping
+from typing import Any
 
 class Response:
     status_code: int

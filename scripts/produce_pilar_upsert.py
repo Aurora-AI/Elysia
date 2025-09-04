@@ -1,5 +1,6 @@
 import json
 import os
+
 from confluent_kafka import Producer
 
 BOOTSTRAP = os.getenv("KAFKA_BOOTSTRAP", "localhost:9092")

@@ -1,10 +1,11 @@
+import os
+import sys
+
 from aurora_platform.core.db_legacy import SessionLocal
 from aurora_platform.models.pilar_antropologia import PilarAntropologia
+from aurora_platform.models.pilar_estatistica import PilarEstatistica
 from aurora_platform.models.pilar_psicologia import PilarPsicologia
 from aurora_platform.models.pilar_vendas import PilarVendas
-from aurora_platform.models.pilar_estatistica import PilarEstatistica
-import sys
-import os
 
 # Ensure repository root is on sys.path when running script directly
 ROOT = os.path.dirname(os.path.dirname(__file__))

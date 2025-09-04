@@ -10,7 +10,7 @@ PLAN_FILE = Path(__file__).parent.parent / "project_plan.yaml"
 
 def read_plan():
     """L√™ o arquivo de plano do projeto."""
-    with open(PLAN_FILE, "r", encoding="utf-8") as f:
+    with open(PLAN_FILE, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -29,16 +29,19 @@ def show_status():
         sprint_id = sprint.get("id", "N/A")
         sprint_name = sprint.get("name", "N/A")
         sprint_status = sprint.get("status", "N/A")
-        print(f"\n--- SPRINT: {sprint_id} - {sprint_name} [{sprint_status}] ---")
+        print(
+            f"\n--- SPRINT: {sprint_id} - {sprint_name} [{sprint_status}] ---")
 
         tasks = sprint.get("tasks", [])
         total_tasks = len(tasks)
-        completed_tasks = sum(1 for t in tasks if t.get("status") == "CONCLU√çDO")
+        completed_tasks = sum(
+            1 for t in tasks if t.get("status") == "CONCLU√çDO")
 
         if total_tasks > 0:
             sprint_progress = (completed_tasks / total_tasks) * 100
             print(
-                f"Progresso do Sprint: {sprint_progress:.2f}% ({completed_tasks}/{total_tasks} tarefas conclu√≠das)"
+                f"Progresso do Sprint: {sprint_progress:.2f}% "
+                f"({completed_tasks}/{total_tasks} tarefas concluídas)"
             )
 
         for task in tasks:
@@ -48,7 +51,8 @@ def show_status():
             task_progress = task.get("progress_percent", 0)
             task_epic = task.get("epic", "N/A")
             print(
-                f"  - [{task_status}] {task_id}: {task_name} (√âpico: {task_epic}) ({task_progress}%)"
+                f"  - [{task_status}] {task_id}: {task_name} "
+                f"(épico: {task_epic}) ({task_progress}%)"
             )
 
 
@@ -73,7 +77,8 @@ def update_task(task_id_to_update, progress, status):
         save_plan(plan)
         print(f"‚úÖ Tarefa {task_id_to_update} atualizada com sucesso.")
     else:
-        print(f"‚ùå Erro: Tarefa com ID '{task_id_to_update}' n√£o encontrada.")
+        print(
+            f"‚ùå Erro: Tarefa com ID '{task_id_to_update}' n√£o encontrada.")
 
 
 def find_next_task():
@@ -86,7 +91,8 @@ def find_next_task():
                 if task.get("status") == "A FAZER":
                     print("\n--- PR√ìXIMA TAREFA NO BACKLOG ---")
                     print(f"  ID: {task.get('id')}")
-                    print(f"  SPRINT: {sprint.get('id')} - {sprint.get('name')}")
+                    print(
+                        f"  SPRINT: {sprint.get('id')} - {sprint.get('name')}")
                     print(f"  NOME: {task.get('name')}")
                     print(f"  STATUS: {task.get('status')}")
                     return
@@ -97,7 +103,8 @@ def find_next_task():
 
 def main():
     """Fun√ß√£o principal para analisar os argumentos da linha de comando."""
-    parser = argparse.ArgumentParser(description="Gerenciador de Projeto Aurora")
+    parser = argparse.ArgumentParser(
+        description="Gerenciador de Projeto Aurora")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # Comandos
@@ -120,12 +127,29 @@ def main():
 
     args = parser.parse_args()
 
-    if args.command == "status":
-        show_status()
-    elif args.command == "update":
-        update_task(args.task_id, args.progress, args.status)
-    elif args.command == "next":
-        find_next_task()
+    try:
+        if args.command == "status":
+            show_status()
+            outcome = "SUCESSO"
+        elif args.command == "update":
+            update_task(args.task_id, args.progress, args.status)
+            outcome = "SUCESSO"
+        elif args.command == "next":
+            find_next_task()
+            outcome = "SUCESSO"
+    finally:
+        # best-effort operational trace
+        try:
+            from backend.app.core.cortex_logger import safe_log_execution
+
+            safe_log_execution(
+                os_id="PROJECT_MANAGER",
+                agente_executor="tool",
+                status=locals().get("outcome", "SUCESSO"),
+                resumo_execucao=(f"cmd={args.command}"),
+            )
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":

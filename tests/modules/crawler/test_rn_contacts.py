@@ -1,4 +1,3 @@
-import pytest
 
 
 def test_extract_basic_email_and_name():

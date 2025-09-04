@@ -19,7 +19,7 @@ def test_extract_transcripts_from_channel(tmp_path):
     service.extract_transcripts_from_channel(channel_url)
     # Verificações
     assert os.path.exists(service.video_urls_file)
-    with open(service.video_urls_file, "r", encoding="utf-8") as f:
+    with open(service.video_urls_file, encoding="utf-8") as f:
         urls = [line.strip() for line in f if line.strip()]
     assert len(urls) > 0
     # Fallback report deve existir

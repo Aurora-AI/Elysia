@@ -7,10 +7,9 @@ Os valores podem ser ajustados nas fases de implementação conforme
 necessidade.
 """
 
-from typing import List
 
 
-def get_youtube_channels() -> List[str]:
+def get_youtube_channels() -> list[str]:
     """
     Retorna a lista de URLs de canais do YouTube a serem monitorados.
     Estes canais devem produzir conteúdo relevante sobre IA, agentes,
@@ -24,7 +23,7 @@ def get_youtube_channels() -> List[str]:
     ]
 
 
-def get_interest_categories() -> List[str]:
+def get_interest_categories() -> list[str]:
     """
     Retorna as categorias temáticas de interesse para o agente.
     Estas categorias devem orientar a coleta e a priorização das descobertas.

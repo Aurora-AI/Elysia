@@ -1,7 +1,7 @@
 def test_upsert_pilar_happy_path():
     # Imports done inside the test to let tests/conftest.py set PYTHONPATH and env first
-    from aurora_platform.core.db_legacy import SessionLocal, Base, get_engine
     from aurora_platform.consumers.kafka_consumer_pilares import upsert_pilar
+    from aurora_platform.core.db_legacy import Base, SessionLocal, get_engine
     from aurora_platform.models import PilarAntropologia
 
     payload = {

@@ -1,6 +1,6 @@
 import logging
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
@@ -9,8 +9,8 @@ from qdrant_client.http import models
 class QdrantAdapter:
     def __init__(
         self,
-        url: Optional[str] = None,
-        api_key: Optional[str] = None,
+        url: str | None = None,
+        api_key: str | None = None,
         host: str = "qdrant",
         port: int = 6333,
         collection_name: str = "aurora_knowledge",
@@ -53,16 +53,16 @@ class QdrantAdapter:
 
     def add_embeddings(
         self,
-        ids: List[str],
-        embeddings: List[List[float]],
-        metadatas: Optional[List[Dict[str, Any]]] = None,
+        ids: list[str],
+        embeddings: list[list[float]],
+        metadatas: list[dict[str, Any]] | None = None,
     ):
         """Adiciona embeddings à coleção com resiliência"""
         try:
             points = [
                 models.PointStruct(id=idx, vector=embedding, payload=metadata or {})
                 for idx, embedding, metadata in zip(
-                    ids, embeddings, metadatas or [{}] * len(ids)
+                    ids, embeddings, metadatas or [{}] * len(ids), strict=False
                 )
             ]
 
@@ -74,8 +74,8 @@ class QdrantAdapter:
             # Implementar lógica de retry ou fallback aqui
 
     def search(
-        self, query_embedding: List[float], k: int = 5, **filters
-    ) -> List[Dict[str, Any]]:
+        self, query_embedding: list[float], k: int = 5, **filters
+    ) -> list[dict[str, Any]]:
         """Busca similares com filtragem avançada"""
         try:
             search_result = self.client.search(

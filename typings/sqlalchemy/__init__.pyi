@@ -3,7 +3,6 @@ from .orm import Session, sessionmaker
 __all__ = ["Session", "sessionmaker"]
 from typing import Any
 
-
 class Column:
     ...
 

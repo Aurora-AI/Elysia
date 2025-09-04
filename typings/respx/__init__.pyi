@@ -1,9 +1,9 @@
-from typing import Any, Callable
-
+from collections.abc import Callable
+from typing import Any
 
 class Route:
     def mock(self, return_value: Any |
-             Callable[..., Any] | None = ...) -> "Route": ...
+             Callable[..., Any] | None = ...) -> Route: ...
 
     @property
     def called(self) -> bool: ...

@@ -1,9 +1,11 @@
 import os
+
 import pytest
 
 pytestmark = pytest.mark.skipif(os.getenv("TESTING") != "1", reason="Set TESTING=1")
 
 from aurora_platform.modules.crawler.rn_contacts.runner import crawl
+
 
 def test_crawl_writes_missionized_manifest(tmp_path):
     mission = {
@@ -15,7 +17,8 @@ def test_crawl_writes_missionized_manifest(tmp_path):
     import asyncio
     res = asyncio.run(crawl(seeds=mission["seeds"], out_dir=str(out_base), mission=mission, dry_run=True))
     assert res.get("ok", True) is True
-    import pathlib, json as _json
+    import json as _json
+    import pathlib
     mpath = next(pathlib.Path(str(out_base)).rglob("manifest.json"))
     meta = _json.load(open(mpath, encoding="utf-8"))
     assert meta["mission_id"] == "rn_smoke_auto"

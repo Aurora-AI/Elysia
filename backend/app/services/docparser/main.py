@@ -1,11 +1,13 @@
-from fastapi import FastAPI, APIRouter, UploadFile, File, HTTPException, Request
-from .schemas import IngestResponse
-from .pipeline import process_document_pipeline
-import httpx
-import os
-from pathlib import Path
 import hashlib
 import logging
+import os
+from pathlib import Path
+
+import httpx
+from fastapi import APIRouter, FastAPI, File, HTTPException, Request, UploadFile
+
+from .pipeline import process_document_pipeline
+from .schemas import IngestResponse
 
 router = APIRouter(prefix="/v1/docparser", tags=["docparser"])
 MAX_BYTES = 25 * 1024 * 1024  # 25 MB

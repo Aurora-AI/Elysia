@@ -1,4 +1,4 @@
-from aurora_platform.modules.rag.search.hybrid import rrf_fuse, Hit
+from aurora_platform.modules.rag.search.hybrid import Hit, rrf_fuse
 
 
 def test_rrf_fuse_basic():

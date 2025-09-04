@@ -1,6 +1,6 @@
 # src/aurora_platform/api/v1/endpoints/ingestion_router.py
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
@@ -14,8 +14,8 @@ class IngestRequest(BaseModel):
     """Schema for document ingestion requests."""
 
     content: str
-    document_type: Optional[str] = "text"
-    metadata: Optional[Dict[str, Any]] = None
+    document_type: str | None = "text"
+    metadata: dict[str, Any] | None = None
 
 
 @router.post("/", status_code=status.HTTP_202_ACCEPTED)

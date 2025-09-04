@@ -1,11 +1,8 @@
-import shutil
-
-import chardet
-
 import logging
-
+import shutil
 from pathlib import Path
 
+import chardet
 
 # --- Configura√ß√£o ---
 

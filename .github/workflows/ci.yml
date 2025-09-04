@@ -1,3 +1,104 @@
+name: ci
+
+on:
+  push:
+    branches: [main, develop, ops/**, feature/**]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip
+        id: cache-pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('**/pyproject.toml', '**/requirements*.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-
+
+      - name: Install base tooling
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U ruff pyright pytest pytest-cov pre-commit
+
+      - name: Print versions
+        run: |
+          python --version
+          pip --version
+          ruff --version
+          pyright --version || true
+          pytest --version
+
+  guard-duplicates:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Duplicate root guard
+        run: python tools/check_duplicate_packages.py
+
+  lint-type:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Ruff (lint)
+        run: ruff check .
+      - name: Ruff (format check)
+        run: ruff format --check .
+      - name: Pyright (type-check)
+        run: pyright
+
+  unit-tests:
+    needs: [guard-duplicates, lint-type]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Install project (editable) + dev deps
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f "pyproject.toml" ]; then
+            pip install -e .[dev]
+          elif [ -f "requirements-dev.txt" ]; then
+            pip install -r requirements-dev.txt
+          fi
+          pip install -U pytest pytest-cov
+
+      - name: PyTest (with coverage)
+        run: |
+          pytest -q --maxfail=1 --disable-warnings \
+            --cov=aurora_platform --cov-report=xml:coverage.xml
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage.xml
 name: CI
 'on':
   pull_request:

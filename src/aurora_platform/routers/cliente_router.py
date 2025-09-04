@@ -1,4 +1,3 @@
-from typing import List
 
 from fastapi import APIRouter, status
 
@@ -26,7 +25,7 @@ async def criar_novo_cliente(
 
 
 @router.get(
-    "/", response_model=List[cliente_schema.Cliente], summary="Lista todos os clientes"
+    "/", response_model=list[cliente_schema.Cliente], summary="Lista todos os clientes"
 )
 async def listar_clientes(
     # Descomentar quando a segurança estiver implementada

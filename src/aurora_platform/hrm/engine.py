@@ -1,12 +1,13 @@
 from __future__ import annotations
+
 import os
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 # reaproveita as classes do loader
-from src.hrm.hrm_loader import load_rules, RuleSet
+from src.hrm.hrm_loader import RuleSet, load_rules
 
 
-def _matches(facts: Dict[str, Any], conditions: Dict[str, Any]) -> bool:
+def _matches(facts: dict[str, Any], conditions: dict[str, Any]) -> bool:
     """
     Casamento simples por igualdade rasa (chave -> valor).
     Futuras extensões: operadores (> < in regex), caminhos nested (a.b.c).
@@ -17,7 +18,7 @@ def _matches(facts: Dict[str, Any], conditions: Dict[str, Any]) -> bool:
     return True
 
 
-def _explain(rule_id: str, conditions: Dict[str, Any]) -> Dict[str, Any]:
+def _explain(rule_id: str, conditions: dict[str, Any]) -> dict[str, Any]:
     return {
         "rule": rule_id,
         "why": "all 'when' conditions matched",
@@ -26,9 +27,9 @@ def _explain(rule_id: str, conditions: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def evaluate(
-    facts: Dict[str, Any],
+    facts: dict[str, Any],
     rule_set_path: str | None = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Avalia um RuleSet YAML sobre 'facts' e retorna decisão + justificativas.
     - facts: dicionário de fatos de entrada.
@@ -46,15 +47,15 @@ def evaluate(
 
     rs: RuleSet = load_rules(rules_path)
 
-    matched: List[Tuple[str, Dict[str, Any], Dict[str, Any]]] = []
+    matched: list[tuple[str, dict[str, Any], dict[str, Any]]] = []
     for r in rs.rules:
         if _matches(facts, r.when or {}):
             matched.append((r.id, r.when or {}, r.then or {}))
 
     # decisões: apenas agrega os 'then' das regras casadas; não resolve conflitos.
     # (Evolução: resolver conflitos por prioridade/precedência.)
-    decisions: List[Dict[str, Any]] = []
-    explanations: List[Dict[str, Any]] = []
+    decisions: list[dict[str, Any]] = []
+    explanations: list[dict[str, Any]] = []
     for rid, when, then in matched:
         decisions.append({"rule_id": rid, **then})
         explanations.append(_explain(rid, when))

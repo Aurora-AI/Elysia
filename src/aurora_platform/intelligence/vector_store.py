@@ -1,14 +1,15 @@
 # Vector Store implementation using Qdrant
 
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import (
+    Distance,
+    FieldCondition,
+    Filter,
+    MatchValue,
     PointStruct,
     VectorParams,
-    Distance,
-    Filter,
-    FieldCondition,
-    MatchValue,
 )
 
 
@@ -46,10 +47,10 @@ class VectorStore:
 
     def add_documents(
         self,
-        embeddings: List[List[float]],
-        documents: List[str],
-        metadatas: Optional[List[Dict[str, Any]]] = None,
-        ids: Optional[List[str]] = None,
+        embeddings: list[list[float]],
+        documents: list[str],
+        metadatas: list[dict[str, Any]] | None = None,
+        ids: list[str] | None = None,
     ):
         """
         Adiciona documentos e seus vetores à coleção Qdrant.
@@ -73,9 +74,9 @@ class VectorStore:
 
     def query(
         self,
-        embedding: List[float],
+        embedding: list[float],
         n_results: int = 5,
-        filter_metadata: Optional[Dict[str, Any]] = None,
+        filter_metadata: dict[str, Any] | None = None,
     ):
         """
         Realiza busca vetorial na coleção Qdrant.

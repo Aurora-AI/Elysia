@@ -1,5 +1,5 @@
-from typing import Any, Iterable, Mapping, Sequence
-
+from collections.abc import Iterable, Mapping, Sequence
+from typing import Any
 
 class Distance:
     COSINE: Any
@@ -35,8 +35,8 @@ class ModelsNamespace:
     ScoredPoint: type[ScoredPoint]
     Filter: type[Filter]
     PointStruct: type[PointStruct]
-    VectorParams: type["VectorParams"]
-    OptimizersConfigDiff: type["OptimizersConfigDiff"]
+    VectorParams: type[VectorParams]
+    OptimizersConfigDiff: type[OptimizersConfigDiff]
 
 
 models: ModelsNamespace
@@ -60,7 +60,7 @@ class QdrantClient:
     def upsert(self, collection_name: str, points: Iterable[PointStruct] |
                Iterable[Mapping[str, Any]] | Any, *args: Any, **kwargs: Any) -> Any: ...
 
-    def search(self, collection_name: str, query_vector: Sequence[float] | Mapping[str, Any], limit: int = ..., size: int = ..., distance: "Distance" | None = ...,
+    def search(self, collection_name: str, query_vector: Sequence[float] | Mapping[str, Any], limit: int = ..., size: int = ..., distance: Distance | None = ...,
                query_filter: Filter | None = ..., with_payload: bool | Sequence[str] | Mapping[str, Any] | None = ..., *args: Any, **kwargs: Any) -> list[ScoredPoint]: ...
 
     def scroll(self, *args: Any, **kwargs: Any) -> Any: ...
@@ -68,7 +68,7 @@ class QdrantClient:
 
 
 class VectorParams:
-    def __init__(self, size: int = ..., distance: "Distance" |
+    def __init__(self, size: int = ..., distance: Distance |
                  None = ...) -> None: ...
 
 
@@ -78,7 +78,7 @@ class OptimizersConfigDiff:
 
 
 class FieldCondition:
-    def __init__(self, key: str = ..., match: "MatchValue" |
+    def __init__(self, key: str = ..., match: MatchValue |
                  None = ...) -> None: ...
 
 

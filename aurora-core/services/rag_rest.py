@@ -1,16 +1,17 @@
 from __future__ import annotations
-import os
-import uuid
+
 import hashlib
 import logging
-from typing import Optional, List
-from fastapi import FastAPI, Depends, HTTPException, Form, Header
+import os
+import uuid
+
+from fastapi import Depends, FastAPI, Form, Header, HTTPException
 from fastapi.responses import PlainTextResponse
-from pydantic import BaseModel
 from prometheus_fastapi_instrumentator import Instrumentator
+from pydantic import BaseModel
 
 from aurora_platform.modules.rag.indexer.qdrant_indexer import QdrantIndexer
-from aurora_platform.modules.rag.search.hybrid import HybridSearchService, Hit
+from aurora_platform.modules.rag.search.hybrid import Hit, HybridSearchService
 from aurora_platform.modules.rag.search.reranker import CrossEncoderReranker
 
 log = logging.getLogger("rag-api")
@@ -19,7 +20,7 @@ app = FastAPI(title="Aurora RAG API", version="1.0")
 # --- Segurança simples por API-Key ---
 
 
-def api_key_guard(x_api_key: Optional[str] = Header(default=None)) -> None:
+def api_key_guard(x_api_key: str | None = Header(default=None)) -> None:
     expected = os.getenv("RAG_API_KEY")
     if expected and x_api_key != expected:
         raise HTTPException(status_code=401, detail="invalid api key")
@@ -41,16 +42,16 @@ class QueryRequest(BaseModel):
 class QueryHit(BaseModel):
     id: str
     score: float
-    title: Optional[str]
-    chunk_index: Optional[int]
-    source_type: Optional[str]
-    url: Optional[str]
+    title: str | None
+    chunk_index: int | None
+    source_type: str | None
+    url: str | None
     text_preview: str
     source: str
 
 
 class QueryResponse(BaseModel):
-    hits: List[QueryHit]
+    hits: list[QueryHit]
 
 
 # --- Helpers ---

@@ -7,10 +7,9 @@ conforme critérios de impacto no roadmap. Os algoritmos de análise serão
 implementados nas fases posteriores.
 """
 
-from typing import Dict, List
 
 
-def analyze_items(items: List[Dict]) -> List[Dict]:
+def analyze_items(items: list[dict]) -> list[dict]:
     """
     Analisa uma lista de itens coletados e atribui prioridade a cada um.
 

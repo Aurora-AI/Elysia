@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import subprocess as sp
-from pathlib import Path
-import sys
+
 import shutil
+import subprocess as sp
+import sys
+from pathlib import Path
 
 CANON = Path("src/aurora_platform")
 MERGE = Path("src/aurora_platform__merge_candidates")

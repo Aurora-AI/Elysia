@@ -1,54 +1,46 @@
 [build-system]
-requires = ["poetry-core>=1.7.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry]
-name = "aurora-plataforma"
-version = "1.0.0"
-description = "Plataforma unificada para os serviços Aurora."
-authors = ["Equipe Aurora <dev@aurora.ai>"]
+[project]
+name = "aurora-platform"
+version = "0.1.0"
+description = "Aurora Platform (núcleo canônico)"
 readme = "README.md"
-packages = [{ include = "aurora_platform" }]
+requires-python = ">=3.11"
+authors = [{ name = "Projeto Aurora" }]
+dependencies = [
+	"SQLAlchemy>=2.0",
+	# adicione aqui as dependências reais do núcleo (FastAPI, pydantic, etc.)
+]
 
-[tool.poetry.dependencies]
-python = ">=3.11,<4.0"
-fastapi = ">=0.110.0"
-sqlmodel = ">=0.0.16"
-alembic = ">=1.13"
-uvicorn = ">=0.29.0"
-pydantic = ">=2.0.0"
-dynaconf = ">=3.2.4"
-passlib = {extras = ["bcrypt"], version = ">=1.7.4"}
-python-jose = {extras = ["cryptography"], version = ">=3.3.0"}
-redis = ">=4.5.5"
-qdrant-client = ">=1.15.0"
-langchain = ">=0.2.0"
-langchain-google-vertexai = ">=1.0.3"
-langchain-openai = ">=0.1.8"
-langchain-deepseek = ">=0.0.2"
-sentence-transformers = "*"
-PyMuPDF = "*"
-openai = "*"
-pyotp = "*"
-qrcode = {extras = ["pil"], version = "*"}
-firebase-admin = "==6.5.0" # Versão travada para compatibilidade
-requests = "^2.32.4"
-sentry-sdk = "^2.0.0"
-pydantic-settings = "^2.10.1"
-pybreaker = "^1.4.0"
-python-multipart = "^0.0.20"
-sqlalchemy = ">=2.0"
-aiosqlite = ">=0.19"
-tenacity = "^9.1.2"
-google-cloud-aiplatform = ">=1.66.0"
-neo4j = ">=5.22.0"
+[project.optional-dependencies]
+dev = [
+	"pytest",
+	"pytest-cov",
+	"ruff",
+	"pyright",
+	"pre-commit",
+]
 
-[tool.poetry.group.dev.dependencies]
-pytest = ">=8.0"
-pytest-asyncio = ">=0.23"
-ruff = ">=0.5.3"
-pre-commit = "*"
-black = "*"
-toml = "*"
-sqlalchemy = "^2.0.43"
-aiosqlite = "^0.21.0"
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E","F","I","UP","B","SIM","C4"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.pyright]
+include = ["src/aurora_platform"]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

@@ -6,10 +6,9 @@ relatórios diários e, para itens de prioridade A, criar documentos de OS‑E
 com escopo técnico, impacto esperado e plano de avaliação para o time de P&D.
 """
 
-from typing import Dict, List
 
 
-def generate_daily_report(analyzed_items: List[Dict]) -> str:
+def generate_daily_report(analyzed_items: list[dict]) -> str:
     """
     Gera o texto do relatório diário a partir dos itens analisados.
 
@@ -26,7 +25,7 @@ def generate_daily_report(analyzed_items: List[Dict]) -> str:
         "Função generate_daily_report ainda não implementada.")
 
 
-def create_study_orders(analyzed_items: List[Dict]) -> List[str]:
+def create_study_orders(analyzed_items: list[dict]) -> list[str]:
     """
     Cria Ordens de Serviço de Estudo (OS‑E) para os itens de prioridade A.
 

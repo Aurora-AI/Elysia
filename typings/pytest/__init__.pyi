@@ -1,5 +1,5 @@
-from typing import Any, Callable
-
+from collections.abc import Callable
+from typing import Any
 
 def fixture(*args: Any, **kwargs: Any) -> Callable[..., Any]: ...
 

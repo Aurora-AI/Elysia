@@ -1,12 +1,14 @@
 from __future__ import annotations
+
 import os
+import sys
 from logging.config import fileConfig
 from pathlib import Path
-import sys
 
-from alembic import context
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
+
+from alembic import context
 
 # Minimal Alembic env for linting and basic local runs.
 config = context.config

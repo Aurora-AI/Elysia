@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+
 from aurora_platform.ingest.router import app
 
 client = TestClient(app)

@@ -1,14 +1,13 @@
-from typing import List
 import re
 
 # Chunking simples por parágrafos com janela deslizante
 
 
-def split_into_chunks(text: str, max_chars: int = 1200, overlap: int = 150) -> List[str]:
+def split_into_chunks(text: str, max_chars: int = 1200, overlap: int = 150) -> list[str]:
     if not text:
         return []
     paras = [p.strip() for p in re.split(r"\n{2,}", text) if p.strip()]
-    chunks: List[str] = []
+    chunks: list[str] = []
     buf = ""
     for p in paras:
         if not buf:

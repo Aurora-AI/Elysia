@@ -1,0 +1,44 @@
+name: e2e
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  e2e:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'e2e')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure Docker/Compose available
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Compose up
+        run: |
+          docker compose -f docker-compose.yml up -d
+          sleep 25
+          mkdir -p artifacts
+
+      - name: Check Neo4j
+        run: bash tools/e2e/check_neo4j.sh
+
+      - name: Check Kafka
+        run: bash tools/e2e/check_kafka.sh
+
+      - name: Check Qdrant
+        run: bash tools/e2e/check_qdrant.sh
+
+      - name: Logs on fail
+        if: failure()
+        run: docker compose logs --no-color > artifacts/e2e.log || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-artifacts
+          path: artifacts/**

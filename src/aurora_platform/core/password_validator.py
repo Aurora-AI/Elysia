@@ -1,10 +1,9 @@
 import re
-from typing import List
 
 from .config import settings
 
 
-def validate_password_strength(password: str) -> tuple[bool, List[str]]:
+def validate_password_strength(password: str) -> tuple[bool, list[str]]:
     """Validate password strength according to security policy"""
     errors = []
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, List, Dict, Any
+from typing import Any
 
 
 async def autosave_session_to_memory(memory_service: Any, session_obj: Any) -> None:
@@ -19,7 +19,7 @@ async def autosave_session_to_memory(memory_service: Any, session_obj: Any) -> N
         await res
 
 
-async def search_memory(memory_service: Any, app_name: str, user_id: str, query: str, team_id: Optional[str] = None) -> List[Dict[str, Any]]:
+async def search_memory(memory_service: Any, app_name: str, user_id: str, query: str, team_id: str | None = None) -> list[dict[str, Any]]:
     """Search memories scoped by user_id (and optionally team_id).
 
     Returns a list of memory records (dict-like).

@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 class BaseHTTPMiddleware:
     def __init__(self, app: Any, dispatch: Callable[..., Any] | None = ...) -> None: ...

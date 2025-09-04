@@ -1,16 +1,16 @@
+
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List
 
 app = FastAPI(title="GPT-OSS Embedding Service")
 
 
 class EmbeddingRequest(BaseModel):
-    texts: List[str]
+    texts: list[str]
 
 
 class EmbeddingResponse(BaseModel):
-    embeddings: List[List[float]]
+    embeddings: list[list[float]]
 
 
 @app.get("/health")

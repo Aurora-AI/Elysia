@@ -2,9 +2,10 @@ import os
 import sqlite3
 import tempfile
 from pathlib import Path
+
 import pytest
 
-from backend.app.core.cortex_logger import log_execution, ensure_table
+from backend.app.core.cortex_logger import ensure_table, log_execution
 
 
 def test_log_execution_happy_path():

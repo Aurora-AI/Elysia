@@ -1,5 +1,5 @@
-from pydantic import BaseModel, HttpUrl, Field
-from typing import Optional, List
+
+from pydantic import BaseModel, Field, HttpUrl
 
 
 class Metadata(BaseModel):
@@ -8,8 +8,8 @@ class Metadata(BaseModel):
     bytes: int
     sha256: str
     # legacy/Portuguese key expected by some callers/tests
-    hash_conteudo: Optional[str] = None
-    num_paginas: Optional[int] = None
+    hash_conteudo: str | None = None
+    num_paginas: int | None = None
 
 
 class StepRecord(BaseModel):
@@ -17,16 +17,16 @@ class StepRecord(BaseModel):
     started_ms: int
     ended_ms: int
     ok: bool
-    notes: Optional[str] = None
+    notes: str | None = None
 
 
 class Diagnostics(BaseModel):
     parser_usado: str
     versao_parser: str
     fallback: bool
-    steps: List[StepRecord]
-    planned_chunks: Optional[int]
-    embedding_model: Optional[str]
+    steps: list[StepRecord]
+    planned_chunks: int | None
+    embedding_model: str | None
 
 
 class CostBreakdown(BaseModel):
@@ -35,13 +35,13 @@ class CostBreakdown(BaseModel):
 
 
 class TableSchema(BaseModel):
-    headers: List[str]
-    rows: List[List[str]]
+    headers: list[str]
+    rows: list[list[str]]
 
 
 class ImageSchema(BaseModel):
-    url: Optional[HttpUrl] = None
-    caption: Optional[str] = None
+    url: HttpUrl | None = None
+    caption: str | None = None
 
 
 class IngestRequest(BaseModel):
@@ -50,7 +50,7 @@ class IngestRequest(BaseModel):
     Aceita URL ou upload de arquivo.
     """
 
-    url: Optional[HttpUrl] = Field(
+    url: HttpUrl | None = Field(
         None, description="URL do documento a ser processado."
     )
 
@@ -59,8 +59,8 @@ class IngestResponse(BaseModel):
     """Modelo de resposta do pipeline de processamento."""
 
     texto_markdown: str
-    tabelas: List[TableSchema]
-    imagens: List[ImageSchema]
+    tabelas: list[TableSchema]
+    imagens: list[ImageSchema]
     metadados: Metadata
     proveniencia: Diagnostics
     custo: CostBreakdown

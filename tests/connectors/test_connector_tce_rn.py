@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+from typing import cast
+
 import httpx
 import pytest
 
 from backend.app.connectors.tce_rn.pipeline import normalize
-from typing import cast
 from backend.app.connectors.tce_rn.schemas import RawApiExpense
 
 

@@ -9,10 +9,10 @@ integração de novos tipos de fonte conforme o roadmap evolui.
 Nesta fase inicial, apenas as assinaturas e docstrings são definidas.
 """
 
-from typing import Any, Dict, List
+from typing import Any
 
 
-def collect_from_papers() -> List[Dict[str, Any]]:
+def collect_from_papers() -> list[dict[str, Any]]:
     """
     Coleta metadados e resumos de papers de interesse.
 
@@ -26,7 +26,7 @@ def collect_from_papers() -> List[Dict[str, Any]]:
         "Função collect_from_papers ainda não implementada.")
 
 
-def collect_from_changelogs() -> List[Dict[str, Any]]:
+def collect_from_changelogs() -> list[dict[str, Any]]:
     """
     Coleta informações de changelogs e releases de frameworks ou bibliotecas.
 
@@ -40,7 +40,7 @@ def collect_from_changelogs() -> List[Dict[str, Any]]:
         "Função collect_from_changelogs ainda não implementada.")
 
 
-def collect_from_rfc() -> List[Dict[str, Any]]:
+def collect_from_rfc() -> list[dict[str, Any]]:
     """
     Coleta informações de RFCs relevantes para o domínio da IA e sistemas distribuídos.
 
@@ -54,7 +54,7 @@ def collect_from_rfc() -> List[Dict[str, Any]]:
         "Função collect_from_rfc ainda não implementada.")
 
 
-def collect_from_youtube() -> List[Dict[str, Any]]:
+def collect_from_youtube() -> list[dict[str, Any]]:
     """
     Coleta metadados de vídeos e, quando possível, transcrições de canais de YouTube.
 

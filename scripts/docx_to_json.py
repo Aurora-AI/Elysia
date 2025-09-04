@@ -13,7 +13,6 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List
 
 
 def extract_text_from_docx(path: str) -> str:
@@ -39,7 +38,7 @@ def extract_text_from_docx(path: str) -> str:
                     tree = ET.parse(f)
                     # Namespace-agnostic findall for text nodes
                     texts = tree.findall('.//')
-                    parts: List[str] = []
+                    parts: list[str] = []
                     for elem in texts:
                         if elem.tag.endswith('}t') or elem.tag == 't':
                             if elem.text:
@@ -50,14 +49,14 @@ def extract_text_from_docx(path: str) -> str:
                 "Failed to extract text from DOCX; install python-docx or provide a valid .docx file")
 
 
-def normalize_text_to_json(text: str) -> Dict[str, List[Dict[str, str]]]:
+def normalize_text_to_json(text: str) -> dict[str, list[dict[str, str]]]:
     """Normalize plaintext into a JSON-friendly structure.
 
     Produces {'blocks': [{'type': 'heading'|'paragraph', 'text': '...'}, ...]}
     Basic heuristic: a paragraph that is short (< 80 chars) and mostly
     uppercase will be tagged as a heading.
     """
-    blocks: List[Dict[str, str]] = []
+    blocks: list[dict[str, str]] = []
     paragraphs = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
     for p in paragraphs:
         is_short = len(p) < 80
@@ -79,7 +78,7 @@ def docx_to_json_file(in_path: str, out_path: str | None = None) -> str:
     return out
 
 
-def _main(argv: List[str]) -> int:
+def _main(argv: list[str]) -> int:
     if len(argv) < 2:
         print("Usage: docx_to_json.py <input.docx> [output.json]")
         return 2

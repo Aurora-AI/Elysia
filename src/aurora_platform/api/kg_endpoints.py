@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from aurora_platform.api import kg_endpoints_pilares
 
 app = FastAPI(title="Aurora KG API")

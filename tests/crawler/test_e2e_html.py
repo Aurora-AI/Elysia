@@ -1,6 +1,8 @@
 from __future__ import annotations
-from aurora_platform.modules.crawler.pipeline import run_ingestion
+
 from pathlib import Path
+
+from aurora_platform.modules.crawler.pipeline import run_ingestion
 
 
 def test_e2e_html():

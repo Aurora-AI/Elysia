@@ -1,6 +1,8 @@
+import hashlib
+import json
+
 from confluent_kafka import Consumer, KafkaException
 from py2neo import Graph
-import json, hashlib
 
 BOOTSTRAP = "localhost:9092"
 BATCH_SIZE = 500

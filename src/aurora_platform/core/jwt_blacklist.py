@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import redis
 
@@ -15,7 +15,7 @@ blacklisted_tokens = set()
 
 def blacklist_token(token: str, expires_at: datetime):
     """Add token to blacklist"""
-    ttl = int((expires_at - datetime.now(timezone.utc)).total_seconds())
+    ttl = int((expires_at - datetime.now(UTC)).total_seconds())
 
     if redis_client:
         redis_client.setex(f"blacklist:{token}", ttl, "1")
@@ -34,5 +34,5 @@ def revoke_all_user_tokens(user_id: int):
     """Revoke all tokens for a user"""
     if redis_client:
         redis_client.set(
-            f"user_revoked:{user_id}", datetime.now(timezone.utc).isoformat()
+            f"user_revoked:{user_id}", datetime.now(UTC).isoformat()
         )

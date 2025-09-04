@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 
 # Configure security logger
 security_logger = logging.getLogger("aurora.security")
@@ -16,7 +15,7 @@ def log_login_attempt(email: str, success: bool, ip: str):
     security_logger.info(f"Login {status} - Email: {email} - IP: {ip}")
 
 
-def log_security_event(event: str, details: str, ip: Optional[str] = None):
+def log_security_event(event: str, details: str, ip: str | None = None):
     message = f"{event} - {details}"
     if ip:
         message += f" - IP: {ip}"

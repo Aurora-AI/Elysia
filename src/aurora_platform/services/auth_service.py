@@ -1,6 +1,5 @@
 # src/aurora_platform/services/auth_service.py
 from datetime import datetime, timedelta
-from typing import Optional
 
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -30,7 +29,7 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
     """Cria um token de acesso JWT."""
     to_encode = data.copy()
     if expires_delta:
@@ -58,7 +57,7 @@ def create_refresh_token(data: dict) -> str:
     return encoded_jwt
 
 
-def verify_token(token: str) -> Optional[dict]:
+def verify_token(token: str) -> dict | None:
     """Verifica e decodifica um token JWT."""
     try:
         payload = jwt.decode(

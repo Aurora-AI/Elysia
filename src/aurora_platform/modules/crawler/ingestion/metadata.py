@@ -1,14 +1,14 @@
 from dataclasses import dataclass, field
-from typing import Dict, Any, Optional
+from typing import Any
 
 
 @dataclass
 class CanonicalMetadata:
     source: str
-    title: Optional[str] = None
+    title: str | None = None
     authors: list[str] = field(default_factory=list)
-    language: Optional[str] = None
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
-    tags: Dict[str, Any] = field(default_factory=dict)
-    raw: Dict[str, Any] = field(default_factory=dict)
+    language: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    tags: dict[str, Any] = field(default_factory=dict)
+    raw: dict[str, Any] = field(default_factory=dict)

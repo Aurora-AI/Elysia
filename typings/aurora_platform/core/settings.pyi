@@ -1,4 +1,3 @@
-from typing import Any
 DATABASE_URL: str
 REDIS_URL: str
 AURA_NEO4J_URI: str

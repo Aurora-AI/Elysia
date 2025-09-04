@@ -7,7 +7,7 @@ documents where to find the relevant classes.
 from __future__ import annotations
 
 import os
-from typing import Any, Optional
+from typing import Any
 
 try:
     # The ADK package namespaces may differ; the doc references google.adk.memory
@@ -16,7 +16,7 @@ except Exception:  # pragma: no cover - optional runtime
     VertexAiMemoryBankService = None  # type: ignore
 
 
-def create_memory_service(project: Optional[str] = None, location: Optional[str] = None, agent_engine_id: Optional[str] = None) -> Any:
+def create_memory_service(project: str | None = None, location: str | None = None, agent_engine_id: str | None = None) -> Any:
     """Create a Vertex AI Memory Bank service instance.
 
     Args:

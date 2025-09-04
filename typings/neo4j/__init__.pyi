@@ -1,6 +1,5 @@
+from collections.abc import Callable
 from typing import Any
-from typing import Any, Callable
-
 
 class Session:
     def run(self, cypher: str, **params: Any) -> Any: ...

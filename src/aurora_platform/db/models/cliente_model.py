@@ -1,5 +1,5 @@
 # Caminho: src/aurora_platform/db/models/cliente_model.py
-from typing import Any, Dict, Optional
+from typing import Any
 
 from sqlalchemy import Column
 from sqlalchemy.dialects.postgresql import JSONB
@@ -12,7 +12,7 @@ class ClienteBase(SQLModel):
     nome_principal: str = Field(
         index=True, description="O nome principal ou razão social do cliente."
     )
-    cnpj: Optional[str] = Field(
+    cnpj: str | None = Field(
         default=None,
         unique=True,
         index=True,
@@ -21,7 +21,7 @@ class ClienteBase(SQLModel):
 
     # Este é o campo que materializa nosso Princípio de Customização.
     # Ele armazena um dicionário flexível (JSON) no banco de dados.
-    atributos_customizados: Optional[Dict[str, Any]] = Field(
+    atributos_customizados: dict[str, Any] | None = Field(
         default_factory=dict,
         sa_column=Column(JSONB),
         description="Um dicionário para armazenar campos customizados definidos pelo usuário.",
@@ -31,7 +31,7 @@ class ClienteBase(SQLModel):
 # --- Modelo da Tabela do Banco de Dados ---
 # Representa a tabela 'cliente' no banco de dados.
 class Cliente(ClienteBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
 
 
 # --- Schemas para a API ---
@@ -53,6 +53,6 @@ class ClienteRead(ClienteBase):
 class ClienteUpdate(SQLModel):
     """Schema para atualizar um cliente. Todos os campos são opcionais."""
 
-    nome_principal: Optional[str] = None
-    cnpj: Optional[str] = None
-    atributos_customizados: Optional[Dict[str, Any]] = None
+    nome_principal: str | None = None
+    cnpj: str | None = None
+    atributos_customizados: dict[str, Any] | None = None

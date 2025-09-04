@@ -1,9 +1,10 @@
 from __future__ import annotations
+
 import json
 import re
-from datetime import datetime
-from typing import Any, Dict, List
 from collections import defaultdict
+from datetime import datetime
+from typing import Any
 
 
 def mock_llm_call(model_name: str, prompt: str) -> str:
@@ -19,9 +20,9 @@ class AgentProfilingService:
         self.suite = self._load_benchmarking_suite(suite_path)
         self.models_to_test = ["gemini-2.5-pro", "gpt-4o", "deepseek-reasoner"]
 
-    def _load_benchmarking_suite(self, path: str) -> List[Dict[str, Any]]:
+    def _load_benchmarking_suite(self, path: str) -> list[dict[str, Any]]:
         try:
-            with open(path, "r", encoding="utf-8") as f:
+            with open(path, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             return []
@@ -32,14 +33,14 @@ class AgentProfilingService:
         return bool(re.search(pattern, response, re.IGNORECASE))
 
     def run_benchmarks(
-        self, temperatures: List[float] | None = None
-    ) -> List[Dict[str, Any]]:
+        self, temperatures: list[float] | None = None
+    ) -> list[dict[str, Any]]:
         import time
 
         if temperatures is None:
             temperatures = [0.1, 0.5, 0.9]
 
-        results: List[Dict[str, Any]] = []
+        results: list[dict[str, Any]] = []
         timestamp = datetime.now().isoformat()
 
         for problem in self.suite:
@@ -75,7 +76,7 @@ class AgentProfilingService:
         self, results_path: str = "profiling_results.json"
     ) -> str:
         try:
-            with open(results_path, "r", encoding="utf-8") as f:
+            with open(results_path, encoding="utf-8") as f:
                 results = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             return "Nenhum resultado encontrado."
@@ -129,10 +130,10 @@ class AgentProfilingService:
 
         return report
 
-    def _save_results(self, results: List[Dict[str, Any]]):
+    def _save_results(self, results: list[dict[str, Any]]):
         results_path = "profiling_results.json"
         try:
-            with open(results_path, "r", encoding="utf-8") as f:
+            with open(results_path, encoding="utf-8") as f:
                 existing_results = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             existing_results = []

@@ -1,8 +1,7 @@
 import os
-from typing import Optional
 
 
-def env_str(name: str, default: Optional[str] = None, required: bool = False) -> Optional[str]:
+def env_str(name: str, default: str | None = None, required: bool = False) -> str | None:
     """Read env var, but be tolerant when running tests (TESTING=1).
 
     This allows pytest collection to import modules that expect env vars

@@ -3,10 +3,10 @@ Conector DataJud (stub amigável a testes).
 Em produção, chame o cliente/SDK real aqui.
 """
 
-from typing import Any, Dict
+from typing import Any
 
 
-def search_by_process_number(numero_processo: str) -> Dict[str, Any]:
+def search_by_process_number(numero_processo: str) -> dict[str, Any]:
     # Stub default: útil para smoke/local quando não há rede
     # Em produção, substituir por chamada real (HTTP/SDK) ou injetar via DI.
     return {

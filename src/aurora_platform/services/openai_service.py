@@ -1,5 +1,5 @@
 import os
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 
 from openai import APIConnectionError, APIStatusError, APITimeoutError, AsyncAzureOpenAI
 from tenacity import (

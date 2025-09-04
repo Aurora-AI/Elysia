@@ -1,17 +1,17 @@
 from __future__ import annotations
 
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Generator, Optional
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-from .settings import get_settings, Settings
+from .settings import Settings, get_settings
 
 Base = declarative_base()
 
 
-def make_engine(settings: Optional[Settings] = None):
+def make_engine(settings: Settings | None = None):
     settings = settings or get_settings()
     url = settings.DB_URL
     connect_args = {}

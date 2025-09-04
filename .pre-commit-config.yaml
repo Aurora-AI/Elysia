@@ -1,4 +1,18 @@
 repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.7
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        additional_dependencies: ['prettier@3.3.3']
+        files: "\\.(json|yml|yaml|md|mdx|css|scss|js|ts|tsx)$"
+repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
@@ -7,9 +21,9 @@ repos:
   - repo: local
     hooks:
       - id: block-example-copy
-        name: Block committing EXEMPLO blocks to outputs
-        # Exclude the pre-commit config itself to avoid self-match false positives
-        entry: bash -c 'grep -RIn "<<<EXEMPLO_INICIO>>>" -- . | grep -v "\.pre-commit-config.yaml" && echo "[ERRO] Blocos EXEMPLO são ilustrativos e não devem ir para saída/commit." && exit 1 || exit 0'
+        name: Block committing example/demo blocks to outputs
+        # Exclude the pre-commit config itself and the guard implementation files to avoid self-match false positives
+        entry: bash -c 'grep -RIn "<<<EXEMPLO_INICIO>>>" -- . | grep -v "\.pre-commit-config.yaml" | grep -v "\.github/workflows/exemplo-guard.yml" | grep -v "scripts/install-hooks.sh" && echo "[ERRO] Blocos EXEMPLO são ilustrativos e não devem ir para saída/commit." && exit 1 || exit 0'
         language: system
         types: [text]
       - id: block-legacy-audits

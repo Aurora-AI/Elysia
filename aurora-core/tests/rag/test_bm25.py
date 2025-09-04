@@ -1,6 +1,7 @@
-from aurora_platform.modules.rag.search.lexical_bm25 import LexicalBM25
-import pathlib
 import json
+import pathlib
+
+from aurora_platform.modules.rag.search.lexical_bm25 import LexicalBM25
 
 
 def _write_lex(coll: str, rows):
