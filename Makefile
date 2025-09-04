@@ -1,6 +1,6 @@
 tag:
 
-.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test
+.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test crawl-api crawl-worker crawl-seed
 
 python := python
 
@@ -38,5 +38,14 @@ rag-test: qdrant-up qdrant-wait
 
 crawler-test:
 	@export ENABLE_NET_TESTS=1 && pytest -q tests/modules/crawler/test_url_loader.py
+
+crawl-api:
+	@uvicorn aurora_platform.modules.crawler.api.server:app --host 0.0.0.0 --port 8088
+
+crawl-worker:
+	@python -m aurora_platform.modules.crawler.consumers.crawl_worker
+
+crawl-seed:
+	@python -c "from aurora_platform.modules.crawler.producers.enqueue import enqueue_crawl; enqueue_crawl('https://example.com', 'seed'); print('enqueued')"
 
 ci-local: guard lint type test
