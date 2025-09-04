@@ -1,10 +1,9 @@
-name: HRM CPU Smoke
+name: hrm-smoke
 
 on:
   workflow_dispatch:
-
-permissions:
-  contents: read
+  push:
+    branches: [ops/**, feature/**]
 
 jobs:
   smoke:

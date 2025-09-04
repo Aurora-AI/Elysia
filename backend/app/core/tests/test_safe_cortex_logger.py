@@ -1,7 +1,6 @@
-import sys
+import importlib.util
 import sqlite3
 from pathlib import Path
-import importlib.util
 
 import pytest
 
