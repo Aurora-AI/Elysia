@@ -21,6 +21,7 @@ dependencies = [
 	"qdrant-client>=1.15",
 	"redis>=6.3",
 	"psycopg2-binary>=2.9",
+	"playwright>=1.45.0",
 ]
 
 [project.optional-dependencies]

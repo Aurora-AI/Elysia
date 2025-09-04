@@ -101,6 +101,24 @@ services:
     networks:
       - aurora-net
 
+  # Elysia Sidecar
+  elysia:
+    build:
+      context: ./elysia-app
+      dockerfile: Dockerfile
+    container_name: elysia
+    environment:
+      - WCD_URL=${WCD_URL}
+      - WCD_API_KEY=${WCD_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    ports:
+      - "${ELYSIA_PORT:-8001}:8000"
+    networks:
+      - aurora-net
+    depends_on:
+      - qdrant
+
 networks:
   aurora-net:
     driver: bridge

@@ -1,6 +1,6 @@
 tag:
 
-.PHONY: guard lint lint-fix type test ci-local e2e precommit
+.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag
 
 python := python
 
@@ -23,5 +23,8 @@ test:
 
 precommit:
 	@pre-commit run --all-files || true
+
+audit-crawler-rag:
+	@python tools/audit/audit_crawler_rag.py
 
 ci-local: guard lint type test
