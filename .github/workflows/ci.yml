@@ -59,17 +59,47 @@ jobs:
   unit-tests:
     needs: [guard-duplicates, lint-type]
     runs-on: ubuntu-latest
+
+    services:
+      qdrant:
+        image: qdrant/qdrant:v1.7.4
+        ports:
+          - 6333:6333
+        options: >-
+          --health-cmd="curl -fsS http://localhost:6333/ready || exit 1"
+          --health-interval=5s --health-timeout=2s --health-retries=12
+
+    env:
+      QDRANT_URL: http://localhost:6333
+      ENABLE_QDRANT_TESTS: "1"
+      ENABLE_NET_TESTS: "1"
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install project (editable) + dev deps
+
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          if [ -f "pyproject.toml" ]; then pip install -e .[dev]; fi
-          pip install -U pytest pytest-cov
-      - name: PyTest (with coverage)
+          pip install -e .[dev]
+          pip install requests
+
+      - name: Install Playwright browsers
+        if: env.ENABLE_NET_TESTS == '1'
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Wait for Qdrant
+        run: |
+          for i in {1..60}; do
+            curl -fsS http://localhost:6333/ready && exit 0 || sleep 1
+          done
+          echo "Qdrant não ficou pronto a tempo" && exit 1
+
+      - name: PyTest
         run: |
           pytest -q --maxfail=1 --disable-warnings \
             --cov=aurora_platform --cov-report=xml:coverage.xml

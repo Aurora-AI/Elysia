@@ -17,7 +17,7 @@ dependencies = [
 	"kafka-python",
 	"confluent-kafka>=2.3",
 	"neo4j>=5.28",
-	"requests",
+	"requests>=2.32.0",
 	"qdrant-client>=1.15",
 	"redis>=6.3",
 	"psycopg2-binary>=2.9",
