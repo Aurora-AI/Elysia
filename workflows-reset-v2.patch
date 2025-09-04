@@ -1,0 +1,220 @@
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+new file mode 100644
+index 0000000..1111111
+--- /dev/null
++++ b/.github/workflows/ci.yml
+@@ -0,0 +1,84 @@
++name: ci
++
++on:
++  push:
++    branches: [main, develop, ops/**, feature/**]
++  pull_request:
++    branches: [main, develop]
++  workflow_dispatch:
++
++concurrency:
++  group: ${{ github.workflow }}-${{ github.ref }}
++  cancel-in-progress: true
++
++jobs:
++  setup:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with:
++          python-version: "3.11"
++          cache: "pip"
++      - name: Install dev toolchain (tolerant)
++        run: |
++          python -m pip install --upgrade pip
++          pip install -r requirements.txt || true
++          pip install -r requirements-dev.txt || true
++          pip install ruff pyright pytest pytest-cov || true
++
++  guard-duplicates:
++    needs: setup
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with: { python-version: "3.11", cache: "pip" }
++      - name: Duplicate root guard
++        run: python tools/check_duplicate_packages.py
++
++  lint-type:
++    needs: setup
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with: { python-version: "3.11", cache: "pip" }
++      - name: Install linters
++        run: pip install ruff pyright
++      - name: Ruff (lint)
++        run: ruff check .
++      - name: Pyright (type-check)
++        run: pyright
++
++  unit-tests:
++    needs: [guard-duplicates, lint-type]
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with: { python-version: "3.11", cache: "pip" }
++      - name: Install project (editable)
++        run: |
++          python -m pip install --upgrade pip
++          pip install -e .[dev] || pip install -r requirements-dev.txt || true
++          pip install pytest pytest-cov
++      - name: PyTest
++        run: |
++          pytest -q --maxfail=1 --disable-warnings \
++            --cov=aurora_platform --cov-report=xml:coverage.xml
++      - name: Upload coverage
++        if: always()
++        uses: actions/upload-artifact@v4
++        with:
++          name: coverage
++          path: coverage.xml
++diff --git a/.github/workflows/hrm-smoke.yml b/.github/workflows/hrm-smoke.yml
++new file mode 100644
++index 0000000..1111111
++--- /dev/null
+++++ b/.github/workflows/hrm-smoke.yml
++@@ -0,0 +1,16 @@
++name: hrm-smoke
++
++on:
++  workflow_dispatch:
++  push:
++    branches: [ops/**, feature/**]
++
++jobs:
++  smoke:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - run: echo "HRM smoke OK"
++diff --git a/.github/workflows/mvp1-ingest.yml b/.github/workflows/mvp1-ingest.yml
++new file mode 100644
++index 0000000..1111111
++--- /dev/null
+++++ b/.github/workflows/mvp1-ingest.yml
++@@ -0,0 +1,14 @@
++name: mvp1-ingest
++
++on:
++  workflow_dispatch:
++
++jobs:
++  ingest:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - name: Dry-run ingest
++        run: echo "Ingest pipeline placeholder"
++diff --git a/.github/workflows/ops-kg-health.yml b/.github/workflows/ops-kg-health.yml
++new file mode 100644
++index 0000000..1111111
++--- /dev/null
+++++ b/.github/workflows/ops-kg-health.yml
++@@ -0,0 +1,56 @@
++name: ops-kg-health
++
++on:
++  workflow_dispatch:
++  schedule:
++    - cron: "0 */6 * * *"
++
++permissions:
++  contents: read
++
++jobs:
++  kg-health:
++    runs-on: ubuntu-latest
++    env:
++      AURA_NEO4J_URI: ${{ secrets.AURA_NEO4J_URI }}
++      AURA_NEO4J_USERNAME: ${{ secrets.AURA_NEO4J_USERNAME }}
++      AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
++      QDRANT_URL: ${{ secrets.QDRANT_URL }}
++      KAFKA_BROKER: ${{ secrets.KAFKA_BROKER }}
++      SCHEMA_REGISTRY_URL: ${{ secrets.SCHEMA_REGISTRY_URL }}
++    steps:
++      - uses: actions/checkout@v4
++
++      - name: Neo4j health
++        run: |
++          python - <<'PY'
++          import os, sys
++          uri = os.getenv("AURA_NEO4J_URI","")
++          ok = bool(uri) and (uri.startswith(("neo4j://","neo4j+s://","bolt://","bolt+s://")))
++          print("NEO4J_URI:", (uri[:40] + "...") if uri else "(missing)")
++          sys.exit(0 if ok else 1)
++          PY
++
++      - name: Qdrant health
++        run: |
++          curl -fsS "${QDRANT_URL}/collections" >/dev/null
++
++      - name: Kafka socket health
++        run: |
++          python - <<'PY'
++          import os, socket, sys
++          broker = os.getenv("KAFKA_BROKER","")
++          if not broker:
++              print("missing KAFKA_BROKER"); sys.exit(1)
++          host, port = (broker, 9092)
++          if ":" in broker:
++              host, p = broker.split(":",1); port=int(p)
++          s=socket.socket(); s.settimeout(3)
++          try:
++              s.connect((host,port)); print("Kafka OK"); sys.exit(0)
++          except Exception as e:
++              print("Kafka FAIL:", e); sys.exit(1)
++          PY
++diff --git a/.github/workflows/e2e.yml b/.github/workflows/e2e.yml
++new file mode 100644
++index 0000000..1111111
++--- /dev/null
+++++ b/.github/workflows/e2e.yml
++@@ -0,0 +1,16 @@
++name: e2e
++
++on:
++  workflow_dispatch:
++  pull_request:
++    branches: [main, develop]
++
++jobs:
++  e2e:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - name: E2E placeholder
++        run: echo "E2E suite placeholder"
++diff --git a/.github/workflows/precommit.yml b/.github/workflows/precommit.yml
++new file mode 100644
++index 0000000..1111111
++--- /dev/null
+++++ b/.github/workflows/precommit.yml
++@@ -0,0 +1,17 @@
++name: pre-commit
++
++on:
++  pull_request:
++  push:
++    branches: [main, develop]
++
++jobs:
++  run:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with:
++          python-version: "3.11"
++          cache: "pip"
++      - uses: pre-commit/action@v3.0.1

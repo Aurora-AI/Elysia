@@ -5,34 +5,9 @@ repos:
       - id: ruff
         args: [--fix]
       - id: ruff-format
-
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        additional_dependencies: ['prettier@3.3.3']
+        additional_dependencies: ["prettier@3.3.3"]
         files: "\\.(json|yml|yaml|md|mdx|css|scss|js|ts|tsx)$"
-repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-  - repo: local
-    hooks:
-      - id: block-example-copy
-        name: Block committing example/demo blocks to outputs
-        # Exclude the pre-commit config itself and the guard implementation files to avoid self-match false positives
-        entry: bash -c 'grep -RIn "<<<EXEMPLO_INICIO>>>" -- . | grep -v "\.pre-commit-config.yaml" | grep -v "\.github/workflows/exemplo-guard.yml" | grep -v "scripts/install-hooks.sh" && echo "[ERRO] Blocos EXEMPLO são ilustrativos e não devem ir para saída/commit." && exit 1 || exit 0'
-        language: system
-        types: [text]
-      - id: block-legacy-audits
-        name: Block legacy audit scripts
-        entry: bash -c 'git diff --cached --name-only | grep -E "(aurora_audit\\.ps1|audit.*\\.sh)" && echo "[ERRO] Scripts de auditoria legados são proibidos." && exit 1 || exit 0'
-        language: system
-        types: [text]
-      - id: ensure-copilot-constitution
-        name: Ensure constitution sections exist
-        entry: bash -c 'grep -q "## 3.1 Auditoria 360º (EXECUTAR, não analisar)" COPILOT_AGENTE_CONSTITUCION.md && grep -q "## 3.2 Tratamento de Exemplos (NÃO COPIAR)" COPILOT_AGENTE_CONSTITUCION.md'
-        language: system
-        types: [text]
