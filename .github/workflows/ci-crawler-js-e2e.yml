@@ -1,0 +1,14 @@
+name: ci-crawler-js-e2e
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JS E2E placeholder
+        run: echo "JS E2E placeholder"

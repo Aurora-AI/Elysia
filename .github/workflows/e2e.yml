@@ -1,0 +1,14 @@
+name: e2e
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: E2E placeholder
+        run: echo "E2E suite placeholder"

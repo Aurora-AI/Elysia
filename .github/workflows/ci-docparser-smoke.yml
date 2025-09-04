@@ -1,0 +1,14 @@
+name: ci-docparser-smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ops/**, feature/**]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docparser smoke placeholder
+        run: echo "Docparser smoke OK"

@@ -1,0 +1,53 @@
+name: ops-kg-health
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  kg-health:
+    runs-on: ubuntu-latest
+    env:
+      AURA_NEO4J_URI: ${{ secrets.AURA_NEO4J_URI }}
+      AURA_NEO4J_USERNAME: ${{ secrets.AURA_NEO4J_USERNAME }}
+      AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
+      QDRANT_URL: ${{ secrets.QDRANT_URL }}
+      KAFKA_BROKER: ${{ secrets.KAFKA_BROKER }}
+      SCHEMA_REGISTRY_URL: ${{ secrets.SCHEMA_REGISTRY_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Neo4j health
+        run: |
+          python - <<'PY'
+          import os, sys
+          uri = os.getenv("AURA_NEO4J_URI","")
+          ok = bool(uri) and (uri.startswith(("neo4j://","neo4j+s://","bolt://","bolt+s://")))
+          print("NEO4J_URI:", (uri[:40] + "...") if uri else "(missing)")
+          sys.exit(0 if ok else 1)
+          PY
+
+      - name: Qdrant health
+        run: |
+          curl -fsS "${QDRANT_URL}/collections" >/dev/null
+
+      - name: Kafka socket health
+        run: |
+          python - <<'PY'
+          import os, socket, sys
+          broker = os.getenv("KAFKA_BROKER","")
+          if not broker:
+              print("missing KAFKA_BROKER"); sys.exit(1)
+          host, port = (broker, 9092)
+          if ":" in broker:
+              host, p = broker.split(":",1); port=int(p)
+          s=socket.socket(); s.settimeout(3)
+          try:
+              s.connect((host,port)); print("Kafka OK"); sys.exit(0)
+          except Exception as e:
+              print("Kafka FAIL:", e); sys.exit(1)
+          PY
