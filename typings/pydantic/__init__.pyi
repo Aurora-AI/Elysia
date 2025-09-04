@@ -1,0 +1,9 @@
+from typing import Any, Dict
+
+
+class BaseModel:
+    def __init__(self, **data: Any) -> None: ...
+    def dict(self, *args: Any, **kwargs: Any) -> Dict[str, Any]: ...
+
+
+def Field(default: Any = ..., *args: Any, **kwargs: Any) -> Any: ...

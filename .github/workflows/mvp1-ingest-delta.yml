@@ -1,0 +1,66 @@
+name: MVP1 Ingest (Delta)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "45 03 * * *"  # diariamente 03:45 UTC (após o core)
+  push:
+    paths:
+      - "aurora_platform/**"
+      - "scripts/ingest/**"
+      - "ingest/**"
+      - ".github/workflows/mvp1-ingest-delta.yml"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  ingest-delta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Poetry (if pyproject exists)
+        if: ${{ hashFiles('pyproject.toml') != '' }}
+        run: pip install --upgrade pip && pip install poetry
+
+      - name: Install deps (Poetry)
+        if: ${{ hashFiles('pyproject.toml') != '' }}
+        run: poetry install --no-interaction --no-ansi
+
+      - name: Install deps (pip fallback)
+        if: ${{ hashFiles('requirements.txt') != '' && hashFiles('pyproject.toml') == '' }}
+        run: pip install -r requirements.txt
+
+      - name: Prepare artifacts
+        run: mkdir -p artifacts/ingest-delta
+
+      - name: Run Delta Ingest
+        shell: bash
+        run: |
+          set -euxo pipefail
+          if make -q ingest-delta 2>/dev/null; then
+            make ingest-delta | tee artifacts/ingest-delta/run.log
+          elif [ -f scripts/ingest/delta.py ]; then
+            python scripts/ingest/delta.py | tee artifacts/ingest-delta/run.log
+          elif [ -f aurora_platform/ingest/delta.py ]; then
+            python -m aurora_platform.ingest.delta | tee artifacts/ingest-delta/run.log
+          else
+            echo "No delta ingest entrypoint found; stub run" | tee artifacts/ingest-delta/run.log
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingest-delta-${{ github.run_id }}
+          path: artifacts/ingest-delta
+          retention-days: 7

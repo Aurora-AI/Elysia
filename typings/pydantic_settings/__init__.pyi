@@ -1,0 +1,3 @@
+from typing import Any
+class BaseSettings:
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...

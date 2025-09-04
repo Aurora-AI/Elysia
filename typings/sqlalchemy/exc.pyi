@@ -1,0 +1,16 @@
+class SQLAlchemyError(Exception):
+    ...
+
+
+class IntegrityError(SQLAlchemyError):
+    ...
+
+
+__all__ = ["SQLAlchemyError", "IntegrityError"]
+
+
+class SQLAlchemyError(Exception):
+    ...
+
+
+__all__ = ["SQLAlchemyError"]

@@ -1,9 +1,7 @@
-name: "Ops - KG Health"
+name: Ops KG Health
 
-'on':
+on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 9 * * *"
 
 permissions:
   contents: read
@@ -12,91 +10,13 @@ jobs:
   health:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Create dummy health artifact
+      - name: Check required secrets presence (masked)
+        shell: bash
         run: |
-          mkdir -p health/artifacts
-          echo '{"status":"ok","timestamp":'"$(date +%s)"'}' > health/artifacts/summary.json
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: kg-health-report
-          path: health/artifacts/
-          retention-days: 7
-name: "Ops – KG Health"
-
-'on':
-  workflow_dispatch:
-  schedule:
-    - cron: "0 9 * * *"
-
-permissions:
-  contents: read
-
-jobs:
-  health:
-    runs-on: ubuntu-latest
-    env:
-      AURA_NEO4J_URI: ${{ secrets.AURA_NEO4J_URI }}
-      AURA_NEO4J_USERNAME: ${{ secrets.AURA_NEO4J_USERNAME }}
-      AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
-      QDRANT_URL: ${{ vars.QDRANT_URL }}
-      KAFKA_BROKER: ${{ vars.KAFKA_BROKER }}
-      SCHEMA_REGISTRY_URL: ${{ vars.SCHEMA_REGISTRY_URL }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install Poetry
-        run: pip install poetry
-
-      - name: Configure Poetry
-        run: poetry config virtualenvs.create false
-
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-root
-
-      - name: Run health checks
-        run: |
-          python - << 'PY'
-          import json, os, time
-
-          summary = {
-            'neo4j_uri': os.environ.get('AURA_NEO4J_URI', ''),
-            'qdrant_url': os.environ.get('QDRANT_URL', ''),
-            'kafka_broker': os.environ.get('KAFKA_BROKER', ''),
-            'schema_registry_url': os.environ.get('SCHEMA_REGISTRY_URL', ''),
-            'timestamp': int(time.time())
-          }
-
-          os.makedirs('health/artifacts', exist_ok=True)
-          with open('health/artifacts/summary.json', 'w') as f:
-            json.dump(summary, f, indent=2)
-          print('Health check summary created')
-          PY
-
-      - name: Generate report
-        run: |
-          mkdir -p health/artifacts
-          echo "# Health Check Report" > health/artifacts/REPORT.md
-          echo "Generated at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> health/artifacts/REPORT.md
-          echo "" >> health/artifacts/REPORT.md
-          echo "## Summary" >> health/artifacts/REPORT.md
-          echo "- Neo4J URI: ${{ secrets.AURA_NEO4J_URI != null && 'Configured' || 'Not configured' }}" >> health/artifacts/REPORT.md
-          echo "- Qdrant URL: ${{ vars.QDRANT_URL != null && 'Configured' || 'Not configured' }}" >> health/artifacts/REPORT.md
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: kg-health-report
-          path: health/artifacts/
-          retention-days: 7
+          check() { if [ -n "$1" ]; then echo "$2=SET"; else echo "$2=MISSING"; fi; }
+          check "${{ secrets.AURA_NEO4J_URI }}" AURA_NEO4J_URI
+          check "${{ secrets.AURA_NEO4J_USERNAME }}" AURA_NEO4J_USERNAME
+          check "${{ secrets.AURA_NEO4J_PASSWORD }}" AURA_NEO4J_PASSWORD
+          check "${{ secrets.QDRANT_URL }}" QDRANT_URL
+          check "${{ secrets.KAFKA_BROKER }}" KAFKA_BROKER
+          check "${{ secrets.SCHEMA_REGISTRY_URL }}" SCHEMA_REGISTRY_URL

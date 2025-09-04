@@ -1,0 +1,3 @@
+from typing import Any
+class Neo4jClient:
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...

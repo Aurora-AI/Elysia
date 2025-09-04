@@ -1,0 +1,10 @@
+{
+  "pythonVersion": "3.11",
+  "include": ["aurora_platform", "tests"],
+  "exclude": [".venv", ".git", "**/__pycache__", "artifacts", "reports", "logs", "weights", "**/aurora-hf01/**"],
+  "reportMissingImports": true,
+  "reportMissingModuleSource": false,
+  "typeCheckingMode": "standard",
+  "executionEnvironments": [{"root": ".", "extraPaths": ["."]}],
+  "stubPath": "typings"
+}
