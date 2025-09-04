@@ -1,0 +1,10 @@
+name: ci-crawler-js-e2e
+
+on:
+  workflow_dispatch:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Placeholder for ci-crawler-js-e2e"

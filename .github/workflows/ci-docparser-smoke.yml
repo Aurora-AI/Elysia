@@ -1,0 +1,10 @@
+name: ci-docparser-smoke
+
+on:
+  workflow_dispatch:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Placeholder for ci-docparser-smoke"
