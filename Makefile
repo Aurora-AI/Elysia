@@ -1,6 +1,6 @@
 tag:
 
-.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test crawl-api crawl-worker crawl-seed rag-consumer rag-ask e2e-test api-server
+.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test crawl-api crawl-worker crawl-seed rag-consumer rag-ask e2e-test api-server bridge-test
 
 python := python
 
@@ -61,5 +61,10 @@ e2e-test:
 
 api-server:
 	@uvicorn aurora_platform.api.server:app --host 0.0.0.0 --port 8000
+
+bridge-test:
+	@curl -s -X POST http://localhost:8000/bridge/elysia/search \
+	  -H "Content-Type: application/json" \
+	  -d '{"query": "example domain", "top_k": 2}' | jq .
 
 ci-local: guard lint type test
