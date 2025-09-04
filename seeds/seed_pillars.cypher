@@ -1,30 +1,63 @@
-// Cria/garante nós dos Pilares Fundamentais (idempotente)
-MERGE (p1:Pillar {key: "document_parsing"})
-  ON CREATE SET p1.name = "DocParser", p1.updated_at = datetime()
-  ON MATCH SET p1.updated_at = datetime();
+// Aurora Platform - Seed dos Pilares Fundamentais
+// E2E Test Data
 
-MERGE (p2:Pillar {key: "memory_active"})
-  ON CREATE SET p2.name = "Memória Ativa (RAG 2.0)", p2.updated_at = datetime()
-  ON MATCH SET p2.updated_at = datetime();
+// Criar índices
+CREATE INDEX pilar_name_idx IF NOT EXISTS FOR (p:Pilar) ON (p.name);
+CREATE INDEX conceito_name_idx IF NOT EXISTS FOR (c:Conceito) ON (c.name);
 
-MERGE (p3:Pillar {key: "router"})
-  ON CREATE SET p3.name = "AuroraRouter", p3.updated_at = datetime()
-  ON MATCH SET p3.updated_at = datetime();
+// Pilares fundamentais
+CREATE (p1:Pilar {
+  id: "pilar_001", 
+  name: "Governança Corporativa",
+  description: "Estruturas e processos de tomada de decisão",
+  created_at: datetime()
+});
 
-MERGE (p4:Pillar {key: "hrm"})
-  ON CREATE SET
-    p4.name = "Motor de Raciocínio Híbrido (HRM)",
-    p4.updated_at = datetime()
-  ON MATCH SET p4.updated_at = datetime();
+CREATE (p2:Pilar {
+  id: "pilar_002",
+  name: "Gestão de Riscos", 
+  description: "Identificação e mitigação de riscos organizacionais",
+  created_at: datetime()
+});
 
-MERGE (p5:Pillar {key: "wasm_sandbox"})
-  ON CREATE SET
-    p5.name = "Execução Segura (WASM Sandbox)",
-    p5.updated_at = datetime()
-  ON MATCH SET p5.updated_at = datetime();
+CREATE (p3:Pilar {
+  id: "pilar_003",
+  name: "Compliance",
+  description: "Conformidade com normas e regulamentações",
+  created_at: datetime()
+});
 
-// Relações ilustrativas (não duplicam por conta do MERGE)
-MERGE (p1)-[:SUPPORTS]->(p2);
-MERGE (p2)-[:FEEDS]->(p3);
-MERGE (p3)-[:CALLS]->(p4);
-MERGE (p3)-[:ISOLATES_VIA]->(p5);
+// Conceitos relacionados
+CREATE (c1:Conceito {
+  id: "conceito_001",
+  name: "Auditoria Interna",
+  description: "Processo de avaliação independente",
+  pilar_id: "pilar_001"
+});
+
+CREATE (c2:Conceito {
+  id: "conceito_002", 
+  name: "Matriz de Riscos",
+  description: "Ferramenta de mapeamento de riscos",
+  pilar_id: "pilar_002"
+});
+
+// Relacionamentos
+MATCH (p1:Pilar {id: "pilar_001"}), (c1:Conceito {id: "conceito_001"})
+CREATE (p1)-[:CONTAINS]->(c1);
+
+MATCH (p2:Pilar {id: "pilar_002"}), (c2:Conceito {id: "conceito_002"})
+CREATE (p2)-[:CONTAINS]->(c2);
+
+MATCH (p1:Pilar {id: "pilar_001"}), (p2:Pilar {id: "pilar_002"})
+CREATE (p1)-[:RELATES_TO {strength: 0.8}]->(p2);
+
+// Nó de teste E2E
+CREATE (e2e:TestNode {
+  id: "e2e_marker",
+  name: "E2E Test Marker",
+  created_at: datetime(),
+  test_run: true
+});
+
+RETURN "Seed dos pilares executado com sucesso" AS status;
