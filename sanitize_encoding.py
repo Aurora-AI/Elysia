@@ -32,9 +32,7 @@ def convert_file_to_utf8(file_path: Path):
             raw_data = f.read()
 
             if not raw_data:
-                logging.info(
-                    f"[‚úì] Ignorado (vazio): {file_path.relative_to(PROJECT_PATH)}"
-                )
+                logging.info(f"[‚úì] Ignorado (vazio): {file_path.relative_to(PROJECT_PATH)}")
 
                 return
 
@@ -43,9 +41,7 @@ def convert_file_to_utf8(file_path: Path):
         encoding = detected["encoding"]
 
         if encoding and encoding.lower().strip() != "utf-8":
-            logging.warning(
-                f"[!] Detectado '{encoding}' em: {file_path.relative_to(PROJECT_PATH)}"
-            )
+            logging.warning(f"[!] Detectado '{encoding}' em: {file_path.relative_to(PROJECT_PATH)}")
 
             # 1. Criar Backup
 
@@ -57,9 +53,7 @@ def convert_file_to_utf8(file_path: Path):
 
             shutil.copy(file_path, backup_path)
 
-            logging.info(
-                f"    -> Backup criado em: {backup_path.relative_to(PROJECT_PATH)}"
-            )
+            logging.info(f"    -> Backup criado em: {backup_path.relative_to(PROJECT_PATH)}")
 
             # 2. Converter e Sobrescrever
 
@@ -71,39 +65,29 @@ def convert_file_to_utf8(file_path: Path):
             logging.info("    -> [‚úî] Convertido com sucesso para UTF-8.")
 
     except Exception as e:
-        logging.error(
-            f"[‚ö†] Erro ao processar {file_path.relative_to(PROJECT_PATH)}: {e}"
-        )
+        logging.error(f"[‚ö†] Erro ao processar {file_path.relative_to(PROJECT_PATH)}: {e}")
 
 
 def main():
     """Varre o projeto e executa a convers√£o."""
 
-    logging.info(
-        "--- üîÑ Iniciando Verifica√ß√£o e Convers√£o de Codifica√ß√£o de Arquivos ---"
-    )
+    logging.info("--- üîÑ Iniciando Verifica√ß√£o e Convers√£o de Codifica√ß√£o de Arquivos ---")
 
     if not BACKUP_DIR.exists():
         BACKUP_DIR.mkdir()
 
-        logging.info(
-            f"Diret√≥rio de backup criado em: {BACKUP_DIR.relative_to(PROJECT_PATH)}"
-        )
+        logging.info(f"Diret√≥rio de backup criado em: {BACKUP_DIR.relative_to(PROJECT_PATH)}")
 
     file_count = 0
 
     for ext in EXTENSIONS_TO_CHECK:
         for file_path in PROJECT_PATH.rglob(f"*{ext}"):
-            if ".venv" not in str(file_path) and "encoding_backups" not in str(
-                file_path
-            ):
+            if ".venv" not in str(file_path) and "encoding_backups" not in str(file_path):
                 convert_file_to_utf8(file_path)
 
                 file_count += 1
 
-    logging.info(
-        f"\n--- ‚úÖ Verifica√ß√£o Conclu√≠da. {file_count} arquivos analisados. ---"
-    )
+    logging.info(f"\n--- ‚úÖ Verifica√ß√£o Conclu√≠da. {file_count} arquivos analisados. ---")
 
 
 if __name__ == "__main__":

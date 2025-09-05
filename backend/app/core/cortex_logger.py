@@ -1,4 +1,5 @@
 """Logger para gravar execuções de Ordens de Serviço no cortex.db"""
+
 from __future__ import annotations
 
 import logging
@@ -79,8 +80,9 @@ def _get_commit_message() -> str | None:
                 break
         if repo_root is None:
             repo_root = Path(__file__).resolve().parents[3]
-        res = subprocess.run(["git", "log", "-1", "--pretty=%B"],
-                             cwd=repo_root, capture_output=True, text=True)
+        res = subprocess.run(
+            ["git", "log", "-1", "--pretty=%B"], cwd=repo_root, capture_output=True, text=True
+        )
         if res.returncode == 0:
             return res.stdout.strip()
     except Exception:
@@ -98,8 +100,9 @@ def _get_git_status() -> str | None:
                 break
         if repo_root is None:
             repo_root = Path(__file__).resolve().parents[3]
-        res = subprocess.run(["git", "status", "--porcelain"],
-                             cwd=repo_root, capture_output=True, text=True)
+        res = subprocess.run(
+            ["git", "status", "--porcelain"], cwd=repo_root, capture_output=True, text=True
+        )
         if res.returncode == 0:
             return res.stdout.strip()
     except Exception:
@@ -241,11 +244,9 @@ def safe_log_execution(
                 db_path=db_path,
             )
         except Exception:
-            logger.exception(
-                "safe_log_execution: failed to write execution row for %s", os_id)
+            logger.exception("safe_log_execution: failed to write execution row for %s", os_id)
             return None
     except Exception:
         # protect against any import-time or other unexpected failure
-        logger.exception(
-            "safe_log_execution: unexpected error preparing log for %s", os_id)
+        logger.exception("safe_log_execution: unexpected error preparing log for %s", os_id)
         return None

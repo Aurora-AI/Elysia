@@ -7,5 +7,6 @@ Resumo das limitações técnicas e contratuais ao usar plataformas OpenAI:
 - Latência imprevisível para modelos mais pesados.
 
 Recomendações
+
 - Implementar fallback para modelos locais (DeepSeek/Gemini) quando possível.
 - Documentar claramente os riscos contratuais em contratos com clientes governamentais.

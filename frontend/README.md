@@ -15,11 +15,13 @@ npm install
 ## âš™ï¸� ConfiguraÃ§Ã£o
 
 1. Configure a URL da API no arquivo `.env`:
+
 ```env
 PUBLIC_API_URL=http://localhost:8000
 ```
 
 2. Certifique-se de que o Aurora-Core estÃ¡ rodando na porta 8000:
+
 ```bash
 # No diretÃ³rio raiz do Aurora-Core
 poetry run uvicorn src.aurora_platform.main:app --reload --host 0.0.0.0 --port 8000
@@ -40,6 +42,7 @@ Acesse: http://localhost:3000
 ## ğŸ“‹ Funcionalidades
 
 ### ChatMentor Component
+
 - âœ… **Input de texto** para nome do cliente
 - âœ… **BotÃ£o de envio** com estados de loading
 - âœ… **IntegraÃ§Ã£o com API** via axios
@@ -48,6 +51,7 @@ Acesse: http://localhost:3000
 - âœ… **Feedback visual** para diferentes estados
 
 ### Endpoints Integrados
+
 - `POST /mentor/sales/prepare-meeting` - Obter insights de vendas
 
 ## ğŸ�¨ Design
@@ -84,6 +88,7 @@ frontend/
 ## ğŸ“¡ API Integration
 
 O componente faz requisiÃ§Ãµes para:
+
 - **URL**: `${API_URL}/mentor/sales/prepare-meeting`
 - **MÃ©todo**: POST
 - **Body**: `{ "client_name": "Nome do Cliente" }`

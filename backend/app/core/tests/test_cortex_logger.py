@@ -27,7 +27,8 @@ def test_log_execution_happy_path():
         conn = sqlite3.connect(db_path)
         cur = conn.cursor()
         cur.execute(
-            "SELECT os_id, agente_executor, status FROM execution_logs WHERE id = ?", (rowid,))
+            "SELECT os_id, agente_executor, status FROM execution_logs WHERE id = ?", (rowid,)
+        )
         row = cur.fetchone()
         conn.close()
         assert row is not None

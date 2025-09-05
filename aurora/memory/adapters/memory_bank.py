@@ -4,6 +4,7 @@ This module provides a small factory that returns a memory_service compatible
 with the ADK/Vertex interfaces used in the OS. It wraps import errors and
 documents where to find the relevant classes.
 """
+
 from __future__ import annotations
 
 import os
@@ -16,7 +17,9 @@ except Exception:  # pragma: no cover - optional runtime
     VertexAiMemoryBankService = None  # type: ignore
 
 
-def create_memory_service(project: str | None = None, location: str | None = None, agent_engine_id: str | None = None) -> Any:
+def create_memory_service(
+    project: str | None = None, location: str | None = None, agent_engine_id: str | None = None
+) -> Any:
     """Create a Vertex AI Memory Bank service instance.
 
     Args:
@@ -32,8 +35,7 @@ def create_memory_service(project: str | None = None, location: str | None = Non
     agent_engine_id = agent_engine_id or os.getenv("AGENT_ENGINE_ID")
 
     if VertexAiMemoryBankService is None:
-        raise RuntimeError(
-            "google-adk MemoryBank SDK not available: install the ADK packages")
+        raise RuntimeError("google-adk MemoryBank SDK not available: install the ADK packages")
 
     return VertexAiMemoryBankService(
         project=project,

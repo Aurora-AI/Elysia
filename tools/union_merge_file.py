@@ -35,19 +35,20 @@ def merge_init(canon: str, cand: str) -> str:
     m = re.match(doc_re, canon, flags=re.M)
     doc = m.group("doc") if m else ""
     # 2) unir imports (começo do arquivo)
-    imp_re = r'^(?:from\s+\S+\s+import\s+[^\n]+|import\s+[^\n]+)\s*$'
+    imp_re = r"^(?:from\s+\S+\s+import\s+[^\n]+|import\s+[^\n]+)\s*$"
     canon_imps = [ln for ln in canon.splitlines(True) if re.match(imp_re, ln)]
     cand_imps = [ln for ln in cand.splitlines(True) if re.match(imp_re, ln)]
     imports = uniq_lines(canon_imps + cand_imps)
     # 3) unir __all__
 
     def all_items(s: str):
-        m = re.search(r'__all__\s*=\s*\[([^\]]*)\]', s, flags=re.S)
+        m = re.search(r"__all__\s*=\s*\[([^\]]*)\]", s, flags=re.S)
         if not m:
             return []
         inner = m.group(1)
         items = [x.strip().strip("'\"") for x in inner.split(",") if x.strip()]
         return [i for i in items if i]
+
     canon_all = all_items(canon)
     cand_all = all_items(cand)
     all_union = []
@@ -56,8 +57,7 @@ def merge_init(canon: str, cand: str) -> str:
             all_union.append(i)
     all_block = ""
     if all_union:
-        all_block = "__all__ = [" + \
-            ", ".join(f"'{x}'" for x in all_union) + "]\n"
+        all_block = "__all__ = [" + ", ".join(f"'{x}'" for x in all_union) + "]\n"
     # 4) restante do canônico (sem imports/__all__ duplicados)
 
     def strip_imps_all(s: str) -> str:
@@ -66,7 +66,7 @@ def merge_init(canon: str, cand: str) -> str:
         for ln in s.splitlines(True):
             if re.match(imp_re, ln):
                 continue
-            if re.match(r'\s*__all__\s*=', ln):
+            if re.match(r"\s*__all__\s*=", ln):
                 skip = True
                 continue
             if skip:
@@ -75,6 +75,7 @@ def merge_init(canon: str, cand: str) -> str:
                 continue
             out.append(ln)
         return "".join(out)
+
     body = strip_imps_all(canon)
     # 5) Montagem
     parts = []
@@ -83,18 +84,16 @@ def merge_init(canon: str, cand: str) -> str:
     if imports:
         parts.append("".join(imports))
     if all_block:
-        parts.append(all_block if all_block.endswith(
-            "\n") else all_block + "\n")
+        parts.append(all_block if all_block.endswith("\n") else all_block + "\n")
     parts.append(body if body.endswith("\n") else body + "\n")
     # 6) Comentário de procedência
-    parts.append(
-        "\n# NOTE: merged imports/__all__ with merge_candidates version\n")
+    parts.append("\n# NOTE: merged imports/__all__ with merge_candidates version\n")
     return "".join(parts)
 
 
 def merge_api_router(canon: str, cand: str) -> str:
     # Unir linhas com include_router(...) que existam no candidato e não no canônico.
-    inc_re = r'^\s*(?:\w+\.)?include_router\s*\('
+    inc_re = r"^\s*(?:\w+\.)?include_router\s*\("
     canon_incs = [ln for ln in canon.splitlines(True) if re.search(inc_re, ln)]
     cand_incs = [ln for ln in cand.splitlines(True) if re.search(inc_re, ln)]
     extra = [ln for ln in cand_incs if ln not in canon_incs]
@@ -106,7 +105,7 @@ def merge_api_router(canon: str, cand: str) -> str:
         joined += "\n"
     joined += "\n# === merged from merge_candidates (extra include_router) ===\n"
     for ln in extra:
-        joined += ln if ln.endswith("\n") else ln+"\n"
+        joined += ln if ln.endswith("\n") else ln + "\n"
     return joined
 
 

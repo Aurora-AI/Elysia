@@ -17,13 +17,9 @@ for dirpath, _, filenames in os.walk(os.path.join(ROOT, "aurora-core", "tests"))
             with open(fpath, encoding="utf-8") as f:
                 code = f.read()
             # Corrige 'from ..' para 'from aurora_platform.'
-            code_new = re.sub(
-                r"from \.\.(.*?) import", r"from aurora_platform\1 import", code
-            )
+            code_new = re.sub(r"from \.\.(.*?) import", r"from aurora_platform\1 import", code)
             # Corrige 'import ..' para 'import aurora_platform.'
-            code_new = re.sub(
-                r"import \.\.(.*?)", r"import aurora_platform.\1", code_new
-            )
+            code_new = re.sub(r"import \.\.(.*?)", r"import aurora_platform.\1", code_new)
             if code_new != code:
                 with open(fpath, "w", encoding="utf-8") as f:
                     f.write(code_new)
@@ -37,9 +33,7 @@ if os.path.isdir(routers_dir):
             with open(fpath, encoding="utf-8") as f:
                 code = f.read()
             # Corrige 'from ..schemas' para 'from aurora_platform.schemas'
-            code_new = re.sub(
-                r"from \.\.(schemas|services)", r"from aurora_platform.\1", code
-            )
+            code_new = re.sub(r"from \.\.(schemas|services)", r"from aurora_platform.\1", code)
             if code_new != code:
                 with open(fpath, "w", encoding="utf-8") as f:
                     f.write(code_new)

@@ -5,6 +5,7 @@ Sistema completo de autentica√ß√£o baseado em tokens JWT (Access e Refresh
 ## üìã Componentes Implementados
 
 ### 1. Servi√ßo de Autentica√ß√£o (`auth_service.py`)
+
 - `create_access_token()` - Gera tokens de acesso
 - `create_refresh_token()` - Gera refresh tokens
 - `verify_password()` - Verifica senhas
@@ -12,10 +13,12 @@ Sistema completo de autentica√ß√£o baseado em tokens JWT (Access e Refresh
 - `verify_token()` - Valida tokens JWT
 
 ### 2. M√≥dulo de Seguran√ßa (`security.py`)
+
 - `get_current_user()` - Depend√™ncia FastAPI para autentica√ß√£o
 - Extrai e valida tokens do cabe√ßalho Authorization
 
 ### 3. Roteador de Autentica√ß√£o (`auth_router.py`)
+
 - `POST /auth/token` - Endpoint de login
 - Retorna access_token e refresh_token
 - Suporte a OAuth2PasswordRequestForm
@@ -33,6 +36,7 @@ Senha: secret
 ## üöÄ Como Usar
 
 ### 1. Fazer Login
+
 ```bash
 curl -X POST "http://localhost:8000/auth/token" \
      -H "Content-Type: application/x-www-form-urlencoded" \
@@ -40,6 +44,7 @@ curl -X POST "http://localhost:8000/auth/token" \
 ```
 
 **Resposta:**
+
 ```json
 {
   "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
@@ -49,6 +54,7 @@ curl -X POST "http://localhost:8000/auth/token" \
 ```
 
 ### 2. Acessar Endpoint Protegido
+
 ```bash
 curl -X POST "http://localhost:8000/mentor/sales/prepare-meeting" \
      -H "Authorization: Bearer SEU_ACCESS_TOKEN" \
@@ -72,6 +78,7 @@ As configura√ß√µes JWT s√£o carregadas do sistema h√≠brido Dynaconf
 ## üß™ Teste Automatizado
 
 Execute o teste completo:
+
 ```bash
 poetry run python test_auth_system.py
 ```

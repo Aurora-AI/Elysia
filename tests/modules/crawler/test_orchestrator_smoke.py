@@ -1,7 +1,9 @@
 import os
+
 import pytest
 from aurora_platform.modules.crawler.models.events import CrawlRequest
 from aurora_platform.modules.crawler.pipeline.orchestrator import run_single_crawl
+
 
 @pytest.mark.skipif(
     os.getenv("ENABLE_NET_TESTS") != "1",

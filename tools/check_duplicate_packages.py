@@ -7,6 +7,7 @@ Exit codes:
  - 1: error (missing canonical root or alternative roots exist)
  - 2: duplicates detected (same files exist in multiple roots)
 """
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -58,8 +59,7 @@ def main() -> int:
         print(f"[ERR] Raiz canônica ausente: {VALID_ROOT}")
         return 1
 
-    others = [p for p in CANDIDATES if p.exists() and p.resolve() !=
-              VALID_ROOT.resolve()]
+    others = [p for p in CANDIDATES if p.exists() and p.resolve() != VALID_ROOT.resolve()]
     if others:
         print("\n[ERR] Encontradas raízes alternativas de aurora_platform:")
         for p in others:

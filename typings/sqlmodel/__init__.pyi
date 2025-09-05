@@ -2,5 +2,7 @@ from typing import Any
 
 class SQLModel:
     def __init_subclass__(cls, **kwargs: Any) -> None: ...
+
 def Field(default: Any = ..., **kwargs: Any) -> Any: ...
+
 __all__ = ["SQLModel", "Field"]

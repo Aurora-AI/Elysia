@@ -53,9 +53,7 @@ def harmonize_imports():
     if files_patched == 0:
         print("✅ Nenhum arquivo precisou de patch. Os imports já estão harmonizados.")
     else:
-        print(
-            f"\n🚀 Harmonização concluída. {files_patched} arquivo(s) foram atualizados."
-        )
+        print(f"\n🚀 Harmonização concluída. {files_patched} arquivo(s) foram atualizados.")
 
 
 if __name__ == "__main__":

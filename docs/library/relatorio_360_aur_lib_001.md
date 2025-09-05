@@ -20,4 +20,4 @@
 
 ---
 
-*Esta entrega garante que a Sinapse Aurora está atualizada com as principais evoluções tecnológicas do período 12-14 de agosto de 2025, fortalecendo a governança e a capacidade de inovação do stack Aurora.*
+_Esta entrega garante que a Sinapse Aurora está atualizada com as principais evoluções tecnológicas do período 12-14 de agosto de 2025, fortalecendo a governança e a capacidade de inovação do stack Aurora._

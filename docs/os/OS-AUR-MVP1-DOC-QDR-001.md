@@ -7,6 +7,7 @@
 ---
 
 ## Escopo
+
 1. **Pipeline de ingestão** (`aurora_platform/ingest/docling_pipeline.py`)
    - `load(input)` → detecta PDF/HTML
    - `to_markdown(doc)` → normalização
@@ -26,6 +27,7 @@
    - Workflow: `.github/workflows/mvp1-ingest.yml` rodando testes
 
 ## Critérios de Encerramento
+
 - [ ] `POST /ingest` aceita PDF/HTML e indexa chunks.
 - [ ] `GET /chunks/:doc_id` retorna chunks.
 - [ ] (Se aplicado) `POST /ingest/search` retorna resultados consistentes.
@@ -33,6 +35,7 @@
 - [ ] `make ingest-api-run` funciona localmente.
 
 ## Notas de Implementação
+
 - **Qdrant**: no CI, preferir mock ou compose dedicado; localmente, permitir `QDRANT_URL`/`QDRANT_API_KEY`.
 - **Embeddings**: placeholder agora; trocar pelo pipeline homogêneo de Memória Ativa.
 - **Roteiro futuro**: integrar promoção para Neo4j após “score” de confiança.

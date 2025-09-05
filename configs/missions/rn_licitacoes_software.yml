@@ -9,7 +9,13 @@ topics:
 entities:
   - tipo: secretaria
     nome: "Administração e TI (RN)"
-    hosts: ["rn.gov.br", "natal.rn.gov.br", "mossoro.rn.gov.br", "parnamirim.rn.gov.br"]
+    hosts:
+      [
+        "rn.gov.br",
+        "natal.rn.gov.br",
+        "mossoro.rn.gov.br",
+        "parnamirim.rn.gov.br",
+      ]
 constraints:
   max_pages: 300
   per_host_cap: 80

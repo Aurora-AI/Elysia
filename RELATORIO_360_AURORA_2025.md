@@ -9,6 +9,7 @@
 ## 🏗️ **Arquitetura Geral**
 
 ### **Stack Tecnológico**
+
 - **Backend**: FastAPI + SQLModel + Alembic
 - **Banco**: SQLite/PostgreSQL + Qdrant (vetorial)
 - **Cache**: Redis
@@ -18,6 +19,7 @@
 - **Infra**: Docker + DevContainer
 
 ### **Componentes Principais**
+
 ```
 Aurora Platform/
 ├── aurora_platform/          # Core da aplicação
@@ -32,14 +34,14 @@ Aurora Platform/
 
 ## 📈 **Métricas do Projeto**
 
-| Métrica | Valor |
-|---------|-------|
-| **Arquivos Python** | 962 |
-| **Arquivos YAML** | 62 |
-| **Arquivos JSON** | 77 |
-| **Documentação MD** | 335 |
-| **Makefiles** | 8 |
-| **Branches Ativas** | 15+ |
+| Métrica              | Valor              |
+| -------------------- | ------------------ |
+| **Arquivos Python**  | 962                |
+| **Arquivos YAML**    | 62                 |
+| **Arquivos JSON**    | 77                 |
+| **Documentação MD**  | 335                |
+| **Makefiles**        | 8                  |
+| **Branches Ativas**  | 15+                |
 | **Commits Recentes** | 10 (última semana) |
 
 ---
@@ -47,6 +49,7 @@ Aurora Platform/
 ## 🚀 **Funcionalidades Implementadas**
 
 ### **1. RAG 2.0 + Knowledge Graph**
+
 - ✅ **Kafka como espinha dorsal** - Eventos imutáveis
 - ✅ **Schema Registry** - Versionamento de contratos
 - ✅ **Neo4j Consumer** - Aplicação idempotente no grafo
@@ -54,6 +57,7 @@ Aurora Platform/
 - ✅ **Log compaction** - Estado atual do KG
 
 ### **2. DataJud Connector (POC)**
+
 - ✅ **API Pública CNJ** - Consulta por número de processo
 - ✅ **Paginação avançada** - search_after + sort timestamp
 - ✅ **Diagnósticos claros** - Bytes salvos, corpo de erro
@@ -61,12 +65,14 @@ Aurora Platform/
 - ✅ **Normalização + Chunking** - Pipeline RAG
 
 ### **3. Crawler Cognitivo**
+
 - ✅ **Selenium + BeautifulSoup** - Extração web
 - ✅ **Rate limiting** - Controle de requisições
 - ✅ **Retry logic** - Tolerância a falhas
 - ✅ **Metadata extraction** - Proveniência dos dados
 
 ### **4. API Unificada**
+
 - ✅ **FastAPI** - Endpoints REST
 - ✅ **Autenticação JWT** - Segurança
 - ✅ **Health checks** - Monitoramento
@@ -77,6 +83,7 @@ Aurora Platform/
 ## 🔧 **Infraestrutura**
 
 ### **DevContainer**
+
 ```yaml
 - Python 3.11+
 - Poetry para dependências
@@ -86,12 +93,14 @@ Aurora Platform/
 ```
 
 ### **Docker Compose**
+
 - **Kafka Stack**: Broker + Schema Registry + UI
 - **Qdrant**: Banco vetorial
 - **Redis**: Cache distribuído
 - **Neo4j**: Knowledge Graph (planejado)
 
 ### **CI/CD**
+
 - ✅ **GitHub Actions** - Testes automatizados
 - ✅ **Pre-commit** - Qualidade de código
 - ✅ **Smoke tests** - Validação básica
@@ -117,6 +126,7 @@ Aurora Platform/
 ## 🎯 **Roadmap Técnico**
 
 ### **Próximas Implementações**
+
 1. **Stream Processing** - Flink/Kafka Streams para agregações
 2. **Neo4j Integration** - Consumer KG em produção
 3. **Embedding Pipeline** - Vetorização automática
@@ -124,6 +134,7 @@ Aurora Platform/
 5. **Observabilidade** - Métricas + logs estruturados
 
 ### **Otimizações Planejadas**
+
 - **Paralelismo** - Consumer groups Kafka
 - **Caching** - Redis para queries frequentes
 - **Compressão** - Payloads Kafka otimizados
@@ -134,6 +145,7 @@ Aurora Platform/
 ## 🔍 **Análise de Qualidade**
 
 ### **Pontos Fortes**
+
 - ✅ **Arquitetura event-driven** - Escalabilidade
 - ✅ **Schemas versionados** - Evolução controlada
 - ✅ **Testes automatizados** - Confiabilidade
@@ -141,6 +153,7 @@ Aurora Platform/
 - ✅ **Padrões de código** - Ruff + Black
 
 ### **Áreas de Melhoria**
+
 - ⚠️ **Cobertura de testes** - Expandir cenários
 - ⚠️ **Monitoramento** - Métricas de negócio
 - ⚠️ **Performance** - Benchmarks de carga
@@ -150,14 +163,14 @@ Aurora Platform/
 
 ## 📋 **Status por Módulo**
 
-| Módulo | Status | Cobertura | Prioridade |
-|--------|--------|-----------|------------|
-| **Core Platform** | 🟢 Estável | 85% | Alta |
-| **Kafka + KG** | 🟡 Beta | 70% | Alta |
-| **DataJud POC** | 🟢 Funcional | 90% | Média |
-| **Crawler** | 🟢 Produção | 80% | Alta |
-| **API Gateway** | 🟢 Estável | 85% | Alta |
-| **Auth System** | 🟢 Produção | 95% | Crítica |
+| Módulo            | Status       | Cobertura | Prioridade |
+| ----------------- | ------------ | --------- | ---------- |
+| **Core Platform** | 🟢 Estável   | 85%       | Alta       |
+| **Kafka + KG**    | 🟡 Beta      | 70%       | Alta       |
+| **DataJud POC**   | 🟢 Funcional | 90%       | Média      |
+| **Crawler**       | 🟢 Produção  | 80%       | Alta       |
+| **API Gateway**   | 🟢 Estável   | 85%       | Alta       |
+| **Auth System**   | 🟢 Produção  | 95%       | Crítica    |
 
 ---
 
@@ -166,6 +179,7 @@ Aurora Platform/
 ### **Maturidade do Projeto**: **Nível 4/5** (Avançado)
 
 **Justificativa**:
+
 - Arquitetura robusta e escalável
 - Padrões de desenvolvimento consolidados
 - Pipeline CI/CD funcional
@@ -173,6 +187,7 @@ Aurora Platform/
 - Provas de conceito validadas
 
 ### **Próximos Passos Críticos**:
+
 1. **Deploy Kafka em produção** - Validar performance
 2. **Integração Neo4j completa** - KG operacional
 3. **Benchmarks de carga** - Validar escalabilidade

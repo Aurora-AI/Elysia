@@ -14,7 +14,7 @@ payload = {
     "name": "Antropologia",
     "fonte": "DeepSeek/DeepResearch",
     "metadata": {"descricao": "Base cultural e contexto organizacional"},
-    "ts": "2025-08-19T18:00:00Z"
+    "ts": "2025-08-19T18:00:00Z",
 }
 
 
@@ -22,8 +22,7 @@ def delivery(err, msg):
     if err:
         print(f"❌ delivery failed: {err}")
     else:
-        print(
-            f"✅ delivered to {msg.topic()} [{msg.partition()}] @ {msg.offset()}")
+        print(f"✅ delivered to {msg.topic()} [{msg.partition()}] @ {msg.offset()}")
 
 
 p.produce(TOPIC, json.dumps(payload).encode("utf-8"), callback=delivery)

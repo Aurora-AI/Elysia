@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Utility to record an OS execution to the cortex DB from the command line."""
+
 from backend.app.core.cortex_logger import safe_log_execution
 
 

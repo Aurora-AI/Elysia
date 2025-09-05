@@ -46,5 +46,4 @@ for d in diags[:20]:
     rng = d.get("range") or {}
     start = rng.get("start") or {}
     line = start.get("line", "?")
-    print(
-        f"- [{sev}] {rule} @ {file}:{line} — {message[:240]}{'...' if len(message)>240 else ''}")
+    print(f"- [{sev}] {rule} @ {file}:{line} — {message[:240]}{'...' if len(message)>240 else ''}")

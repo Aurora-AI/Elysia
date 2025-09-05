@@ -15,30 +15,36 @@ Esta OS implementou um sistema completo de monitoramento da saúde do Qdrant com
 ## 🛠️ Arquivos Criados/Modificados
 
 ### Dev Container
+
 - ✅ `.devcontainer/devcontainer.json` - Configuração com Docker Outside-of-Docker
 - ✅ `.devcontainer/README.md` - Documentação do Dev Container
 
 ### Scripts de Monitoramento
+
 - ✅ `scripts/check_qdrant.sh` - Verificação básica do Qdrant (já existia)
 - ✅ `scripts/check_qdrant.ps1` - Verificação completa no Windows (já existia)
 - ✅ `scripts/validate_environment.sh` - Validação completa do ambiente
 
 ### CI/CD
+
 - ✅ `.github/workflows/qdrant-health.yml` - Workflow de health check automático
 
 ## 🎯 Critérios de Aceite - Status
 
 ### ✅ Dev Container
+
 - **Docker version/compose**: Configurado com Docker Outside-of-Docker
 - **Script execution**: `bash -x scripts/check_qdrant.sh` funciona
 - **Fallback DinD**: Documentado para casos de falha
 
 ### ✅ Scripts de Validação
+
 - **PowerShell**: `scripts/check_qdrant.ps1` - ✅ FUNCIONANDO
 - **Bash**: `scripts/check_qdrant.sh` - ✅ FUNCIONANDO
 - **Validação completa**: `scripts/validate_environment.sh` - ✅ FUNCIONANDO
 
 ### ✅ CI/CD GitHub Actions
+
 - **Workflow criado**: `.github/workflows/qdrant-health.yml`
 - **Triggers configurados**: push, PR, schedule, manual
 - **Health check**: Aguarda status "healthy" + testa endpoint
@@ -47,6 +53,7 @@ Esta OS implementou um sistema completo de monitoramento da saúde do Qdrant com
 ## 🔧 Como Usar
 
 ### No Windows (PowerShell)
+
 ```powershell
 # Verificação completa do Qdrant
 .\scripts\check_qdrant.ps1
@@ -55,6 +62,7 @@ Esta OS implementou um sistema completo de monitoramento da saúde do Qdrant com
 ```
 
 ### No Dev Container (Bash)
+
 ```bash
 # Normalizar e executar
 dos2unix scripts/check_qdrant.sh
@@ -66,6 +74,7 @@ bash scripts/validate_environment.sh
 ```
 
 ### CI/CD
+
 - **Automático**: Executa em push/PR para main/develop
 - **Manual**: GitHub Actions > "Qdrant Health" > Run workflow
 - **Agendado**: Diário às 09:00 BRT
@@ -92,16 +101,19 @@ bash scripts/validate_environment.sh
 ## 🐛 Troubleshooting
 
 ### Dev Container não acessa Docker
+
 - Tentar Plano B (Docker-in-Docker) no `devcontainer.json`
 - Verificar se Docker Desktop está rodando
 - Rebuild container without cache
 
 ### CI falha no GitHub
+
 - Verificar logs no workflow
 - Artefatos de debug são salvos automaticamente
 - Validar docker-compose.yml syntax
 
 ### Scripts falham localmente
+
 - Windows: Usar PowerShell como admin
 - Linux/Mac: Verificar permissões (`chmod +x`)
 - Verificar se Qdrant está rodando (`docker ps`)
@@ -112,11 +124,13 @@ bash scripts/validate_environment.sh
 
 Todos os critérios de aceite foram atendidos. O sistema está pronto para monitoramento contínuo da saúde do Qdrant em desenvolvimento e produção.
 
-
 ---
+
 CONCLUSÃO DA ORDEM DE SERVIÇO
+
 - Status: FINALIZADA
 - Data: 2025-08-22
 - Responsável: Rodrigo C. Winhaski
 - Observações: Ações realizadas (resumo): merge direto via API (HTTP 204), branch rd/20250820-004-docparser-testing-shortcut deletada (HTTP 204).
+
 ---

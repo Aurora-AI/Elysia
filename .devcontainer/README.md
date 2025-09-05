@@ -5,9 +5,11 @@ Este Dev Container permite desenvolver a Aurora Platform em um ambiente isolado 
 ## Configuração
 
 ### Plano A: Docker Outside-of-Docker (Padrão)
+
 O container usa o daemon Docker do host através do socket `/var/run/docker.sock`.
 
 ### Plano B: Docker-in-Docker (Fallback)
+
 Se o Plano A não funcionar, edite o `devcontainer.json` e substitua:
 
 ```json
@@ -40,6 +42,7 @@ Se o Plano A não funcionar, edite o `devcontainer.json` e substitua:
 ## Scripts Disponíveis
 
 ### Verificar Qdrant
+
 ```bash
 # Normalizar e executar o script
 dos2unix scripts/check_qdrant.sh || true
@@ -48,6 +51,7 @@ bash -x scripts/check_qdrant.sh
 ```
 
 ### Executar testes
+
 ```bash
 # Dentro do Dev Container
 python -m pytest

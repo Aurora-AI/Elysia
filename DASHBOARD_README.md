@@ -13,11 +13,13 @@ Dashboard interativo para visualizar o progresso do projeto Aurora-Core.
 ## ğŸš€ Como Executar
 
 ### MÃ©todo 1: Script AutomÃ¡tico
+
 ```bash
 poetry run python run_dashboard.py
 ```
 
 ### MÃ©todo 2: Streamlit Direto
+
 ```bash
 poetry run streamlit run dashboard.py
 ```
@@ -33,6 +35,7 @@ O dashboard lÃª automaticamente o arquivo `project_plan.yaml` na raiz do proje
 ## ğŸ�¨ Recursos Visuais
 
 - **Cores por Status**:
+
   - ğŸ”´ A FAZER: Vermelho
   - ğŸŸ¢ EM PROGRESSO: Verde-Ã¡gua
   - ğŸ”µ CONCLUÃ�DO: Azul

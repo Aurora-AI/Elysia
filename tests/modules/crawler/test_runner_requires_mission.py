@@ -10,14 +10,9 @@ def test_runner_with_mission_dry_run(tmp_path):
         "objective": "licitacoes",
         "topics": ["software"],
         "entities": [{"tipo": "secretaria", "nome": "RN"}],
-        "constraints": {"require_topic_match": True}
+        "constraints": {"require_topic_match": True},
     }
     outdir = tmp_path / "out"
-    res = asyncio.run(crawl(
-        seeds=[],
-        out_dir=str(outdir),
-        dry_run=True,
-        mission=m
-    ))
+    res = asyncio.run(crawl(seeds=[], out_dir=str(outdir), dry_run=True, mission=m))
     assert res["count"] >= 0
     assert outdir.exists() or True

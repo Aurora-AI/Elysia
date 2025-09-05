@@ -1,5 +1,5 @@
-"""Helpers to build an ADK Runner with injected Memory Service.
-"""
+"""Helpers to build an ADK Runner with injected Memory Service."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -16,8 +16,7 @@ def build_runner(agent: Any, session_service: Any, memory_service: Any, app_name
     Raises RuntimeError if Runner class is unavailable.
     """
     if Runner is None:
-        raise RuntimeError(
-            "google-adk runners not available: install the ADK packages")
+        raise RuntimeError("google-adk runners not available: install the ADK packages")
     return Runner(
         agent=agent,
         app_name=app_name,

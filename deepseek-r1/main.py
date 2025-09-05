@@ -138,13 +138,9 @@ async def chat_completions(request: ChatCompletionRequest):
                 }
             ],
             "usage": {
-                "prompt_tokens": sum(
-                    len(msg.content.split()) for msg in request.messages
-                ),
+                "prompt_tokens": sum(len(msg.content.split()) for msg in request.messages),
                 "completion_tokens": len(response_text.split()),
-                "total_tokens": sum(
-                    len(msg.content.split()) for msg in request.messages
-                )
+                "total_tokens": sum(len(msg.content.split()) for msg in request.messages)
                 + len(response_text.split()),
             },
         }

@@ -14,8 +14,7 @@ def test_seed_pillars_smoke():
     except Exception:
         pytest.skip("neo4j driver not installed")
     try:
-        driver = GraphDatabase.driver(
-            NEO4J_URL, auth=(NEO4J_USER, NEO4J_PASSWORD))
+        driver = GraphDatabase.driver(NEO4J_URL, auth=(NEO4J_USER, NEO4J_PASSWORD))
         with driver.session() as s:
             rec = s.run("MATCH (p:Pilar) RETURN count(p) as c").single()
             assert rec and rec["c"] >= 4

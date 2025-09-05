@@ -6,23 +6,28 @@ Destinatário: Agente de Planeamento de Arquitetura / Engenharia (GPT-5 / Eng)
 Data: 2025-08-28
 
 ## Sumário executivo
-Esta OS técnica descreve as ações necessárias para resolver o bloqueio atual da Auditoria Fase 1: o *workflow* `Ops - KG Health Checks` falha quando tenta iniciar um serviço `qdrant` que não existe no escopo do runner. A solução adotada (Opção A) é introduzir um guard no *workflow* para pular o arranque do `qdrant` quando não houver serviço definido, configurar os *Secrets/Vars* necessários e executar um run oficial em `main` para gerar a evidência (`kg-health-<run>`). Também inclui o backlog técnico priorizado para suportar os MVPs 2/3.
+
+Esta OS técnica descreve as ações necessárias para resolver o bloqueio atual da Auditoria Fase 1: o _workflow_ `Ops - KG Health Checks` falha quando tenta iniciar um serviço `qdrant` que não existe no escopo do runner. A solução adotada (Opção A) é introduzir um guard no _workflow_ para pular o arranque do `qdrant` quando não houver serviço definido, configurar os _Secrets/Vars_ necessários e executar um run oficial em `main` para gerar a evidência (`kg-health-<run>`). Também inclui o backlog técnico priorizado para suportar os MVPs 2/3.
 
 ---
 
 ## Parte 1 — Correção do Workflow de CI/CD (Prioridade Máxima)
 
 ### Problema
-O passo do *workflow* tenta iniciar `qdrant` (via Docker Compose / service start). O runner não tem `qdrant` definido => erro `no such service: qdrant` e job falha.
+
+O passo do _workflow_ tenta iniciar `qdrant` (via Docker Compose / service start). O runner não tem `qdrant` definido => erro `no such service: qdrant` e job falha.
 
 ### Solução proposta (Opção A)
+
 Adicionar um guard que execute o arranque do serviço `qdrant` apenas se:
+
 - `docker`/`docker compose` estiver disponível **e**
 - o `docker compose` local (no repositório) declarar `qdrant` como serviço (i.e. `docker compose config --services` contém `qdrant`).
 
-Se as condições não forem satisfeitas, o passo deve ser saltado com log informativo. Isto torna o *workflow* resiliente e evita dependências de infra que não são necessárias para a validação do KG.
+Se as condições não forem satisfeitas, o passo deve ser saltado com log informativo. Isto torna o _workflow_ resiliente e evita dependências de infra que não são necessárias para a validação do KG.
 
 ### Patch sugerido (substituir o bloco Qdrant que inicia serviços)
+
 Insira este bloco no `jobs.kg-health.steps` (substitui o passo que chama `docker compose up qdrant`):
 
 ```yaml
@@ -68,6 +73,7 @@ Insira este bloco no `jobs.kg-health.steps` (substitui o passo que chama `docker
 > Observação: este guard assume que se `QDRANT_URL` estiver definido (via Secrets/Vars) então o workflow não tenta iniciar localmente. Se o projeto preferir sempre iniciar um container local para testes, ajuste para priorizar `docker compose` in-place.
 
 ### Entregável
+
 - Patch textual: substituição do passo Qdrant no arquivo `.github/workflows/ops-kg-health.yml` pelo bloco acima.
 
 ---
@@ -75,6 +81,7 @@ Insira este bloco no `jobs.kg-health.steps` (substitui o passo que chama `docker
 ## Parte 2 — Configuração do Ambiente de Automação
 
 ### Secrets e Repo Vars necessários (configurar em Settings → Secrets and variables)
+
 - AURA_NEO4J_HTTP_URL
 - AURA_NEO4J_USERNAME
 - AURA_NEO4J_PASSWORD
@@ -84,6 +91,7 @@ Insira este bloco no `jobs.kg-health.steps` (substitui o passo que chama `docker
 - SCHEMA_REGISTRY_URL
 
 ### Nota de segurança
+
 - Nesta fase priorizamos desbloquear progresso. Aplicar proteção de branches e revisão por CODEOWNERS fica fora do escopo imediato. Recomenda-se habilitar essas proteções quando o time for maior.
 
 ---
@@ -91,6 +99,7 @@ Insira este bloco no `jobs.kg-health.steps` (substitui o passo que chama `docker
 ## Parte 3 — Execução e Validação da Auditoria (comandos exatos)
 
 ### 3.1 Criar PR com a correção do workflow (não-interativo)
+
 Execute na branch onde o arquivo foi alterado:
 
 ```bash
@@ -109,12 +118,14 @@ gh pr view --json url --jq .url
 ```
 
 ### 3.2 Mesclar PR (opcional, se policies permitirem)
+
 ```bash
 # merge via squash (ajuste para merge/rebase se preferir)
 gh pr merge --squash --auto "$(gh pr view --json number --jq .number)"
 ```
 
 ### 3.3 Disparar o workflow e baixar artifacts
+
 ```bash
 # disparar
 gh workflow run "Ops - KG Health Checks" --ref main
@@ -133,6 +144,7 @@ ls -la "$OUT"
 ```
 
 ### 3.4 Validações automatizadas (após download)
+
 - Verificar que os 4 pilares existem no Neo4j (exemplo usando `jq` sobre o `summary.json`):
 
 ```bash
@@ -161,6 +173,7 @@ Se qualquer checagem falhar, incluir entrada no relatório de gaps (`docs/audit/
 ## Parte 4 — Backlog técnico priorizado (para MVPs 2 e 3)
 
 Prioridade alta
+
 1. Estabilidade da ingestão Qdrant
    - Implementar retries e backoff para indexação no ingest workflow.
    - Tornar ingest idempotente e com fallback explícito (QDRANT_FALLBACK env var).
@@ -170,19 +183,19 @@ Prioridade alta
 3. Validação das coleções Qdrant
    - Script para criar collections necessárias se ausentes (com schema mínimo).
 
-Prioridade média
-4. Conectividade Kafka & Schema Registry
-   - Testes de produce/consume e checagem de subjects no Schema Registry.
+Prioridade média 4. Conectividade Kafka & Schema Registry
+
+- Testes de produce/consume e checagem de subjects no Schema Registry.
+
 5. Observabilidade
    - Adicionar métricas de health/availability (Prometheus exporter ou logs estruturados) e runbook.
 
-Prioridade baixa
-6. Automação de periodic health-check (agendamento semanal no Actions)
-7. Documentação de onboarding para execuções locais e replicação do health-check
+Prioridade baixa 6. Automação de periodic health-check (agendamento semanal no Actions) 7. Documentação de onboarding para execuções locais e replicação do health-check
 
 ---
 
 ## Critérios de encerramento (imutáveis)
+
 - [ ] `OS_TEC_AUDITORIA_FIN_V1.md` gerada (este arquivo).
 - [ ] Patch do `ops-kg-health.yml` aplicado em branch, PR criado e merge aprovado.
 - [ ] Secrets/Vars configurados conforme Parte 2.
@@ -192,6 +205,7 @@ Prioridade baixa
 ---
 
 ## Observações finais
+
 - Se o ambiente de Actions não tiver rede para atingir instâncias (VPC), considere executar o health-check num runner self-hosted com acesso às mesmas redes das instâncias.
 - Se preferir, eu posso aplicar o patch do workflow e criar a PR automaticamente; no entanto, nas sessões anteriores houve interrupções (SIGINT) neste ambiente. Recomendo rodar os comandos `git`/`gh` localmente ou autorizar nova tentativa aqui.
 

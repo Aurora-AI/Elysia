@@ -17,11 +17,7 @@ def remove_non_core_tests(base_dir, core_tests):
     for root, dirs, files in os.walk(base_dir, topdown=False):
         # Remove arquivos de teste não-core
         for file in files:
-            if (
-                file.startswith("test_")
-                and file.endswith(".py")
-                and file not in core_tests
-            ):
+            if file.startswith("test_") and file.endswith(".py") and file not in core_tests:
                 full_path = os.path.join(root, file)
                 os.remove(full_path)
                 removed.append(full_path)

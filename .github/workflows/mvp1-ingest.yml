@@ -1,0 +1,11 @@
+name: mvp1-ingest
+on:
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Placeholder
+        run: echo "mvp1-ingest placeholder OK"

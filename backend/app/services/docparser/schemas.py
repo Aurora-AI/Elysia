@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel, Field, HttpUrl
 
 
@@ -50,9 +49,7 @@ class IngestRequest(BaseModel):
     Aceita URL ou upload de arquivo.
     """
 
-    url: HttpUrl | None = Field(
-        None, description="URL do documento a ser processado."
-    )
+    url: HttpUrl | None = Field(None, description="URL do documento a ser processado.")
 
 
 class IngestResponse(BaseModel):

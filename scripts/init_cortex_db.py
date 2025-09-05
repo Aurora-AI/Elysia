@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Inicializa a base de dados cortex.db e cria a tabela execution_logs."""
+
 import sqlite3
 from pathlib import Path
 

@@ -16,8 +16,7 @@ def env_str(name: str, default: str | None = None, required: bool = False) -> st
 
 TCE_RN_BASE_URL: str = env_str("TCE_RN_BASE_URL", required=True) or ""
 TCE_RN_API_KEY = env_str("TCE_RN_API_KEY", required=False)
-TCE_RN_EXPENSES_PATH = env_str(
-    "TCE_RN_EXPENSES_PATH", "/expenses") or "/expenses"
+TCE_RN_EXPENSES_PATH = env_str("TCE_RN_EXPENSES_PATH", "/expenses") or "/expenses"
 
 PAGE_SIZE = int(env_str("CONNECTOR_DEFAULT_PAGE_SIZE", "100") or "100")
 HTTP_TIMEOUT = int(env_str("CONNECTOR_HTTP_TIMEOUT", "30") or "30")

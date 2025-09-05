@@ -1,7 +1,3 @@
-
-
-class Model:
-    ...
-
+class Model: ...
 
 __all__ = ["Model"]

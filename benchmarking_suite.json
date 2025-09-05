@@ -52,8 +52,16 @@
     "category": "tarefa_decomponivel",
     "prompt_pai": "Com base nos dados em anexo, crie um relatório de vendas que inclua uma análise de tendências matemáticas e uma conclusão textual criativa.",
     "prompts_filhos": [
-      { "subtask_id": "decomp-001a", "category": "raciocinio_matematico", "prompt": "Analise os seguintes dados e descreva a tendência de vendas: [dados]" },
-      { "subtask_id": "decomp-001b", "category": "criatividade_textual", "prompt": "Com base na análise de tendência [resultado_a], escreva uma conclusão otimista." }
+      {
+        "subtask_id": "decomp-001a",
+        "category": "raciocinio_matematico",
+        "prompt": "Analise os seguintes dados e descreva a tendência de vendas: [dados]"
+      },
+      {
+        "subtask_id": "decomp-001b",
+        "category": "criatividade_textual",
+        "prompt": "Com base na análise de tendência [resultado_a], escreva uma conclusão otimista."
+      }
     ]
   }
 ]

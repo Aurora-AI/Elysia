@@ -52,8 +52,7 @@ def test_run_batches_posts(monkeypatch):
         called.append(len(payload.items))
         return {"ok": True}
 
-    monkeypatch.setattr(pipeline, "_post_ingest",
-                        lambda payload: fake_post(payload))
+    monkeypatch.setattr(pipeline, "_post_ingest", lambda payload: fake_post(payload))
 
     res = pipeline.run(batch_size=3)
     assert res["ok"]

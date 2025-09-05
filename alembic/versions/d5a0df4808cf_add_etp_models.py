@@ -42,9 +42,7 @@ def upgrade() -> None:
     op.create_index(op.f("ix_etps_tipo_obra"), "etps", ["tipo_obra"], unique=False)
     op.create_index(op.f("ix_etps_usuario_id"), "etps", ["usuario_id"], unique=False)
     op.add_column("users", sa.Column("two_factor_secret", sa.String(), nullable=True))
-    op.add_column(
-        "users", sa.Column("two_factor_enabled", sa.Boolean(), nullable=False)
-    )
+    op.add_column("users", sa.Column("two_factor_enabled", sa.Boolean(), nullable=False))
     # ### end Alembic commands ###
 
 

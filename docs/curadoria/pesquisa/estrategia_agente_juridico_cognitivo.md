@@ -10,8 +10,10 @@ Três pilares
    - KG com entidades jurídicas e relações de precedentes
 
 Roadmap MVP
+
 - Protótipo: 6 semanas (indexação + Q&A básico)
 - MVP Beta: 12 semanas (casos de uso: consulta, sumarização de jurisprudência)
 
 Riscos & Mitigações
+
 - Dados inconsistentes: validar fontes oficiais; usar heurísticas de confiança.

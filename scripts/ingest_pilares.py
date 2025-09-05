@@ -14,13 +14,12 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), '..',
-                        'data', 'pilares_normalized')
+DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "pilares_normalized")
 
 
 def load_json(filename):
     path = os.path.join(DATA_DIR, filename)
-    with open(path, encoding='utf-8') as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -33,19 +32,19 @@ def ingest():
     ensure_tables()
     db = SessionLocal()
     try:
-        antropologia = load_json('antropologia.json')
+        antropologia = load_json("antropologia.json")
         for item in antropologia:
             db.add(PilarAntropologia(**item))
 
-        psicologia = load_json('psicologia.json')
+        psicologia = load_json("psicologia.json")
         for item in psicologia:
             db.add(PilarPsicologia(**item))
 
-        vendas = load_json('vendas.json')
+        vendas = load_json("vendas.json")
         for item in vendas:
             db.add(PilarVendas(**item))
 
-        estatistica = load_json('estatistica.json')
+        estatistica = load_json("estatistica.json")
         for item in estatistica:
             db.add(PilarEstatistica(**item))
 
@@ -54,6 +53,6 @@ def ingest():
         db.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ingest()
-    print('✅ Pilares ingeridos com sucesso')
+    print("✅ Pilares ingeridos com sucesso")

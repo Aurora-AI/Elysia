@@ -1,15 +1,12 @@
 # list_models.py
 import vertexai
-from vertexai.generative_models import GenerativeModel
-
 from aurora_platform.core.settings import settings
+from vertexai.generative_models import GenerativeModel
 
 print("--- Listando modelos disponíveis no Vertex AI ---")
 try:
     # Inicializa usando as credenciais e projeto do arquivo de configuração
-    vertexai.init(
-        project=settings.GOOGLE_CLOUD_PROJECT, location=settings.GOOGLE_CLOUD_LOCATION
-    )
+    vertexai.init(project=settings.GOOGLE_CLOUD_PROJECT, location=settings.GOOGLE_CLOUD_LOCATION)
 
     # Pylance reports a false positive here, so we ignore the type error.
     models = GenerativeModel.list_models()  # type: ignore

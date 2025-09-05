@@ -15,15 +15,15 @@ if ROOT not in sys.path:
 
 def main():
     db = SessionLocal()
-    print('📊 Validação de ingestão dos pilares:')
+    print("📊 Validação de ingestão dos pilares:")
     try:
-        print('Antropologia:', db.query(PilarAntropologia).count())
-        print('Psicologia:', db.query(PilarPsicologia).count())
-        print('Vendas:', db.query(PilarVendas).count())
-        print('Estatística:', db.query(PilarEstatistica).count())
+        print("Antropologia:", db.query(PilarAntropologia).count())
+        print("Psicologia:", db.query(PilarPsicologia).count())
+        print("Vendas:", db.query(PilarVendas).count())
+        print("Estatística:", db.query(PilarEstatistica).count())
     finally:
         db.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

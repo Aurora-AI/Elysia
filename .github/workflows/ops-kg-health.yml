@@ -1,0 +1,25 @@
+name: ops-kg-health
+on:
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    env:
+      AURA_NEO4J_URI: ${{ vars.AURA_NEO4J_URI }}
+      AURA_NEO4J_USERNAME: ${{ vars.AURA_NEO4J_USERNAME }}
+      AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
+      QDRANT_URL: ${{ vars.QDRANT_URL }}
+      KAFKA_BROKER: ${{ vars.KAFKA_BROKER }}
+      SCHEMA_REGISTRY_URL: ${{ vars.SCHEMA_REGISTRY_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print envs exist (mask secrets)
+        run: |
+          echo "AURA_NEO4J_URI=${AURA_NEO4J_URI}"
+          echo "AURA_NEO4J_USERNAME=${AURA_NEO4J_USERNAME}"
+          echo "QDRANT_URL=${QDRANT_URL}"
+          echo "KAFKA_BROKER=${KAFKA_BROKER}"
+          echo "SCHEMA_REGISTRY_URL=${SCHEMA_REGISTRY_URL}"
+      - name: Placeholder health checks
+        run: echo "add curl checks here (neo4j/qdrant/kafka)"

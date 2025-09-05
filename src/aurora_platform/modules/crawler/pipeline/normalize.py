@@ -1,11 +1,12 @@
 from __future__ import annotations
+
 import re
-from typing import List
 from urllib.parse import urljoin, urlparse
 
 TAG_LINK = re.compile(r'href=["\'](.*?)["\']', flags=re.I)
 
-def extract_links(html: str, base_url: str) -> List[str]:
+
+def extract_links(html: str, base_url: str) -> list[str]:
     links = []
     for m in TAG_LINK.finditer(html or ""):
         href = m.group(1).strip()
@@ -24,6 +25,7 @@ def extract_links(html: str, base_url: str) -> List[str]:
         seen.add(key)
         out.append(u)
     return out
+
 
 def normalize_text(text: str) -> str:
     return re.sub(r"\s+", " ", (text or "")).strip()

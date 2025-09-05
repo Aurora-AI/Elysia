@@ -51,9 +51,7 @@ def collect() -> list[dict]:
                 entry["status"] = "NEW_ONLY"
             else:
                 entry["status"] = (
-                    "DUP_IDENT"
-                    if entry["merge_sha"] == entry["canon_sha"]
-                    else "DUP_DIFF"
+                    "DUP_IDENT" if entry["merge_sha"] == entry["canon_sha"] else "DUP_DIFF"
                 )
             items.append(entry)
     return items
@@ -71,8 +69,11 @@ def main():
             "aos da árvore canônica (DUP_IDENT)."
         ),
     )
-    ap.add_argument("--apply-adopt-new", action="store_true",
-                    help="Move (git mv) arquivos NEW_ONLY do MERGE para a árvore canônica.")
+    ap.add_argument(
+        "--apply-adopt-new",
+        action="store_true",
+        help="Move (git mv) arquivos NEW_ONLY do MERGE para a árvore canônica.",
+    )
     args = ap.parse_args()
 
     Path("artifacts").mkdir(exist_ok=True)
@@ -93,15 +94,13 @@ def main():
         f.write(f"- DUP_DIFF: {counts.get('DUP_DIFF',0)}\n\n")
         f.write("## Amostras\n")
         for it in items[:50]:
-            f.write(
-                f"- {it['status']} — `{it['relpath']}` (label: {it['label']})\n")
+            f.write(f"- {it['status']} — `{it['relpath']}` (label: {it['label']})\n")
 
     print(f"[info] Relatórios em: {args.report_json} e {args.report_md}")
 
     # Ações opcionais
     if args.apply_delete_identical:
-        to_delete = [Path(it["merge_path"])
-                     for it in items if it["status"] == "DUP_IDENT"]
+        to_delete = [Path(it["merge_path"]) for it in items if it["status"] == "DUP_IDENT"]
         for p in to_delete:
             # usar git rm se possível
             os.system(f'git rm -f "{p.as_posix()}"')

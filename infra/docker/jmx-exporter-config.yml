@@ -1,16 +1,16 @@
 rules:
-  - pattern: 'kafka.*'
-    name: '$0'
+  - pattern: "kafka.*"
+    name: "$0"
 
 startDelaySeconds: 0
-jmxUrl: ''
+jmxUrl: ""
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
 # Default config; for more metrics, customize JVM and kafka beans
 whitelistObjectNames:
-  - 'kafka.server:type=BrokerTopicMetrics,name=*'
-  - 'kafka.network:type=RequestMetrics,name=*'
-  - 'kafka.network:type=RequestMetrics,request=Produce*'
-  - 'kafka.network:type=RequestMetrics,request=Fetch*'
-  - 'kafka.server:type=ReplicaManager,name=*'
-  - 'kafka.log:type=Log,name=*'
+  - "kafka.server:type=BrokerTopicMetrics,name=*"
+  - "kafka.network:type=RequestMetrics,name=*"
+  - "kafka.network:type=RequestMetrics,request=Produce*"
+  - "kafka.network:type=RequestMetrics,request=Fetch*"
+  - "kafka.server:type=ReplicaManager,name=*"
+  - "kafka.log:type=Log,name=*"

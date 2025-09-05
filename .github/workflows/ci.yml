@@ -19,6 +19,7 @@ jobs:
       - uses: raven-actions/actionlint@v1
 
   setup:
+    needs: actionlint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,8 +41,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11", cache: "pip" }
       - name: Guard duplicate roots
-        run: |
-          python tools/check_duplicate_packages.py
+        run: python tools/check_duplicate_packages.py
 
   lint-type:
     needs: setup
@@ -62,7 +62,7 @@ jobs:
     services:
       qdrant:
         image: qdrant/qdrant:v1.7.4
-        ports: [ "6333:6333" ]
+        ports: ["6333:6333"]
         options: >-
           --health-cmd="curl -fsS http://localhost:6333/ready || exit 1"
           --health-interval=5s --health-timeout=2s --health-retries=24
@@ -82,12 +82,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .[dev]
           pip install requests
-
-      - name: (Optional) Install Playwright browsers
-        if: env.ENABLE_NET_TESTS == '1'
-        run: |
-          python -m pip install playwright
-          python -m playwright install --with-deps chromium
 
       - name: Wait for Qdrant
         run: |

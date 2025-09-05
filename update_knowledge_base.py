@@ -24,19 +24,11 @@ def register_error(description, stacktrace, solution, refs=None):
         path = os.path.join(ERRORS_DIR, filename)
         with open(ERROR_TEMPLATE) as f:
             template = f.read()
-        content = template.replace(
-            "YYYY-MM-DD HH:MM", datetime.now().strftime("%Y-%m-%d %H:%M")
-        )
+        content = template.replace("YYYY-MM-DD HH:MM", datetime.now().strftime("%Y-%m-%d %H:%M"))
         content = content.replace("- **Descrição:**", f"- **Descrição:** {description}")
-        content = content.replace(
-            "- **Stacktrace:**", f"- **Stacktrace:** {stacktrace}"
-        )
-        content = content.replace(
-            "- **Solução Aplicada:**", f"- **Solução Aplicada:** {solution}"
-        )
-        content = content.replace(
-            "- **Referências:**", f"- **Referências:** {refs or '-'}"
-        )
+        content = content.replace("- **Stacktrace:**", f"- **Stacktrace:** {stacktrace}")
+        content = content.replace("- **Solução Aplicada:**", f"- **Solução Aplicada:** {solution}")
+        content = content.replace("- **Referências:**", f"- **Referências:** {refs or '-'}")
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
         logging.info(f"Registro de erro criado: {filename}")

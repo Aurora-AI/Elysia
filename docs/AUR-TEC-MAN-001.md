@@ -1,7 +1,9 @@
 # Manual de Tecnologias Proprietárias Aurora — Vol. 1
+
 ID: AUR-TEC-MAN-001 · Versão: 1.0 · Classificação: Interno
 
 ## Sumário
+
 1. Doutrina da Engenharia de Contexto
 2. AuroraRouter (orquestração/Assembly of Experts)
 3. Memória Ativa (RAG 2.0: híbrido, rerank, compressão) — Vector Store: Qdrant

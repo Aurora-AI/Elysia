@@ -1,6 +1,7 @@
 """
 Callbacks do AuroraRouter para integração com Memory Bank (Fase 1).
 """
+
 from typing import Any
 
 from aurora.memory.adk_client import autosave_to_memory, search_memory

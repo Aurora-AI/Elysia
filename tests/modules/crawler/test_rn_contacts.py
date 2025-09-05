@@ -1,5 +1,3 @@
-
-
 def test_extract_basic_email_and_name():
     from aurora_platform.modules.crawler.rn_contacts.extract import extract_from_text
 

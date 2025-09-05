@@ -8,7 +8,6 @@ necessidade.
 """
 
 
-
 def get_youtube_channels() -> list[str]:
     """
     Retorna a lista de URLs de canais do YouTube a serem monitorados.

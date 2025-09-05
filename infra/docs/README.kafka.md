@@ -7,6 +7,7 @@ Stack mínima com **1 broker Kafka (KRaft)** + **Kafka UI** para desenvolvimento
 ## 🚀 Como usar
 
 ### 1. Subir stack
+
 ```bash
 make -f Makefile.kafka kafka-up
 ```
@@ -32,13 +33,13 @@ make -f Makefile.kafka kafka-producer-test
 
 ### 5. UI
 
-* [http://localhost:8080](http://localhost:8080)
+- [http://localhost:8080](http://localhost:8080)
 
 ---
 
 ## 🛠 Troubleshooting
 
-* **Erro: connection refused `localhost:9092`**
+- **Erro: connection refused `localhost:9092`**
   → Confirme se stack está ativa:
 
   ```bash
@@ -48,6 +49,7 @@ make -f Makefile.kafka kafka-producer-test
 # 📊 Aurora Kafka — Guia de Uso
 
 ## 1. Subir stack mínima
+
 ```bash
 make -f Makefile.kafka kafka-up
 ```
@@ -60,9 +62,9 @@ UI disponível em: [http://localhost:8080](http://localhost:8080)
 make -f Makefile.kafka kafka-persist-up
 ```
 
-* Kafka em `localhost:9092`
-* Prometheus em [http://localhost:9090](http://localhost:9090)
-* Grafana em [http://localhost:3000](http://localhost:3000) (login: admin / admin)
+- Kafka em `localhost:9092`
+- Prometheus em [http://localhost:9090](http://localhost:9090)
+- Grafana em [http://localhost:3000](http://localhost:3000) (login: admin / admin)
 
 ## 3. Criar tópico pilares
 
@@ -103,4 +105,4 @@ histogram_quantile(0.95, rate(kafka_network_requestmetrics_requestqueue_time_ms_
 
 We include a JMX Prometheus exporter in the persistent stack. The exporter listens on `9404` and Prometheus scrapes it. If you need to customize metrics, edit `infra/docker/jmx-exporter-config.yml`.
 
-* JMX exporter: http://localhost:9404/metrics
+- JMX exporter: http://localhost:9404/metrics

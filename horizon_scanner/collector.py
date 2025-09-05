@@ -22,8 +22,7 @@ def collect_from_papers() -> list[dict[str, Any]]:
     Raises:
         NotImplementedError: Função ainda não implementada nesta fase.
     """
-    raise NotImplementedError(
-        "Função collect_from_papers ainda não implementada.")
+    raise NotImplementedError("Função collect_from_papers ainda não implementada.")
 
 
 def collect_from_changelogs() -> list[dict[str, Any]]:
@@ -36,8 +35,7 @@ def collect_from_changelogs() -> list[dict[str, Any]]:
     Raises:
         NotImplementedError: Função ainda não implementada nesta fase.
     """
-    raise NotImplementedError(
-        "Função collect_from_changelogs ainda não implementada.")
+    raise NotImplementedError("Função collect_from_changelogs ainda não implementada.")
 
 
 def collect_from_rfc() -> list[dict[str, Any]]:
@@ -50,8 +48,7 @@ def collect_from_rfc() -> list[dict[str, Any]]:
     Raises:
         NotImplementedError: Função ainda não implementada nesta fase.
     """
-    raise NotImplementedError(
-        "Função collect_from_rfc ainda não implementada.")
+    raise NotImplementedError("Função collect_from_rfc ainda não implementada.")
 
 
 def collect_from_youtube() -> list[dict[str, Any]]:
@@ -64,5 +61,4 @@ def collect_from_youtube() -> list[dict[str, Any]]:
     Raises:
         NotImplementedError: Função ainda não implementada nesta fase.
     """
-    raise NotImplementedError(
-        "Função collect_from_youtube ainda não implementada.")
+    raise NotImplementedError("Função collect_from_youtube ainda não implementada.")

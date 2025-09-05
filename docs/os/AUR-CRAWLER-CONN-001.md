@@ -1,4 +1,5 @@
 # Ordem de Serviço — AUR-CRAWLER-CONN-001
+
 **Título:** Conector Piloto — API TCE‑RN (Banco de Preços / Despesas)
 **Origem:** AUR-ARCH-CRAWLER-001 (Arquiteto de Agentes – GPT‑5)
 **Agente Designado:** Executor (GitHub Copilot Chat no VSCode)
@@ -6,6 +7,7 @@
 **Objetivo:** Implementar um conector robusto e testado para a API do TCE‑RN, normalizar os dados no modelo canónico Aurora e entregar ao Aurora DocParser++ via `/ingest`.
 
 ## 0) Pré‑requisitos
+
 - Python 3.11+; Poetry/pip.
 - Dependências: `httpx`, `tenacity`, `pydantic>=2`, `pytest`.
 - Variáveis de ambiente:
@@ -28,12 +30,14 @@
 ```
 
 ## 2) Critérios de Aceite
+
 - Estrutura criada nos caminhos exatos.
 - Testes verdes em `tests/connectors/test_connector_tce_rn.py`.
 - `run()` retorna `{"ok": true, "ingested": N, ...}`.
 - Normalização e ID canónico determinístico; robustez (timeout, retries).
 
 ## 3) Observações
+
 - `TCE_RN_EXPENSES_PATH` parametrizado.
 - Cursor (`next`) suportado além de `page/total_pages`.
 - Envelope de ingestão: `connector="tce_rn"`, `schema="expense_v1"`.
@@ -51,11 +55,13 @@ poetry add httpx tenacity pydantic pytest
 PYTHONPATH=. TESTING=1 poetry run pytest -q tests/connectors/test_connector_tce_rn.py
 ```
 
-
 ---
+
 CONCLUSÃO DA ORDEM DE SERVIÇO
+
 - Status: FINALIZADA
 - Data: 2025-08-22
 - Responsável: Rodrigo C. Winhaski
 - Observações: Ações realizadas (resumo): merge direto via API (HTTP 204), branch rd/20250820-004-docparser-testing-shortcut deletada (HTTP 204).
+
 ---

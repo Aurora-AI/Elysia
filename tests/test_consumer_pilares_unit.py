@@ -12,7 +12,7 @@ def test_upsert_pilar_happy_path():
         "fonte": "DeepSeek-V3",
         "referencia_url": None,
         "versao": 1,
-        "extra": {"escala": 0.2}
+        "extra": {"escala": 0.2},
     }
     # ensure tables exist in the test DB (conftest already created them, but keep as safety)
     engine = get_engine()

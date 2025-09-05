@@ -1,6 +1,8 @@
 from __future__ import annotations
+
 import time
 from threading import Lock
+
 
 class TokenBucket:
     def __init__(self, rps: float = 0.5, burst: int = 1):

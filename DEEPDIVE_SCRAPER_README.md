@@ -5,12 +5,14 @@ ServiÃ§o refatorado para implementar corretamente o fluxo assÃ­ncrono do Fir
 ## ğŸ“‹ Funcionalidades Implementadas
 
 ### 1. FunÃ§Ã£o `crawl_and_save()`
+
 - **Fluxo AssÃ­ncrono Completo**: Implementa o padrÃ£o job-based do Firecrawl
 - **Polling Inteligente**: Verifica status do job a cada 10 segundos
 - **Tratamento de Estados**: Lida com 'pending', 'scraping', 'completed', 'failed'
 - **Salvamento em Markdown**: Arquivos organizados com metadados
 
 ### 2. Estados do Job
+
 - `pending` - Job na fila de processamento
 - `scraping` - Crawling em andamento
 - `completed` - Crawling concluÃ­do com sucesso
@@ -19,6 +21,7 @@ ServiÃ§o refatorado para implementar corretamente o fluxo assÃ­ncrono do Fir
 ## ğŸš€ Como Usar
 
 ### Crawling AssÃ­ncrono
+
 ```python
 # TODO: Reativar/substituir na integraÃ§Ã£o do Crawler.
 # from src.aurora_platform.services.deep_dive_scraper_service import crawl_and_save
@@ -29,6 +32,7 @@ print(result)  # "Crawling concluÃ­do. X arquivos salvos em data/crawled"
 ```
 
 ### Scraping Simples (PÃ¡gina Ãšnica)
+
 ```python
 # TODO: Reativar/substituir na integraÃ§Ã£o do Crawler.
 # from src.aurora_platform.services.deep_dive_scraper_service import scrape_url
@@ -58,6 +62,7 @@ data/crawled/
 ```
 
 ### Formato dos Arquivos Markdown
+
 ```markdown
 # TÃ­tulo da PÃ¡gina
 
@@ -71,6 +76,7 @@ ConteÃºdo extraÃ­do da pÃ¡gina...
 ## âš™ï¸� ConfiguraÃ§Ã£o
 
 Configure a chave da API no `config/.secrets.toml`:
+
 ```toml
 [default]
 FIRECRAWL_API_KEY = "sua-chave-aqui"
@@ -86,6 +92,7 @@ FIRECRAWL_API_KEY = "sua-chave-aqui"
 ## ğŸ“Š Logs de Acompanhamento
 
 Durante o crawling, o serviÃ§o exibe:
+
 ```
 Iniciando crawling de: https://example.com
 Job ID: abc123
@@ -99,17 +106,20 @@ Crawling concluÃ­do. 3 arquivos salvos.
 ## ğŸ”§ Melhorias de Robustez
 
 ### ValidaÃ§Ã£o de ConfiguraÃ§Ã£o
+
 - âœ… **Validador Pydantic**: `@field_validator` para `FIRECRAWL_API_KEY`
 - âœ… **Limpeza AutomÃ¡tica**: Remove espaÃ§os em branco com `strip()`
 - âœ… **ValidaÃ§Ã£o de Nulidade**: Impede chaves vazias ou nulas
 
 ### Sistema de Logging
+
 - âœ… **Logging Estruturado**: Substitui `print` por `logging`
 - âœ… **Rastreabilidade**: Logs com timestamp e nÃ­vel
 - âœ… **DepuraÃ§Ã£o**: Mostra primeiros caracteres da API key
 - âœ… **Monitoramento**: Logs de status durante polling
 
 ### DiferenÃ§as da VersÃ£o Anterior
+
 - âœ… **Antes**: `print` statements simples
 - âœ… **Agora**: Sistema de logging profissional
 - âœ… **Antes**: Sem validaÃ§Ã£o de API key

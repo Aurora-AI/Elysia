@@ -11,5 +11,6 @@ Este guia mostra os passos para ativar o Secret Scanning no repositório `Aurora
 7. Verifique as entradas em **Security → Secret scanning** e revoke quaisquer tokens expostos.
 
 Observações operacionais:
+
 - Confirme com a equipa que todas as credenciais detectadas foram rotacionadas antes de forçar reescrita de histórico.
 - Para remover segredos do histórico, use `git-filter-repo` em conjunto com uma política de coordenação de equipe.

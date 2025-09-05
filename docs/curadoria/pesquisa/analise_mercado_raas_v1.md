@@ -42,7 +42,6 @@ Recomendações imediatas
 - Formalizar este resumo no Códice Aurora (incluir no repositório `docs/curadoria`).
 - Priorizar uma prova de conceito que valide NLG + métricas preditivas sobre um caso de uso do GPS de Vendas.
 
-
 ---
 
 _Arquivo gerado automaticamente como resultado da curadoria solicitada (RD-20250820-001)._

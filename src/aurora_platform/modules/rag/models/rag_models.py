@@ -1,17 +1,21 @@
 from __future__ import annotations
-from typing import Dict, Any, List
-from pydantic import BaseModel, HttpUrl
+
 import time
+from typing import Any
+
+from pydantic import BaseModel, HttpUrl
+
 
 class DocumentMacro(BaseModel):
     doc_id: str
     url: HttpUrl
     text: str
-    meta: Dict[str, Any] = {}
+    meta: dict[str, Any] = {}
     ts: int = int(time.time())
+
 
 class ChunkResult(BaseModel):
     doc_id: str
     chunk_id: str
     text: str
-    meta: Dict[str, Any] = {}
+    meta: dict[str, Any] = {}

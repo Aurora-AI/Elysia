@@ -31,7 +31,8 @@ def list_files(root: Path):
     # untracked (non-ignored)
     try:
         out = sp.check_output(
-            ["git", "ls-files", "-z", "-o", "--exclude-standard", str(root)], text=False)
+            ["git", "ls-files", "-z", "-o", "--exclude-standard", str(root)], text=False
+        )
         untracked = [p.decode("utf-8") for p in out.split(b"\x00") if p]
     except Exception:
         untracked = []

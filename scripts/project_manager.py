@@ -29,13 +29,11 @@ def show_status():
         sprint_id = sprint.get("id", "N/A")
         sprint_name = sprint.get("name", "N/A")
         sprint_status = sprint.get("status", "N/A")
-        print(
-            f"\n--- SPRINT: {sprint_id} - {sprint_name} [{sprint_status}] ---")
+        print(f"\n--- SPRINT: {sprint_id} - {sprint_name} [{sprint_status}] ---")
 
         tasks = sprint.get("tasks", [])
         total_tasks = len(tasks)
-        completed_tasks = sum(
-            1 for t in tasks if t.get("status") == "CONCLU√çDO")
+        completed_tasks = sum(1 for t in tasks if t.get("status") == "CONCLU√çDO")
 
         if total_tasks > 0:
             sprint_progress = (completed_tasks / total_tasks) * 100
@@ -77,8 +75,7 @@ def update_task(task_id_to_update, progress, status):
         save_plan(plan)
         print(f"‚úÖ Tarefa {task_id_to_update} atualizada com sucesso.")
     else:
-        print(
-            f"‚ùå Erro: Tarefa com ID '{task_id_to_update}' n√£o encontrada.")
+        print(f"‚ùå Erro: Tarefa com ID '{task_id_to_update}' n√£o encontrada.")
 
 
 def find_next_task():
@@ -91,8 +88,7 @@ def find_next_task():
                 if task.get("status") == "A FAZER":
                     print("\n--- PR√ìXIMA TAREFA NO BACKLOG ---")
                     print(f"  ID: {task.get('id')}")
-                    print(
-                        f"  SPRINT: {sprint.get('id')} - {sprint.get('name')}")
+                    print(f"  SPRINT: {sprint.get('id')} - {sprint.get('name')}")
                     print(f"  NOME: {task.get('name')}")
                     print(f"  STATUS: {task.get('status')}")
                     return
@@ -103,25 +99,18 @@ def find_next_task():
 
 def main():
     """Fun√ß√£o principal para analisar os argumentos da linha de comando."""
-    parser = argparse.ArgumentParser(
-        description="Gerenciador de Projeto Aurora")
+    parser = argparse.ArgumentParser(description="Gerenciador de Projeto Aurora")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # Comandos
     subparsers.add_parser("status", help="Exibe o status completo do projeto.")
 
-    parser_update = subparsers.add_parser(
-        "update", help="Atualiza o status de uma tarefa."
-    )
-    parser_update.add_argument(
-        "--task-id", required=True, help="O ID da tarefa a ser atualizada."
-    )
+    parser_update = subparsers.add_parser("update", help="Atualiza o status de uma tarefa.")
+    parser_update.add_argument("--task-id", required=True, help="O ID da tarefa a ser atualizada.")
     parser_update.add_argument(
         "--progress", type=int, help="O novo percentual de progresso (0-100)."
     )
-    parser_update.add_argument(
-        "--status", help="O novo status (ex: EM ANDAMENTO, CONCLU√çDO)."
-    )
+    parser_update.add_argument("--status", help="O novo status (ex: EM ANDAMENTO, CONCLU√çDO).")
 
     subparsers.add_parser("next", help="Mostra a pr√≥xima tarefa a ser feita.")
 

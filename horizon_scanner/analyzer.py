@@ -8,7 +8,6 @@ implementados nas fases posteriores.
 """
 
 
-
 def analyze_items(items: list[dict]) -> list[dict]:
     """
     Analisa uma lista de itens coletados e atribui prioridade a cada um.

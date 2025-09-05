@@ -3,13 +3,14 @@ from __future__ import annotations
 import importlib.util
 
 import pytest
-
 from aurora_platform.modules.crawler.loaders.docx_loader import DocxLoader
 from aurora_platform.modules.crawler.loaders.pdf_loader import PDFLoader
 
 
 def _has_any_pdf_backend():
-    return any(importlib.util.find_spec(m) is not None for m in ("unstructured", "pdfplumber", "pypdf"))
+    return any(
+        importlib.util.find_spec(m) is not None for m in ("unstructured", "pdfplumber", "pypdf")
+    )
 
 
 def _has_any_docx_backend():

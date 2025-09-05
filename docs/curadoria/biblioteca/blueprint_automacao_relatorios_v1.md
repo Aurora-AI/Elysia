@@ -10,11 +10,13 @@ Este documento apresenta o blueprint técnico para a funcionalidade de automaç�
 Arquitetura de 3 camadas
 
 1. Captura de Dados (Ingest)
+
    - Conectores (DataJud, CRM, bases internas, uploads de ficheiros PDF/DOCX/JSON).
    - Pipeline de ingest leve: normalização, enriquecimento básico de metadados.
    - Sistema de eventos: publicar eventos raw/normalized no Kafka (tópicos dedicados de ingest).
 
 2. Processamento & Armazenamento
+
    - Stream processing (consumers/stream-processors) que aplicam enriquecimentos (NER, extração de campos, huggingface embeddings locais) e persistem resultados em:
      - Data lake / object store (raw + normalized payloads),
      - Qdrant (vetores de texto / chunks) para busca semântica,

@@ -7,6 +7,7 @@ available; otherwise falls back to a minimal zip/Xml text extractor.
 This is intentionally lightweight: it extracts paragraphs and classifies
 blocks as headings when the paragraph is short and mostly uppercase.
 """
+
 from __future__ import annotations
 
 import json
@@ -37,16 +38,17 @@ def extract_text_from_docx(path: str) -> str:
                 with zf.open("word/document.xml") as f:
                     tree = ET.parse(f)
                     # Namespace-agnostic findall for text nodes
-                    texts = tree.findall('.//')
+                    texts = tree.findall(".//")
                     parts: list[str] = []
                     for elem in texts:
-                        if elem.tag.endswith('}t') or elem.tag == 't':
+                        if elem.tag.endswith("}t") or elem.tag == "t":
                             if elem.text:
                                 parts.append(elem.text)
                     return "\n\n".join(parts)
         except Exception:
             raise SystemExit(
-                "Failed to extract text from DOCX; install python-docx or provide a valid .docx file")
+                "Failed to extract text from DOCX; install python-docx or provide a valid .docx file"
+            )
 
 
 def normalize_text_to_json(text: str) -> dict[str, list[dict[str, str]]]:
@@ -72,8 +74,8 @@ def normalize_text_to_json(text: str) -> dict[str, list[dict[str, str]]]:
 def docx_to_json_file(in_path: str, out_path: str | None = None) -> str:
     text = extract_text_from_docx(in_path)
     obj = normalize_text_to_json(text)
-    out = out_path or (Path(in_path).with_suffix('.json').as_posix())
-    with open(out, 'w', encoding='utf-8') as f:
+    out = out_path or (Path(in_path).with_suffix(".json").as_posix())
+    with open(out, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
     return out
 
@@ -89,5 +91,5 @@ def _main(argv: list[str]) -> int:
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(_main(sys.argv))

@@ -2,10 +2,10 @@
 
 Resumo executivo
 
-| Critério | Aurora | Licitação com I.A. |
-|---|---:|---:|
-| Foco de mercado | Soluções para órgãos públicos com GDPR/BRA compliance | Plataforma voltada a licitações privadas e públicas |
-| Modelo de negócios | Freemium -> Pro, integrações com ERPs | SaaS com módulos pagos |
+| Critério           |                                                Aurora |                                  Licitação com I.A. |
+| ------------------ | ----------------------------------------------------: | --------------------------------------------------: |
+| Foco de mercado    | Soluções para órgãos públicos com GDPR/BRA compliance | Plataforma voltada a licitações privadas e públicas |
+| Modelo de negócios |                 Freemium -> Pro, integrações com ERPs |                              SaaS com módulos pagos |
 
 Análise detalhada
 

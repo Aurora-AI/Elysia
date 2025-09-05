@@ -1,7 +1,9 @@
-import pytest
 import os
-from aurora_platform.modules.rag.pipeline.rag_pipeline import query_memory
+
+import pytest
 from aurora_platform.modules.crawler.producers.enqueue import enqueue_crawl
+from aurora_platform.modules.rag.pipeline.rag_pipeline import query_memory
+
 
 @pytest.mark.skipif(os.getenv("ENABLE_E2E_TESTS") != "1", reason="E2E desabilitado")
 def test_e2e_memory_flow():

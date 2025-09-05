@@ -2,6 +2,7 @@
 """
 Script para configurar tópicos Kafka e registrar schemas
 """
+
 import os
 
 from confluent_kafka.admin import AdminClient, NewTopic
@@ -23,6 +24,7 @@ TOPICS = [
     {"name": "rag.answerlog", "partitions": 3, "replication": 1, "retention": "30d"},
 ]
 
+
 def create_topics():
     """Cria tópicos Kafka"""
     admin = AdminClient({"bootstrap.servers": BOOTSTRAP})
@@ -35,12 +37,14 @@ def create_topics():
         if "cleanup" in topic_config:
             config["cleanup.policy"] = topic_config["cleanup"]
 
-        new_topics.append(NewTopic(
-            topic=topic_config["name"],
-            num_partitions=topic_config["partitions"],
-            replication_factor=topic_config["replication"],
-            config=config
-        ))
+        new_topics.append(
+            NewTopic(
+                topic=topic_config["name"],
+                num_partitions=topic_config["partitions"],
+                replication_factor=topic_config["replication"],
+                config=config,
+            )
+        )
 
     futures = admin.create_topics(new_topics)
     for topic, future in futures.items():
@@ -50,6 +54,7 @@ def create_topics():
         except Exception as e:
             print(f"❌ Erro ao criar {topic}: {e}")
 
+
 def parse_retention(retention_str):
     """Converte string de retenção para ms"""
     if retention_str.endswith("h"):
@@ -57,6 +62,7 @@ def parse_retention(retention_str):
     elif retention_str.endswith("d"):
         return int(retention_str[:-1]) * 24 * 3600 * 1000
     return int(retention_str)
+
 
 def register_schemas():
     """Registra schemas no Schema Registry"""
@@ -76,6 +82,7 @@ def register_schemas():
             print(f"✅ Schema registrado: {subject}")
         except Exception as e:
             print(f"❌ Erro ao registrar {subject}: {e}")
+
 
 if __name__ == "__main__":
     print("🚀 Configurando Kafka + Schema Registry...")

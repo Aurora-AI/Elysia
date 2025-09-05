@@ -13,6 +13,7 @@ A ponte `elysia-bridge` expõe a Memória Ativa (RAG/Qdrant) da Aurora como tool
 Configure uma tool HTTP apontando para o serviço da Aurora (ex.: `http://aurora-api:8000/bridge/elysia/search`).
 
 **Request:**
+
 ```json
 { "query": "pergunta do usuário", "top_k": 3 }
 ```
@@ -23,7 +24,12 @@ Configure uma tool HTTP apontando para o serviço da Aurora (ex.: `http://aurora
 {
   "query": "pergunta do usuário",
   "results": [
-    { "doc_id": "d1", "metadata": { "uri": "..." }, "score": 0.91, "text": "..." }
+    {
+      "doc_id": "d1",
+      "metadata": { "uri": "..." },
+      "score": 0.91,
+      "text": "..."
+    }
   ]
 }
 ```

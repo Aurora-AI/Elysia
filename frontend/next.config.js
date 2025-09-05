@@ -8,6 +8,6 @@ const nextConfig = {
   experimental: {
     styledComponents: true,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

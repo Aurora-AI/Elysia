@@ -8,6 +8,7 @@ Usage:
 
 This script is idempotent and will create uniqueness constraints and four Pilar nodes.
 """
+
 from __future__ import annotations
 
 import os
@@ -44,21 +45,33 @@ def seed(pilares: list[dict]):
         with driver.session() as session:
             session.execute_write(_constraints)
             for p in pilares:
-                session.execute_write(_create_pilar, p["id"], p["name"], p.get(
-                    "titulo", ""), p.get("descricao", ""))
+                session.execute_write(
+                    _create_pilar, p["id"], p["name"], p.get("titulo", ""), p.get("descricao", "")
+                )
     finally:
         driver.close()
 
 
 DEFAULT_PILARES = [
-    {"id": "ANTROPOLOGIA", "name": "antropologia",
-        "titulo": "Antropologia", "descricao": "Pilar antropologia"},
-    {"id": "PSICOLOGIA", "name": "psicologia",
-        "titulo": "Psicologia", "descricao": "Pilar psicologia"},
-    {"id": "VENDAS", "name": "vendas",
-        "titulo": "Vendas", "descricao": "Pilar vendas"},
-    {"id": "ESTATISTICA", "name": "estatistica",
-        "titulo": "Estatística", "descricao": "Pilar estatística"},
+    {
+        "id": "ANTROPOLOGIA",
+        "name": "antropologia",
+        "titulo": "Antropologia",
+        "descricao": "Pilar antropologia",
+    },
+    {
+        "id": "PSICOLOGIA",
+        "name": "psicologia",
+        "titulo": "Psicologia",
+        "descricao": "Pilar psicologia",
+    },
+    {"id": "VENDAS", "name": "vendas", "titulo": "Vendas", "descricao": "Pilar vendas"},
+    {
+        "id": "ESTATISTICA",
+        "name": "estatistica",
+        "titulo": "Estatística",
+        "descricao": "Pilar estatística",
+    },
 ]
 
 

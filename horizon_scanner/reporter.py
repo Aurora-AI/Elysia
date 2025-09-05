@@ -7,7 +7,6 @@ com escopo técnico, impacto esperado e plano de avaliação para o time de P&D.
 """
 
 
-
 def generate_daily_report(analyzed_items: list[dict]) -> str:
     """
     Gera o texto do relatório diário a partir dos itens analisados.
@@ -21,8 +20,7 @@ def generate_daily_report(analyzed_items: list[dict]) -> str:
     Raises:
         NotImplementedError: Função ainda não implementada nesta fase.
     """
-    raise NotImplementedError(
-        "Função generate_daily_report ainda não implementada.")
+    raise NotImplementedError("Função generate_daily_report ainda não implementada.")
 
 
 def create_study_orders(analyzed_items: list[dict]) -> list[str]:
@@ -38,5 +36,4 @@ def create_study_orders(analyzed_items: list[dict]) -> list[str]:
     Raises:
         NotImplementedError: Função ainda não implementada nesta fase.
     """
-    raise NotImplementedError(
-        "Função create_study_orders ainda não implementada.")
+    raise NotImplementedError("Função create_study_orders ainda não implementada.")

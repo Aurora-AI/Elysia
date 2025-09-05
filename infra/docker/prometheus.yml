@@ -2,6 +2,6 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'kafka'
+  - job_name: "kafka"
     static_configs:
-      - targets: ['kafka-jmx:9404']
+      - targets: ["kafka-jmx:9404"]

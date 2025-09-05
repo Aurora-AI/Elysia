@@ -58,10 +58,12 @@ async def process_document_pipeline(
         versao_parser = "0.0.1"
 
     texto_markdown: str = parsed.get("texto_markdown", "")
-    tabelas = [TableSchema(**t) if not isinstance(t, TableSchema)
-               else t for t in parsed.get("tabelas", [])]
-    imagens = [ImageSchema(**i) if not isinstance(i, ImageSchema)
-               else i for i in parsed.get("imagens", [])]
+    tabelas = [
+        TableSchema(**t) if not isinstance(t, TableSchema) else t for t in parsed.get("tabelas", [])
+    ]
+    imagens = [
+        ImageSchema(**i) if not isinstance(i, ImageSchema) else i for i in parsed.get("imagens", [])
+    ]
 
     ended = time.perf_counter_ns()
     diag = Diagnostics(

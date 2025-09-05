@@ -3,41 +3,26 @@ from .orm import Session, sessionmaker
 __all__ = ["Session", "sessionmaker"]
 from typing import Any
 
-class Column:
-    ...
-
-
-class String:
-    ...
-
-
-class Integer:
-    ...
-
-
-class Boolean:
-    ...
-
-
-class DateTime:
-    ...
-
-
-class Float:
-    ...
-
-
-class Text:
-    ...
-
-
-class JSON:
-    ...
-
+class Column: ...
+class String: ...
+class Integer: ...
+class Boolean: ...
+class DateTime: ...
+class Float: ...
+class Text: ...
+class JSON: ...
 
 def create_engine(url: str, *args: Any, **kwargs: Any) -> Any: ...
 
-
-__all__ = ["Column", "String", "Integer", "Boolean",
-           "DateTime", "Float", "Text", "JSON", "create_engine"]
+__all__ = [
+    "Column",
+    "String",
+    "Integer",
+    "Boolean",
+    "DateTime",
+    "Float",
+    "Text",
+    "JSON",
+    "create_engine",
+]
 __all__ = []

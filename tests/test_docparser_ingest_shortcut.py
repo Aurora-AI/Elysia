@@ -8,8 +8,7 @@ def test_ingest_example_url_uses_fixture(monkeypatch):
     from backend.app.services.docparser.main import app
 
     client = TestClient(app)
-    resp = client.post(
-        "/ingest/url", json={"url": "http://example.com/test.pdf"})
+    resp = client.post("/ingest/url", json={"url": "http://example.com/test.pdf"})
     assert resp.status_code == 200, resp.text
     data = resp.json()
 

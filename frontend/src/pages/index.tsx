@@ -1,5 +1,5 @@
-import React from 'react';
-import ChatMentor from '../components/ChatMentor';
+import React from "react";
+import ChatMentor from "../components/ChatMentor";
 
 const HomePage: React.FC = () => {
   return (

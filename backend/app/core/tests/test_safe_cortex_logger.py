@@ -7,8 +7,7 @@ import pytest
 # Compute repo root and load cortex_logger by file path so tests run in any runner
 ROOT = Path(__file__).resolve().parents[4]
 spec = importlib.util.spec_from_file_location(
-    "cortex_logger", str(ROOT / "backend" / "app" /
-                         "core" / "cortex_logger.py")
+    "cortex_logger", str(ROOT / "backend" / "app" / "core" / "cortex_logger.py")
 )
 cortex_logger = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(cortex_logger)  # type: ignore
@@ -36,8 +35,7 @@ def test_safe_log_execution_success(tmp_path):
     conn = sqlite3.connect(db_file)
     try:
         cur = conn.cursor()
-        cur.execute(
-            "SELECT COUNT(*) FROM execution_logs WHERE os_id=?", ("TEST_SUCCESS",))
+        cur.execute("SELECT COUNT(*) FROM execution_logs WHERE os_id=?", ("TEST_SUCCESS",))
         count = cur.fetchone()[0]
         assert count == 1
     finally:

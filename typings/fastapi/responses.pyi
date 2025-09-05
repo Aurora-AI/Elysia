@@ -17,7 +17,6 @@ class Response:
         **kwargs: Any,
     ) -> None: ...
 
-
 class JSONResponse(Response):
     def __init__(
         self,
@@ -27,7 +26,6 @@ class JSONResponse(Response):
         media_type: str | None = ...,
         **kwargs: Any,
     ) -> None: ...
-
 
 class PlainTextResponse(Response):
     def __init__(
@@ -39,7 +37,6 @@ class PlainTextResponse(Response):
         **kwargs: Any,
     ) -> None: ...
 
-
 class StreamingResponse(Response):
     def __init__(
         self,
@@ -50,6 +47,4 @@ class StreamingResponse(Response):
         **kwargs: Any,
     ) -> None: ...
 
-
-__all__ = ["Response", "JSONResponse",
-           "PlainTextResponse", "StreamingResponse"]
+__all__ = ["Response", "JSONResponse", "PlainTextResponse", "StreamingResponse"]

@@ -2,7 +2,6 @@
 import os
 
 import pytest
-
 from aurora_platform.modules.crawler.loaders.url_loader import fetch_body_text, fetch_html_dom
 
 # Para rodar no CI, é necessário instalar o browser do Playwright:

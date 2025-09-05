@@ -1,4 +1,5 @@
 <!-- Estudo original: 'Estudo Google Cloud AI Agents.docx' processed and transcribed -->
+
 # Estudo: Google Cloud AI Agents
 
 > Conteúdo transcrito do documento de pesquisa "Estudo Google Cloud AI Agents.docx".

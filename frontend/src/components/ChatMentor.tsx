@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 interface ChatMentorProps {
   className?: string;
@@ -13,38 +13,38 @@ interface ApiResponse {
   error?: string;
 }
 
-const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
-  const [input, setInput] = useState<string>('');
-  const [response, setResponse] = useState<string>('');
+const ChatMentor: React.FC<ChatMentorProps> = ({ className = "" }) => {
+  const [input, setInput] = useState<string>("");
+  const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!input.trim()) {
-      setError('Por favor, digite uma mensagem');
+      setError("Por favor, digite uma mensagem");
       return;
     }
 
     setLoading(true);
-    setError('');
-    setResponse('');
+    setError("");
+    setResponse("");
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
       const result = await axios.post<ApiResponse>(
         `${apiUrl}/mentor/sales/prepare-meeting`,
         {
-          client_name: input.trim()
+          client_name: input.trim(),
         },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           timeout: 30000, // 30 segundos
-        }
+        },
       );
 
       if (result.data.response) {
@@ -52,24 +52,27 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
       } else if (result.data.message) {
         setResponse(result.data.message);
       } else {
-        setResponse('Resposta recebida com sucesso!');
+        setResponse("Resposta recebida com sucesso!");
       }
 
-      setInput(''); // Limpa o input após sucesso
-
+      setInput(""); // Limpa o input após sucesso
     } catch (err: any) {
-      console.error('Erro na requisição:', err);
+      console.error("Erro na requisição:", err);
 
       if (err.response?.status === 401) {
-        setError('Erro de autenticação. Verifique suas credenciais.');
+        setError("Erro de autenticação. Verifique suas credenciais.");
       } else if (err.response?.status === 500) {
-        setError('Erro interno do servidor. Tente novamente mais tarde.');
-      } else if (err.code === 'ECONNREFUSED') {
-        setError('Não foi possível conectar com a API. Verifique se o servidor está rodando.');
-      } else if (err.code === 'ECONNABORTED') {
-        setError('Timeout na requisição. Tente novamente.');
+        setError("Erro interno do servidor. Tente novamente mais tarde.");
+      } else if (err.code === "ECONNREFUSED") {
+        setError(
+          "Não foi possível conectar com a API. Verifique se o servidor está rodando.",
+        );
+      } else if (err.code === "ECONNABORTED") {
+        setError("Timeout na requisição. Tente novamente.");
       } else {
-        setError(err.response?.data?.detail || err.message || 'Erro desconhecido');
+        setError(
+          err.response?.data?.detail || err.message || "Erro desconhecido",
+        );
       }
     } finally {
       setLoading(false);
@@ -99,7 +102,7 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
               disabled={loading || !input.trim()}
               className="chat-button"
             >
-              {loading ? '⏳ Processando...' : '📤 Enviar'}
+              {loading ? "⏳ Processando..." : "📤 Enviar"}
             </button>
           </div>
         </form>
@@ -115,7 +118,7 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
           <div className="response-container">
             <h3 className="response-title">💡 Insights do Mentor:</h3>
             <div className="response-content">
-              {response.split('\n').map((line, index) => (
+              {response.split("\n").map((line, index) => (
                 <p key={index}>{line}</p>
               ))}
             </div>
@@ -128,7 +131,8 @@ const ChatMentor: React.FC<ChatMentorProps> = ({ className = '' }) => {
           max-width: 800px;
           margin: 0 auto;
           padding: 20px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            sans-serif;
         }
 
         .chat-container {

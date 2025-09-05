@@ -21,7 +21,9 @@ def test_commit_fields_present():
         conn = sqlite3.connect(db_path)
         cur = conn.cursor()
         cur.execute(
-            "SELECT commit_hash, commit_message, git_status FROM execution_logs WHERE id = ?", (rowid,))
+            "SELECT commit_hash, commit_message, git_status FROM execution_logs WHERE id = ?",
+            (rowid,),
+        )
         row = cur.fetchone()
         conn.close()
         assert row is not None

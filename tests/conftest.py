@@ -1,7 +1,9 @@
 # tests/conftest.py
 import os
+
 import pytest
 import requests
+
 
 def qdrant_is_ready(url: str) -> bool:
     try:
@@ -9,6 +11,7 @@ def qdrant_is_ready(url: str) -> bool:
         return r.status_code == 200
     except Exception:
         return False
+
 
 def pytest_collection_modifyitems(config, items):
     enable = os.getenv("ENABLE_QDRANT_TESTS") == "1"

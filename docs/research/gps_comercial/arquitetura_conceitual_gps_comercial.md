@@ -1,13 +1,16 @@
 # Arquitetura Conceitual do GPS Comercial
 
 ## Modelo Preditivo Multifatorial
+
 O score de saúde é composto por quatro vetores principais:
+
 - **Dados Fundamentais do CRM:** Valor do negócio, estágio, data de fechamento prevista, probabilidade, datas de criação/modificação.
 - **Engajamento:** Recência, frequência, reciprocidade, envolvimento de múltiplos stakeholders.
 - **Risco:** Estagnação de estágio, silêncio de rádio, sinais contextuais (ex: menção de concorrente), mudança de decisor, score preditivo futuro.
 - **Progressão:** Velocidade do pipeline, contagem de pushes, mudanças de valor, movimento de estágio.
 
 ### Métricas Específicas por Vetor
+
 - **Engajamento:**
   - Recência: Dias desde o último toque significativo
   - Frequência: Número de interações recentes
@@ -24,6 +27,7 @@ O score de saúde é composto por quatro vetores principais:
   - Regressão de estágio
 
 ## Lógica de Cálculo do Score (MVP)
+
 - Para cada negócio, buscar todos os campos de dados brutos especificados no dicionário de dados.
 - Calcular sub-scores normalizados (0-100) para cada vetor.
 - Score de cada vetor = média ponderada dos sub-componentes.
@@ -32,11 +36,12 @@ O score de saúde é composto por quatro vetores principais:
 - MVP: modelo baseado em regras; evolução futura para Machine Learning.
 
 ## Dicionário de Dados de Integração
-| Métrica                  | Salesforce                | HubSpot                  | Pipedrive                |
-|-------------------------|---------------------------|--------------------------|--------------------------|
-| Valor do Negócio        | Amount                    | amount                   | value                    |
-| Estágio do Pipeline     | StageName                 | dealstage                | stage_id                 |
-| Data de Fechamento      | CloseDate                 | closedate                | expected_close_date      |
-| Probabilidade           | Probability               | hs_deal_stage_probability| probability (custom)     |
-| Data Criação/Modificação| CreatedDate, LastModifiedDate | hs_lastmodifieddate | add_time, update_time    |
-| Atividades/Engajamento  | Task, Event               | Engagements (CALL, EMAIL, MEETING) | /activities (deal_id)   |
+
+| Métrica                  | Salesforce                    | HubSpot                            | Pipedrive             |
+| ------------------------ | ----------------------------- | ---------------------------------- | --------------------- |
+| Valor do Negócio         | Amount                        | amount                             | value                 |
+| Estágio do Pipeline      | StageName                     | dealstage                          | stage_id              |
+| Data de Fechamento       | CloseDate                     | closedate                          | expected_close_date   |
+| Probabilidade            | Probability                   | hs_deal_stage_probability          | probability (custom)  |
+| Data Criação/Modificação | CreatedDate, LastModifiedDate | hs_lastmodifieddate                | add_time, update_time |
+| Atividades/Engajamento   | Task, Event                   | Engagements (CALL, EMAIL, MEETING) | /activities (deal_id) |

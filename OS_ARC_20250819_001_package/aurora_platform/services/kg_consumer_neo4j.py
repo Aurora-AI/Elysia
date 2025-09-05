@@ -8,7 +8,7 @@ BOOTSTRAP = "localhost:9092"
 BATCH_SIZE = 500
 POLL_TIMEOUT = 1.0
 
-graph = Graph("bolt://localhost:7687", auth=("neo4j","password"))
+graph = Graph("bolt://localhost:7687", auth=("neo4j", "password"))
 
 MERGE_ENTITIES = """
 UNWIND $rows AS r
@@ -24,18 +24,22 @@ SET rel.type = r.rel_type
 SET rel += r.properties
 """
 
+
 def event_hash(value: dict) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
+
 def run():
-    consumer = Consumer({
-        "bootstrap.servers": BOOTSTRAP,
-        "group.id": "kg-writer",
-        "auto.offset.reset": "earliest",
-        "enable.auto.commit": False,
-        "max.poll.interval.ms": 300000
-    })
-    consumer.subscribe(["eventos.kg.entidades-extraidas","eventos.kg.relacoes-extraidas"])
+    consumer = Consumer(
+        {
+            "bootstrap.servers": BOOTSTRAP,
+            "group.id": "kg-writer",
+            "auto.offset.reset": "earliest",
+            "enable.auto.commit": False,
+            "max.poll.interval.ms": 300000,
+        }
+    )
+    consumer.subscribe(["eventos.kg.entidades-extraidas", "eventos.kg.relacoes-extraidas"])
 
     entities, relations = [], []
     try:
@@ -44,7 +48,8 @@ def run():
             if msg is None:
                 if entities or relations:
                     flush_batches(consumer, entities, relations)
-                    entities.clear(); relations.clear()
+                    entities.clear()
+                    relations.clear()
                 continue
             if msg.error():
                 raise KafkaException(msg.error())
@@ -61,9 +66,11 @@ def run():
 
             if (len(entities) + len(relations)) >= BATCH_SIZE:
                 flush_batches(consumer, entities, relations)
-                entities.clear(); relations.clear()
+                entities.clear()
+                relations.clear()
     finally:
         consumer.close()
+
 
 def flush_batches(consumer, entities, relations):
     tx = graph.begin()
@@ -73,6 +80,7 @@ def flush_batches(consumer, entities, relations):
         tx.run(MERGE_RELATIONS, rows=relations)
     tx.commit()
     consumer.commit(asynchronous=False)
+
 
 if __name__ == "__main__":
     run()

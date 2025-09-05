@@ -9,22 +9,10 @@ class PilarBase:
     versao: int
     extra: dict[str, Any] | None
 
-
-class PilarAntropologia(PilarBase):
-    ...
-
-
-class PilarPsicologia(PilarBase):
-    ...
-
-
-class PilarVendas(PilarBase):
-    ...
-
-
-class PilarEstatistica(PilarBase):
-    ...
-
+class PilarAntropologia(PilarBase): ...
+class PilarPsicologia(PilarBase): ...
+class PilarVendas(PilarBase): ...
+class PilarEstatistica(PilarBase): ...
 
 __all__ = [
     "PilarAntropologia",
