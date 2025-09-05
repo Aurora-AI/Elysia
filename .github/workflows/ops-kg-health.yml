@@ -1,21 +1,22 @@
+---
 name: ops-kg-health
 on:
   workflow_dispatch: {}
 
 # Repository/Org Variables (uma vez só no workflow)
 env:
-  AURA_NEO4J_URI: ${{ vars.AURA_NEO4J_URI }}
-  AURA_NEO4J_USERNAME: ${{ vars.AURA_NEO4J_USERNAME }}
-  QDRANT_URL: ${{ vars.QDRANT_URL }}
-  KAFKA_BROKER: ${{ vars.KAFKA_BROKER }}
-  SCHEMA_REGISTRY_URL: ${{ vars.SCHEMA_REGISTRY_URL }}
+  AURA_NEO4J_URI: "${{ vars.AURA_NEO4J_URI }}"
+  AURA_NEO4J_USERNAME: "${{ vars.AURA_NEO4J_USERNAME }}"
+  QDRANT_URL: "${{ vars.QDRANT_URL }}"
+  KAFKA_BROKER: "${{ vars.KAFKA_BROKER }}"
+  SCHEMA_REGISTRY_URL: "${{ vars.SCHEMA_REGISTRY_URL }}"
 
 jobs:
   health:
     runs-on: ubuntu-latest
     # Secrets no nível do job (não duplicar chaves)
     env:
-      AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
+      AURA_NEO4J_PASSWORD: "${{ secrets.AURA_NEO4J_PASSWORD }}"
     steps:
       - uses: actions/checkout@v4
       - name: Show env presence (masked)

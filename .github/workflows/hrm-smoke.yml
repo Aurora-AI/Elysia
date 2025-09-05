@@ -1,5 +1,6 @@
+---
 name: hrm-smoke
-"on":
+on:
   workflow_dispatch: {}
 
 jobs:

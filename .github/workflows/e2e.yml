@@ -1,3 +1,4 @@
+---
 name: e2e
 on:
   workflow_dispatch: {}
@@ -6,7 +7,10 @@ on:
 
 jobs:
   e2e:
-    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'e2e') }}
+    # Split long condition for yamllint line-length compliance using folded style
+    if: >-
+      ${{ github.event_name == 'workflow_dispatch' ||
+          contains(github.event.pull_request.labels.*.name, 'e2e') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

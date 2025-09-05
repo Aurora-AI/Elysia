@@ -1,0 +1,40 @@
+---
+name: Governance - CODEOWNERS Guard
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify CODEOWNERS presence
+        run: |
+          set -euo pipefail
+          FILES=(
+            ".github/CODEOWNERS"
+            "CODEOWNERS"
+          )
+          found=0
+          for f in "${FILES[@]}"; do
+            if [ -s "$f" ]; then
+              echo "Found $f"
+              found=1
+              break
+            fi
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "ERROR: CODEOWNERS file not found or empty in ${FILES[*]}"
+            exit 1
+          fi
+      - name: Basic format sanity
+        run: |
+          # Rough check: at least one owner mapping line
+          if ! grep -E '^[^#[:space:]].+(@|/)' .github/CODEOWNERS 2>/dev/null \
+            | head -n1; then
+            echo "WARN: Could not parse an owner mapping; please review CODEOWNERS."
+          fi
