@@ -5,21 +5,30 @@ on:
 jobs:
   health:
     runs-on: ubuntu-latest
+
+    # Defina TUDO aqui uma vez, usando vars./secrets.
     env:
-      AURA_NEO4J_URI: ${{ vars.AURA_NEO4J_URI }}
-      AURA_NEO4J_USERNAME: ${{ vars.AURA_NEO4J_USERNAME }}
-      AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
-      QDRANT_URL: ${{ vars.QDRANT_URL }}
-      KAFKA_BROKER: ${{ vars.KAFKA_BROKER }}
-      SCHEMA_REGISTRY_URL: ${{ vars.SCHEMA_REGISTRY_URL }}
+      AURA_NEO4J_URI:       ${{ vars.AURA_NEO4J_URI }}
+      AURA_NEO4J_USERNAME:  ${{ vars.AURA_NEO4J_USERNAME }}
+      AURA_NEO4J_PASSWORD:  ${{ secrets.AURA_NEO4J_PASSWORD }}
+      QDRANT_URL:           ${{ vars.QDRANT_URL }}
+      KAFKA_BROKER:         ${{ vars.KAFKA_BROKER }}
+      SCHEMA_REGISTRY_URL:  ${{ vars.SCHEMA_REGISTRY_URL }}
+
     steps:
       - uses: actions/checkout@v4
-      - name: Print envs exist (mask secrets)
+
+      # Sanity: imprime se as variáveis existem (sem vazar segredo)
+      - name: Show env presence (masked)
         run: |
           echo "AURA_NEO4J_URI=${AURA_NEO4J_URI}"
           echo "AURA_NEO4J_USERNAME=${AURA_NEO4J_USERNAME}"
           echo "QDRANT_URL=${QDRANT_URL}"
           echo "KAFKA_BROKER=${KAFKA_BROKER}"
           echo "SCHEMA_REGISTRY_URL=${SCHEMA_REGISTRY_URL}"
+          if [ -z "${AURA_NEO4J_PASSWORD}" ]; then echo "AURA_NEO4J_PASSWORD is EMPTY"; else echo "AURA_NEO4J_PASSWORD is SET"; fi
+
+      # Aqui você pode colocar health checks reais (curl, nc, etc.)
       - name: Placeholder health checks
-        run: echo "add curl checks here (neo4j/qdrant/kafka)"
+        run: |
+          echo "TODO: adicionar curl http checks (Qdrant/Neo4j) e nc/tcp p/ Kafka"
