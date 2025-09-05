@@ -1,38 +1,53 @@
 ---
-name: ops-kg-health
+name: Ops - KG Health
 on:
-  workflow_dispatch: {}
-
-# Repository/Org Variables (uma vez só no workflow)
-env:
-  AURA_NEO4J_URI: "${{ vars.AURA_NEO4J_URI }}"
-  AURA_NEO4J_USERNAME: "${{ vars.AURA_NEO4J_USERNAME }}"
-  QDRANT_URL: "${{ vars.QDRANT_URL }}"
-  KAFKA_BROKER: "${{ vars.KAFKA_BROKER }}"
-  SCHEMA_REGISTRY_URL: "${{ vars.SCHEMA_REGISTRY_URL }}"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *" # diário 06:00 BRT aprox.
 
 jobs:
   health:
     runs-on: ubuntu-latest
-    # Secrets no nível do job (não duplicar chaves)
+    timeout-minutes: 10
     env:
-      AURA_NEO4J_PASSWORD: "${{ secrets.AURA_NEO4J_PASSWORD }}"
+      AURA_NEO4J_URI: ${{ secrets.AURA_NEO4J_URI }}
+      AURA_NEO4J_USERNAME: ${{ secrets.AURA_NEO4J_USERNAME }}
+      AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
+      QDRANT_URL: ${{ vars.QDRANT_URL }}
+      KAFKA_BROKER: ${{ vars.KAFKA_BROKER }}
+      SCHEMA_REGISTRY_URL: ${{ vars.SCHEMA_REGISTRY_URL }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Show env presence (masked)
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Quick health checks
+        shell: bash
         run: |
-          printf "AURA_NEO4J_URI=%s\n" "$AURA_NEO4J_URI"
-          printf "AURA_NEO4J_USERNAME=%s\n" "$AURA_NEO4J_USERNAME"
-          printf "QDRANT_URL=%s\n" "$QDRANT_URL"
-          printf "KAFKA_BROKER=%s\n" "$KAFKA_BROKER"
-          printf "SCHEMA_REGISTRY_URL=%s\n" "$SCHEMA_REGISTRY_URL"
-          if [ -z "${AURA_NEO4J_PASSWORD}" ]; then
-            echo "AURA_NEO4J_PASSWORD is EMPTY"
-          else
-            echo "AURA_NEO4J_PASSWORD is SET"
-          fi
-      - name: Placeholder health checks
-        run: |
-          echo "TODO: curl -fsS ${QDRANT_URL}/ready"
-          echo "TODO: Neo4j check using envs"
-          echo "TODO: Kafka TCP check"
+          set -euo pipefail
+          echo "Neo4j: ${AURA_NEO4J_URI:-unset} (user=${AURA_NEO4J_USERNAME:-unset})"
+          echo "Qdrant: ${QDRANT_URL:-unset}"
+          echo "Kafka : ${KAFKA_BROKER:-unset}"
+          echo "SR    : ${SCHEMA_REGISTRY_URL:-unset}"
+          cat > health_check.py <<'PY'
+          import os, sys, urllib.request
+          TARGETS = ("QDRANT_URL", "SCHEMA_REGISTRY_URL")
+          exit_code = 0
+          for name in TARGETS:
+              url = os.environ.get(name)
+              if not url:
+                  print(f"[WARN] {name} vazio")
+                  continue
+              try:
+                  with urllib.request.urlopen(url, timeout=5) as r:
+                      print(f"[OK] {name} -> {r.status}")
+              except Exception as e:
+                  print(f"[FAIL] {name}: {e}")
+                  exit_code = 1
+          if exit_code:
+              sys.exit(exit_code)
+          print("[OK] checks básicos executados")
+          PY
+          python3 health_check.py
