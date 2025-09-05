@@ -1,0 +1,82 @@
+{
+  "paths": {
+    "crawler_loader": {
+      "path": "src/aurora_platform/modules/crawler/loaders/url_loader.py",
+      "exists": true,
+      "lines": 115,
+      "imports_playwright": true,
+      "imports_non_dom_http": false,
+      "imports_html_parsers": true,
+      "contains_chunk_terms": false,
+      "imports_qdrant": false,
+      "imports_kafka": false,
+      "imports_neo4j": false,
+      "has_two_stage_query": false,
+      "mentions_chunks_collection": false
+    },
+    "rag_pipeline": {
+      "path": "src/aurora_platform/modules/rag/pipeline.py",
+      "exists": true,
+      "lines": 273,
+      "imports_playwright": false,
+      "imports_non_dom_http": false,
+      "imports_html_parsers": false,
+      "contains_chunk_terms": true,
+      "imports_qdrant": true,
+      "imports_kafka": false,
+      "imports_neo4j": false,
+      "has_two_stage_query": true,
+      "mentions_chunks_collection": true
+    },
+    "rag_store": {
+      "path": "src/aurora_platform/modules/rag/store.py",
+      "exists": false
+    },
+    "rag_config": {
+      "path": "src/aurora_platform/modules/rag/config.py",
+      "exists": false
+    },
+    "e2e_test": {
+      "path": "tests/e2e/test_kafka_to_kg.py",
+      "exists": true,
+      "lines": 128,
+      "imports_playwright": false,
+      "imports_non_dom_http": true,
+      "imports_html_parsers": false,
+      "contains_chunk_terms": false,
+      "imports_qdrant": false,
+      "imports_kafka": true,
+      "imports_neo4j": true,
+      "has_two_stage_query": false,
+      "mentions_chunks_collection": false
+    }
+  },
+  "tests": {
+    "paths": {
+      "tests/modules/crawler": true,
+      "tests/modules/rag": true,
+      "tests/e2e": true
+    },
+    "any": true
+  },
+  "compose": {
+    "exists": true,
+    "mentions": {
+      "neo4j": true,
+      "kafka": true,
+      "qdrant": true,
+      "postgres": true,
+      "zookeeper": true
+    }
+  },
+  "summary": {
+    "crawler_uses_playwright": true,
+    "crawler_uses_non_dom_http": false,
+    "crawler_needs_refactor": false,
+    "rag_has_two_stage_query": true,
+    "rag_uses_qdrant": true,
+    "rag_mentions_chunks_collection": true,
+    "tests_present": true,
+    "compose_has_core_services": true
+  }
+}

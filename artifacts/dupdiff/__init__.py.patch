@@ -1,0 +1,5 @@
+--- src/aurora_platform/__init__.py
++++ src/aurora_platform__merge_candidates/aurora_platform_dash_src/__init__.py
+@@ -1 +1 @@
+-# This file makes src/aurora_platform a Python package.
++# top-level src package

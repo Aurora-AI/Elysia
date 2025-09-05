@@ -1,0 +1,29 @@
+--- src/aurora_platform/api/v1/endpoints/etp_router.py
++++ src/aurora_platform__merge_candidates/aurora_platform_root/api/v1/endpoints/etp_router.py
+@@ -1,13 +1,13 @@
+-from fastapi import APIRouter
+-from aurora_platform.services.etp_service import ETPGeneratorService
+-# Adicione os schemas Pydantic necessários aqui, ex: from aurora_platform.schemas.etp_schemas import ETPRequest
+-
+-router = APIRouter()
+-etp_service = ETPGeneratorService()
+-
+-
+-@router.post("/generate")
+-# Substitua 'dict' pelo schema de request quando ele for criado
+-async def generate_etp_endpoint(request_data: dict):
+-    # A CORREÇÃO: Chamando o método 'generate_etp' correto do serviço
+-    return etp_service.generate_etp(request_data)
++from fastapi import APIRouter
++from aurora_platform.services.etp_service import ETPGeneratorService
++# Adicione os schemas Pydantic necessários aqui, ex: from aurora_platform.schemas.etp_schemas import ETPRequest
++
++router = APIRouter()
++etp_service = ETPGeneratorService()
++
++
++@router.post("/generate")
++# Substitua 'dict' pelo schema de request quando ele for criado
++async def generate_etp_endpoint(request_data: dict):
++    # A CORREÇÃO: Chamando o método 'generate_etp' correto do serviço
++    return etp_service.generate_etp(request_data)

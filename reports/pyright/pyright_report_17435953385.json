@@ -1,0 +1,3037 @@
+{
+    "version": "1.1.404",
+    "time": "1756904578507",
+    "generalDiagnostics": [
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/health_router.py",
+            "severity": "error",
+            "message": "\"BackgroundTasks\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 31
+                },
+                "end": {
+                    "line": 0,
+                    "character": 46
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/kg_endpoints.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"get\" for class \"FastAPI\"\n  Attribute \"get\" is unknown",
+            "range": {
+                "start": {
+                    "line": 8,
+                    "character": 5
+                },
+                "end": {
+                    "line": 8,
+                    "character": 8
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/kg_endpoints.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"get\" for class \"FastAPI\"\n  Attribute \"get\" is unknown",
+            "range": {
+                "start": {
+                    "line": 13,
+                    "character": 5
+                },
+                "end": {
+                    "line": 13,
+                    "character": 8
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/kg_endpoints_pilares.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 32
+                },
+                "end": {
+                    "line": 32,
+                    "character": 43
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/kg_endpoints_pilares.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 49
+                },
+                "end": {
+                    "line": 32,
+                    "character": 55
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/routers/etp_router.py",
+            "severity": "error",
+            "message": "\"Request\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 55
+                },
+                "end": {
+                    "line": 2,
+                    "character": 62
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/routers/etp_router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 64
+                },
+                "end": {
+                    "line": 2,
+                    "character": 70
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/routers/etp_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 42,
+                    "character": 12
+                },
+                "end": {
+                    "line": 42,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/routers/etp_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 43,
+                    "character": 12
+                },
+                "end": {
+                    "line": 43,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/api.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 13,
+                    "character": 11
+                },
+                "end": {
+                    "line": 13,
+                    "character": 25
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/api.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 14,
+                    "character": 11
+                },
+                "end": {
+                    "line": 14,
+                    "character": 25
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/api.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 11
+                },
+                "end": {
+                    "line": 15,
+                    "character": 25
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/api.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 18,
+                    "character": 11
+                },
+                "end": {
+                    "line": 18,
+                    "character": 25
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/api.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 19,
+                    "character": 11
+                },
+                "end": {
+                    "line": 19,
+                    "character": 25
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/auth_router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 55
+                },
+                "end": {
+                    "line": 1,
+                    "character": 61
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/auth_router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"username\" for class \"OAuth2PasswordRequestForm\"\n  Attribute \"username\" is unknown",
+            "range": {
+                "start": {
+                    "line": 18,
+                    "character": 39
+                },
+                "end": {
+                    "line": 18,
+                    "character": 47
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/auth_router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"password\" for class \"OAuth2PasswordRequestForm\"\n  Attribute \"password\" is unknown",
+            "range": {
+                "start": {
+                    "line": 18,
+                    "character": 59
+                },
+                "end": {
+                    "line": 18,
+                    "character": 67
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/auth_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 21,
+                    "character": 12
+                },
+                "end": {
+                    "line": 21,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/auth_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 22,
+                    "character": 12
+                },
+                "end": {
+                    "line": 22,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/auth_router.py",
+            "severity": "error",
+            "message": "No parameter named \"headers\"",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 12
+                },
+                "end": {
+                    "line": 23,
+                    "character": 19
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/browser_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 28
+                },
+                "end": {
+                    "line": 16,
+                    "character": 39
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/browser_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 45
+                },
+                "end": {
+                    "line": 16,
+                    "character": 51
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/ingestion_router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 4,
+                    "character": 46
+                },
+                "end": {
+                    "line": 4,
+                    "character": 52
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/ingestion_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 12
+                },
+                "end": {
+                    "line": 45,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/ingestion_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 46,
+                    "character": 12
+                },
+                "end": {
+                    "line": 46,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/profiling_router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 31
+                },
+                "end": {
+                    "line": 0,
+                    "character": 37
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 55
+                },
+                "end": {
+                    "line": 0,
+                    "character": 61
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "\"Session\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 21
+                },
+                "end": {
+                    "line": 1,
+                    "character": 28
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 12
+                },
+                "end": {
+                    "line": 23,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 53
+                },
+                "end": {
+                    "line": 23,
+                    "character": 59
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 12
+                },
+                "end": {
+                    "line": 45,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 53
+                },
+                "end": {
+                    "line": 45,
+                    "character": 59
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 50,
+                    "character": 12
+                },
+                "end": {
+                    "line": 50,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/two_factor_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 50,
+                    "character": 53
+                },
+                "end": {
+                    "line": 50,
+                    "character": 59
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/youtube_pipeline_router.py",
+            "severity": "error",
+            "message": "\"BackgroundTasks\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 31
+                },
+                "end": {
+                    "line": 2,
+                    "character": 46
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/youtube_pipeline_router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 63
+                },
+                "end": {
+                    "line": 2,
+                    "character": 69
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/youtube_pipeline_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 26,
+                    "character": 12
+                },
+                "end": {
+                    "line": 26,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/youtube_pipeline_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 27,
+                    "character": 12
+                },
+                "end": {
+                    "line": 27,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/youtube_pipeline_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 12
+                },
+                "end": {
+                    "line": 32,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/endpoints/youtube_pipeline_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 29
+                },
+                "end": {
+                    "line": 32,
+                    "character": 35
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/etp_router.py",
+            "severity": "error",
+            "message": "\"PlainTextResponse\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 30
+                },
+                "end": {
+                    "line": 3,
+                    "character": 47
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/etp_router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 24,
+                    "character": 28
+                },
+                "end": {
+                    "line": 24,
+                    "character": 39
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/etp_router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 24,
+                    "character": 45
+                },
+                "end": {
+                    "line": 24,
+                    "character": 51
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/hub/router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 46
+                },
+                "end": {
+                    "line": 0,
+                    "character": 52
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/hub/router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 20,
+                    "character": 28
+                },
+                "end": {
+                    "line": 20,
+                    "character": 39
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/hub/router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 20,
+                    "character": 67
+                },
+                "end": {
+                    "line": 20,
+                    "character": 73
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 10,
+                    "character": 14
+                },
+                "end": {
+                    "line": 10,
+                    "character": 28
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 11,
+                    "character": 14
+                },
+                "end": {
+                    "line": 11,
+                    "character": 28
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 12,
+                    "character": 14
+                },
+                "end": {
+                    "line": 12,
+                    "character": 28
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/api/v1/router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"include_router\" for class \"APIRouter\"\n  Attribute \"include_router\" is unknown",
+            "range": {
+                "start": {
+                    "line": 13,
+                    "character": 14
+                },
+                "end": {
+                    "line": 13,
+                    "character": 28
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/qdrant_adapter.py",
+            "severity": "error",
+            "message": "\"QdrantClient\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 4,
+                    "character": 26
+                },
+                "end": {
+                    "line": 4,
+                    "character": 38
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/qdrant_adapter.py",
+            "severity": "error",
+            "message": "\"VectorParams\" is not a known attribute of module \"qdrant_client.http.models\"",
+            "range": {
+                "start": {
+                    "line": 41,
+                    "character": 42
+                },
+                "end": {
+                    "line": 41,
+                    "character": 54
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/qdrant_adapter.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"COSINE\" for class \"type[Distance]\"\n  Attribute \"COSINE\" is unknown",
+            "range": {
+                "start": {
+                    "line": 43,
+                    "character": 49
+                },
+                "end": {
+                    "line": 43,
+                    "character": 55
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/qdrant_adapter.py",
+            "severity": "error",
+            "message": "\"OptimizersConfigDiff\" is not a known attribute of module \"qdrant_client.http.models\"",
+            "range": {
+                "start": {
+                    "line": 45,
+                    "character": 45
+                },
+                "end": {
+                    "line": 45,
+                    "character": 65
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/qdrant_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"id\"",
+            "range": {
+                "start": {
+                    "line": 62,
+                    "character": 35
+                },
+                "end": {
+                    "line": 62,
+                    "character": 37
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/qdrant_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"vector\"",
+            "range": {
+                "start": {
+                    "line": 62,
+                    "character": 43
+                },
+                "end": {
+                    "line": 62,
+                    "character": 49
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/qdrant_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"payload\"",
+            "range": {
+                "start": {
+                    "line": 62,
+                    "character": 61
+                },
+                "end": {
+                    "line": 62,
+                    "character": 68
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/redis_adapter.py",
+            "severity": "error",
+            "message": "\"Redis\" is not a known attribute of module \"redis\"",
+            "range": {
+                "start": {
+                    "line": 4,
+                    "character": 21
+                },
+                "end": {
+                    "line": 4,
+                    "character": 26
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/clients/adapters/redis_adapter.py",
+            "severity": "error",
+            "message": "\"ConnectionError\" is not a known attribute of module \"redis\"",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 17
+                },
+                "end": {
+                    "line": 15,
+                    "character": 32
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kafka_consumer_pilares.py",
+            "severity": "error",
+            "message": "\"Consumer\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 28
+                },
+                "end": {
+                    "line": 5,
+                    "character": 36
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kafka_consumer_pilares.py",
+            "severity": "error",
+            "message": "\"KafkaError\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 38
+                },
+                "end": {
+                    "line": 5,
+                    "character": 48
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kafka_consumer_pilares.py",
+            "severity": "error",
+            "message": "\"Producer\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 50
+                },
+                "end": {
+                    "line": 5,
+                    "character": 58
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kafka_consumer_pilares.py",
+            "severity": "error",
+            "message": "\"IntegrityError\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 6,
+                    "character": 27
+                },
+                "end": {
+                    "line": 6,
+                    "character": 41
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kafka_consumer_pilares.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"pilar_id\" for class \"type[PilarVendas]\"\n  Attribute \"pilar_id\" is unknown",
+            "range": {
+                "start": {
+                    "line": 58,
+                    "character": 39
+                },
+                "end": {
+                    "line": 58,
+                    "character": 47
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kg_consumer.py",
+            "severity": "error",
+            "message": "\"Consumer\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 7,
+                    "character": 28
+                },
+                "end": {
+                    "line": 7,
+                    "character": 36
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kg_consumer.py",
+            "severity": "error",
+            "message": "\"KafkaException\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 7,
+                    "character": 38
+                },
+                "end": {
+                    "line": 7,
+                    "character": 52
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/consumers/kg_consumer.py",
+            "severity": "error",
+            "message": "\"Neo4jClient\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 42,
+                    "character": 55
+                },
+                "end": {
+                    "line": 42,
+                    "character": 66
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/config.py",
+            "severity": "error",
+            "message": "\"SecretStr\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 6,
+                    "character": 21
+                },
+                "end": {
+                    "line": 6,
+                    "character": 30
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/db.py",
+            "severity": "error",
+            "message": "\"create_async_engine\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 35
+                },
+                "end": {
+                    "line": 2,
+                    "character": 54
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/db.py",
+            "severity": "error",
+            "message": "\"StaticPool\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 4,
+                    "character": 28
+                },
+                "end": {
+                    "line": 4,
+                    "character": 38
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/db.py",
+            "severity": "error",
+            "message": "Import \".settings\" could not be resolved",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 5
+                },
+                "end": {
+                    "line": 5,
+                    "character": 14
+                }
+            },
+            "rule": "reportMissingImports"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/error_tracking.py",
+            "severity": "error",
+            "message": "Import \"sentry_sdk\" could not be resolved",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 7
+                },
+                "end": {
+                    "line": 2,
+                    "character": 17
+                }
+            },
+            "rule": "reportMissingImports"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/error_tracking.py",
+            "severity": "error",
+            "message": "Import \"sentry_sdk.integrations.fastapi\" could not be resolved",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 5
+                },
+                "end": {
+                    "line": 3,
+                    "character": 36
+                }
+            },
+            "rule": "reportMissingImports"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/input_validator.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 35
+                },
+                "end": {
+                    "line": 3,
+                    "character": 41
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/input_validator.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 12
+                },
+                "end": {
+                    "line": 32,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/input_validator.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 53
+                },
+                "end": {
+                    "line": 32,
+                    "character": 59
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/input_validator.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 37,
+                    "character": 12
+                },
+                "end": {
+                    "line": 37,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/input_validator.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 37,
+                    "character": 53
+                },
+                "end": {
+                    "line": 37,
+                    "character": 59
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/jwt_blacklist.py",
+            "severity": "error",
+            "message": "\"from_url\" is not a known attribute of module \"redis\"",
+            "range": {
+                "start": {
+                    "line": 9,
+                    "character": 25
+                },
+                "end": {
+                    "line": 9,
+                    "character": 33
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/rate_limiter.py",
+            "severity": "error",
+            "message": "\"Limiter\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 20
+                },
+                "end": {
+                    "line": 0,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/rate_limiter.py",
+            "severity": "error",
+            "message": "\"_rate_limit_exceeded_handler\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 29
+                },
+                "end": {
+                    "line": 0,
+                    "character": 57
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/rate_limiter.py",
+            "severity": "error",
+            "message": "\"RateLimitExceeded\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 27
+                },
+                "end": {
+                    "line": 1,
+                    "character": 44
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/rate_limiter.py",
+            "severity": "error",
+            "message": "\"get_remote_address\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 25
+                },
+                "end": {
+                    "line": 2,
+                    "character": 43
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/security.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 44
+                },
+                "end": {
+                    "line": 1,
+                    "character": 50
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/security.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 8
+                },
+                "end": {
+                    "line": 15,
+                    "character": 19
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/security.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 8
+                },
+                "end": {
+                    "line": 16,
+                    "character": 14
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/security.py",
+            "severity": "error",
+            "message": "No parameter named \"headers\"",
+            "range": {
+                "start": {
+                    "line": 17,
+                    "character": 8
+                },
+                "end": {
+                    "line": 17,
+                    "character": 15
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/two_factor.py",
+            "severity": "error",
+            "message": "\"random_base32\" is not a known attribute of module \"pyotp\"",
+            "range": {
+                "start": {
+                    "line": 11,
+                    "character": 17
+                },
+                "end": {
+                    "line": 11,
+                    "character": 30
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/two_factor.py",
+            "severity": "error",
+            "message": "\"totp\" is not a known attribute of module \"pyotp\"",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 21
+                },
+                "end": {
+                    "line": 16,
+                    "character": 25
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/core/two_factor.py",
+            "severity": "error",
+            "message": "\"TOTP\" is not a known attribute of module \"pyotp\"",
+            "range": {
+                "start": {
+                    "line": 33,
+                    "character": 17
+                },
+                "end": {
+                    "line": 33,
+                    "character": 21
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/db/models/cliente_model.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 25,
+                    "character": 25
+                },
+                "end": {
+                    "line": 25,
+                    "character": 30
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/db/models/user_model.py",
+            "severity": "error",
+            "message": "\"Column\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 21
+                },
+                "end": {
+                    "line": 2,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/db/models/user_model.py",
+            "severity": "error",
+            "message": "\"String\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 21
+                },
+                "end": {
+                    "line": 3,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/db/repo_pilares.py",
+            "severity": "error",
+            "message": "\"text\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 23
+                },
+                "end": {
+                    "line": 1,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/db/repo_pilares.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"execute\" for class \"Session\"\n  Attribute \"execute\" is unknown",
+            "range": {
+                "start": {
+                    "line": 19,
+                    "character": 7
+                },
+                "end": {
+                    "line": 19,
+                    "character": 14
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/db/repo_pilares.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"execute\" for class \"Session\"\n  Attribute \"execute\" is unknown",
+            "range": {
+                "start": {
+                    "line": 31,
+                    "character": 7
+                },
+                "end": {
+                    "line": 31,
+                    "character": 14
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/dependencies.py",
+            "severity": "error",
+            "message": "\"Request\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 20
+                },
+                "end": {
+                    "line": 1,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "\"Body\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 7,
+                    "character": 20
+                },
+                "end": {
+                    "line": 7,
+                    "character": 24
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"post\" for class \"FastAPI\"\n  Attribute \"post\" is unknown",
+            "range": {
+                "start": {
+                    "line": 20,
+                    "character": 5
+                },
+                "end": {
+                    "line": 20,
+                    "character": 9
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 26,
+                    "character": 28
+                },
+                "end": {
+                    "line": 26,
+                    "character": 39
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 26,
+                    "character": 45
+                },
+                "end": {
+                    "line": 26,
+                    "character": 51
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"__fields__\" for class \"type[Chunk]\"\n  Attribute \"__fields__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 39,
+                    "character": 76
+                },
+                "end": {
+                    "line": 39,
+                    "character": 86
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"get\" for class \"FastAPI\"\n  Attribute \"get\" is unknown",
+            "range": {
+                "start": {
+                    "line": 44,
+                    "character": 5
+                },
+                "end": {
+                    "line": 44,
+                    "character": 8
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 48,
+                    "character": 28
+                },
+                "end": {
+                    "line": 48,
+                    "character": 39
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/ingest/router.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 48,
+                    "character": 45
+                },
+                "end": {
+                    "line": 48,
+                    "character": 51
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/integrations/hrm_adapter.py",
+            "severity": "error",
+            "message": "Object of type \"Client\" cannot be used with \"with\" because it does not correctly implement __enter__\n  Attribute \"__enter__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 13
+                },
+                "end": {
+                    "line": 16,
+                    "character": 47
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/integrations/hrm_adapter.py",
+            "severity": "error",
+            "message": "Object of type \"Client\" cannot be used with \"with\" because it does not correctly implement __exit__\n  Attribute \"__exit__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 13
+                },
+                "end": {
+                    "line": 16,
+                    "character": 47
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/integrations/hrm_adapter.py",
+            "severity": "error",
+            "message": "Object of type \"Client\" cannot be used with \"with\" because it does not correctly implement __enter__\n  Attribute \"__enter__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 13
+                },
+                "end": {
+                    "line": 23,
+                    "character": 47
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/integrations/hrm_adapter.py",
+            "severity": "error",
+            "message": "Object of type \"Client\" cannot be used with \"with\" because it does not correctly implement __exit__\n  Attribute \"__exit__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 13
+                },
+                "end": {
+                    "line": 23,
+                    "character": 47
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "\"QdrantClient\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 26
+                },
+                "end": {
+                    "line": 3,
+                    "character": 38
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "\"VectorParams\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 6,
+                    "character": 4
+                },
+                "end": {
+                    "line": 6,
+                    "character": 16
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "\"FieldCondition\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 9,
+                    "character": 4
+                },
+                "end": {
+                    "line": 9,
+                    "character": 18
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "\"MatchValue\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 10,
+                    "character": 4
+                },
+                "end": {
+                    "line": 10,
+                    "character": 14
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"COSINE\" for class \"type[Distance]\"\n  Attribute \"COSINE\" is unknown",
+            "range": {
+                "start": {
+                    "line": 39,
+                    "character": 61
+                },
+                "end": {
+                    "line": 39,
+                    "character": 67
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "No parameter named \"id\"",
+            "range": {
+                "start": {
+                    "line": 62,
+                    "character": 16
+                },
+                "end": {
+                    "line": 62,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "No parameter named \"vector\"",
+            "range": {
+                "start": {
+                    "line": 63,
+                    "character": 16
+                },
+                "end": {
+                    "line": 63,
+                    "character": 22
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "No parameter named \"payload\"",
+            "range": {
+                "start": {
+                    "line": 64,
+                    "character": 16
+                },
+                "end": {
+                    "line": 64,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/intelligence/vector_store.py",
+            "severity": "error",
+            "message": "No parameter named \"must\"",
+            "range": {
+                "start": {
+                    "line": 85,
+                    "character": 16
+                },
+                "end": {
+                    "line": 85,
+                    "character": 20
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/middleware/security_headers.py",
+            "severity": "error",
+            "message": "\"Request\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 20
+                },
+                "end": {
+                    "line": 0,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_antropologia.py",
+            "severity": "error",
+            "message": "\"Mapped\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 27
+                },
+                "end": {
+                    "line": 5,
+                    "character": 33
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_antropologia.py",
+            "severity": "error",
+            "message": "\"mapped_column\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 35
+                },
+                "end": {
+                    "line": 5,
+                    "character": 48
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_antropologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 49
+                },
+                "end": {
+                    "line": 15,
+                    "character": 51
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_antropologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 17,
+                    "character": 57
+                },
+                "end": {
+                    "line": 17,
+                    "character": 60
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_antropologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 19,
+                    "character": 56
+                },
+                "end": {
+                    "line": 19,
+                    "character": 59
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_antropologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 21,
+                    "character": 15
+                },
+                "end": {
+                    "line": 21,
+                    "character": 19
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_estatistica.py",
+            "severity": "error",
+            "message": "\"Mapped\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 6,
+                    "character": 27
+                },
+                "end": {
+                    "line": 6,
+                    "character": 33
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_estatistica.py",
+            "severity": "error",
+            "message": "\"mapped_column\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 6,
+                    "character": 35
+                },
+                "end": {
+                    "line": 6,
+                    "character": 48
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_estatistica.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 49
+                },
+                "end": {
+                    "line": 16,
+                    "character": 51
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_estatistica.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 18,
+                    "character": 55
+                },
+                "end": {
+                    "line": 18,
+                    "character": 58
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_estatistica.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 21,
+                    "character": 15
+                },
+                "end": {
+                    "line": 21,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_psicologia.py",
+            "severity": "error",
+            "message": "\"Mapped\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 27
+                },
+                "end": {
+                    "line": 5,
+                    "character": 33
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_psicologia.py",
+            "severity": "error",
+            "message": "\"mapped_column\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 35
+                },
+                "end": {
+                    "line": 5,
+                    "character": 48
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_psicologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 49
+                },
+                "end": {
+                    "line": 15,
+                    "character": 51
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_psicologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 17,
+                    "character": 57
+                },
+                "end": {
+                    "line": 17,
+                    "character": 60
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_psicologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 19,
+                    "character": 56
+                },
+                "end": {
+                    "line": 19,
+                    "character": 59
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/models/pilar_psicologia.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 21,
+                    "character": 15
+                },
+                "end": {
+                    "line": 21,
+                    "character": 19
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/modules/crawler/loaders/url_loader.py",
+            "severity": "error",
+            "message": "Object of type \"Client\" cannot be used with \"with\" because it does not correctly implement __enter__\n  Attribute \"__enter__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 8,
+                    "character": 13
+                },
+                "end": {
+                    "line": 8,
+                    "character": 42
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/modules/crawler/loaders/url_loader.py",
+            "severity": "error",
+            "message": "Object of type \"Client\" cannot be used with \"with\" because it does not correctly implement __exit__\n  Attribute \"__exit__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 8,
+                    "character": 13
+                },
+                "end": {
+                    "line": 8,
+                    "character": 42
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/routers/cliente_router.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 31
+                },
+                "end": {
+                    "line": 2,
+                    "character": 37
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/schemas/cliente_schema.py",
+            "severity": "error",
+            "message": "\"EmailStr\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 32
+                },
+                "end": {
+                    "line": 2,
+                    "character": 40
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/cliente_service.py",
+            "severity": "error",
+            "message": "\"status\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 2,
+                    "character": 35
+                },
+                "end": {
+                    "line": 2,
+                    "character": 41
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/cliente_service.py",
+            "severity": "error",
+            "message": "\"firestore\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 27
+                },
+                "end": {
+                    "line": 3,
+                    "character": 36
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/cliente_service.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"model_dump\" for class \"ClienteCreate\"\n  Attribute \"model_dump\" is unknown",
+            "range": {
+                "start": {
+                    "line": 13,
+                    "character": 36
+                },
+                "end": {
+                    "line": 13,
+                    "character": 46
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/cliente_service.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 18,
+                    "character": 12
+                },
+                "end": {
+                    "line": 18,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/cliente_service.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 19,
+                    "character": 12
+                },
+                "end": {
+                    "line": 19,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/cliente_service.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 32,
+                    "character": 12
+                },
+                "end": {
+                    "line": 32,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/cliente_service.py",
+            "severity": "error",
+            "message": "No parameter named \"detail\"",
+            "range": {
+                "start": {
+                    "line": 33,
+                    "character": 12
+                },
+                "end": {
+                    "line": 33,
+                    "character": 18
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/kg_consumer_neo4j.py",
+            "severity": "error",
+            "message": "\"Consumer\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 28
+                },
+                "end": {
+                    "line": 0,
+                    "character": 36
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/kg_consumer_neo4j.py",
+            "severity": "error",
+            "message": "\"Graph\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 19
+                },
+                "end": {
+                    "line": 1,
+                    "character": 24
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/kg_consumer_neo4j_batch.py",
+            "severity": "error",
+            "message": "\"Consumer\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 28
+                },
+                "end": {
+                    "line": 0,
+                    "character": 36
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/kg_consumer_neo4j_batch.py",
+            "severity": "error",
+            "message": "\"KafkaException\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 38
+                },
+                "end": {
+                    "line": 0,
+                    "character": 52
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/kg_consumer_neo4j_batch.py",
+            "severity": "error",
+            "message": "\"Graph\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 19
+                },
+                "end": {
+                    "line": 1,
+                    "character": 24
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"APIConnectionError\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 19
+                },
+                "end": {
+                    "line": 3,
+                    "character": 37
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"APIStatusError\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 39
+                },
+                "end": {
+                    "line": 3,
+                    "character": 53
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"APITimeoutError\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 55
+                },
+                "end": {
+                    "line": 3,
+                    "character": 70
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"AsyncAzureOpenAI\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 72
+                },
+                "end": {
+                    "line": 3,
+                    "character": 88
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"retry\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 4
+                },
+                "end": {
+                    "line": 5,
+                    "character": 9
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"retry_if_exception_type\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 6,
+                    "character": 4
+                },
+                "end": {
+                    "line": 6,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"stop_after_attempt\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 7,
+                    "character": 4
+                },
+                "end": {
+                    "line": 7,
+                    "character": 22
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/aurora_platform/services/openai_service.py",
+            "severity": "error",
+            "message": "\"wait_random_exponential\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 8,
+                    "character": 4
+                },
+                "end": {
+                    "line": 8,
+                    "character": 27
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/conftest.py",
+            "severity": "error",
+            "message": "\"fixture\" is not a known attribute of module \"pytest\"",
+            "range": {
+                "start": {
+                    "line": 3,
+                    "character": 8
+                },
+                "end": {
+                    "line": 3,
+                    "character": 15
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/connectors/test_connector_tce_rn.py",
+            "severity": "error",
+            "message": "\"BaseTransport\" is not a known attribute of module \"httpx\"",
+            "range": {
+                "start": {
+                    "line": 10,
+                    "character": 26
+                },
+                "end": {
+                    "line": 10,
+                    "character": 39
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/connectors/test_connector_tce_rn.py",
+            "severity": "error",
+            "message": "\"Request\" is not a known attribute of module \"httpx\"",
+            "range": {
+                "start": {
+                    "line": 20,
+                    "character": 44
+                },
+                "end": {
+                    "line": 20,
+                    "character": 51
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/connectors/test_connector_tce_rn.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 24,
+                    "character": 34
+                },
+                "end": {
+                    "line": 24,
+                    "character": 37
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/connectors/test_connector_tce_rn.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 77,
+                    "character": 34
+                },
+                "end": {
+                    "line": 77,
+                    "character": 37
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/connectors/test_connector_tce_rn.py",
+            "severity": "error",
+            "message": "Expected 0 positional arguments",
+            "range": {
+                "start": {
+                    "line": 79,
+                    "character": 30
+                },
+                "end": {
+                    "line": 79,
+                    "character": 33
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/connectors/test_connector_tce_rn.py",
+            "severity": "error",
+            "message": "\"fixture\" is not a known attribute of module \"pytest\"",
+            "range": {
+                "start": {
+                    "line": 82,
+                    "character": 8
+                },
+                "end": {
+                    "line": 82,
+                    "character": 15
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/crawler/test_e2e_ingestion.py",
+            "severity": "error",
+            "message": "\"pipeline\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 44
+                },
+                "end": {
+                    "line": 1,
+                    "character": 52
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/modules/crawler/test_runner_requires_mission.py",
+            "severity": "error",
+            "message": "Argument of type \"Iterable[Any]\" cannot be assigned to parameter \"main\" of type \"Coroutine[Any, Any, _T@run]\" in function \"run\"\n  \"Iterable[Any]\" is not assignable to \"Coroutine[Any, Any, _T@run]\"",
+            "range": {
+                "start": {
+                    "line": 14,
+                    "character": 22
+                },
+                "end": {
+                    "line": 19,
+                    "character": 5
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/modules/crawler/test_smoke_dry_run_meta.py",
+            "severity": "error",
+            "message": "Argument of type \"Iterable[Any]\" cannot be assigned to parameter \"main\" of type \"Coroutine[Any, Any, _T@run]\" in function \"run\"\n  \"Iterable[Any]\" is not assignable to \"Coroutine[Any, Any, _T@run]\"",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 22
+                },
+                "end": {
+                    "line": 15,
+                    "character": 105
+                }
+            },
+            "rule": "reportArgumentType"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_consumer_pilares_unit.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"one\" for class \"QueryShim\"\n  Attribute \"one\" is unknown",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 73
+                },
+                "end": {
+                    "line": 23,
+                    "character": 76
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "\"fixture\" is not a known attribute of module \"pytest\"",
+            "range": {
+                "start": {
+                    "line": 11,
+                    "character": 8
+                },
+                "end": {
+                    "line": 11,
+                    "character": 15
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "\"get\" is not a known attribute of module \"respx\"",
+            "range": {
+                "start": {
+                    "line": 20,
+                    "character": 18
+                },
+                "end": {
+                    "line": 20,
+                    "character": 21
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 22,
+                    "character": 12
+                },
+                "end": {
+                    "line": 22,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"json\"",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 12
+                },
+                "end": {
+                    "line": 23,
+                    "character": 16
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "\"post\" is not a known attribute of module \"respx\"",
+            "range": {
+                "start": {
+                    "line": 37,
+                    "character": 10
+                },
+                "end": {
+                    "line": 37,
+                    "character": 14
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 39,
+                    "character": 12
+                },
+                "end": {
+                    "line": 39,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"json\"",
+            "range": {
+                "start": {
+                    "line": 40,
+                    "character": 12
+                },
+                "end": {
+                    "line": 40,
+                    "character": 16
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "\"post\" is not a known attribute of module \"respx\"",
+            "range": {
+                "start": {
+                    "line": 57,
+                    "character": 10
+                },
+                "end": {
+                    "line": 57,
+                    "character": 14
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"status_code\"",
+            "range": {
+                "start": {
+                    "line": 59,
+                    "character": 12
+                },
+                "end": {
+                    "line": 59,
+                    "character": 23
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "No parameter named \"json\"",
+            "range": {
+                "start": {
+                    "line": 60,
+                    "character": 12
+                },
+                "end": {
+                    "line": 60,
+                    "character": 16
+                }
+            },
+            "rule": "reportCallIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "Object of type \"raises\" cannot be used with \"with\" because it does not correctly implement __enter__\n  Attribute \"__enter__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 65,
+                    "character": 9
+                },
+                "end": {
+                    "line": 65,
+                    "character": 45
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "Object of type \"raises\" cannot be used with \"with\" because it does not correctly implement __exit__\n  Attribute \"__exit__\" is unknown",
+            "range": {
+                "start": {
+                    "line": 65,
+                    "character": 9
+                },
+                "end": {
+                    "line": 65,
+                    "character": 45
+                }
+            },
+            "rule": "reportGeneralTypeIssues"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_hrm_adapter.py",
+            "severity": "error",
+            "message": "\"HTTPStatusError\" is not a known attribute of module \"httpx\"",
+            "range": {
+                "start": {
+                    "line": 65,
+                    "character": 29
+                },
+                "end": {
+                    "line": 65,
+                    "character": 44
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_kg_seed_smoke.py",
+            "severity": "error",
+            "message": "\"skip\" is not a known attribute of module \"pytest\"",
+            "range": {
+                "start": {
+                    "line": 13,
+                    "character": 15
+                },
+                "end": {
+                    "line": 13,
+                    "character": 19
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_kg_seed_smoke.py",
+            "severity": "error",
+            "message": "\"GraphDatabase\" is possibly unbound",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 17
+                },
+                "end": {
+                    "line": 15,
+                    "character": 30
+                }
+            },
+            "rule": "reportPossiblyUnboundVariable"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_kg_seed_smoke.py",
+            "severity": "error",
+            "message": "\"skip\" is not a known attribute of module \"pytest\"",
+            "range": {
+                "start": {
+                    "line": 21,
+                    "character": 15
+                },
+                "end": {
+                    "line": 21,
+                    "character": 19
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_runner_helpers_minimal.py",
+            "severity": "error",
+            "message": "\"runner_helpers\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 56
+                },
+                "end": {
+                    "line": 0,
+                    "character": 70
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/home/runner/work/Aurora-Plataform/Aurora-Plataform/tests/test_runner_helpers_minimal2.py",
+            "severity": "error",
+            "message": "\"runner_helpers\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 0,
+                    "character": 56
+                },
+                "end": {
+                    "line": 0,
+                    "character": 70
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        }
+    ],
+    "summary": {
+        "filesAnalyzed": 180,
+        "errorCount": 189,
+        "warningCount": 0,
+        "informationCount": 0,
+        "timeInSec": 3.951
+    }
+}

@@ -1,0 +1,6 @@
+--- src/aurora_platform/api/__init__.py
++++ src/aurora_platform__merge_candidates/aurora_platform_root/api/__init__.py
+@@ -0,0 +1,3 @@
++from aurora_platform.api.kg_endpoints_pilares import router as pilares_router
++
++__all__ = ["pilares_router"]

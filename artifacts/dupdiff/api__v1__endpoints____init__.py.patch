@@ -1,0 +1,33 @@
+--- src/aurora_platform/api/v1/endpoints/__init__.py
++++ src/aurora_platform__merge_candidates/aurora_platform_root/api/v1/endpoints/__init__.py
+@@ -1,15 +1,15 @@
+-__all__ = [
+-    "auth_router",
+-    "two_factor_router",
+-    "knowledge_router",
+-    "profiling_router",
+-    "etp_router",
+-]
+-
+-from .auth_router import router as auth_router
+-from .knowledge_router import router as knowledge_router
+-from .profiling_router import router as profiling_router
+-from .two_factor_router import router as two_factor_router
+-from .etp_router import router as etp_router
+-# TODO: Reativar na integração do Crawler
+-# from . import ingestion_router
++__all__ = [
++    "auth_router",
++    "two_factor_router",
++    "knowledge_router",
++    "profiling_router",
++    "etp_router",
++]
++
++from .auth_router import router as auth_router
++from .knowledge_router import router as knowledge_router
++from .profiling_router import router as profiling_router
++from .two_factor_router import router as two_factor_router
++from .etp_router import router as etp_router
++# TODO: Reativar na integração do Crawler
++# from . import ingestion_router

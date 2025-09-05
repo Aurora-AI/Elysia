@@ -1,0 +1,53 @@
+[2025-09-05 17:47:16] Iniciando diagnóstico rápido de exit 127 (command not found).
+[2025-09-05 17:47:16] CMD MISS : docker (provável fonte de exit 127 se invocado)
+[2025-09-05 17:47:16] CMD MISS : actionlint (provável fonte de exit 127 se invocado)
+[2025-09-05 17:47:16] CMD OK   : pre-commit -> /home/vscode/.local/bin/pre-commit
+[2025-09-05 17:47:16] CMD OK   : git -> /usr/local/bin/git
+[2025-09-05 17:47:16] CMD OK   : python3 -> /usr/local/bin/python3
+[2025-09-05 17:47:16] CMD OK   : pip3 -> /usr/local/bin/pip3
+[2025-09-05 17:47:16] CMD OK   : pipx -> /usr/local/py-utils/bin/pipx
+[2025-09-05 17:47:16] Validação actionlint: SKIP por opção A (sem Docker/sem binário).
+[2025-09-05 17:47:16] Validação actionlint via Docker: SKIP (docker possivelmente ausente).
+[2025-09-05 17:47:16] Validando YAML (.github/workflows/*.yml) via Python (yaml.safe_load)...
+[2025-09-05 17:47:16] YAML parse: OK
+[2025-09-05 17:47:16] Snapshot de .github/workflows/codeowners-guard.yml (primeiras 120 linhas):
+     1	name: Governance - CODEOWNERS Guard
+     2	on:
+     3	  pull_request:
+     4	    branches: [main, develop]
+     5	  push:
+     6	    branches: [main]
+     7	jobs:
+     8	  verify:
+     9	    runs-on: ubuntu-latest
+    10	    timeout-minutes: 5
+    11	    steps:
+    12	      - name: Checkout
+    13	        uses: actions/checkout@v4
+    14	      - name: Verify CODEOWNERS presence
+    15	        run: |
+    16	          set -euo pipefail
+    17	          FILES=(
+    18	            ".github/CODEOWNERS"
+    19	            "CODEOWNERS"
+    20	          )
+    21	          found=0
+    22	          for f in "${FILES[@]}"; do
+    23	            if [ -s "$f" ]; then
+    24	              echo "Found $f"
+    25	              found=1
+    26	              break
+    27	            fi
+    28	          done
+    29	          if [ "$found" -eq 0 ]; then
+    30	            echo "ERROR: CODEOWNERS file not found or empty in ${FILES[*]}"
+    31	            exit 1
+    32	          fi
+    33	      - name: Basic format sanity
+    34	        run: |
+    35	          if ! grep -E '^[^#[:space:]].+@|^[^#[:space:]].+/' .github/CODEOWNERS 2>/dev/null | head -n1; then
+    36	            echo "WARN: Could not parse an owner mapping; please review CODEOWNERS."
+    37	          fi
+[2025-09-05 17:47:16] Preparando commit idempotente...
+[2025-09-05 17:47:34] Commit falhou (possível hook ou conflito).
+[2025-09-05 17:47:34] Diagnóstico concluído. Relatório salvo em: artifacts/ci/diag_127_report.txt

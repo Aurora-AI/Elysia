@@ -1,0 +1,189 @@
+{
+    "version": "1.1.404",
+    "time": "1756835056585",
+    "generalDiagnostics": [
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/consumers/kg_consumer.py",
+            "severity": "error",
+            "message": "\"Neo4jClient\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 42,
+                    "character": 55
+                },
+                "end": {
+                    "line": 42,
+                    "character": 66
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/core/db.py",
+            "severity": "error",
+            "message": "Import \".settings\" could not be resolved",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 5
+                },
+                "end": {
+                    "line": 5,
+                    "character": 14
+                }
+            },
+            "rule": "reportMissingImports"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/models/pilar_vendas.py",
+            "severity": "error",
+            "message": "Declaration \"titulo\" is obscured by a declaration of the same name",
+            "range": {
+                "start": {
+                    "line": 14,
+                    "character": 4
+                },
+                "end": {
+                    "line": 14,
+                    "character": 10
+                }
+            },
+            "rule": "reportRedeclaration"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/models/pilar_vendas.py",
+            "severity": "error",
+            "message": "Declaration \"descricao\" is obscured by a declaration of the same name",
+            "range": {
+                "start": {
+                    "line": 15,
+                    "character": 4
+                },
+                "end": {
+                    "line": 15,
+                    "character": 13
+                }
+            },
+            "rule": "reportRedeclaration"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/models/pilar_vendas.py",
+            "severity": "error",
+            "message": "Declaration \"fonte\" is obscured by a declaration of the same name",
+            "range": {
+                "start": {
+                    "line": 16,
+                    "character": 4
+                },
+                "end": {
+                    "line": 16,
+                    "character": 9
+                }
+            },
+            "rule": "reportRedeclaration"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/models/pilar_vendas.py",
+            "severity": "error",
+            "message": "Declaration \"versao\" is obscured by a declaration of the same name",
+            "range": {
+                "start": {
+                    "line": 18,
+                    "character": 4
+                },
+                "end": {
+                    "line": 18,
+                    "character": 10
+                }
+            },
+            "rule": "reportRedeclaration"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/models/pilar_vendas.py",
+            "severity": "error",
+            "message": "Declaration \"extra\" is obscured by a declaration of the same name",
+            "range": {
+                "start": {
+                    "line": 19,
+                    "character": 4
+                },
+                "end": {
+                    "line": 19,
+                    "character": 9
+                }
+            },
+            "rule": "reportRedeclaration"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/aurora_platform/modules/rag/search/reranker.py",
+            "severity": "error",
+            "message": "Object of type \"None\" is not subscriptable",
+            "range": {
+                "start": {
+                    "line": 18,
+                    "character": 25
+                },
+                "end": {
+                    "line": 18,
+                    "character": 34
+                }
+            },
+            "rule": "reportOptionalSubscript"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/tests/modules/crawler/test_runner_requires_mission.py",
+            "severity": "error",
+            "message": "\"crawl\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 1,
+                    "character": 63
+                },
+                "end": {
+                    "line": 1,
+                    "character": 68
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/tests/modules/crawler/test_smoke_dry_run_meta.py",
+            "severity": "error",
+            "message": "\"crawl\" is unknown import symbol",
+            "range": {
+                "start": {
+                    "line": 5,
+                    "character": 63
+                },
+                "end": {
+                    "line": 5,
+                    "character": 68
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        },
+        {
+            "file": "/workspaces/Aurora-Plataform/tests/test_consumer_pilares_unit.py",
+            "severity": "error",
+            "message": "Cannot access attribute \"one\" for class \"QueryShim\"\n  Attribute \"one\" is unknown",
+            "range": {
+                "start": {
+                    "line": 23,
+                    "character": 73
+                },
+                "end": {
+                    "line": 23,
+                    "character": 76
+                }
+            },
+            "rule": "reportAttributeAccessIssue"
+        }
+    ],
+    "summary": {
+        "filesAnalyzed": 180,
+        "errorCount": 11,
+        "warningCount": 0,
+        "informationCount": 0,
+        "timeInSec": 18.824
+    }
+}
