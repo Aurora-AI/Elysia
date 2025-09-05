@@ -12,14 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  actionlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: raven-actions/actionlint@v1
-
   setup:
-    needs: actionlint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,12 +41,22 @@ jobs:
   lint-type:
     needs: setup
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-          cache: "pip"
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            poetry.lock
+      - name: Install deps (lint)
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff pyright
       - name: Ruff
         run: ruff check .
       - name: Pyright
@@ -62,6 +65,9 @@ jobs:
   unit-tests:
     needs: [guard-duplicates, lint-type]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
 
     services:
       qdrant:
@@ -80,8 +86,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-          cache: "pip"
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            poetry.lock
 
       - name: Install deps
         run: |
