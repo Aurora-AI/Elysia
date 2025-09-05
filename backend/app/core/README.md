@@ -1,14 +1,13 @@
-cortex_logger — Auditoria do Córtex
-=================================
+# cortex_logger — Auditoria do Córtex
 
-Resumo
-------
+## Resumo
+
 O módulo `backend.app.core.cortex_logger` fornece utilitários para registar
 metadados de execução de Ordens de Serviço (OS) numa base SQLite localizada em
 `db/cortex.db`.
 
-API principal
--------------
+## API principal
+
 - `log_execution(...)` — grava um registo completo na tabela `execution_logs`.
   Pode levantar exceções em caso de falhas (por exemplo, esquema inexistente).
 
@@ -19,14 +18,14 @@ API principal
   - Em caso de falha, regista a exceção em logs e retorna `None` (nunca
     propaga a exceção).
 
-Política de utilização
-----------------------
-Por decisão constitucional do agente (veja `COPILOT_AGENTE_CONSTITUCION.md`),
+## Política de utilização
+
+Por decisão constitucional do agente (veja `docs/COPILOT_AGENT_CONSTITUTION.md`),
 qualquer execução humana ou automatizada que constitua a conclusão de uma
 Ordem de Serviço deve terminar com um registo de execução no Córtex.
 
-Recomendações práticas
-----------------------
+## Recomendações práticas
+
 - Use `safe_log_execution` como a ação final em scripts e tarefas para garantir
   que a tentativa de registo não altera o resultado da execução nem o código
   de saída.
@@ -37,15 +36,15 @@ Recomendações práticas
 
 - Para desenvolvimento local, execute:
 
-    python3 scripts/init_cortex_db.py
+  python3 scripts/init_cortex_db.py
 
 para criar a base `db/cortex.db` com a tabela necessária.
 
-Localização
------------
+## Localização
+
 - Módulo: `backend/app/core/cortex_logger.py`
 - Testes: `backend/app/core/tests/test_safe_cortex_logger.py`
 
-Changelog
----------
+## Changelog
+
 - 2025-09-04: Adicionado `safe_log_execution` e testes/documentação iniciais.

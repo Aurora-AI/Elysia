@@ -1,3 +1,7 @@
+Archived: original COPILOT_AGENTE_CONSTITUCION.md (archival copy kept for history)
+
+See /docs/COPILOT_AGENT_CONSTITUTION.md (new canonical v2.1)
+
 # Constituição do Agente Copilot (versão mínima exigida)
 
 ## 3.1 Auditoria 360º (EXECUTAR, não analisar)
@@ -22,11 +26,13 @@ O seu fluxo de trabalho é estritamente mecânico e reativo, composto por quatro
 
 Nota: Esta seção substitui qualquer protocolo operacional anterior e torna obrigatório o registo de cada execução no Córtex antes de emitir qualquer conclusão oficial.
 
-
 ---
+
 CONCLUSÃO DA ORDEM DE SERVIÇO
+
 - Status: FINALIZADA
 - Data: 2025-08-22
 - Responsável: Rodrigo C. Winhaski
 - Observações: Ações realizadas (resumo): merge direto via API (HTTP 204), branch rd/20250820-004-docparser-testing-shortcut deletada (HTTP 204).
+
 ---

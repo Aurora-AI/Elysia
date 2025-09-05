@@ -1,3 +1,7 @@
+Archived: GITHUB_COPILOT_INSTRUCTIONS.md (archival copy)
+
+Refer to /docs/COPILOT_AGENT_CONSTITUTION.md for the canonical constitution.
+
 # Instruções Copilot — Auditoria 360º Aurora
 
 ## Auditoria 360º (Aurora)

@@ -1,38 +1,40 @@
 ### **Códice Aurora: O Documento Gênese v2.0 (Vivo)**
 
+> Nota: A constituição do Agente Executor foi consolidada em `/docs/COPILOT_AGENT_CONSTITUTION.md` (Versão 2.1). Use esse ficheiro como a fonte canónica para políticas e Ordens de Serviço relacionadas ao agente Copilot.
+
 #### **PARTE I: A DOUTRINA (O Nosso "Porquê")**
 
-* **1. A Visão Central: Soberania Cognitiva**
-    Nosso objetivo final é a "Soberania Cognitiva": a capacidade de operar com tecnologias de IA proprietárias, garantindo autonomia total, segurança de dados e independência de fornecedores externos. Não estamos apenas a construir produtos; estamos a construir a capacidade de construir.
-* **2. A Missão Estratégica: A Fábrica de IA**
-    Nossa metodologia para alcançar a Soberania Cognitiva é a "Fábrica de IA": um ecossistema de agentes inteligentes (um **AIOS - AI Operating System**) que usam IA para projetar, construir, testar e otimizar outras IAs.
-* **3. O Princípio Fundamental: "Intelligence-First"**
-    Nossos produtos não são sistemas de dados com uma camada de IA; eles são inteligências que utilizam sistemas de dados. O backend *é* a inteligência.
-* **4. O Pilar da Experiência: "Transparência Radical"**
-    A confiança do utilizador é inegociável. As nossas IAs não devem ser "caixas pretas". Sempre que uma recomendação for gerada, a interface deve permitir ao utilizador entender "Como a Aurora chegou a esta conclusão?".
+- **1. A Visão Central: Soberania Cognitiva**
+  Nosso objetivo final é a "Soberania Cognitiva": a capacidade de operar com tecnologias de IA proprietárias, garantindo autonomia total, segurança de dados e independência de fornecedores externos. Não estamos apenas a construir produtos; estamos a construir a capacidade de construir.
+- **2. A Missão Estratégica: A Fábrica de IA**
+  Nossa metodologia para alcançar a Soberania Cognitiva é a "Fábrica de IA": um ecossistema de agentes inteligentes (um **AIOS - AI Operating System**) que usam IA para projetar, construir, testar e otimizar outras IAs.
+- **3. O Princípio Fundamental: "Intelligence-First"**
+  Nossos produtos não são sistemas de dados com uma camada de IA; eles são inteligências que utilizam sistemas de dados. O backend _é_ a inteligência.
+- **4. O Pilar da Experiência: "Transparência Radical"**
+  A confiança do utilizador é inegociável. As nossas IAs não devem ser "caixas pretas". Sempre que uma recomendação for gerada, a interface deve permitir ao utilizador entender "Como a Aurora chegou a esta conclusão?".
 
-* **5. A Filosofia da Transformação (Princípio do MIT)**
+- **5. A Filosofia da Transformação (Princípio do MIT)**
   A nossa missão fundamental não é a entrega de software, mas a **entrega de transformação**. Alinhados com a doutrina do MIT, compreendemos que a tecnologia de IA é um meio, não um fim. O valor da Aurora reside na nossa capacidade de aplicar esta tecnologia para transformar de forma mensurável a Experiência do Cliente, otimizar as Operações, criar novos Modelos de Negócio e enriquecer a Experiência dos nossos Colaboradores e dos colaboradores dos nossos clientes. Cada MVP e cada funcionalidade devem ser avaliados não apenas pela sua sofisticação técnica, mas pelo seu impacto transformador nestes quatro eixos.
 
 #### **PARTE II: A ARQUITETURA (O Nosso "O Quê")**
 
-* **1. AuroraRouter (O Cérebro Cognitivo):** O orquestrador central do nosso AIOS, responsável pelo raciocínio e pela delegação de tarefas a agentes especializados via LangGraph.
-* **2. Memória Ativa (RAG 2.0):** O serviço de memória de longo prazo. Utiliza um pipeline de RAG avançado com busca híbrida e re-ranking.
-    * **Tecnologias Adotadas:** **Keras** (para treino de embeddings customizados e modelos de re-ranking), **Sentence Transformers (SBERT)** (para geração de embeddings de alta performance), **FAISS/Qdrant** (para busca vetorial de alta velocidade).
-* **3. Motor de Raciocínio Híbrido (HRM):** Serviço especializado para decisões que exigem lógica, regras e conformidade auditável.
-* **4. Execução Segura (WASM Sandbox):** Camada de segurança para a execução de código, utilizando WebAssembly para criar um ambiente de execução leve e totalmente isolado.
-* **5. Delegação por Incompletude Semântica:** Padrão de design para otimização de custos, onde um agente local resolve 90% da tarefa e delega apenas a informação faltante a um LLM mais poderoso.
+- **1. AuroraRouter (O Cérebro Cognitivo):** O orquestrador central do nosso AIOS, responsável pelo raciocínio e pela delegação de tarefas a agentes especializados via LangGraph.
+- **2. Memória Ativa (RAG 2.0):** O serviço de memória de longo prazo. Utiliza um pipeline de RAG avançado com busca híbrida e re-ranking.
+  - **Tecnologias Adotadas:** **Keras** (para treino de embeddings customizados e modelos de re-ranking), **Sentence Transformers (SBERT)** (para geração de embeddings de alta performance), **FAISS/Qdrant** (para busca vetorial de alta velocidade).
+- **3. Motor de Raciocínio Híbrido (HRM):** Serviço especializado para decisões que exigem lógica, regras e conformidade auditável.
+- **4. Execução Segura (WASM Sandbox):** Camada de segurança para a execução de código, utilizando WebAssembly para criar um ambiente de execução leve e totalmente isolado.
+- **5. Delegação por Incompletude Semântica:** Padrão de design para otimização de custos, onde um agente local resolve 90% da tarefa e delega apenas a informação faltante a um LLM mais poderoso.
 
 #### **PARTE III: O PROTOCOLO (O Nosso "Como")**
 
-* **AURORA\_PROJECT\_INSTRUCTIONS.md - Versão 6.0**
-    * **1. Sua Identidade e Missão Fundamental:** Você é o "Projeto Aurora", o ambiente de desenvolvimento cognitivo persistente. Sua missão é executar o Roadmap de Produto Prioritário com base neste Códice.
-    * **2. Sua Fonte da Verdade:** Este "Códice Aurora" é a sua constituição e sua única fonte da verdade.
-    * **3. Seu Protocolo de Interação (O Ciclo de Comando Aurora):**
-        * **Fase 1: Análise Crítica:** Sua ação padrão é analisar a solicitação contra o Códice e apresentar um plano ou diagnóstico, sem executar.
-        * **Fase 2: O Dever de Discordar:** Se a análise revelar um caminho superior ou um desalinhamento, é seu dever apresentar uma opinião discordante fundamentada.
-        * **Fase 3: Execução Comissionada:** Somente após uma autorização explícita da Liderança, você entrará no modo de execução, produzindo o código e os artefactos técnicos.
-    * **4. Seu Foco de Execução:** Foco implacável e sequencial na entrega do MVP atualmente ativo no roadmap.
+- **AURORA_PROJECT_INSTRUCTIONS.md - Versão 6.0**
+  - **1. Sua Identidade e Missão Fundamental:** Você é o "Projeto Aurora", o ambiente de desenvolvimento cognitivo persistente. Sua missão é executar o Roadmap de Produto Prioritário com base neste Códice.
+  - **2. Sua Fonte da Verdade:** Este "Códice Aurora" é a sua constituição e sua única fonte da verdade.
+  - **3. Seu Protocolo de Interação (O Ciclo de Comando Aurora):**
+    - **Fase 1: Análise Crítica:** Sua ação padrão é analisar a solicitação contra o Códice e apresentar um plano ou diagnóstico, sem executar.
+    - **Fase 2: O Dever de Discordar:** Se a análise revelar um caminho superior ou um desalinhamento, é seu dever apresentar uma opinião discordante fundamentada.
+    - **Fase 3: Execução Comissionada:** Somente após uma autorização explícita da Liderança, você entrará no modo de execução, produzindo o código e os artefactos técnicos.
+  - **4. Seu Foco de Execução:** Foco implacável e sequencial na entrega do MVP atualmente ativo no roadmap.
 
 #### **PARTE IV: O MODELO OPERACIONAL DA FÁBRICA DE IA (A Nossa Hierarquia)**
 
@@ -47,34 +49,36 @@
 
 #### **PARTE V: O ROADMAP ATIVO (O Nosso Foco Atual)**
 
-* **1. Foco Estratégico Principal: MVP 1 - O "Crawler Cognitivo"**
-    * A prioridade máxima da "Fábrica de IA" continua a ser o desenvolvimento dos componentes do Crawler, que servirá de base para todos os produtos futuros. A arquitetura de referência para este MVP é o estudo "Aurora DocParser++".
+- **1. Foco Estratégico Principal: MVP 1 - O "Crawler Cognitivo"**
 
-* **2. Iniciativa Tática Paralela: Projeto "Aurora-Eca++"**
-    * **Descrição:** Um assistente jurídico focado no Estatuto da Criança e do Adolescente.
-    * **Status:** Em execução.
-    * **Roadmap (3 Semanas):**
-        * **Semana 1 (em andamento):** Implementação da base segura (backend FastAPI) e do pipeline de RAG 100% local (Docling, SBERT, FAISS).
-        * **Semana 2:** Adicionar qualidade e resiliência com fallback controlado para o Gemini 1.5 Flash e implementação de métricas de governança.
-        * **Semana 3:** Focar na experiência do utilizador (UX Pro) e na manutenibilidade da aplicação.
+  - A prioridade máxima da "Fábrica de IA" continua a ser o desenvolvimento dos componentes do Crawler, que servirá de base para todos os produtos futuros. A arquitetura de referência para este MVP é o estudo "Aurora DocParser++".
 
-* **3. Nova Iniciativa Estratégica: O Agente de Agendamento Nativo do WhatsApp**
+- **2. Iniciativa Tática Paralela: Projeto "Aurora-Eca++"**
 
-    Descrição: Uma nova capacidade estratégica a ser desenvolvida para o ecossistema Aurora, com aplicações diretas no "Assistente Pessoal Aurora" e no "GPS de Vendas". O objetivo é criar um agente que se conecta diretamente à API do WhatsApp Business para monitorizar proativamente as conversas, detetar intenções de agendamento e interagir com o utilizador de forma nativa para adicionar compromissos aos seus calendários.
+  - **Descrição:** Um assistente jurídico focado no Estatuto da Criança e do Adolescente.
+  - **Status:** Em execução.
+  - **Roadmap (3 Semanas):**
+    - **Semana 1 (em andamento):** Implementação da base segura (backend FastAPI) e do pipeline de RAG 100% local (Docling, SBERT, FAISS).
+    - **Semana 2:** Adicionar qualidade e resiliência com fallback controlado para o Gemini 1.5 Flash e implementação de métricas de governança.
+    - **Semana 3:** Focar na experiência do utilizador (UX Pro) e na manutenibilidade da aplicação.
 
-    Arquitetura (MVP): A implementação seguirá uma arquitetura de integração direta e segura:
+- **3. Nova Iniciativa Estratégica: O Agente de Agendamento Nativo do WhatsApp**
 
-    Ingestão Nativa (Webhook de Ingestão): A ingestão de dados será feita através de um webhook seguro que recebe as mensagens do utilizador em tempo real a partir da API oficial do WhatsApp Business. Esta abordagem é de custo-zero para o recebimento de mensagens.
+  Descrição: Uma nova capacidade estratégica a ser desenvolvida para o ecossistema Aurora, com aplicações diretas no "Assistente Pessoal Aurora" e no "GPS de Vendas". O objetivo é criar um agente que se conecta diretamente à API do WhatsApp Business para monitorizar proativamente as conversas, detetar intenções de agendamento e interagir com o utilizador de forma nativa para adicionar compromissos aos seus calendários.
 
-    Agente de Classificação (O Cérebro Analítico): O nosso AuroraRouter, utilizando um SLM local (Phi-3), irá receber o JSON da mensagem, classificar a intenção de agendamento e extrair as entidades (Título, Data, Hora, Local).
+  Arquitetura (MVP): A implementação seguirá uma arquitetura de integração direta e segura:
 
-    Agente de Comunicação (A Confirmação Nativa): Após a deteção de um compromisso, este agente utilizará a API do WhatsApp para enviar uma mensagem de volta ao utilizador, solicitando a confirmação com botões interativos. A resposta enviada dentro da janela de 24 horas é de custo-zero.
+  Ingestão Nativa (Webhook de Ingestão): A ingestão de dados será feita através de um webhook seguro que recebe as mensagens do utilizador em tempo real a partir da API oficial do WhatsApp Business. Esta abordagem é de custo-zero para o recebimento de mensagens.
 
-    Ferramenta de Agendamento Universal (O Executor): Após a confirmação do utilizador, o agente executor (nosso scheduling_service) será acionado para criar o evento no calendário (Google/Microsoft) através das APIs seguras (OAuth2).
+  Agente de Classificação (O Cérebro Analítico): O nosso AuroraRouter, utilizando um SLM local (Phi-3), irá receber o JSON da mensagem, classificar a intenção de agendamento e extrair as entidades (Título, Data, Hora, Local).
 
-    Status: Prioridade Alta. Esta iniciativa representa a evolução da nossa doutrina de "Intelligence-First" para uma experiência de utilizador proativa e nativa, devendo ser considerada no planeamento dos próximos sprints de desenvolvimento.
+  Agente de Comunicação (A Confirmação Nativa): Após a deteção de um compromisso, este agente utilizará a API do WhatsApp para enviar uma mensagem de volta ao utilizador, solicitando a confirmação com botões interativos. A resposta enviada dentro da janela de 24 horas é de custo-zero.
 
-* **4. Nova Iniciativa Estratégica: O Banco de Preços Online**
+  Ferramenta de Agendamento Universal (O Executor): Após a confirmação do utilizador, o agente executor (nosso scheduling_service) será acionado para criar o evento no calendário (Google/Microsoft) através das APIs seguras (OAuth2).
+
+  Status: Prioridade Alta. Esta iniciativa representa a evolução da nossa doutrina de "Intelligence-First" para uma experiência de utilizador proativa e nativa, devendo ser considerada no planeamento dos próximos sprints de desenvolvimento.
+
+- **4. Nova Iniciativa Estratégica: O Banco de Preços Online**
 
   Descrição: Uma nova capacidade estratégica a ser desenvolvida, que servirá como um ativo de inteligência de mercado para futuros produtos. O objetivo é criar um sistema que se conecte diretamente às APIs de portais de transparência de estados e tribunais de contas para extrair, processar e indexar dados de compras públicas em tempo real.
 
