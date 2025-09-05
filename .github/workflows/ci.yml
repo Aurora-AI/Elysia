@@ -23,7 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
-        with: { python-version: "3.11", cache: "pip" }
+        with:
+          python-version: "3.11"
+          cache: "pip"
       - name: Install base tooling
         run: |
           python -m pip install --upgrade pip
@@ -36,7 +38,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
-        with: { python-version: "3.11", cache: "pip" }
+        with:
+          python-version: "3.11"
+          cache: "pip"
       - name: Guard duplicate roots
         run: python tools/check_duplicate_packages.py
 
@@ -46,7 +50,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
-        with: { python-version: "3.11", cache: "pip" }
+        with:
+          python-version: "3.11"
+          cache: "pip"
       - name: Ruff
         run: ruff check .
       - name: Pyright
@@ -72,18 +78,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
-        with: { python-version: "3.11", cache: "pip" }
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -e .[dev]
           pip install requests
+
       - name: Wait for Qdrant
         run: |
           for i in {1..60}; do
-            curl -fsS http://localhost:6333/ready && exit 0
+            if curl -fsS http://localhost:6333/ready > /dev/null; then
+              echo "Qdrant is ready"; exit 0
+            fi
             sleep 1
           done
-          echo "Qdrant not ready" && exit 1
+          echo "Qdrant not ready"; exit 1
+
       - name: PyTest
         run: pytest -q --maxfail=1 --disable-warnings
