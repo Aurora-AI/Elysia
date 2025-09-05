@@ -11,3 +11,9 @@ repos:
       - id: prettier
         additional_dependencies: ["prettier@3.3.3"]
         files: "\\.(json|yml|yaml|md|mdx|css|scss|js|ts|tsx)$"
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        files: ^\.github/workflows/.*\.ya?ml$
+        args: [--strict]

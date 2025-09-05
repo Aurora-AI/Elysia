@@ -1,6 +1,6 @@
 tag:
 
-.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test crawl-api crawl-worker crawl-seed rag-consumer rag-ask e2e-test api-server bridge-test
+.PHONY: guard lint lint-fix type test ci-local e2e precommit audit-crawler-rag qdrant-up qdrant-wait rag-test crawler-test crawl-api crawl-worker crawl-seed rag-consumer rag-ask e2e-test api-server bridge-test gha-validate
 
 python := python
 
@@ -66,5 +66,9 @@ bridge-test:
 	@curl -s -X POST http://localhost:8000/bridge/elysia/search \
 	  -H "Content-Type: application/json" \
 	  -d '{"query": "example domain", "top_k": 2}' | jq .
+
+gha-validate:
+	@python -c "import yaml; [yaml.safe_load(open(f)) for f in ['.github/workflows/ci.yml', '.github/workflows/e2e.yml', '.github/workflows/precommit.yml']]; print('✅ Workflows YAML válidos')"
+	@pip install yamllint > /dev/null 2>&1 && yamllint .github/workflows || echo "⚠️  yamllint não disponível"
 
 ci-local: guard lint type test
