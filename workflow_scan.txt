@@ -1,0 +1,21 @@
+]633;E;echo ">> MULTI-DOC:";3e81bd60-ed5d-4d35-93d8-d023b75d9ed1]633;C>> MULTI-DOC:
+
+>> DUP ROOT KEYS:
+
+>> POSSÍVEL RUN SOLTO:
+  .github/workflows/ci-crawler-js-e2e.yml:11:        run: echo "crawler-js-e2e placeholder OK"
+  .github/workflows/ci-crawler-smoke.yml:22:        run: echo "crawler-smoke placeholder OK"
+  .github/workflows/ci-docparser-smoke.yml:33:        run: echo "docparser-smoke placeholder OK"
+  .github/workflows/ci.yml:63:        run: |
+  .github/workflows/ci.yml:78:        run: python tools/check_duplicate_packages.py
+  .github/workflows/ci.yml:90:        run: ruff check .
+  .github/workflows/ci.yml:92:        run: pyright
+  .github/workflows/ci.yml:119:        run: |
+  .github/workflows/ci.yml:125:        run: |
+  .github/workflows/ci.yml:135:        run: pytest -q --maxfail=1 --disable-warnings
+  .github/workflows/e2e.yml:149:        run: echo "E2E placeholder OK"
+  .github/workflows/hrm-smoke.yml:160:        run: echo "hrm-smoke placeholder OK"
+  .github/workflows/mvp1-ingest.yml:171:        run: echo "mvp1-ingest placeholder OK"
+  .github/workflows/ops-kg-health.yml:193:        run: |
+  .github/workflows/ops-kg-health.yml:205:        run: |
+  .github/workflows/test.yml:237:        run: echo "test placeholder OK"

@@ -1,0 +1,16 @@
+YAML parse check:
+[YAML OK] .github/workflows/ci-crawler-js-e2e.yml
+[YAML OK] .github/workflows/ci-crawler-smoke.yml
+[YAML OK] .github/workflows/ci-docparser-smoke.yml
+[YAML OK] .github/workflows/ci.yml
+[YAML OK] .github/workflows/codeowners-guard.yml
+[YAML OK] .github/workflows/e2e.yml
+[YAML OK] .github/workflows/hrm-smoke.yml
+[YAML OK] .github/workflows/mvp1-ingest.yml
+[YAML OK] .github/workflows/ops-kg-health.yml
+[YAML OK] .github/workflows/precommit.yml
+[YAML OK] .github/workflows/test.yml
+
+actionlint output:
+bash: docker: command not found
+

@@ -1,0 +1,47 @@
+Diagnostic report
+PATH=/vscode/vscode-server/bin/linux-x64/6f17636121051a53c88d3e605c491d22af2ba755/bin/remote-cli:/usr/local/python/current/bin:/usr/local/py-utils/bin:/usr/local/jupyter:/usr/local/share/nvm/current/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/vscode/.local/bin:/home/vscode/.vscode-server/extensions/ms-python.debugpy-2025.10.0-linux-x64/bundled/scripts/noConfigScripts:/home/vscode/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand
+docker: MISSING
+actionlint: MISSING
+pre-commit: /home/vscode/.local/bin/pre-commit
+git: /usr/local/bin/git
+python3: /usr/local/bin/python3
+pip3: /usr/local/bin/pip3
+pipx: /usr/local/py-utils/bin/pipx
+\ncodeowners-guard.yml content:
+name: Governance - CODEOWNERS Guard
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify CODEOWNERS presence
+        run: |
+          set -euo pipefail
+          FILES=(
+            ".github/CODEOWNERS"
+            "CODEOWNERS"
+          )
+          found=0
+          for f in "${FILES[@]}"; do
+            if [ -s "$f" ]; then
+              echo "Found $f"
+              found=1
+              break
+            fi
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "ERROR: CODEOWNERS file not found or empty in ${FILES[*]}"
+            exit 1
+          fi
+      - name: Basic format sanity
+        run: |
+          if ! grep -E '^[^#[:space:]].+@|^[^#[:space:]].+/' .github/CODEOWNERS 2>/dev/null | head -n1; then
+            echo "WARN: Could not parse an owner mapping; please review CODEOWNERS."
+          fi
