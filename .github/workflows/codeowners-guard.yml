@@ -1,0 +1,24 @@
+---
+name: Guard - CODEOWNERS
+on:
+  pull_request:
+    branches: [main, develop]
+jobs:
+  check-codeowners:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate CODEOWNERS presence and basic mapping
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f ".github/CODEOWNERS" ] && [ ! -f "CODEOWNERS" ]; then
+            echo "CODEOWNERS file not found"; exit 1
+          fi
+          FILE=".github/CODEOWNERS"; [ -f "$FILE" ] || FILE="CODEOWNERS"
+          echo "Using: $FILE"
+          if ! grep -E '^[^#[:space:]]' "$FILE" | head -n1; then
+            echo "WARN: No non-comment mappings in CODEOWNERS"; exit 1
+          fi

@@ -1,0 +1,26 @@
+---
+name: Ops - Audit Snapshot
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 6 * * 1" # semanal seg 06:30 BRT aprox.
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Collect repo snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit
+          git log -1 --pretty=fuller > audit/last_commit.txt
+          git status -sb > audit/status.txt
+          find . -maxdepth 2 -name "pyproject.toml" -o -name "package.json" > audit/manifests.txt
+      - name: Upload audit artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-snapshot
+          path: audit/
