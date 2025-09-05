@@ -1,14 +1,14 @@
 name: e2e
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
   pull_request:
     types: [labeled]
 
 jobs:
   e2e:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'e2e')
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'e2e') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run E2E placeholder
-        run: echo "E2E placeholder - personalize conforme seus scripts"
+      - name: Placeholder
+        run: echo "E2E placeholder OK"

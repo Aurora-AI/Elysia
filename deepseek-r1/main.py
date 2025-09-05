@@ -116,10 +116,9 @@ async def list_models():
 async def chat_completions(request: ChatCompletionRequest):
     """Endpoint de chat completions (compatibilidade OpenAI)"""
     try:
-        if not model_loaded:
+        if not model_loaded and not load_model():
             # Tenta carregar o modelo se não estiver carregado
-            if not load_model():
-                raise HTTPException(status_code=503, detail="Modelo não disponível")
+            raise HTTPException(status_code=503, detail="Modelo não disponível")
 
         # Gera resposta
         response_text = generate_response(request.messages, request.max_tokens or 100)
@@ -147,7 +146,7 @@ async def chat_completions(request: ChatCompletionRequest):
 
     except Exception as e:
         logger.error(f"Erro no chat completion: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from None
 
 
 @app.on_event("startup")

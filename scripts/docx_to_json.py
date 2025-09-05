@@ -34,21 +34,19 @@ def extract_text_from_docx(path: str) -> str:
             import zipfile
             from xml.etree import ElementTree as ET
 
-            with zipfile.ZipFile(path) as zf:
-                with zf.open("word/document.xml") as f:
-                    tree = ET.parse(f)
-                    # Namespace-agnostic findall for text nodes
-                    texts = tree.findall(".//")
-                    parts: list[str] = []
-                    for elem in texts:
-                        if elem.tag.endswith("}t") or elem.tag == "t":
-                            if elem.text:
-                                parts.append(elem.text)
-                    return "\n\n".join(parts)
+            with zipfile.ZipFile(path) as zf, zf.open("word/document.xml") as f:
+                tree = ET.parse(f)
+                # Namespace-agnostic findall for text nodes
+                texts = tree.findall(".//")
+                parts: list[str] = []
+                for elem in texts:
+                    if (elem.tag.endswith("}t") or elem.tag == "t") and elem.text:
+                        parts.append(elem.text)
+                return "\n\n".join(parts)
         except Exception:
             raise SystemExit(
-                "Failed to extract text from DOCX; install python-docx or provide a valid .docx file"
-            )
+                "Failed to extract text from DOCX; install python-docx or provide a valid .docx"
+            ) from None
 
 
 def normalize_text_to_json(text: str) -> dict[str, list[dict[str, str]]]:

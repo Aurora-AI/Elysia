@@ -37,8 +37,7 @@ def test_run_batches_posts(monkeypatch):
             pass
 
         def iter_expenses(self, *args, **kwargs):
-            for it in items:
-                yield it
+            yield from items
 
         def close(self):
             pass

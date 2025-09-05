@@ -42,7 +42,7 @@ def ingest_document(doc: DocumentMacro) -> None:
 
 def chunk_on_demand(doc: DocumentMacro, size: int = 500) -> list[ChunkResult]:
     words = doc.text.split()
-    chunks, out = [], []
+    out = []
     for i in range(0, len(words), size):
         chunk = " ".join(words[i : i + size])
         chunk_id = f"{doc.doc_id}_c{i//size}"
@@ -70,7 +70,7 @@ def query_memory(query: str, top_k: int = 3) -> list[dict]:
     for hit in res_doc:
         doc = DocumentMacro(**hit.payload)
         # fase 2 — chunk sob demanda
-        chunks = chunk_on_demand(doc)
+        _ = chunk_on_demand(doc)
         res_chunk = cli.search(COLL_CHUNKS, query_vector=qvec, limit=top_k)
         for ch in res_chunk:
             results.append(ch.payload)

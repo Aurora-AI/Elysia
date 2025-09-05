@@ -4,7 +4,7 @@ import os
 
 def coletar_estrutura(pasta):
     estrutura = []
-    for raiz, dirs, arquivos in os.walk(pasta):
+    for raiz, _dirs, arquivos in os.walk(pasta):
         for arquivo in arquivos:
             caminho = os.path.join(raiz, arquivo)
             tamanho = os.path.getsize(caminho)

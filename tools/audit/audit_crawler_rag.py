@@ -151,15 +151,33 @@ def to_markdown(data: dict[str, Any]) -> str:
     s += [
         "\n## Infra & Testes\n",
         f"- docker-compose.yml: **{'OK' if data['compose']['exists'] else 'MISSING'}**\n",
-        f"- Compose serviços (neo4j/kafka/qdrant/postgres/zookeeper): {json.dumps(data['compose'].get('mentions', {}), ensure_ascii=False)}\n",
-        f"- Pastas de testes presentes: {json.dumps(data['tests']['paths'], ensure_ascii=False)}\n",
+        (
+            "- Compose serviços (neo4j/kafka/qdrant/postgres/zookeeper): "
+            + json.dumps(data["compose"].get("mentions", {}), ensure_ascii=False)
+            + "\n"
+        ),
+        (
+            "- Pastas de testes presentes: "
+            + json.dumps(data["tests"]["paths"], ensure_ascii=False)
+            + "\n"
+        ),
     ]
     # Resumo
     s += [
         "\n## Resumo Executável\n",
         f"- Crawler usa Playwright: **{data['summary']['crawler_uses_playwright']}**\n",
-        f"- RAG em 2 etapas + Qdrant: **{data['summary']['rag_has_two_stage_query']}** / **{data['summary']['rag_uses_qdrant']}**\n",
-        f"- Compose com core (neo4j+kafka+qdrant): **{data['summary']['compose_has_core_services']}**\n",
+        (
+            "- RAG em 2 etapas + Qdrant: **"
+            + str(data["summary"]["rag_has_two_stage_query"])
+            + "** / **"
+            + str(data["summary"]["rag_uses_qdrant"])
+            + "**\n"
+        ),
+        (
+            "- Compose com core (neo4j+kafka+qdrant): **"
+            + str(data["summary"]["compose_has_core_services"])
+            + "**\n"
+        ),
         f"- Testes existem: **{data['summary']['tests_present']}**\n",
     ]
     return "".join(s)

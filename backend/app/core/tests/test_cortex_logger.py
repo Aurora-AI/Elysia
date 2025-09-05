@@ -41,7 +41,9 @@ def test_log_execution_invalid_path_raises():
     try:
         os.chmod(td, 0o500)  # read+execute, no write
         db_path = Path(td) / "cortex.db"
-        with pytest.raises(Exception):
+
+        # attempting to write to an unwritable dir should raise OSError
+        with pytest.raises(OSError):
             log_execution(
                 os_id="TEST-002",
                 timestamp_inicio="2025-08-15T00:00:00Z",
@@ -53,11 +55,9 @@ def test_log_execution_invalid_path_raises():
             )
     finally:
         # restore permissions so cleanup can remove it
-        try:
+        from contextlib import suppress
+
+        with suppress(Exception):
             os.chmod(td, 0o700)
-        except Exception:
-            pass
-        try:
+        with suppress(Exception):
             Path(td).rmdir()
-        except Exception:
-            pass

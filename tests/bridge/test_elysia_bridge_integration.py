@@ -13,7 +13,9 @@ qdrant_enabled = os.getenv("ENABLE_QDRANT_TESTS") == "1"
 def test_bridge_search_integration(tmp_path):
     # Ingesta um doc macro no Qdrant, depois consulta via bridge
     doc = DocumentMacro(
-        doc_id="bridge-doc-1", url="https://mem://bridge-doc", text="Aurora Elysia integration test"
+        doc_id="bridge-doc-1",
+        url="https://mem://bridge-doc",
+        text="Aurora Elysia integration test",
     )
     ingest_document(doc)
 

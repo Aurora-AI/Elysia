@@ -1,26 +1,23 @@
 name: ops-kg-health
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
 
-# Defina variáveis de repositório aqui (apenas UMA vez)
+# Repository/Org Variables (uma vez só no workflow)
 env:
-  AURA_NEO4J_URI:       ${{ vars.AURA_NEO4J_URI }}
-  AURA_NEO4J_USERNAME:  ${{ vars.AURA_NEO4J_USERNAME }}
-  QDRANT_URL:           ${{ vars.QDRANT_URL }}
-  KAFKA_BROKER:         ${{ vars.KAFKA_BROKER }}
-  SCHEMA_REGISTRY_URL:  ${{ vars.SCHEMA_REGISTRY_URL }}
+  AURA_NEO4J_URI: ${{ vars.AURA_NEO4J_URI }}
+  AURA_NEO4J_USERNAME: ${{ vars.AURA_NEO4J_USERNAME }}
+  QDRANT_URL: ${{ vars.QDRANT_URL }}
+  KAFKA_BROKER: ${{ vars.KAFKA_BROKER }}
+  SCHEMA_REGISTRY_URL: ${{ vars.SCHEMA_REGISTRY_URL }}
 
 jobs:
   health:
     runs-on: ubuntu-latest
-
-    # Defina apenas os SEGREDOS aqui (não duplique as chaves acima)
+    # Secrets no nível do job (não duplicar chaves)
     env:
       AURA_NEO4J_PASSWORD: ${{ secrets.AURA_NEO4J_PASSWORD }}
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Show env presence (masked)
         run: |
           printf "AURA_NEO4J_URI=%s\n" "$AURA_NEO4J_URI"
@@ -33,10 +30,8 @@ jobs:
           else
             echo "AURA_NEO4J_PASSWORD is SET"
           fi
-
       - name: Placeholder health checks
         run: |
-          echo "TODO: add curl/tcp checks:"
-          echo "- curl -fsS ${QDRANT_URL}/ready"
-          echo "- curl -fsS ${AURA_NEO4J_URI} (auth via envs)"
-          echo "- nc -z $(echo ${KAFKA_BROKER} | cut -d: -f1) $(echo ${KAFKA_BROKER} | cut -d: -f2)"
+          echo "TODO: curl -fsS ${QDRANT_URL}/ready"
+          echo "TODO: Neo4j check using envs"
+          echo "TODO: Kafka TCP check"

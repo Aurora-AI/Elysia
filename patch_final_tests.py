@@ -1,7 +1,7 @@
 # patch_final_tests.py
 """
 Script de correção automatizada para testes e APIs Aurora-Plataform.
-Executa ajustes finais de compatibilidade e padronização para garantir que a suíte de testes rode 100%.
+Executa ajustes finais de compatibilidade e padronização para garantir que a suíte de testes rode.
 """
 
 import os

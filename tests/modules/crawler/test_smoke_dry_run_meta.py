@@ -1,10 +1,9 @@
 import os
 
 import pytest
+from aurora_platform.modules.crawler.rn_contacts.runner import crawl
 
 pytestmark = pytest.mark.skipif(os.getenv("TESTING") != "1", reason="Set TESTING=1")
-
-from aurora_platform.modules.crawler.rn_contacts.runner import crawl
 
 
 def test_crawl_writes_missionized_manifest(tmp_path):
@@ -27,6 +26,7 @@ def test_crawl_writes_missionized_manifest(tmp_path):
     import pathlib
 
     mpath = next(pathlib.Path(str(out_base)).rglob("manifest.json"))
-    meta = _json.load(open(mpath, encoding="utf-8"))
+    with open(mpath, encoding="utf-8") as fh:
+        meta = _json.load(fh)
     assert meta["mission_id"] == "rn_smoke_auto"
     assert "render" in meta and meta["render"]["cap"] >= 1

@@ -1,6 +1,6 @@
 name: mvp1-ingest
-on:
-  workflow_dispatch:
+"on":
+  workflow_dispatch: {}
 
 jobs:
   ingest:

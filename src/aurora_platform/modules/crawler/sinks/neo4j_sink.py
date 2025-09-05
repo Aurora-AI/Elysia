@@ -29,6 +29,6 @@ def save_crawl(url: str, status: int, links: list[str]) -> None:
     drv = GraphDatabase.driver(URI, auth=(USER, PASS))
     with drv.session() as s:
         s.write_transaction(upsert_page, url, status)
-        for l in links:
-            s.write_transaction(upsert_link, url, l)
+        for link in links:
+            s.write_transaction(upsert_link, url, link)
     drv.close()

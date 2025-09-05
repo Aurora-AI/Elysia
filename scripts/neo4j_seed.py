@@ -16,7 +16,7 @@ import os
 try:
     from neo4j import GraphDatabase
 except Exception:  # pragma: no cover - optional dependency
-    raise SystemExit("neo4j-driver is required: pip install neo4j")
+    raise SystemExit("neo4j-driver is required: pip install neo4j") from None
 
 
 NEO4J_URL = os.getenv("NEO4J_URL", "bolt://localhost:7687")

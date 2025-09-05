@@ -41,7 +41,9 @@ def run_cleanup():
                 file_path = service_path / file_to_remove
                 if file_path.is_file():
                     print(
-                        f"   -> Removendo configuração duplicada: '{file_path.relative_to(PROJECT_ROOT)}'..."
+                        "   -> Removendo configuração duplicada: '"
+                        + str(file_path.relative_to(PROJECT_ROOT))
+                        + "'..."
                     )
                     os.remove(file_path)
                     print(f"   Arquivo '{file_path.name}' removido de '{service_dir}'.")

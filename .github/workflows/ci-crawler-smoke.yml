@@ -1,6 +1,6 @@
 name: ci-crawler-smoke
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   smoke:

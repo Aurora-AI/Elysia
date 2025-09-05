@@ -55,7 +55,7 @@ def run():
                 raise KafkaException(msg.error())
 
             payload = msg.value()
-            if isinstance(payload, (bytes, bytearray)):
+            if isinstance(payload, bytes | bytearray):
                 payload = json.loads(payload)
             payload["_hash"] = event_hash(payload)
 

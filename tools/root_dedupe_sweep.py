@@ -73,10 +73,10 @@ def sweep_one(root_str: str, label: str) -> int:
         mv_preserve(p, dst)
         moved += 1
     # try remove empty dirs
-    try:
+    from contextlib import suppress
+
+    with suppress(Exception):
         git("rm", "-r", "--ignore-unmatch", root.as_posix())
-    except Exception:
-        pass
     return moved
 
 

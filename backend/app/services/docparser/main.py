@@ -27,7 +27,7 @@ def _sniff_mime(content: bytes, declared: str | None) -> str:
 
 
 @router.post("/ingest", response_model=IngestResponse, status_code=200)
-async def ingest_document(request: Request, file: UploadFile = File(...)):
+async def ingest_document(request: Request, file: UploadFile = File(...)):  # noqa: B008
     content = await file.read()
     if not content:
         raise HTTPException(status_code=400, detail="Arquivo vazio.")
@@ -76,11 +76,7 @@ async def ingest_by_url(payload: dict):
         sample_path = (
             Path(__file__).resolve().parents[4] / "tests" / "crawler" / "fixtures" / "sample.pdf"
         )
-        if sample_path.exists():
-            content = sample_path.read_bytes()
-        else:
-            # fallback to empty bytes to trigger validation downstream
-            content = b""
+        content = sample_path.read_bytes() if sample_path.exists() else b""
     else:
         async with httpx.AsyncClient() as client:
             r = await client.get(url, timeout=15.0)
